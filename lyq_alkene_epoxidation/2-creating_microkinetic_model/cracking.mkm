@@ -1,37 +1,38 @@
 #
-# Microkinetic model parameters
+#Microkinetic model parameters
 #
 
 rxn_expressions = [
-    '* + H2O2_g <-> H2O2*',
-    'H2O2* + * -> Ha* + OOH*',
-    '* + C6H12_g <-> C6H12*',
-    'OOH* + C6H12* + * <-> OOH-C6H12* + 2* -> C6H12O* + O* + Hb*',
-    'C6H12O* <-> C6H12O_g + *',
-    'Hb* + O* <-> Hb-O* + * -> OH* + *',
-    'Ha* + OH* -> * + H2O*',
-    'H2O* <-> H2O_g + *',
+    '* + H2O2_g <-> H2O2*',                                      # 准平衡吸附
+    'H2O2* + * -> Ha* + OOH*',                                   # 无势垒，不可逆
+    '* + C6H12_g <-> C6H12*',                                    # 准平衡吸附
+    'OOH* + C6H12* + * <-> OOH-C6H12* + 2* -> C6H12O* + O* + Hb*', # RDS，有TS
+    'C6H12O* <-> C6H12O_g + *',                                  # 脱附，可逆
+    'Hb* + O* <-> Hb-O* + * -> OH* + *',                         # H迁移，有TS
+    'Ha* + OH* -> * + H2O*',                                     # 无势垒，不可逆
+    'H2O* <-> H2O_g + *',                                        # 水脱附，可逆
 ]
 
-surface_names = ['tife', 'cuo', 'tio2', 'zno', 'zro2', 'sio2']
 
-descriptor_names = ['c_s', 'o_s']
-descriptor_ranges = [[-5, 2], [-5, 2]]
+surface_names = ['tife', 'cuo', 'tio2', 'zno', 'zro2', 'sio2'] #surfaces to include in scaling (need to have descriptors defined for each)
+
+descriptor_names= ['c_s','o_s'] #descriptor names
+
+descriptor_ranges = [[-5,2],[-5,2]]
+
 resolution = 8
 
-temperature = 333
+temperature = 333 #Temperature of the reaction
 
 species_definitions = {}
+species_definitions['RCH2OH_g'] = {'pressure':0.8} #define the gas pressures
+species_definitions['O2_g'] = {'pressure':0.1}
+species_definitions['H2O_g'] = {'pressure':0.1}
+species_definitions['RCOOH_g'] = {'pressure':0.68}
 
-# 当前体系的气相压力；如实际实验条件不同，请按真实条件修改。
-species_definitions['H2O2_g'] = {'pressure': 0.8}
-species_definitions['C6H12_g'] = {'pressure': 0.1}
-species_definitions['H2O_g'] = {'pressure': 0.1}
-species_definitions['C6H12O_g'] = {'pressure': 0.0}
+species_definitions['s'] = {'site_names': ['111'], 'total':1} #define the sites
 
-species_definitions['s'] = {'site_names': ['111'], 'total': 1}
-
-# Ha/Hb 不是合法化学式，而是不同位置的吸附 H；显式定义元素组成。
+# Ha/Hb 是不同吸附位置上的 H，不是合法化学式，因此显式指定组成。
 species_definitions['Ha_s'] = {'composition': {'H': 1}}
 species_definitions['Hb_s'] = {'composition': {'H': 1}}
 species_definitions['Hb-O_s'] = {'composition': {'H': 1, 'O': 1}}
@@ -39,28 +40,41 @@ species_definitions['Hb-O_s'] = {'composition': {'H': 1, 'O': 1}}
 data_file = 'gly_oxidation.pkl'
 
 #
-# Parser parameters
+#Parser parameters
 #
 
-input_file = 'energies.txt'
+input_file = 'energies.txt' #input data
 
 #
-# Scaler parameters
+#Scaler parameters
 #
 
-gas_thermo_mode = 'fixed_entropy_gas'
-adsorbate_thermo_mode = 'frozen_adsorbate'
+gas_thermo_mode = "fixed_entropy_gas"
+#gas_thermo_mode = "ideal_gas" #Ideal gas approximation
+#gas_thermo_mode = "zero_point_gas" #uses zero-point corrections only
+#gas_thermo_mode = "fixed_entropy_gas" #assumes entropy of 0.002 eV/K for all gasses except H2 (H2 is 0.00135 eV/K)
+#gas_thermo_mode = "frozen_gas" #neglect thermal contributions
+
+adsorbate_thermo_mode = "frozen_adsorbate"
+#adsorbate_thermo_mode = "harmonic_adsorbate"
+#adsorbate_thermo_mode = "hindered_adsorbate"
+#adsorbate_thermo_mode = "zero_point_adsorbate"
 
 scaling_constraint_dict = {
-    'C_s': ['+', 0, None],
-    'O_s': [0, '+', None],
-}
+                           'C_s':['+',0,None],
+                           'O_s':[0,'+',None],
+                           }
+
 
 #
-# Solver parameters
+#Solver parameters
 #
 
-decimal_precision = 100
-tolerance = 1e-50
+decimal_precision = 100 #precision of numbers involved
+
+tolerance = 1e-50 #all d_theta/d_t's must be less than this at the solution
+
 max_rootfinding_iterations = 100
+
 max_bisections = 3
+
