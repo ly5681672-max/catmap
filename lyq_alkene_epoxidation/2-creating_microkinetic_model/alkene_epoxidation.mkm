@@ -14,7 +14,8 @@ rxn_expressions = [
 ]
 
 
-surface_names = ['tife', 'cuo', 'tio2', 'zno', 'zro2', 'sio2'] #surfaces to include in scaling (need to have descriptors defined for each)
+surface_names = ['tife', 'timn', 'tihf', 'tire', 'timo', 'tiv', 'tizr', 'tico', 'titi', 'tiw', 'tita', 'ticr',
+            'ti', 'tini'] #surfaces to include in scaling (need to have descriptors defined for each)
 
 descriptor_names= ['c_s','o_s'] #descriptor names
 
@@ -37,7 +38,7 @@ species_definitions['Ha_s'] = {'composition': {'H': 1}}
 species_definitions['Hb_s'] = {'composition': {'H': 1}}
 species_definitions['Hb-O_s'] = {'composition': {'H': 1, 'O': 1}}
 
-data_file = 'gly_oxidation.pkl'
+data_file = 'alkene_epoxidation.pkl'
 
 #
 #Parser parameters
