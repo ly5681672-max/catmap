@@ -12,23 +12,24 @@ abinitio_energies = {
     'H2O_gas': -14.204457,
 
     # ========== 吸附物种 ==========
-    'H2O2_111': -888.055199,
-    'Ha_111': -873.9655615,   # H 在位置 a
-    'Hb_111': -875.018362,    # H 在位置 b
-    'OOH_111': -883.605234,
-    'C6H12_111': -966.14116,
-    'C6H12O_111': -972.2223845,
-    'O_111': -874.6632055,
-    'OH_111': -880.2182855,
-    'H2O_111': -885.0369905,
+    'H2O2_111':  -881.680784,
+    'Ha_111':    -868.06986,
+    'Hb_111':    -867.91225,
+    'OOH_111':   -877.1433925,
+    'C6H12_111': -958.3287775,
+    'C6H12O_111':-964.45279,
+    'O_111':     -866.997122,
+    'OH_111':    -872.6800805,
+    'H2O_111':   -877.747855,
 
     # ========== 过渡态 ==========
-    'OOH-C6H12_111': -980.1874005,
-    'Hb-O_111': -879.6075115,
+    'OOH-C6H12_111': -983.369042,
+    'Hb-O_111': -872.064286,
 
     # ========== 裸板 ==========
-    'slab_111': -983.050573,
+    'slab_111': -863.25438,
 }
+
 
 # 原子参考能，单位：eV
 ref_dict = {
@@ -136,7 +137,7 @@ def make_input_file(file_name, energy_dict, frequencies):
             continue
 
         frequency = frequencies.get(key, [])
-        surface = None if site == 'gas' else 'tife'
+        surface = None if site == 'gas' else 'tini'
         outline = [
             surface,
             site,
@@ -156,7 +157,7 @@ def make_input_file(file_name, energy_dict, frequencies):
     print(f'Successfully created input file: {file_name}')
 
 
-file_name = 'tife_energies.txt'
+file_name = 'tini_energies.txt'
 make_input_file(file_name, formation_energies, frequency_dict)
 
 
@@ -165,7 +166,7 @@ from catmap.model import ReactionModel
 from catmap.parsers import TableParser
 
 rxm = ReactionModel()
-rxm.surface_names = ['tife']
+rxm.surface_names = ['tini']
 
 # CatMAP 内部表面物种 key 使用 *_s 形式；输入表中的 species_name 仍保持
 # H2O2、Ha、Hb 等名称，由 TableParser 根据 site_name=111 匹配到 s 位点。

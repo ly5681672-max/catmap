@@ -1,0 +1,16 @@
+surface_name,site_name,species_name,formation_energy,frequencies,reference
+,gas,H2O2,-7.162,,Input File Tutorial.
+,gas,C6H12,-26.031,,Input File Tutorial.
+,gas,C6H12O,-27.668,,Input File Tutorial.
+,gas,H2O,-7.614,,Input File Tutorial.
+titi,111,H2O2,-7.338,,Input File Tutorial.
+titi,111,Ha,-1.755,,Input File Tutorial.
+titi,111,Hb,-1.509,,Input File Tutorial.
+titi,111,OOH,-3.975,,Input File Tutorial.
+titi,111,C6H12,-26.217,,Input File Tutorial.
+titi,111,C6H12O,-28.152,,Input File Tutorial.
+titi,111,O,0.463,,Input File Tutorial.
+titi,111,OH,-3.861,,Input File Tutorial.
+titi,111,H2O,-8.567,,Input File Tutorial.
+titi,111,OOH-C6H12,-31.575,,Input File Tutorial.
+titi,111,Hb-O,-3.161,,Input File Tutorial.
