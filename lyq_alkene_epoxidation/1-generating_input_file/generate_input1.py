@@ -200,19 +200,24 @@ try:
 
     rxm = ReactionModel()
     rxm.surface_names = ['tife']
+
+    # CatMAP 内部物种 key 必须带 site 后缀。
+    # 输入表中的 species_name 仍保持 H2O2/Ha/Hb/...，TableParser 会根据 site_name=111
+    # 将这些名称匹配到 *_s 物种。
     rxm.adsorbate_names = (
-        'H2O2', 'Ha', 'Hb', 'OOH', 'C6H12', 'C6H12O', 'O', 'OH', 'H2O'
+        'H2O2_s', 'Ha_s', 'Hb_s', 'OOH_s',
+        'C6H12_s', 'C6H12O_s', 'O_s', 'OH_s', 'H2O_s'
     )
-    rxm.transition_state_names = ('OOH-C6H12', 'Hb-O')
+    rxm.transition_state_names = ('OOH-C6H12_s', 'Hb-O_s')
     rxm.gas_names = ('H2O2_g', 'C6H12_g', 'C6H12O_g', 'H2O_g')
     rxm.site_names = ('s',)
 
-    # CatMAP 对 Ha/Hb/Hb-O 无法从名称自动推断元素组成，因此显式指定。
+    # Ha/Hb/Hb-O 不是标准化学式，必须在与模型一致的 *_s key 上显式指定组成。
     rxm.species_definitions = {
         's': {'site_names': ['111']},
-        'Ha': {'composition': {'H': 1}},
-        'Hb': {'composition': {'H': 1}},
-        'Hb-O': {'composition': {'H': 1, 'O': 1}},
+        'Ha_s': {'composition': {'H': 1}},
+        'Hb_s': {'composition': {'H': 1}},
+        'Hb-O_s': {'composition': {'H': 1, 'O': 1}},
     }
 
     parser = TableParser(rxm)
