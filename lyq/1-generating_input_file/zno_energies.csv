@@ -1,0 +1,20 @@
+surface_name,site_name,species_name,formation_energy,frequencies,reference
+,gas,CH2OHCHOHCH2OH,-24.385,,Input File Tutorial.
+,gas,O2,-0.528,,Input File Tutorial.
+,gas,H2O,-7.614,,Input File Tutorial.
+,gas,CH2OHCHOHCOOH,-22.689,,Input File Tutorial.
+zno,111,CH2OHCHOHCH2OH,-29.453,,Input File Tutorial.
+zno,111,O2,-1.149,,Input File Tutorial.
+zno,111,H2O,-6.733,,Input File Tutorial.
+zno,111,OH,-11.046,,Input File Tutorial.
+zno,111,O,-0.778,,Input File Tutorial.
+zno,111,CH2OHCHOHCH2O,-26.694,,Input File Tutorial.
+zno,111,CH2OHCHOHCHO,-24.194,,Input File Tutorial.
+zno,111,H,-8.973,,Input File Tutorial.
+zno,111,CH2OHCHOHCHOOH,-29.138,,Input File Tutorial.
+zno,111,CH2OHCHOHCOOH,-27.412,,Input File Tutorial.
+zno,111,O2-2OH,77.35,,Input File Tutorial.
+zno,111,CH2OHCHOHCH2OH-CH2OHCHOHCH2O,9.488,,Input File Tutorial.
+zno,111,CH2OHCHOHCH2O-CH2OHCHOHCHO,21.115,,Input File Tutorial.
+zno,111,CH2OHCHOHCHO-CH2OHCHOHCHOOH,18.79,,Input File Tutorial.
+zno,111,CH2OHCHOHCHOOH-CH2OHCHOHCOOH,23.998,,Input File Tutorial.

@@ -1,0 +1,20 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+None	gas	CH2OHCHOHCH2OH	-24.385	[]	Input File Tutorial.
+None	gas	CH2OHCHOHCOOH	-22.689	[]	Input File Tutorial.
+None	gas	H2O	-7.614	[]	Input File Tutorial.
+None	gas	O2	-0.528	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCH2O	-27.422	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCH2O-CH2OHCHOHCHO	21.55	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCH2OH	-28.128	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCH2OH-CH2OHCHOHCH2O	9.699	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCHO	-24.307	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCHO-CH2OHCHOHCHOOH	18.382	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCHOOH	-29.918	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCHOOH-CH2OHCHOHCOOH	22.236	[]	Input File Tutorial.
+tio2	111	CH2OHCHOHCOOH	-28.091	[]	Input File Tutorial.
+tio2	111	H	-9.467	[]	Input File Tutorial.
+tio2	111	H2O	-4.922	[]	Input File Tutorial.
+tio2	111	O	-1.505	[]	Input File Tutorial.
+tio2	111	O2	-1.409	[]	Input File Tutorial.
+tio2	111	O2-2OH	76.837	[]	Input File Tutorial.
+tio2	111	OH	-11.254	[]	Input File Tutorial.

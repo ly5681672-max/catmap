@@ -1,0 +1,78 @@
+#
+#Microkinetic model parameters
+#
+
+rxn_expressions = [
+	       '*_s + H2_g ->H2*',
+ 	       '*_s + C3H6O_g ->C3H6O*',
+           '*_s + C3H6O* <-> C3H5O-H* + *_s -> C3H5O* + H*',
+           'C3H5O* + H* <-> CH3CHOCH-H* + *_s -> C3H6* + O*',
+	       'O*  + H2*<-> O-H2* + *_s  -> OH* +  H* ',
+           'OH*  + H*<-> OH-H* + *_s  -> H2O* +  * ',
+	       'H2O*  -> H2O_g +  * ',
+           'C3H6*  -> C3H6_g + *_s',
+                   ]
+
+
+surface_names = ['MoO3-100', 'MoO3-001', 'V2O5-001', 'V2O5-010', 'CuO-001', 'CuO-111', 'TiO2-001', 'TiO2-101', 'ZrO2-111', 'ZrO2--111', 'CeO2-331', 'CeO2-111'] #surfaces to include in scaling (need to have descriptors defined for each)
+
+descriptor_names= ['H_s','O_s'] #descriptor names
+
+descriptor_ranges = [[-1.5,2],[-3.8,2.5]]
+
+resolution = 10
+
+temperature = 673 #Temperature of the reaction
+
+species_definitions = {}
+species_definitions['H2_g'] = {'pressure':0.196} #define the gas pressures
+species_definitions['H2O_g'] = {'pressure':0.0001}
+species_definitions['C3H6O_g'] = {'pressure':0.032}
+species_definitions['C3H6_g'] = {'pressure':0.0001}
+
+species_definitions['s'] = {'site_names': ['111'], 'total':1} #define the sites
+
+data_file = 'MA.pkl'
+
+#
+#Parser parameters
+#
+
+input_file = 'energies.txt' #input data
+
+#
+#Scaler parameters
+#
+
+gas_thermo_mode = "fixed_entropy_gas"
+#gas_thermo_mode = "ideal_gas" #Ideal gas approximation
+#gas_thermo_mode = "zero_point_gas" #uses zero-point corrections only
+#gas_thermo_mode = "fixed_entropy_gas" #assumes entropy of 0.002 eV/K for all gasses except H2 (H2 is 0.00135 eV/K)
+#gas_thermo_mode = "frozen_gas" #neglect thermal contributions
+
+adsorbate_thermo_mode = "frozen_adsorbate"
+#adsorbate_thermo_mode = "harmonic_adsorbate"
+#adsorbate_thermo_mode = "hindered_adsorbate"
+#adsorbate_thermo_mode = "zero_point_adsorbate"
+
+scaling_constraint_dict = {
+                           'H_s':['+',0,None],
+                           'O_s':[0,'+',None],
+                          # 'C6H13-H_s':'initial_state',
+                          # 'CH3CH2CH-C3H8_s':'final_state',
+                          # 'CH3CHCH-H_s':'final_state'
+                           }
+
+
+#
+#Solver parameters
+#
+
+decimal_precision = 100 #precision of numbers involved
+
+tolerance = 1e-50 #all d_theta/d_t's must be less than this at the solution
+
+max_rootfinding_iterations = 100
+
+max_bisections = 3
+

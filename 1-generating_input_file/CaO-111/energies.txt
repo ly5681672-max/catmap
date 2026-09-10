@@ -1,0 +1,14 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+CaO	111	C2H4	0.456	[]	Input File Tutorial.
+CaO	111	C2H5	0.165	[]	Input File Tutorial.
+CaO	111	C2H5-C2H4	2.23	[]	Input File Tutorial.
+CaO	111	C2H5-H	2.071	[]	Input File Tutorial.
+CaO	111	C2H6	-0.6	[]	Input File Tutorial.
+CaO	111	C4H9	0.253	[]	Input File Tutorial.
+CaO	111	C4H9-C2H4	1.189	[]	Input File Tutorial.
+CaO	111	C6H13	-0.908	[]	Input File Tutorial.
+CaO	111	C6H14	-1.5	[]	Input File Tutorial.
+CaO	111	H	1.635	[]	Input File Tutorial.
+None	gas	C2H4	1.213	[]	Input File Tutorial.
+None	gas	C2H6	0.0	[]	Input File Tutorial.
+None	gas	C6H14	0.0	[]	Input File Tutorial.

@@ -1,0 +1,17 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+CeO2-111	111	C3H5O	-4.27	[]	Input File Tutorial.
+CeO2-111	111	C3H5O-H	0.574	[]	Input File Tutorial.
+CeO2-111	111	C3H6	-6.496	[]	Input File Tutorial.
+CeO2-111	111	C3H6O	0.412	[]	Input File Tutorial.
+CeO2-111	111	CH3CHOCH-H	1.1	[]	Input File Tutorial.
+CeO2-111	111	H	-1.096	[]	Input File Tutorial.
+CeO2-111	111	H2	1.137	[]	Input File Tutorial.
+CeO2-111	111	H2O	0.299	[]	Input File Tutorial.
+CeO2-111	111	O	0.667	[]	Input File Tutorial.
+CeO2-111	111	O-H2	2.498	[]	Input File Tutorial.
+CeO2-111	111	OH	-1.365	[]	Input File Tutorial.
+CeO2-111	111	OH-H	1.977	[]	Input File Tutorial.
+None	gas	C3H6	0.039	[]	Input File Tutorial.
+None	gas	C3H6O	-0.0	[]	Input File Tutorial.
+None	gas	H2	0.0	[]	Input File Tutorial.
+None	gas	H2O	-0.0	[]	Input File Tutorial.

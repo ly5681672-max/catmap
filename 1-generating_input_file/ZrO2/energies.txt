@@ -1,0 +1,14 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+None	gas	C2H4	1.213	[]	Input File Tutorial.
+None	gas	C2H6	0.0	[]	Input File Tutorial.
+None	gas	C6H14	0.0	[]	Input File Tutorial.
+ZrO2	111	C2H4	-1.013	[]	Input File Tutorial.
+ZrO2	111	C2H5	-0.611	[]	Input File Tutorial.
+ZrO2	111	C2H5-C2H4	3.355	[]	Input File Tutorial.
+ZrO2	111	C2H5-H	1.452	[]	Input File Tutorial.
+ZrO2	111	C2H6	-0.757	[]	Input File Tutorial.
+ZrO2	111	C4H9	-1.513	[]	Input File Tutorial.
+ZrO2	111	C4H9-C2H4	0.869	[]	Input File Tutorial.
+ZrO2	111	C6H13	-1.682	[]	Input File Tutorial.
+ZrO2	111	C6H14	-0.836	[]	Input File Tutorial.
+ZrO2	111	H	1.071	[]	Input File Tutorial.

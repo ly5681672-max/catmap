@@ -1,0 +1,79 @@
+#
+#Microkinetic model parameters
+#
+
+rxn_expressions = [
+               '*_s + O2_g -> O2*',
+               '*_s + C5H9OH_g -> C5H9OH*',
+               '*_s + H2O_g -> H2O*',
+               'O2* + H2O* + *_s  -> OH* + OH* + O*',
+               'C5H9OH* + OH* <-> C5H9OH-OH* + *_s -> C5H9O* + H2O*',
+               'C5H9O* + *_s <-> C5H8O-H* + *_s -> C5H8O* + H*',
+               'H* + OH* -> H2O* + *_s',  
+               'C5H8O*  -> C5H8O_g + *_s',
+               'H2O*  -> H2O_g + *_s',
+                   ]
+
+
+surface_names = ['Cu', 'Rh', 'Ru' ,'Pt' ,'Ag', 'Au', 'Ir', 'Pd'] #surfaces to include in scaling (need to have descriptors defined for each)
+
+descriptor_names= ['H_s','O_s'] #descriptor names
+
+descriptor_ranges = [[-1,2],[-3,1]]
+
+resolution = 12
+
+temperature = 773 #Temperature of the reaction
+
+species_definitions = {}
+species_definitions['C5H9OH_g'] = {'pressure':1.} #define the gas pressures
+species_definitions['O2_g'] = {'pressure':1.}
+species_definitions['H2O_g'] = {'pressure':0.2}
+species_definitions['C5H8O_g'] = {'pressure':0.2}
+
+species_definitions['s'] = {'site_names': ['111'], 'total':1} #define the sites
+
+data_file = 'fr cracking.pkl'
+
+#
+#Parser parameters
+#
+
+input_file = 'fr energies.txt' #input data
+
+#
+#Scaler parameters
+#
+
+gas_thermo_mode = "fixed_entropy_gas"
+#gas_thermo_mode = "ideal_gas" #Ideal gas approximation
+#gas_thermo_mode = "zero_point_gas" #uses zero-point corrections only
+#gas_thermo_mode = "fixed_entropy_gas" #assumes entropy of 0.002 eV/K for all gasses except H2 (H2 is 0.00135 eV/K)
+#gas_thermo_mode = "frozen_gas" #neglect thermal contributions
+
+adsorbate_thermo_mode = "frozen_adsorbate"
+#adsorbate_thermo_mode = "harmonic_adsorbate"
+#adsorbate_thermo_mode = "hindered_adsorbate"
+#adsorbate_thermo_mode = "zero_point_adsorbate"
+
+scaling_constraint_dict = {
+                          'H_s':['+',0,None],
+                          'O_s':[0,'+',None],
+                         # 'O-H2O_s':'final_state',
+                         # 'C5H9OH-OH_s':'final_state',
+                         # 'C5H8O-H_s':'final_state'                    
+                           }
+
+
+#
+#Solver parameters
+#
+
+decimal_precision = 100 #precision of numbers involved
+
+tolerance = 1e-50 #all d_theta/d_t's must be less than this at the solution
+
+max_rootfinding_iterations = 100
+
+max_bisections = 3
+

@@ -1,0 +1,14 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+CeO2	111	C2H4	0.68	[]	Input File Tutorial.
+CeO2	111	C2H5	0.754	[]	Input File Tutorial.
+CeO2	111	C2H5-C2H4	2.311	[]	Input File Tutorial.
+CeO2	111	C2H5-H	2.6	[]	Input File Tutorial.
+CeO2	111	C2H6	-0.398	[]	Input File Tutorial.
+CeO2	111	C4H9	1.339	[]	Input File Tutorial.
+CeO2	111	C4H9-C2H4	2.201	[]	Input File Tutorial.
+CeO2	111	C6H13	1.121	[]	Input File Tutorial.
+CeO2	111	C6H14	-0.78	[]	Input File Tutorial.
+CeO2	111	H	-1.133	[]	Input File Tutorial.
+None	gas	C2H4	1.207	[]	Input File Tutorial.
+None	gas	C2H6	0.0	[]	Input File Tutorial.
+None	gas	C6H14	-0.0	[]	Input File Tutorial.

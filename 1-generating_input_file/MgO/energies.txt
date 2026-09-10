@@ -1,0 +1,14 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+MgO	111	C2H4	1.092	[]	Input File Tutorial.
+MgO	111	C2H5	-0.606	[]	Input File Tutorial.
+MgO	111	C2H5-C2H4	2.934	[]	Input File Tutorial.
+MgO	111	C2H5-H	1.728	[]	Input File Tutorial.
+MgO	111	C2H6	-0.193	[]	Input File Tutorial.
+MgO	111	C4H9	-0.691	[]	Input File Tutorial.
+MgO	111	C4H9-C2H4	3.44	[]	Input File Tutorial.
+MgO	111	C6H13	-0.956	[]	Input File Tutorial.
+MgO	111	C6H14	-0.62	[]	Input File Tutorial.
+MgO	111	H	0.618	[]	Input File Tutorial.
+None	gas	C2H4	1.213	[]	Input File Tutorial.
+None	gas	C2H6	0.0	[]	Input File Tutorial.
+None	gas	C6H14	0.0	[]	Input File Tutorial.

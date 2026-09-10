@@ -1,0 +1,14 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+Al2O3	111	C2H4	0.2	[]	Input File Tutorial.
+Al2O3	111	C2H5	1.226	[]	Input File Tutorial.
+Al2O3	111	C2H5-C2H4	3.64	[]	Input File Tutorial.
+Al2O3	111	C2H5-H	3.855	[]	Input File Tutorial.
+Al2O3	111	C2H6	-1.572	[]	Input File Tutorial.
+Al2O3	111	C4H9	0.873	[]	Input File Tutorial.
+Al2O3	111	C4H9-C2H4	3.741	[]	Input File Tutorial.
+Al2O3	111	C6H13	-0.284	[]	Input File Tutorial.
+Al2O3	111	C6H14	-1.853	[]	Input File Tutorial.
+Al2O3	111	H	-1.854	[]	Input File Tutorial.
+None	gas	C2H4	1.213	[]	Input File Tutorial.
+None	gas	C2H6	0.0	[]	Input File Tutorial.
+None	gas	C6H14	0.0	[]	Input File Tutorial.
