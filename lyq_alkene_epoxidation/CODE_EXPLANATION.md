@@ -338,17 +338,130 @@ abinitio_energies['slab_111']
 from ase.symbols import string2symbols
 ```
 
-表示只从 `ase.symbols` 模块导入一个函数，因此后面可以直接写：
+这行代码不只是“从模块里导入一个函数”，还需要知道**具体导入的函数是什么、它能做什么**。
+
+### ① `ase.symbols` 是什么？
+
+`ase` 是 **Atomic Simulation Environment（原子模拟环境）** 这个 Python 科学计算库；`ase.symbols` 是 ASE 中专门处理**元素符号和化学式字符串**的模块。
+
+### ② `string2symbols` 是什么函数？
+
+`string2symbols()` 是 `ase.symbols` 模块提供的一个**化学式解析函数**。
+
+它的任务是：
+
+> **把一个化学式字符串展开成“逐个原子的元素符号列表”。**
+
+例如：
 
 ```python
-string2symbols(...)
+string2symbols('H2O2')
 ```
 
-而不用：
+返回：
 
 ```python
-ase.symbols.string2symbols(...)
+['H', 'H', 'O', 'O']
 ```
+
+再例如本项目中的：
+
+```python
+string2symbols('OOH')
+```
+
+返回：
+
+```python
+['O', 'O', 'H']
+```
+
+因此它的输入和输出可以记成：
+
+```text
+输入：化学式字符串 str
+      例如 'H2O2'、'OOH'、'C6H12O'
+
+             ↓ string2symbols()
+
+输出：元素符号列表 list[str]
+      例如 ['H','H','O','O']
+```
+
+### ③ 为什么本项目必须用这个函数？
+
+因为后面形成能计算需要**一个原子一个原子地减去参考能**：
+
+```python
+for atom in composition:
+    E0 -= references[atom]
+```
+
+所以程序不能只知道：
+
+```text
+formula = 'OOH'
+```
+
+还必须把它展开成：
+
+```text
+composition = ['O', 'O', 'H']
+```
+
+这样循环才能依次执行：
+
+```text
+第1次：atom = O → 减一次 O 参考能
+第2次：atom = O → 再减一次 O 参考能
+第3次：atom = H → 减一次 H 参考能
+```
+
+也就是说，这个导入函数在本项目中的角色是：
+
+```text
+化学式字符串
+    ↓
+string2symbols()
+    ↓
+逐原子元素列表
+    ↓
+for atom in composition
+    ↓
+逐原子扣除参考能
+```
+
+### ④ `from ... import ...` 在这里具体意味着什么？
+
+```python
+from ase.symbols import string2symbols
+```
+
+可以拆成：
+
+```text
+ase.symbols
+= 函数所在的模块
+
+string2symbols
+= 从这个模块中取出来的具体函数
+```
+
+由于已经把 `string2symbols` 这个函数直接导入当前文件，所以后面可以直接写：
+
+```python
+string2symbols(formula)
+```
+
+而不用写完整路径：
+
+```python
+ase.symbols.string2symbols(formula)
+```
+
+### ⑤ 一句话记忆
+
+> **`string2symbols` = “化学式字符串 → 一个个元素符号”，为后面的逐原子参考能扣除做准备。**
 
 ### 🧪 科研上在做什么？
 
