@@ -10,22 +10,22 @@ abinitio_energies = {
     'H2O_gas': -14.204457,
 
     # ========== 吸附物种 ==========
-    'H2O2_111':  -881.680784,
-    'Ha_111':    -868.06986,
-    'Hb_111':    -867.91225,
-    'OOH_111':   -877.1433925,
-    'C6H12_111': -958.3287775,
-    'C6H12O_111':-964.45279,
-    'O_111':     -866.997122,
-    'OH_111':    -872.6800805,
-    'H2O_111':   -877.747855,
+    'H2O2_111':  -891.610975,
+    'Ha_111':    -874.30923,
+    'Hb_111':    -879.2156865,
+    'OOH_111':   -887.017207,
+    'C6H12_111': -968.7609275,
+    'C6H12O_111':-974.959544,
+    'O_111':     -876.0788065,
+    'OH_111':    -881.650587,
+    'H2O_111':   -887.646684,
 
     # ========== 过渡态 ==========
-    'OOH-C6H12_111': -983.369042,
+    'OOH-C6H12_111': -983.35808,
     'Hb-O_111': -881.739798,
 
     # ========== 裸板 ==========
-    'slab_111': -863.139429,
+    'slab_111': -873.6310625,
 }
 
 # 预计算原子参考能，单位：eV
@@ -133,7 +133,7 @@ def make_input_file(file_name, energy_dict, frequencies):
             continue
 
         frequency = frequencies.get(key, [])
-        surface = None if site == 'gas' else 'tini'
+        surface = None if site == 'gas' else 'ti'
         outline = [surface, site, name, energy, frequency, 'Input File Tutorial.']
         lines.append('\t'.join(str(value) for value in outline))
 
@@ -179,7 +179,7 @@ def make_csv_file(file_name, energy_dict, frequencies):
             ) if freq_list else ''
 
             writer.writerow({
-                'surface_name': None if site == 'gas' else 'tini',
+                'surface_name': None if site == 'gas' else 'ti',
                 'site_name': site,
                 'species_name': name,
                 'formation_energy': energy,
@@ -191,8 +191,8 @@ def make_csv_file(file_name, energy_dict, frequencies):
 
 
 # 生成输出文件
-txt_file_name = 'tini_energies.txt'
-csv_file_name = 'tini_energies.csv'
+txt_file_name = 'ti_energies.txt'
+csv_file_name = 'ti_energies.csv'
 make_input_file(txt_file_name, formation_energies, frequency_dict)
 make_csv_file(csv_file_name, formation_energies, frequency_dict)
 
@@ -202,7 +202,7 @@ try:
     from catmap.parsers import TableParser
 
     rxm = ReactionModel()
-    rxm.surface_names = ['tini']
+    rxm.surface_names = ['ti']
 
     # CatMAP 内部物种 key 必须带 site 后缀。
     # 输入表中的 species_name 仍保持 H2O2/Ha/Hb/...，TableParser 会根据 site_name=111
