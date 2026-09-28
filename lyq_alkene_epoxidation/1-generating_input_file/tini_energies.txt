@@ -9,7 +9,7 @@ tini	111	H2O	-8.018	[]	Input File Tutorial.
 tini	111	H2O2	-7.581	[]	Input File Tutorial.
 tini	111	Ha	-3.82	[]	Input File Tutorial.
 tini	111	Hb	-3.663	[]	Input File Tutorial.
-tini	111	Hb-O	-3.445	[]	Input File Tutorial.
+tini	111	Hb-O	-13.12	[]	Input File Tutorial.
 tini	111	O	0.512	[]	Input File Tutorial.
 tini	111	OH	-4.061	[]	Input File Tutorial.
 tini	111	OOH	-4.154	[]	Input File Tutorial.
