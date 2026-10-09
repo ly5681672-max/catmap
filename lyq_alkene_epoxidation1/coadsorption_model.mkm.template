@@ -1,0 +1,23 @@
+# NEB-consistent ONE-SITE coadsorption model — REVIEW TEMPLATE ONLY
+# New state names: R* = (H2O2)(C6H12)*; P* = (C6H12O)(H2O)*
+# C6H14O2 is conserved for R* -> P*. Both require consistent absolute Gf.
+# DO NOT RUN as-is: energy input and activities are unassigned.
+#
+# Proposed reaction expressions:
+# rxn_expressions = [
+#     '* + H2O2_g + C6H12_g <-> R*',
+#     'R* -> P*',  # only when full NEB supports a barrierless route
+#     'P* <-> C6H12O_g + H2O_g + *',
+# ]
+#
+# For barriered cases substitute:
+#     'R* <-> R-P* -> P*'  # R-P* is the VERIFIED saddle state
+#
+# Critical: CatMAP may clamp the effective TS free energy to max(IS,FS,TS).
+# Any intermediate image lower than IS is NOT a negative activation barrier.
+#
+# Required before activating this model:
+#  - Valid CatMAP energy file: absolute consistent Gf(R), Gf(P), gas products/reactants
+#  - Adsorbate/capacity definitions, correctly conserved sites, gas activities
+#  - NEB maximum over ALL images for each catalyst, or a justified barrierless rate rule
+#  - Rigorous validation against experimental conditions
