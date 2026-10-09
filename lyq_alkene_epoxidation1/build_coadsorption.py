@@ -42,14 +42,14 @@ def main():
         output.append(("None","gas",name,g-atom_ref(name)))
     rows=[]
     for col,surface in surfaces:
-        gcol = col+5
+        gcol = col+6 if surface == 'tita' else col+5
         # Raw corrected free energies, from the SAME sheet:
         # slab row 4, coadsorbed reactant row 12, pathway marker row 16,
-        # coadsorbed product row 20.
+        # coadsorbed product row 20 (TiMo composite total: row 21).
         slab=n(cell(4,gcol), f"{surface} slab G")
         initial=n(cell(12,gcol), f"{surface} IS G")
         marker=n(cell(16,gcol), f"{surface} NEB-marker G")
-        final=n(cell(20,gcol), f"{surface} FS G")
+        final=n(cell(21 if surface == "timo" else 20,gcol), f"{surface} FS G")
         delta_marker=marker-initial
         delta_final=final-initial
         # Rate-model effective barrier, not a claim about actual NEB saddle.
