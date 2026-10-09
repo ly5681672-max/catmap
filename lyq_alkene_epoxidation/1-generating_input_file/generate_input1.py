@@ -1,6 +1,8 @@
 # 生成 CatMAP 输入文件：计算形成能、输出 TXT/CSV，并验证解析结果。
 from ase.symbols import string2symbols
 import csv
+import os
+from pathlib import Path
 
 abinitio_energies = {
     # ========== 气相物种 ==========
@@ -189,9 +191,20 @@ def make_csv_file(file_name, energy_dict, frequencies):
     print(f'Successfully created CSV file: {file_name}')
 
 
+# Prevent silently overwriting reviewed energy tables. Opt in explicitly if needed.
+def assert_safe_output(paths):
+    existing = [str(p) for p in paths if Path(p).exists()]
+    if existing and os.environ.get('ALLOW_ENERGY_OVERWRITE') != '1':
+        raise FileExistsError(
+            'Refusing to overwrite existing energy tables: ' + ', '.join(existing)
+            + '. Set ALLOW_ENERGY_OVERWRITE=1 only after reviewing the source values.'
+        )
+
+
 # 生成输出文件
 txt_file_name = 'ti_energies.txt'
 csv_file_name = 'ti_energies.csv'
+assert_safe_output([txt_file_name, csv_file_name])
 make_input_file(txt_file_name, formation_energies, frequency_dict)
 make_csv_file(csv_file_name, formation_energies, frequency_dict)
 

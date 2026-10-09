@@ -14,7 +14,7 @@ rxn_expressions = [
     'H2O* <-> H2O_g + *',                                        # water desorption
 ]
 
-# Surfaces included in the current energies.txt data set
+# Surfaces selected for microkinetic modeling (tinb is excluded pending validation).
 surface_names = [
     'tife', 'timn', 'tihf', 'tire', 'timo', 'tiv', 'tizr',
     'tico', 'titi', 'tiw', 'tita', 'ticr', 'ti', 'tini'
@@ -26,7 +26,7 @@ surface_names = [
 descriptor_names = ['OOH_s', 'O_s']
 
 # Ranges cover the present Ti-M data and leave a small margin for interpolation.
-descriptor_ranges = [[-7.0, -3.0], [-4.0, 2.5]]
+descriptor_ranges = [[-7.0, -2.5], [-4.0, 2.5]]
 resolution = 20
 
 # Experimental reaction temperature: 60 degC
