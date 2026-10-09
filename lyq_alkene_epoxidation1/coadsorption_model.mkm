@@ -20,5 +20,5 @@ gas_thermo_mode = 'frozen_gas'
 adsorbate_thermo_mode = 'frozen_adsorbate'
 pressure_mode = 'static'
 descriptor_names = ['R_s', 'P_s']
-descriptor_ranges = [[-30,0],[-30,0]]
+descriptor_ranges = [[-38,-31],[-38,-31]]
 resolution = 10
