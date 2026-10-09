@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from ase.symbols import string2symbols
 
 # abinitio_energies：
@@ -158,6 +160,11 @@ def make_input_file(file_name, energy_dict, frequencies):
 
 
 file_name = 'ti_energies.txt'
+if Path(file_name).exists() and os.environ.get('ALLOW_ENERGY_OVERWRITE') != '1':
+    raise FileExistsError(
+        f'Refusing to overwrite {file_name}. Set ALLOW_ENERGY_OVERWRITE=1 '
+        'only after reviewing the generated energy values.'
+    )
 make_input_file(file_name, formation_energies, frequency_dict)
 
 
