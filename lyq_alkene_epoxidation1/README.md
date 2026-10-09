@@ -24,7 +24,10 @@ The old step `OOH* + C6H12* -> C6H12O* + O* + Hb*` is **not** this net coadsorbe
 - `coadsorption_model.mkm.template`: a separate **CatMAP model template**, not executable as-is until coadsorption and gas chemical potential input is provided.
 - `README.md`: assumptions, exact needed next inputs and usage.
 
-## Why no immediately numerical CatMAP model?
+## Generated Gibbs energies and provisional CatMAP model
+The branch includes `energies.txt`, `energy_audit.csv`, `build_coadsorption.py`, and `coadsorption_model.mkm`. They use gas G (rows 57–60), catalyst slab G (row 4), coadsorbed IS G (row 12), path marker G (row 16), and coadsorbed FS G (row 20; TiMo row 21 combined total). TiTa has an extra address column, so its G column is 87 rather than 86. Element reference convention C=-9.28, H=-1.11, O=-4.37 eV, identical to the earlier CatMAP input convention. For surfaces with a downhill path marker, `RP` is set to `max(G_IS,G_marker,G_FS)` for a nonnegative model barrier; **this is a provisional kinetic assumption, not a measured NEB saddle**. The gas reservoir activities continue the old model approximation and require sensitivity/solvation validation. Running CatMAP to convergence has NOT been verified in this environment.
+
+## Why no immediately validated CatMAP kinetics?
 CatMAP needs thermodynamically consistent **absolute formation free energies** for `R*`, `P*`, gases and empty sites on *the same reference scale*. The three relative energies alone determine `G_P-G_R`, **not** `G_R-(G_H2O2,g+G_C6H12,g)` or product desorption. Choosing an arbitrary adsorption energy would silently invent kinetics. The workbook gives free-energy-corrected values but the complete reference-state crosswalk for every surface and gas correction must be verified first.
 
 In a one-site minimal network, after reference alignment:
