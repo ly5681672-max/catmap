@@ -1,3 +1,5 @@
+> **维护说明（2026-10-09）**：本文包含历史代码与示例数据，部分能量数值、Notebook 变量名可能已过时。当前模型以 `2-creating_microkinetic_model/alkene_epoxidation.mkm` 和 `energies.txt` 为准。本次非能量修复没有重新计算或修改任何形成能、TS 数值，也没有验证动力学收敛。运行输入生成脚本如需覆盖现有能量表，必须显式设置环境变量 `ALLOW_ENERGY_OVERWRITE=1`，覆盖前请先备份并人工核查。
+
 # `lyq_alkene_epoxidation` 代码逐行解读：Python 基础 + 项目作用
 
 > 面向当前 `main` 分支。本文的阅读顺序是：**先理解这一行体现的 Python 基础概念，再理解它在 CatMAP/微观动力学项目中的实际作用**。这样既能复习 Python，又能快速建立对代码结构的认识。
