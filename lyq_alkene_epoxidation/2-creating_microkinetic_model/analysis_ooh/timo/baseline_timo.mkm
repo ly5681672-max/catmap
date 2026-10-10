@@ -121,7 +121,7 @@ max_rootfinding_iterations = 100
 max_bisections = 3
 
 
-# Baseline overrides: one DFT surface; no linear scaling.
+# One surface, original DFT energetics; no cross-surface scaling.
 scaler = 'ThermodynamicScaler'
 surface_names = ['timo']
 descriptor_names = ['temperature', 'pressure']
@@ -130,6 +130,10 @@ resolution = 1
 pressure_mode = 'concentration'
 input_file = 'H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt'
 data_file = 'baseline_timo.pkl'
+decimal_precision = 180
+tolerance = 1e-120
+max_rootfinding_iterations = 250
+use_numbers_solver = True
 species_definitions['C6H12_g'] = {'concentration': 1.0}
 species_definitions['H2O2_g'] = {'concentration': 0.185}
 species_definitions['H2O_g'] = {'concentration': 0.815}
