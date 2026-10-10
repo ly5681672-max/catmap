@@ -1,0 +1,49 @@
+# Scheme B: each S state is a complete catalytic UNIT (not an isolated adsorbate).
+# Original A model files in the parent folder remain unchanged.
+rxn_expressions = [
+    '* + H2O2_g <-> S1*',       # 1 H2O2 adsorption
+    'S1* -> S2*',               # 2 H2O2 -> Ha + OOH
+    'S2* + C6H12_g <-> S3*',    # 3 hexene enters coadsorbed complex
+    'S3* <-> TS1* -> S4*',      # 4 epoxidation; Ha spectator
+    'S4* <-> S5* + C6H12O_g',  # 5 epoxide desorption
+    'S5* <-> TS2* -> S6*',      # 6 Hb -> O H-transfer; Ha spectator
+    'S6* -> S7*',               # 7 Ha + OH -> H2O
+    'S7* <-> * + H2O_g',        # 8 H2O desorption
+]
+surface_names = [
+    'tife','timn','tihf','tire','timo','tiv','tizr',
+    'tico','titi','tiw','tita','ticr','ti','tini'
+]  # TiNb audited but excluded pending validation
+
+# OOH/O are NOT isolated intermediates in Scheme B; use new descriptors.
+descriptor_names = ['S3_s','S5_s']
+descriptor_ranges = [[-35.0,-32.3],[-10.6,-4.7]]
+resolution = 20
+temperature = 333.15
+species_definitions = {
+    'C6H12_g': {'pressure':1.0},
+    'H2O2_g': {'pressure':0.185},
+    'H2O_g': {'pressure':0.815},
+    'C6H12O_g': {'pressure':1e-20},
+    's': {'site_names':['111'], 'total':1},
+}
+for state in ('S1_s','S2_s'):
+    species_definitions[state] = {'composition': {'H':2,'O':2}}
+for state in ('S3_s','TS1_s','S4_s'):
+    species_definitions[state] = {'composition': {'C':6,'H':14,'O':2}}
+for state in ('S5_s','TS2_s','S6_s','S7_s'):
+    species_definitions[state] = {'composition': {'H':2,'O':1}}
+
+data_file = 'scheme_B.pkl'
+input_file = 'energies.txt'
+gas_thermo_mode = 'frozen_gas'
+adsorbate_thermo_mode = 'frozen_adsorbate'
+pressure_mode = 'static'
+scaling_constraint_dict = {
+    'S3_s':['+',0,None],
+    'S5_s':[0,'+',None],
+}
+decimal_precision = 100
+tolerance = 1e-50
+max_rootfinding_iterations = 100
+max_bisections = 3
