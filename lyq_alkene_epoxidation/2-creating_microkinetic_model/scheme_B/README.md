@@ -42,3 +42,28 @@ This uses **Python standard library** for XLSX extraction (no openpyxl/pandas ne
 Some CatMAP installations use Windows' GBK default when reading `energies.txt`. The `reference` column therefore uses **ASCII-only labels** (`Excel:GibbsSummary/...`, `Excel:SingleAds/...`). These are provenance descriptions only and do **not** change any numerical energies. The original Excel worksheet names inside `build_scheme_B.py` remain in Chinese.
 
 If `UnicodeDecodeError: 'gbk'` occurred on an older checkout, pull the newest main branch and rerun `python build_scheme_B.py` followed by `python run_scheme_B.py`.
+
+## Net-flux reliability and 14 exact catalyst results
+
+After the CatMAP run, run_scheme_B.py automatically audits the saved map and solves 14 measured catalyst points at their own descriptor coordinates, not nearest grid points. Input energies, the Excel file, and all eight reaction steps are untouched.
+
+Output directory: diagnostics/ (UTF-8 BOM CSV, compatible with Excel):
+
+- grid400_diagnostics.csv: 400 regular points, all eight net step rates, steady-state flux consistency, S1-S7/empty-site coverages, the two fitted TS energy positions, and forward/reverse effective kinetic barriers.
+- grid400_volcano_eligible.csv: only qualified points, sorted by positive net epoxide rate (step 5).
+- bisection_extra_points.csv: additional solver bisection points, not counted as grid nodes.
+- catalysts_input_barriers.csv: measured catalyst TS energy gaps, without scaling.
+- catalysts_exact.csv: newly solved actual catalyst points (14) and fitted-vs-measured energy gaps, with explicit failed-solve labels.
+- summary.csv: aggregate pass/fail and energy-position counts.
+
+Flux quality criterion: max(abs(r_i-r_5)) / max_i(abs(r_i)) <= 0.01 for the eight net rates, plus physical total coverage and positive product rate. The optional min-signal floor defaults to 0; no arbitrary kinetic cutoff is imposed. Near-zero forward-minus-reverse cancellation can still produce numerical flux discrepancies, so excluded points must not be ranked in the volcano plot.
+
+Run from the scheme_B folder in the same CatMAP environment:
+
+    python run_scheme_B.py
+
+For already saved scheme_B.pkl, without re-running CatMAP and without exact catalyst solves:
+
+    python analyze_scheme_B.py --grid-only
+
+The uploaded earlier saved map gave 240/400 flux-consistent grid points and 160/400 excluded; exact catalyst solves require the user's installed CatMAP. A solved grid is not proof that all transition-state positions are physically validated.
