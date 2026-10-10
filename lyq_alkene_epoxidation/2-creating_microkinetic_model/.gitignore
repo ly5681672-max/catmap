@@ -14,3 +14,8 @@
 # Keep recovery/*.csv summaries on GitHub; do not commit per-point caches.
 /analysis_ooh/recovery/bridges/
 /analysis_ooh/recovery/target/
+
+# Vetted CatMAP continuation v2: summary CSVs tracked, scratch maps ignored.
+/analysis_ooh/recovery_v2/bridges/
+/analysis_ooh/recovery_v2/target/
+/analysis_ooh/recovery_v2/seeds/
