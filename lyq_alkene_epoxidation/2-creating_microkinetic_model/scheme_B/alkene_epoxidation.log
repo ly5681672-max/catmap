@@ -1,0 +1,1284 @@
+from numpy import array
+
+try:
+    import cPickle as pickle
+
+except: #workaround for python3.X
+    import _pickle as pickle
+
+
+from mpmath import mpf 
+
+parser = None
+
+scaler = 'GeneralizedLinearScaler'
+
+thermodynamics = 'ThermoCorrections'
+
+solver = 'SteadyStateSolver'
+
+mapper = 'MinResidMapper'
+
+binary_data = pickle.load(open("scheme_B.pkl","rb"))
+
+locals().update(binary_data)
+
+__citation__ = """If you find CatMAP useful to your research, please cite both the following papers:
+
+ Medford, A. J., Shi, C., Hoffmann, M. J., Lausche, A. C., Fitzgibbon, S. R., Bligaard, T., & Nørskov, J. K. (2015). CatMAP: a software package for descriptor-based microkinetic mapping of catalytic trends. Catalysis Letters, 145, 794-807. 
+ Vijay, S., H. Heenen, H., Singh, A. R., Chan, K., & Voss, J. (2024). Number of sites-based solver for determining coverages from steady-state mean-field micro-kinetic models. Journal of Computational Chemistry, 45(9), 546-551.
+"""
+A_uc = None
+
+DEBUG = False
+
+adsorbate_interaction_model = 'ideal'
+
+adsorbate_interactions = None
+
+adsorbate_names = ('S1_s', 'S2_s', 'S3_s', 'S4_s', 'S5_s', 'S6_s', 'S7_s')
+
+adsorbate_thermo_mode = 'frozen_adsorbate'
+
+analytical_jacobian = True
+
+atomic_reservoir_dict = {'O': 'H2O2_g', 'H': 'H2O_g', 'C': 'C6H12_g'}
+
+atomic_reservoir_list = [{'O': 'C6H12O_g', 'H': 'H2O2_g', 'C': 'C6H12_g'}, {'O': 'C6H12O_g', 'H': 'H2O_g', 'C': 'C6H12_g'}, {'O': 'H2O2_g', 'H': 'H2O_g', 'C': 'C6H12O_g'}, {'O': 'H2O2_g', 'H': 'H2O_g', 'C': 'C6H12_g'}]
+
+atoms_dict = {}
+
+avoid_scaling = False
+
+citation_info_written = True
+
+coefficient_maxs = [[1e+99, 1e+99, 1e+99], [1e+99, 1e+99, 1e+99], [1e+99, 0.0, 1e+99], [1e+99, 1e+99, 1e+99], [0.0, 1e+99, 1e+99], [1e+99, 1e+99, 1e+99], [1e+99, 1e+99, 1e+99], [1e+99, 1e+99, 1e+99], [1e+99, 1e+99, 1e+99]]
+
+coefficient_mins = [[0, 0, -1e+99], [0, 0, -1e+99], [0, 0.0, -1e+99], [0, 0, -1e+99], [0.0, 0, -1e+99], [0, 0, -1e+99], [0, 0, -1e+99], [0, 0, -1e+99], [0, 0, -1e+99]]
+
+coverage_headers = ['coverage', 'coadsorbate_coverage']
+
+data_file = 'scheme_B.pkl'
+
+decimal_precision = 100
+
+default_constraints = ['+', '+', None]
+
+default_interaction_constraints = None
+
+descriptor_decimal_precision = 2
+
+descriptor_dict = {'tife': [-34.66203, -8.09478], 'timn': [-33.351908, -6.20477], 'tihf': [-33.00764, -5.104086], 'tire': [-33.385886, -6.394892], 'timo': [-33.041557, -5.841733], 'tiv': [-32.754435, -5.4253345], 'tizr': [-33.006865, -10.2029605], 'tico': [-34.598087, -6.358765], 'titi': [-33.331431, -6.7639985], 'tiw': [-32.800261, -5.975055], 'tita': [-33.391759, -5.798156], 'ticr': [-33.146137, -5.9659225], 'ti': [-32.645084, -7.3209635], 'tini': [-34.070412, -7.367208]}
+
+descriptor_names = ('S3_s', 'S5_s')
+
+descriptor_ranges = [[-35.0, -32.3], [-10.6, -4.7]]
+
+echem_transition_state_names = []
+
+electrochemical_thermo_mode = 'simple_electrochemical'
+
+elementary_rxns = ([['s', 'H2O2_g'], ['S1_s']], [['S1_s'], ['S2_s']], [['S2_s', 'C6H12_g'], ['S3_s']], [['S3_s'], ['TS1_s'], ['S4_s']], [['S4_s'], ['S5_s', 'C6H12O_g']], [['S5_s'], ['TS2_s'], ['S6_s']], [['S6_s'], ['S7_s']], [['S7_s'], ['s', 'H2O_g']])
+
+estimate_frequencies = True
+
+extrapolate_coverages = False
+
+fix_x_star = False
+
+fixed_entropy_dict = {'H2_g': 0.00135, 'other': 0.002}
+
+force_recalculation = False
+
+force_recompilation = False
+
+frequency_dict = {'C6H12_g': [], 'H2O2_g': [], 'H2O_g': [], 'C6H12O_g': [], 's': [], 'S1_s': [], 'S2_s': [], 'S3_s': [], 'TS1_s': [], 'S4_s': [], 'S5_s': [], 'TS2_s': [], 'S6_s': [], 'S7_s': [], '*_s': [], 'g': [], '*_g': []}
+
+frequency_surface_names = []
+
+frequency_unit_conversion = 0.0001239842
+
+gas_names = ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')
+
+gas_pressures = [1e-20, 1.0, 0.185, 0.815]
+
+gas_thermo_mode = 'frozen_gas'
+
+hbond_dict = {'COOH': -0.25, 'OCHO': 0.0, 'CO': -0.1, 'CHO': -0.1, 'CH2O': 0.0, 'OCH3': 0.0, 'O': 0.0, 'OH': -0.5, 'H': 0.0, 'COH': -0.25, 'C': 0.0, 'CH': 0.0, 'CH2': 0.0, 'CH3': 0.0, 'CHOH': -0.25, 'COHOH': -0.25, 'OCH2O': 0.0, 'CH2OH': -0.25, 'OCHCH2': 0.0, 'OCHCHO': 0.0}
+
+hindered_ads_params = {}
+
+ideal_gas_params = {'H2_g': [2, 'linear', 0], 'N2_g': [2, 'linear', 0], 'O2_g': [2, 'linear', 1.0], 'H2O_g': [2, 'nonlinear', 0], 'CO_g': [1, 'linear', 0], 'CH4_g': [12, 'nonlinear', 0], 'NH3_g': [3, 'nonlinear', 0], 'CH3OH_g': [1, 'nonlinear', 0], 'CH3CH2OH_g': [1, 'nonlinear', 0], 'CO2_g': [2, 'linear', 0], 'CH2O_g': [2, 'nonlinear', 0], 'HCOOH_g': [1, 'nonlinear', 0], 'CH2CH2_g': [4, 'nonlinear', 0], 'CH3CHCH2_g': [1, 'nonlinear', 0], 'CH3CH2CHCH2_g': [1, 'nonlinear', 0], 'CH3CHCHCH3_g': [2, 'nonlinear', 0], 'CH3CH3CCH2_g': [2, 'nonlinear', 0], 'pe_g': [2, 'linear', 0], 'C2H2_g': [2, 'linear', 0], 'C2H4_g': [4, 'nonlinear', 0], 'C2H6_g': [6, 'nonlinear', 0], 'C3H6_g': [1, 'nonlinear', 0], 'CH3COOH_g': [1, 'nonlinear', 0], 'CH3CHO_g': [1, 'nonlinear', 0], 'C5H4O2_g': [1, 'nonlinear', 0], 'C5H6O2_g': [1, 'nonlinear', 0], 'C5H6O_g': [1, 'nonlinear', 0], 'HCl_g': [1, 'linear', 0], 'Cl2_g': [2, 'linear', 0]}
+
+input_file = 'energies.txt'
+
+interaction_fitting_mode = None
+
+interaction_surface_names = None
+
+internally_constrain_coverages = True
+
+max_bisections = 3
+
+max_damping_iterations = 10
+
+max_initial_guesses = 3
+
+max_rootfinding_iterations = 100
+
+max_self_interaction = 'Pd'
+
+model_name = 'alkene_epoxidation'
+
+numerical_representation = 'mpmath'
+
+optimize_analytical_expressions = False
+
+outer_solver_log = 'outer_solver.log'
+
+output_labels = {'coverage': ('S1_s', 'S2_s', 'S3_s', 'S4_s', 'S5_s', 'S6_s', 'S7_s'), 'rate': ([['s', 'H2O2_g'], ['S1_s']], [['S1_s'], ['S2_s']], [['S2_s', 'C6H12_g'], ['S3_s']], [['S3_s'], ['TS1_s'], ['S4_s']], [['S4_s'], ['S5_s', 'C6H12O_g']], [['S5_s'], ['TS2_s'], ['S6_s']], [['S6_s'], ['S7_s']], [['S7_s'], ['s', 'H2O_g']]), 'production_rate': ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')}
+
+output_variables = ['coverage', 'production_rate', 'rate']
+
+parameter_dict = {'S1_s': [-7.380455, -7.388237, -7.021531, -7.568681, -7.037543, -6.658334, -6.997934, -6.955033, -7.307994, -6.871939, -7.416323, -7.119452, -6.522256, -7.943978], 'S2_s': [-4.6864235, -6.3117025, -4.696802, -6.662708, -6.778473, -5.950924, -4.8067, -4.89492, -5.729775, -6.4813445, -7.6349575, -6.5755975, -3.104312, -7.9743945], 'S3_s': [-34.66203, -33.351908, -33.00764, -33.385886, -33.041557, -32.754435, -33.006865, -34.598087, -33.331431, -32.800261, -33.391759, -33.146137, -32.645084, -34.070412], 'TS1_s': [-34.502614, -33.017608, -32.775798, -32.94104, -32.903373, -32.597286, -32.729458, -34.041743, -33.036814, -33.366912, -34.566395, -32.625732, -32.451521, -33.553242], 'S4_s': [-36.841013, -35.502875, -35.419399, -35.313318, -34.989943, -34.942029, -35.358885, -34.837773, -35.74312, -35.476045, -35.844296, -35.403996, -35.080784, -35.991633], 'S5_s': [-8.09478, -6.20477, -5.104086, -6.394892, -5.841733, -5.4253345, -10.2029605, -6.358765, -6.7639985, -5.975055, -5.798156, -5.9659225, -7.3209635, -7.367208], 'TS2_s': [-7.9217985, -6.0150555, -4.880121, -6.177019, -5.854553, -5.4500115, -10.1417775, -6.132771, -6.6078115, -5.866817, -5.782189, -6.159078, -7.0438925, -7.3341005], 'S6_s': [-8.711846, -7.500589, -7.369564, -7.207727, -7.616676, -6.910664, -7.321842, -6.839345, -8.198049, -7.378142, -7.810579, -7.404774, -6.915569, -7.941617], 'S7_s': [-7.4848045, -7.664046, -7.729881, -7.7673405, -7.885157, -7.5649025, -7.735199, -6.562752, -8.5669295, -7.8772185, -7.943637, -7.8122415, -7.4256215, -8.018426]}
+
+parameter_mode = 'formation_energy'
+
+parameter_names = ('S1_s', 'S2_s', 'S3_s', 'S4_s', 'S5_s', 'S6_s', 'S7_s', 'TS1_s', 'TS2_s')
+
+parse_headers = ['formation_energy', 'frequencies']
+
+perturbation_size = 1e-14
+
+prefactor_list = ['kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h']
+
+pressure_mode = 'static'
+
+required_headers = ['species_name', 'surface_name', 'site_name', 'formation_energy', 'frequencies', 'reference']
+
+residual_threshold = 0.9
+
+resolution = [20, 20]
+
+rxn_expressions = ['* + H2O2_g <-> S1*', 'S1* -> S2*', 'S2* + C6H12_g <-> S3*', 'S3* <-> TS1* -> S4*', 'S4* <-> S5* + C6H12O_g', 'S5* <-> TS2* -> S6*', 'S6* -> S7*', 'S7* <-> * + H2O_g']
+
+rxn_options_dict = {'prefactor': {}, 'beta': {}}
+
+scaling_constraint_dict = {'S3_s': ['+', 0, None], 'S5_s': [0, '+', None]}
+
+search_directions = [[0, 0], [0, 1], [1, 0], [0, -1], [-1, 0], [-1, 1], [1, 1], [1, -1], [-1, -1]]
+
+setup_file = 'alkene_epoxidation.mkm'
+
+shomate_params = {'H2_g:298-1000': [33.066178, -11.363417, 11.432816, -2.772874, -0.158558, -9.980797, 172.707974, 0], 'H2_g:1000-2500': [18.563083, 12.257357, -2.859786, 0.268238, 1.97799, -1.147438, 156.288133, 0], 'H2_g:2500-6000': [43.41356, -4.293079, 1.272428, -0.096876, -20.533862, -38.515158, 162.081354, 0], 'CH4_g:298-1300': [-0.703029, 108.4773, -42.52157, 5.862788, 0.678565, -76.84376, 158.7163, -74.8731], 'CH4_g:1300-1600': [85.81217, 11.26467, -2.114146, 0.13819, -26.42221, -153.5327, 224.4143, -74.8731], 'CO_g:298-1300': [25.56759, 6.09613, 4.054656, -2.671201, 0.131021, -118.0089, 227.3665, -110.5271], 'CO_g:1300-1600': [35.1507, 1.300095, -0.205921, 0.01355, -3.28278, -127.8375, 231.712, -110.5271], 'H2O_g:100-500': [36.303952, -24.11232, 63.64111, -38.9524, -0.01385, -10.23966, 237.39431, 0.0], 'H2O_g:500-1700': [30.092, 6.832514, 6.793435, -2.53448, 0.082139, -250.881, 223.3967, -241.8264], 'H2O_g:1700-6000': [41.96426, 8.622053, -1.49978, 0.098119, -11.15764, -272.1797, 219.7809, -241.8264], 'CO2_g:298-1200': [24.99735, 55.18696, -33.69137, 7.948387, -0.136638, -403.6075, 228.2431, -393.5224], 'CO2_g:1200-6000': [58.16639, 2.720075, -0.492289, 0.038844, -6.447293, -425.9186, 263.6125, -393.5224], 'O2_g:100-700': [31.32234, -20.23531, 57.8664, -36.50624, -0.007374, -8.903471, 246.7945, 0.0], 'O2_g:700-2000': [30.03235, 8.772972, -3.988133, 0.788313, -0.741599, -11.32468, 236.1663, 0.0], 'O2_g:2000-6000': [20.91111, 10.72071, -2.020498, 0.146449, 9.245722, 5.337651, 237.6185, 0.0], 'NH3_g:298-1400': [19.99563, 49.77119, -15.37599, 1.921168, 0.189174, -53.30667, 203.8591, -45.89806], 'N2_g:100-500': [28.98641, 1.853978, -9.647459, 16.63537, 0.000117, -8.671914, 226.4168, 0.0], 'N2_g:500-2000': [19.50583, 19.88705, -8.598535, 1.369784, 0.527601, -4.935202, 212.39, 0.0], 'N2O_g:298-1400': [27.67988, 51.14898, -30.64454, 6.847911, -0.157906, 71.24934, 238.6164, 82.04824], 'NO2_g:298-1200': [16.10857, 75.89525, -54.3874, 14.30777, 0.239423, 26.17464, 240.5386, 33.09502], 'NO_g:298-1200': [23.83491, 12.58878, -1.139011, -1.497459, 0.214194, 83.35783, 237.1219, 90.29114], 'NO3_g:298-1200': [11.22316, 166.3889, -148.4458, 47.40598, -0.176791, 61.00858, 221.7679, 71.128], 'HNO2_g:298-1200': [24.89974, 91.37563, -64.84614, 17.92007, -0.134737, -88.13596, 254.2671, -76.73498], 'HNO3_g:298-1200': [19.63229, 153.9599, -115.8378, 32.87955, -0.249114, -146.8818, 247.7049, -134.306], 'HCN_g:298-1200': [32.69373, 22.59205, -4.369142, -0.407697, -0.282399, 123.4811, 233.2597, 135.1432], 'CH2CH2_g:298-1200': [-6.38788, 184.4019, -112.9718, 28.49593, 0.31554, 48.17332, 163.1568, 52.46694], 'CH2O_g:298-1500': [5.193767, 93.23249, -44.85457, 7.882279, 0.551175, -119.3591, 202.4663, -115.8972], 'CH3OH_g:298-1500': [-1.0845814245433651, 153.2463565199489, -79.53050359618254, 16.47130239316011, 0.5220334601533215, -4.897417024069, 199.1893745506112, 0.0], 'C5H4O2_g:100-1500': [-16.36694, 0.46958, -0.000331925, 8.50912e-08, 198590.9145, -1661.34999, -15.68938, 12461.34999], 'C5H6O2_g:100-1500': [-18.57626, 0.50733, -0.000335824, 8.28263e-08, 231619.2141, -6357.53523, 2.75692, 7057.53523], 'C5H6O_g:50-1500': [1.26847, 0.35388, -0.000173962, 2.87427e-08, 48401.71207, -5691.94893, -85.38991, 7191.94893], 'Cl2_g:298-1000': [33.0506, 12.2294, -12.0651, 4.38533, -0.159494, -10.8348, 259.029, 0.0], 'HCl_g:298-1200': [32.12392, -13.45805, 19.86852, -6.853936, -0.049672, -101.6206, 228.6866, -92.31201], 'CH3CH2OH_g:298-1500': [-4.7367880805894265, 271.96181550301463, -169.34946529216657, 43.73860153608533, 0.24643430702178773, -9.828280829187861, 203.3325622617075, 0.0], 'CH3CHO_g:298-1500': [4.8037386340099095, 185.92002366990326, -99.1084610902012, 20.61473919069016, 0.2770802548558646, -8.566600040790945, 220.00244674443837, 0.0], 'HCOOH_g:298-1500': [3.802752304225226, 153.66217894746168, -84.64046773816926, 16.297377707561505, 0.2772064997263338, -6.16527, 212.9698972559699, 0]}
+
+site_names = ('s', 'g')
+
+standard_coadsorbate_coverage = 'min'
+
+standard_coverage = 'min'
+
+state = 'S7_s'
+
+surface_names = ('tife', 'timn', 'tihf', 'tire', 'timo', 'tiv', 'tizr', 'tico', 'titi', 'tiw', 'tita', 'ticr', 'ti', 'tini')
+
+temperature = 333.15
+
+thermodynamic_corrections = ['gas', 'adsorbate']
+
+thermodynamic_variables = ['temperature', 'gas_pressures', 'voltage', 'beta', 'pH', 'Upzc', 'gas_thermo_mode', 'adsorbate_thermo_mode']
+
+tolerance = 1e-50
+
+transition_state_cross_interaction_mode = 'transition_state_scaling'
+
+transition_state_names = ('TS1_s', 'TS2_s')
+
+transition_state_scaling_coefficients = [[np.float64(0.820951113410213), np.float64(-5.826179897471054)], [np.float64(0.9883951508603623), np.float64(0.026748776094914113)]]
+
+transition_state_scaling_mode = 'initial_state'
+
+transition_state_scaling_parameters = {}
+
+use_numbers_solver = True
+
+verbose = 1
+
+stdout = """mapper_iteration_0: status - 400 points do not have valid solution.
+minresid_iteration_0: success - [-32.30,-4.70] using coverages from [-32.30,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.841784078772223e-29)
+minresid_iteration_0: fail - [-32.30,-5.01] using coverages from [-32.30,-5.01]; initial residual was 4.0404025022291585e+25 (residual = 3.841784078772223e-29)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.9250512805901856e-24)
+minresid_iteration_1: fail - [-32.30,-5.01] using coverages from [-32.30,-4.70]; initial residual was 1.9250512805901856e-24 (residual = 1.9250512805901856e-24)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.9250512805901856e-24)
+bisection_iteration_1: fail - move from [-32.30,-4.70] to [-32.30,-5.01]
+bisection_iteration_2: success - moved from [-32.30,-4.70] to [-32.30,-4.86]
+bisection_iteration_1: success - moved from [-32.30,-4.86] to [-32.30,-5.01]
+minresid_iteration_0: success - [-32.30,-5.01] using coverages from [np.float64(-32.3), np.float64(-4.7)]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.009558333530427e-30)
+minresid_iteration_0: fail - [-32.30,-5.32] using coverages from [-32.30,-5.32]; initial residual was 4.04051111840616e+25 (residual = 6.009558333530427e-30)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.6258475138971203e-15)
+minresid_iteration_1: fail - [-32.30,-5.32] using coverages from [-32.30,-5.01]; initial residual was 2.6258475138971203e-15 (residual = 2.6258475138971203e-15)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.6258475138971203e-15)
+bisection_iteration_1: fail - move from [-32.30,-5.01] to [-32.30,-5.32]
+bisection_iteration_2: success - moved from [-32.30,-5.01] to [-32.30,-5.17]
+bisection_iteration_1: success - moved from [-32.30,-5.17] to [-32.30,-5.32]
+minresid_iteration_0: success - [-32.30,-5.32] using coverages from [np.float64(-32.3), np.float64(-5.010526315789474)]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.607139273560774e-26)
+minresid_iteration_0: fail - [-32.30,-5.63] using coverages from [-32.30,-5.63]; initial residual was 4.040659716812846e+25 (residual = 4.607139273560774e-26)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.581747589165143e-06)
+minresid_iteration_1: fail - [-32.30,-5.63] using coverages from [-32.30,-5.32]; initial residual was 3.581747589165143e-06 (residual = 3.581747589165143e-06)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.581747589165143e-06)
+bisection_iteration_1: fail - move from [-32.30,-5.32] to [-32.30,-5.63]
+bisection_iteration_2: success - moved from [-32.30,-5.32] to [-32.30,-5.48]
+bisection_iteration_1: success - moved from [-32.30,-5.48] to [-32.30,-5.63]
+minresid_iteration_0: success - [-32.30,-5.63] using coverages from [np.float64(-32.3), np.float64(-5.321052631578947)]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.7900527459354625e-17)
+minresid_iteration_0: fail - [-32.30,-5.94] using coverages from [-32.30,-5.94]; initial residual was 4.040863246935455e+25 (residual = 1.7900527459354625e-17)
+minresid_iteration_1: success - [-32.30,-5.94] using coverages from [-32.30,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.955192849305998e-09)
+minresid_iteration_0: fail - [-32.30,-6.25] using coverages from [-32.30,-6.25]; initial residual was 4.041150216146848e+25 (residual = 6.955192849305998e-09)
+minresid_iteration_1: success - [-32.30,-6.25] using coverages from [-32.30,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.7024179975075304)
+minresid_iteration_0: fail - [-32.30,-6.56] using coverages from [-32.30,-6.56]; initial residual was 8.183828964549801e+28 (residual = 2.7024179975075304)
+minresid_iteration_1: success - [-32.30,-6.56] using coverages from [-32.30,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1050015893.3740168)
+minresid_iteration_0: fail - [-32.30,-6.87] using coverages from [-32.30,-6.87]; initial residual was 8.03590607905242e+37 (residual = 1050015893.3740168)
+minresid_iteration_1: success - [-32.30,-6.87] using coverages from [-32.30,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.0798032626888704e+17)
+minresid_iteration_0: fail - [-32.30,-7.18] using coverages from [-32.30,-7.18]; initial residual was 7.894555522752689e+46 (residual = 4.0798032626888704e+17)
+minresid_iteration_1: success - [-32.30,-7.18] using coverages from [-32.30,-6.87]
+minresid_iteration_0: success - [-32.30,-7.49] using coverages from [-32.30,-7.49]
+minresid_iteration_0: success - [-32.30,-7.81] using coverages from [-32.30,-7.81]
+minresid_iteration_0: success - [-32.30,-8.12] using coverages from [-32.30,-8.12]
+minresid_iteration_0: success - [-32.30,-8.43] using coverages from [-32.30,-8.43]
+minresid_iteration_0: success - [-32.30,-8.74] using coverages from [-32.30,-8.74]
+minresid_iteration_0: success - [-32.30,-9.05] using coverages from [-32.30,-9.05]
+minresid_iteration_0: success - [-32.30,-9.36] using coverages from [-32.30,-9.36]
+minresid_iteration_0: success - [-32.30,-9.67] using coverages from [-32.30,-9.67]
+minresid_iteration_0: success - [-32.30,-9.98] using coverages from [-32.30,-9.98]
+minresid_iteration_0: success - [-32.30,-10.29] using coverages from [-32.30,-10.29]
+minresid_iteration_0: success - [-32.30,-10.60] using coverages from [-32.30,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.060525350911417e-30)
+minresid_iteration_0: fail - [-32.44,-4.70] using coverages from [-32.44,-4.70]; initial residual was 4.022255111965126e+25 (residual = 6.060525350911417e-30)
+minresid_iteration_1: success - [-32.44,-4.70] using coverages from [-32.30,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.480064802750716e-31)
+minresid_iteration_0: fail - [-32.44,-5.01] using coverages from [-32.44,-5.01]; initial residual was 4.022443010337634e+25 (residual = 9.480064802750716e-31)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.6519386998512297e-25)
+minresid_iteration_1: fail - [-32.44,-5.01] using coverages from [-32.44,-4.70]; initial residual was 3.6519386998512297e-25 (residual = 3.6519386998512297e-25)
+minresid_iteration_2: success - [-32.44,-5.01] using coverages from [-32.30,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.483964320350499e-31)
+minresid_iteration_0: fail - [-32.44,-5.32] using coverages from [-32.44,-5.32]; initial residual was 4.0227003735370855e+25 (residual = 1.483964320350499e-31)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.981391534304573e-16)
+minresid_iteration_1: fail - [-32.44,-5.32] using coverages from [-32.44,-5.01]; initial residual was 4.981391534304573e-16 (residual = 4.981391534304573e-16)
+minresid_iteration_2: success - [-32.44,-5.32] using coverages from [-32.30,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.1372895776871989e-27)
+minresid_iteration_0: fail - [-32.44,-5.63] using coverages from [-32.44,-5.63]; initial residual was 4.02305250082485e+25 (residual = 1.1372895776871989e-27)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.794816681196604e-07)
+minresid_iteration_1: fail - [-32.44,-5.63] using coverages from [-32.44,-5.32]; initial residual was 6.794816681196604e-07 (residual = 6.794816681196604e-07)
+minresid_iteration_2: success - [-32.44,-5.63] using coverages from [-32.30,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.418812189246093e-19)
+minresid_iteration_0: fail - [-32.44,-5.94] using coverages from [-32.44,-5.94]; initial residual was 4.023534848529938e+25 (residual = 4.418812189246093e-19)
+minresid_iteration_1: success - [-32.44,-5.94] using coverages from [-32.44,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.7169153820106856e-10)
+minresid_iteration_0: fail - [-32.44,-6.25] using coverages from [-32.44,-6.25]; initial residual was 4.024196607294309e+25 (residual = 1.7169153820106856e-10)
+minresid_iteration_1: success - [-32.44,-6.25] using coverages from [-32.44,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.06671019954545421)
+minresid_iteration_0: fail - [-32.44,-6.56] using coverages from [-32.44,-6.56]; initial residual was 1.2890573526552252e+28 (residual = 0.06671019954545421)
+minresid_iteration_1: success - [-32.44,-6.56] using coverages from [-32.44,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 25920035.25638296)
+minresid_iteration_0: fail - [-32.44,-6.87] using coverages from [-32.44,-6.87]; initial residual was 1.2624289298030594e+37 (residual = 25920035.25638296)
+minresid_iteration_1: success - [-32.44,-6.87] using coverages from [-32.44,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.007114702503666e+16)
+minresid_iteration_0: fail - [-32.44,-7.18] using coverages from [-32.44,-7.18]; initial residual was 1.2402229669986098e+46 (residual = 1.007114702503666e+16)
+minresid_iteration_1: success - [-32.44,-7.18] using coverages from [-32.44,-6.87]
+minresid_iteration_0: success - [-32.44,-7.49] using coverages from [-32.44,-7.49]
+minresid_iteration_0: success - [-32.44,-7.81] using coverages from [-32.44,-7.81]
+minresid_iteration_0: success - [-32.44,-8.12] using coverages from [-32.44,-8.12]
+minresid_iteration_0: success - [-32.44,-8.43] using coverages from [-32.44,-8.43]
+minresid_iteration_0: success - [-32.44,-8.74] using coverages from [-32.44,-8.74]
+minresid_iteration_0: success - [-32.44,-9.05] using coverages from [-32.44,-9.05]
+minresid_iteration_0: success - [-32.44,-9.36] using coverages from [-32.44,-9.36]
+minresid_iteration_0: success - [-32.44,-9.67] using coverages from [-32.44,-9.67]
+minresid_iteration_0: success - [-32.44,-9.98] using coverages from [-32.44,-9.98]
+minresid_iteration_0: success - [-32.44,-10.29] using coverages from [-32.44,-10.29]
+minresid_iteration_0: success - [-32.44,-10.60] using coverages from [-32.44,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.4971428567527597e-31)
+minresid_iteration_0: fail - [-32.58,-4.70] using coverages from [-32.58,-4.70]; initial residual was 3.983518325543691e+25 (residual = 1.4971428567527597e-31)
+minresid_iteration_1: success - [-32.58,-4.70] using coverages from [-32.44,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.3418780516134265e-32)
+minresid_iteration_0: fail - [-32.58,-5.01] using coverages from [-32.58,-5.01]; initial residual was 3.983963824411999e+25 (residual = 2.3418780516134265e-32)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.92794861451211e-26)
+minresid_iteration_1: fail - [-32.58,-5.01] using coverages from [-32.58,-4.70]; initial residual was 6.92794861451211e-26 (residual = 6.92794861451211e-26)
+minresid_iteration_2: success - [-32.58,-5.01] using coverages from [-32.44,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.663311725575176e-33)
+minresid_iteration_0: fail - [-32.58,-5.32] using coverages from [-32.58,-5.32]; initial residual was 3.9845738149256075e+25 (residual = 3.663311725575176e-33)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.450001047531526e-17)
+minresid_iteration_1: fail - [-32.58,-5.32] using coverages from [-32.58,-5.01]; initial residual was 9.450001047531526e-17 (residual = 9.450001047531526e-17)
+minresid_iteration_2: success - [-32.58,-5.32] using coverages from [-32.44,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.807441922594444e-29)
+minresid_iteration_0: fail - [-32.58,-5.63] using coverages from [-32.58,-5.63]; initial residual was 3.985408563732012e+25 (residual = 2.807441922594444e-29)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2890181904371567e-07)
+minresid_iteration_1: fail - [-32.58,-5.63] using coverages from [-32.58,-5.32]; initial residual was 1.2890181904371567e-07 (residual = 1.2890181904371567e-07)
+minresid_iteration_2: success - [-32.58,-5.63] using coverages from [-32.44,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0908003246360296e-20)
+minresid_iteration_0: fail - [-32.58,-5.94] using coverages from [-32.58,-5.94]; initial residual was 3.98655229797511e+25 (residual = 1.0908003246360296e-20)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 175.74437878172722)
+minresid_iteration_1: fail - [-32.58,-5.94] using coverages from [-32.58,-5.63]; initial residual was 175.74437878172722 (residual = 175.74437878172722)
+minresid_iteration_2: success - [-32.58,-5.94] using coverages from [-32.44,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.2382698695084725e-12)
+minresid_iteration_0: fail - [-32.58,-6.25] using coverages from [-32.58,-6.25]; initial residual was 3.988119079089502e+25 (residual = 4.2382698695084725e-12)
+minresid_iteration_1: success - [-32.58,-6.25] using coverages from [-32.58,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.0016467662395294254)
+minresid_iteration_0: fail - [-32.58,-6.56] using coverages from [-32.58,-6.56]; initial residual was 2.0593646353478371e+27 (residual = 0.0016467662395294254)
+minresid_iteration_1: success - [-32.58,-6.56] using coverages from [-32.58,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 639845.7698892087)
+minresid_iteration_0: fail - [-32.58,-6.87] using coverages from [-32.58,-6.87]; initial residual was 1.9832571298823056e+36 (residual = 639845.7698892087)
+minresid_iteration_1: success - [-32.58,-6.87] using coverages from [-32.58,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 248610033056120.88)
+minresid_iteration_0: fail - [-32.58,-7.18] using coverages from [-32.58,-7.18]; initial residual was 1.9483718917911302e+45 (residual = 248610033056120.88)
+minresid_iteration_1: success - [-32.58,-7.18] using coverages from [-32.58,-6.87]
+minresid_iteration_0: success - [-32.58,-7.49] using coverages from [-32.58,-7.49]
+minresid_iteration_0: success - [-32.58,-7.81] using coverages from [-32.58,-7.81]
+minresid_iteration_0: success - [-32.58,-8.12] using coverages from [-32.58,-8.12]
+minresid_iteration_0: success - [-32.58,-8.43] using coverages from [-32.58,-8.43]
+minresid_iteration_0: success - [-32.58,-8.74] using coverages from [-32.58,-8.74]
+minresid_iteration_0: success - [-32.58,-9.05] using coverages from [-32.58,-9.05]
+minresid_iteration_0: success - [-32.58,-9.36] using coverages from [-32.58,-9.36]
+minresid_iteration_0: success - [-32.58,-9.67] using coverages from [-32.58,-9.67]
+minresid_iteration_0: success - [-32.58,-9.98] using coverages from [-32.58,-9.98]
+minresid_iteration_0: success - [-32.58,-10.29] using coverages from [-32.58,-10.29]
+minresid_iteration_0: success - [-32.58,-10.60] using coverages from [-32.58,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.705424899829753e-33)
+minresid_iteration_0: fail - [-32.73,-4.70] using coverages from [-32.73,-4.70]; initial residual was 3.902192782205776e+25 (residual = 3.705424899829753e-33)
+minresid_iteration_1: success - [-32.73,-4.70] using coverages from [-32.58,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.796142435316042e-34)
+minresid_iteration_0: fail - [-32.73,-5.01] using coverages from [-32.73,-5.01]; initial residual was 3.903249066206718e+25 (residual = 5.796142435316042e-34)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.314273760068534e-26)
+minresid_iteration_1: fail - [-32.73,-5.01] using coverages from [-32.73,-4.70]; initial residual was 1.314273760068534e-26 (residual = 1.314273760068534e-26)
+minresid_iteration_2: success - [-32.73,-5.01] using coverages from [-32.58,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.066687067407705e-35)
+minresid_iteration_0: fail - [-32.73,-5.32] using coverages from [-32.73,-5.32]; initial residual was 3.904695820006009e+25 (residual = 9.066687067407705e-35)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.792722358593062e-17)
+minresid_iteration_1: fail - [-32.73,-5.32] using coverages from [-32.73,-5.01]; initial residual was 1.792722358593062e-17 (residual = 1.792722358593062e-17)
+minresid_iteration_2: success - [-32.73,-5.32] using coverages from [-32.58,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.930275715341038e-31)
+minresid_iteration_0: fail - [-32.73,-5.63] using coverages from [-32.73,-5.63]; initial residual was 3.90667650378175e+25 (residual = 6.930275715341038e-31)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.445345529599742e-08)
+minresid_iteration_1: fail - [-32.73,-5.63] using coverages from [-32.73,-5.32]; initial residual was 2.445345529599742e-08 (residual = 2.445345529599742e-08)
+minresid_iteration_2: success - [-32.73,-5.63] using coverages from [-32.58,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.692681420410537e-22)
+minresid_iteration_0: fail - [-32.73,-5.94] using coverages from [-32.73,-5.94]; initial residual was 3.909391949848132e+25 (residual = 2.692681420410537e-22)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 33.354277443573686)
+minresid_iteration_1: fail - [-32.73,-5.94] using coverages from [-32.73,-5.63]; initial residual was 33.354277443573686 (residual = 33.354277443573686)
+minresid_iteration_2: success - [-32.73,-5.94] using coverages from [-32.58,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0462327773984878e-13)
+minresid_iteration_0: fail - [-32.73,-6.25] using coverages from [-32.73,-6.25]; initial residual was 3.913111941327054e+25 (residual = 1.0462327773984878e-13)
+minresid_iteration_1: success - [-32.73,-6.25] using coverages from [-32.73,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.065104086231171e-05)
+minresid_iteration_0: fail - [-32.73,-6.56] using coverages from [-32.73,-6.56]; initial residual was 3.564218447664884e+26 (residual = 4.065104086231171e-05)
+minresid_iteration_1: success - [-32.73,-6.56] using coverages from [-32.73,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 15794.832267618123)
+minresid_iteration_0: fail - [-32.73,-6.87] using coverages from [-32.73,-6.87]; initial residual was 3.1167530007042128e+35 (residual = 15794.832267618123)
+minresid_iteration_1: success - [-32.73,-6.87] using coverages from [-32.73,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6137031698823.852)
+minresid_iteration_0: fail - [-32.73,-7.18] using coverages from [-32.73,-7.18]; initial residual was 3.0619297201219003e+44 (residual = 6137031698823.852)
+minresid_iteration_1: success - [-32.73,-7.18] using coverages from [-32.73,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.3845240920718186e+21)
+minresid_iteration_0: fail - [-32.73,-7.49] using coverages from [-32.73,-7.49]; initial residual was 3.007023159161427e+53 (residual = 2.3845240920718186e+21)
+minresid_iteration_1: success - [-32.73,-7.49] using coverages from [-32.73,-7.18]
+minresid_iteration_0: success - [-32.73,-7.81] using coverages from [-32.73,-7.81]
+minresid_iteration_0: success - [-32.73,-8.12] using coverages from [-32.73,-8.12]
+minresid_iteration_0: success - [-32.73,-8.43] using coverages from [-32.73,-8.43]
+minresid_iteration_0: success - [-32.73,-8.74] using coverages from [-32.73,-8.74]
+minresid_iteration_0: success - [-32.73,-9.05] using coverages from [-32.73,-9.05]
+minresid_iteration_0: success - [-32.73,-9.36] using coverages from [-32.73,-9.36]
+minresid_iteration_0: success - [-32.73,-9.67] using coverages from [-32.73,-9.67]
+minresid_iteration_0: success - [-32.73,-9.98] using coverages from [-32.73,-9.98]
+minresid_iteration_0: success - [-32.73,-10.29] using coverages from [-32.73,-10.29]
+minresid_iteration_0: success - [-32.73,-10.60] using coverages from [-32.73,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.248264975262811e-35)
+minresid_iteration_0: fail - [-32.87,-4.70] using coverages from [-32.87,-4.70]; initial residual was 3.739583269481073e+25 (residual = 9.248264975262811e-35)
+minresid_iteration_1: success - [-32.87,-4.70] using coverages from [-32.73,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.446642759851613e-35)
+minresid_iteration_0: fail - [-32.87,-5.01] using coverages from [-32.87,-5.01]; initial residual was 3.742090672118415e+25 (residual = 1.446642759851613e-35)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.4932568306295622e-27)
+minresid_iteration_1: fail - [-32.87,-5.01] using coverages from [-32.87,-4.70]; initial residual was 2.4932568306295622e-27 (residual = 2.4932568306295622e-27)
+minresid_iteration_2: success - [-32.87,-5.01] using coverages from [-32.73,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.264505227302135e-36)
+minresid_iteration_0: fail - [-32.87,-5.32] using coverages from [-32.87,-5.32]; initial residual was 3.7455275338757743e+25 (residual = 2.264505227302135e-36)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.4009027499951897e-18)
+minresid_iteration_1: fail - [-32.87,-5.32] using coverages from [-32.87,-5.01]; initial residual was 3.4009027499951897e-18 (residual = 3.4009027499951897e-18)
+minresid_iteration_2: success - [-32.87,-5.32] using coverages from [-32.73,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.7107649065751078e-32)
+minresid_iteration_0: fail - [-32.87,-5.63] using coverages from [-32.87,-5.63]; initial residual was 3.750237572921915e+25 (residual = 1.7107649065751078e-32)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.638968388320334e-09)
+minresid_iteration_1: fail - [-32.87,-5.63] using coverages from [-32.87,-5.32]; initial residual was 4.638968388320334e-09 (residual = 4.638968388320334e-09)
+minresid_iteration_2: success - [-32.87,-5.63] using coverages from [-32.73,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.64698484962719e-24)
+minresid_iteration_0: fail - [-32.87,-5.94] using coverages from [-32.87,-5.94]; initial residual was 3.7567038340056466e+25 (residual = 6.64698484962719e-24)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.327721830119787)
+minresid_iteration_1: fail - [-32.87,-5.94] using coverages from [-32.87,-5.63]; initial residual was 6.327721830119787 (residual = 6.327721830119787)
+minresid_iteration_2: success - [-32.87,-5.94] using coverages from [-32.73,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.582664762284e-15)
+minresid_iteration_0: fail - [-32.87,-6.25] using coverages from [-32.87,-6.25]; initial residual was 3.7655788955121054e+25 (residual = 2.582664762284e-15)
+minresid_iteration_1: success - [-32.87,-6.25] using coverages from [-32.87,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0034861557895136e-06)
+minresid_iteration_0: fail - [-32.87,-6.56] using coverages from [-32.87,-6.56]; initial residual was 8.75870337178142e+25 (residual = 1.0034861557895136e-06)
+minresid_iteration_1: success - [-32.87,-6.56] using coverages from [-32.87,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 389.90134514038954)
+minresid_iteration_0: fail - [-32.87,-6.87] using coverages from [-32.87,-6.87]; initial residual was 4.8963726636607e+34 (residual = 389.90134514038954)
+minresid_iteration_1: success - [-32.87,-6.87] using coverages from [-32.87,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 151494924035.7759)
+minresid_iteration_0: fail - [-32.87,-7.18] using coverages from [-32.87,-7.18]; initial residual was 4.810246189650308e+43 (residual = 151494924035.7759)
+minresid_iteration_1: success - [-32.87,-7.18] using coverages from [-32.87,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.886286953009044e+19)
+minresid_iteration_0: fail - [-32.87,-7.49] using coverages from [-32.87,-7.49]; initial residual was 4.7256345767067466e+52 (residual = 5.886286953009044e+19)
+minresid_iteration_1: success - [-32.87,-7.49] using coverages from [-32.87,-7.18]
+minresid_iteration_0: success - [-32.87,-7.81] using coverages from [-32.87,-7.81]
+minresid_iteration_0: success - [-32.87,-8.12] using coverages from [-32.87,-8.12]
+minresid_iteration_0: success - [-32.87,-8.43] using coverages from [-32.87,-8.43]
+minresid_iteration_0: success - [-32.87,-8.74] using coverages from [-32.87,-8.74]
+minresid_iteration_0: success - [-32.87,-9.05] using coverages from [-32.87,-9.05]
+minresid_iteration_0: success - [-32.87,-9.36] using coverages from [-32.87,-9.36]
+minresid_iteration_0: success - [-32.87,-9.67] using coverages from [-32.87,-9.67]
+minresid_iteration_0: success - [-32.87,-9.98] using coverages from [-32.87,-9.98]
+minresid_iteration_0: success - [-32.87,-10.29] using coverages from [-32.87,-10.29]
+minresid_iteration_0: success - [-32.87,-10.60] using coverages from [-32.87,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.4158692362512024e-36)
+minresid_iteration_0: fail - [-33.01,-4.70] using coverages from [-33.01,-4.70]; initial residual was 3.452551997544325e+25 (residual = 2.4158692362512024e-36)
+minresid_iteration_1: success - [-33.01,-4.70] using coverages from [-32.87,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.778978795471522e-37)
+minresid_iteration_0: fail - [-33.01,-5.01] using coverages from [-33.01,-5.01]; initial residual was 3.4585205040929393e+25 (residual = 3.778978795471522e-37)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.729859061668141e-28)
+minresid_iteration_1: fail - [-33.01,-5.01] using coverages from [-33.01,-4.70]; initial residual was 4.729859061668141e-28 (residual = 4.729859061668141e-28)
+minresid_iteration_2: success - [-33.01,-5.01] using coverages from [-32.87,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.911306341462842e-38)
+minresid_iteration_0: fail - [-33.01,-5.32] using coverages from [-33.01,-5.32]; initial residual was 3.4667157619615986e+25 (residual = 5.911306341462842e-38)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.45171822590689e-19)
+minresid_iteration_1: fail - [-33.01,-5.32] using coverages from [-33.01,-5.01]; initial residual was 6.45171822590689e-19 (residual = 6.45171822590689e-19)
+minresid_iteration_2: success - [-33.01,-5.32] using coverages from [-32.87,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.223092278467061e-34)
+minresid_iteration_0: fail - [-33.01,-5.63] using coverages from [-33.01,-5.63]; initial residual was 3.477973620132096e+25 (residual = 4.223092278467061e-34)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.800403629403284e-10)
+minresid_iteration_1: fail - [-33.01,-5.63] using coverages from [-33.01,-5.32]; initial residual was 8.800403629403284e-10 (residual = 8.800403629403284e-10)
+minresid_iteration_2: success - [-33.01,-5.63] using coverages from [-32.87,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.6408330839389395e-25)
+minresid_iteration_0: fail - [-33.01,-5.94] using coverages from [-33.01,-5.94]; initial residual was 3.4934789907765873e+25 (residual = 1.6408330839389395e-25)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2004102512187664)
+minresid_iteration_1: fail - [-33.01,-5.94] using coverages from [-33.01,-5.63]; initial residual was 1.2004102512187664 (residual = 1.2004102512187664)
+minresid_iteration_2: success - [-33.01,-5.94] using coverages from [-32.87,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.375404612087535e-17)
+minresid_iteration_0: fail - [-33.01,-6.25] using coverages from [-33.01,-6.25]; initial residual was 3.5148530654629276e+25 (residual = 6.375404612087535e-17)
+minresid_iteration_1: success - [-33.01,-6.25] using coverages from [-33.01,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.4771431272127865e-08)
+minresid_iteration_0: fail - [-33.01,-6.56] using coverages from [-33.01,-6.56]; initial residual was 4.321617923827818e+25 (residual = 2.4771431272127865e-08)
+minresid_iteration_1: success - [-33.01,-6.56] using coverages from [-33.01,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.624860610514757)
+minresid_iteration_0: fail - [-33.01,-6.87] using coverages from [-33.01,-6.87]; initial residual was 7.692127135243302e+33 (residual = 9.624860610514757)
+minresid_iteration_1: success - [-33.01,-6.87] using coverages from [-33.01,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3739708891.0269055)
+minresid_iteration_0: fail - [-33.01,-7.18] using coverages from [-33.01,-7.18]; initial residual was 7.556825440124702e+42 (residual = 3739708891.0269055)
+minresid_iteration_1: success - [-33.01,-7.18] using coverages from [-33.01,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.4530519615359703e+18)
+minresid_iteration_0: fail - [-33.01,-7.49] using coverages from [-33.01,-7.49]; initial residual was 7.423901850817486e+51 (residual = 1.4530519615359703e+18)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.479482220277054e+16)
+minresid_iteration_1: fail - [-33.01,-7.49] using coverages from [-33.01,-7.18]; initial residual was 4.479482220277054e+16 (residual = 4.479482220277054e+16)
+minresid_iteration_2: success - [-33.01,-7.49] using coverages from [-32.87,-7.49]
+minresid_iteration_0: success - [-33.01,-7.81] using coverages from [-33.01,-7.81]
+minresid_iteration_0: success - [-33.01,-8.12] using coverages from [-33.01,-8.12]
+minresid_iteration_0: success - [-33.01,-8.43] using coverages from [-33.01,-8.43]
+minresid_iteration_0: success - [-33.01,-8.74] using coverages from [-33.01,-8.74]
+minresid_iteration_0: success - [-33.01,-9.05] using coverages from [-33.01,-9.05]
+minresid_iteration_0: success - [-33.01,-9.36] using coverages from [-33.01,-9.36]
+minresid_iteration_0: success - [-33.01,-9.67] using coverages from [-33.01,-9.67]
+minresid_iteration_0: success - [-33.01,-9.98] using coverages from [-33.01,-9.98]
+minresid_iteration_0: success - [-33.01,-10.29] using coverages from [-33.01,-10.29]
+minresid_iteration_0: success - [-33.01,-10.60] using coverages from [-33.01,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 7.974392587352294e-38)
+minresid_iteration_0: fail - [-33.15,-4.70] using coverages from [-33.15,-4.70]; initial residual was 3.122487436371272e+25 (residual = 7.974392587352294e-38)
+minresid_iteration_1: success - [-33.15,-4.70] using coverages from [-33.01,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2473795951678428e-38)
+minresid_iteration_0: fail - [-33.15,-5.01] using coverages from [-33.15,-5.01]; initial residual was 3.136786257396438e+25 (residual = 1.2473795951678428e-38)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.97282890701188e-29)
+minresid_iteration_1: fail - [-33.15,-5.01] using coverages from [-33.15,-4.70]; initial residual was 8.97282890701188e-29 (residual = 8.97282890701188e-29)
+minresid_iteration_2: success - [-33.15,-5.01] using coverages from [-33.01,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.951217507774649e-39)
+minresid_iteration_0: fail - [-33.15,-5.32] using coverages from [-33.15,-5.32]; initial residual was 3.1564861783953174e+25 (residual = 1.951217507774649e-39)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.223929971727225e-19)
+minresid_iteration_1: fail - [-33.15,-5.32] using coverages from [-33.15,-5.01]; initial residual was 1.223929971727225e-19 (residual = 1.223929971727225e-19)
+minresid_iteration_2: success - [-33.15,-5.32] using coverages from [-33.01,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0424938352939296e-35)
+minresid_iteration_0: fail - [-33.15,-5.63] using coverages from [-33.15,-5.63]; initial residual was 3.1837256743178005e+25 (residual = 1.0424938352939296e-35)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.6694897991947935e-10)
+minresid_iteration_1: fail - [-33.15,-5.63] using coverages from [-33.15,-5.32]; initial residual was 1.6694897991947935e-10 (residual = 1.6694897991947935e-10)
+minresid_iteration_2: success - [-33.15,-5.63] using coverages from [-33.01,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.05045786962728e-27)
+minresid_iteration_0: fail - [-33.15,-5.94] using coverages from [-33.15,-5.94]; initial residual was 3.221497706834738e+25 (residual = 4.05045786962728e-27)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.22772513185304277)
+minresid_iteration_1: fail - [-33.15,-5.94] using coverages from [-33.15,-5.63]; initial residual was 0.22772513185304277 (residual = 0.22772513185304277)
+minresid_iteration_2: success - [-33.15,-5.94] using coverages from [-33.01,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.5737924860159346e-18)
+minresid_iteration_0: fail - [-33.15,-6.25] using coverages from [-33.15,-6.25]; initial residual was 3.274069323550892e+25 (residual = 1.5737924860159346e-18)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 310521454.94620776)
+minresid_iteration_1: fail - [-33.15,-6.25] using coverages from [-33.15,-5.94]; initial residual was 310521454.94620776 (residual = 310521454.94620776)
+minresid_iteration_2: success - [-33.15,-6.25] using coverages from [-33.01,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.114920507166034e-10)
+minresid_iteration_0: fail - [-33.15,-6.56] using coverages from [-33.15,-6.56]; initial residual was 3.459006909874444e+25 (residual = 6.114920507166034e-10)
+minresid_iteration_1: success - [-33.15,-6.56] using coverages from [-33.15,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.23759328590784173)
+minresid_iteration_0: fail - [-33.15,-6.87] using coverages from [-33.15,-6.87]; initial residual was 1.2088394017742862e+33 (residual = 0.23759328590784173)
+minresid_iteration_1: success - [-33.15,-6.87] using coverages from [-33.15,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 92316113.41853324)
+minresid_iteration_0: fail - [-33.15,-7.18] using coverages from [-33.15,-7.18]; initial residual was 1.1875796658889147e+42 (residual = 92316113.41853324)
+minresid_iteration_1: success - [-33.15,-7.18] using coverages from [-33.15,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.586913141985472e+16)
+minresid_iteration_0: fail - [-33.15,-7.49] using coverages from [-33.15,-7.49]; initial residual was 1.1662839729983152e+51 (residual = 3.586913141985472e+16)
+minresid_iteration_1: success - [-33.15,-7.49] using coverages from [-33.15,-7.18]
+minresid_iteration_0: success - [-33.15,-7.81] using coverages from [-33.15,-7.81]
+minresid_iteration_0: success - [-33.15,-8.12] using coverages from [-33.15,-8.12]
+minresid_iteration_0: success - [-33.15,-8.43] using coverages from [-33.15,-8.43]
+minresid_iteration_0: success - [-33.15,-8.74] using coverages from [-33.15,-8.74]
+minresid_iteration_0: success - [-33.15,-9.05] using coverages from [-33.15,-9.05]
+minresid_iteration_0: success - [-33.15,-9.36] using coverages from [-33.15,-9.36]
+minresid_iteration_0: success - [-33.15,-9.67] using coverages from [-33.15,-9.67]
+minresid_iteration_0: success - [-33.15,-9.98] using coverages from [-33.15,-9.98]
+minresid_iteration_0: success - [-33.15,-10.29] using coverages from [-33.15,-10.29]
+minresid_iteration_0: success - [-33.15,-10.60] using coverages from [-33.15,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.859931575404933e-39)
+minresid_iteration_0: fail - [-33.29,-4.70] using coverages from [-33.29,-4.70]; initial residual was 3.5679175105936533e+25 (residual = 6.859931575404933e-39)
+minresid_iteration_1: success - [-33.29,-4.70] using coverages from [-33.15,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0737999270089108e-39)
+minresid_iteration_0: fail - [-33.29,-5.01] using coverages from [-33.29,-5.01]; initial residual was 3.602679498585142e+25 (residual = 1.0737999270089108e-39)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.702199984156726e-29)
+minresid_iteration_1: fail - [-33.29,-5.01] using coverages from [-33.29,-4.70]; initial residual was 1.702199984156726e-29 (residual = 1.702199984156726e-29)
+minresid_iteration_2: success - [-33.29,-5.01] using coverages from [-33.15,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.6796780341332883e-40)
+minresid_iteration_0: fail - [-33.29,-5.32] using coverages from [-33.29,-5.32]; initial residual was 3.651003131346033e+25 (residual = 1.6796780341332883e-40)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.3218691877746418e-20)
+minresid_iteration_1: fail - [-33.29,-5.32] using coverages from [-33.29,-5.01]; initial residual was 2.3218691877746418e-20 (residual = 2.3218691877746418e-20)
+minresid_iteration_2: success - [-33.29,-5.32] using coverages from [-33.15,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.573620230880269e-37)
+minresid_iteration_0: fail - [-33.29,-5.63] using coverages from [-33.29,-5.63]; initial residual was 3.7186139567319692e+25 (residual = 2.573620230880269e-37)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.167123130896277e-11)
+minresid_iteration_1: fail - [-33.29,-5.63] using coverages from [-33.29,-5.32]; initial residual was 3.167123130896277e-11 (residual = 3.167123130896277e-11)
+minresid_iteration_2: success - [-33.29,-5.63] using coverages from [-33.15,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.99870682409052e-29)
+minresid_iteration_0: fail - [-33.29,-5.94] using coverages from [-33.29,-5.94]; initial residual was 3.813813422277561e+25 (residual = 9.99870682409052e-29)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.043200835627376775)
+minresid_iteration_1: fail - [-33.29,-5.94] using coverages from [-33.29,-5.63]; initial residual was 0.043200835627376775 (residual = 0.043200835627376775)
+minresid_iteration_2: success - [-33.29,-5.94] using coverages from [-33.15,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.8849656449184045e-20)
+minresid_iteration_0: fail - [-33.29,-6.25] using coverages from [-33.29,-6.25]; initial residual was 3.94891973530353e+25 (residual = 3.8849656449184045e-20)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 58926134.454166405)
+minresid_iteration_1: fail - [-33.29,-6.25] using coverages from [-33.29,-5.94]; initial residual was 58926134.454166405 (residual = 58926134.454166405)
+minresid_iteration_2: success - [-33.29,-6.25] using coverages from [-33.15,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.5094910099543154e-11)
+minresid_iteration_0: fail - [-33.29,-6.56] using coverages from [-33.29,-6.56]; initial residual was 4.139349892398847e+25 (residual = 1.5094910099543154e-11)
+minresid_iteration_1: success - [-33.29,-6.56] using coverages from [-33.29,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.005865079172870669)
+minresid_iteration_0: fail - [-33.29,-6.87] using coverages from [-33.29,-6.87]; initial residual was 1.899003276992126e+32 (residual = 0.005865079172870669)
+minresid_iteration_1: success - [-33.29,-6.87] using coverages from [-33.29,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2278857.8055238198)
+minresid_iteration_0: fail - [-33.29,-7.18] using coverages from [-33.29,-7.18]; initial residual was 1.865670044248191e+41 (residual = 2278857.8055238198)
+minresid_iteration_1: success - [-33.29,-7.18] using coverages from [-33.29,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 885442931754593.2)
+minresid_iteration_0: fail - [-33.29,-7.49] using coverages from [-33.29,-7.49]; initial residual was 1.832853149888545e+50 (residual = 885442931754593.2)
+minresid_iteration_1: success - [-33.29,-7.49] using coverages from [-33.29,-7.18]
+minresid_iteration_0: success - [-33.29,-7.81] using coverages from [-33.29,-7.81]
+minresid_iteration_0: success - [-33.29,-8.12] using coverages from [-33.29,-8.12]
+minresid_iteration_0: success - [-33.29,-8.43] using coverages from [-33.29,-8.43]
+minresid_iteration_0: success - [-33.29,-8.74] using coverages from [-33.29,-8.74]
+minresid_iteration_0: success - [-33.29,-9.05] using coverages from [-33.29,-9.05]
+minresid_iteration_0: success - [-33.29,-9.36] using coverages from [-33.29,-9.36]
+minresid_iteration_0: success - [-33.29,-9.67] using coverages from [-33.29,-9.67]
+minresid_iteration_0: success - [-33.29,-9.98] using coverages from [-33.29,-9.98]
+minresid_iteration_0: success - [-33.29,-10.29] using coverages from [-33.29,-10.29]
+minresid_iteration_0: success - [-33.29,-10.60] using coverages from [-33.29,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.399178018954458e-40)
+minresid_iteration_0: fail - [-33.44,-4.70] using coverages from [-33.44,-4.70]; initial residual was 4.563588854338992e+25 (residual = 8.399178018954458e-40)
+minresid_iteration_1: success - [-33.44,-4.70] using coverages from [-33.29,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.3138346812372307e-40)
+minresid_iteration_0: fail - [-33.44,-5.01] using coverages from [-33.44,-5.01]; initial residual was 4.650831116562188e+25 (residual = 1.3138346812372307e-40)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.229176705152981e-30)
+minresid_iteration_1: fail - [-33.44,-5.01] using coverages from [-33.44,-4.70]; initial residual was 3.229176705152981e-30 (residual = 3.229176705152981e-30)
+minresid_iteration_2: success - [-33.44,-5.01] using coverages from [-33.29,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.0551765171763994e-41)
+minresid_iteration_0: fail - [-33.44,-5.32] using coverages from [-33.44,-5.32]; initial residual was 4.77435635896542e+25 (residual = 2.0551765171763994e-41)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.404726291270569e-21)
+minresid_iteration_1: fail - [-33.44,-5.32] using coverages from [-33.44,-5.01]; initial residual was 4.404726291270569e-21 (residual = 4.404726291270569e-21)
+minresid_iteration_2: success - [-33.44,-5.32] using coverages from [-33.29,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.355548374940179e-39)
+minresid_iteration_0: fail - [-33.44,-5.63] using coverages from [-33.44,-5.63]; initial residual was 4.95120234032759e+25 (residual = 6.355548374940179e-39)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.008224147932767e-12)
+minresid_iteration_1: fail - [-33.44,-5.63] using coverages from [-33.44,-5.32]; initial residual was 6.008224147932767e-12 (residual = 6.008224147932767e-12)
+minresid_iteration_2: success - [-33.44,-5.63] using coverages from [-33.29,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.46821819689372e-30)
+minresid_iteration_0: fail - [-33.44,-5.94] using coverages from [-33.44,-5.94]; initial residual was 5.2072534142218614e+25 (residual = 2.46821819689372e-30)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.008195459835888215)
+minresid_iteration_1: fail - [-33.44,-5.94] using coverages from [-33.44,-5.63]; initial residual was 0.008195459835888215 (residual = 0.008195459835888215)
+minresid_iteration_2: success - [-33.44,-5.94] using coverages from [-33.29,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.590183074515155e-22)
+minresid_iteration_0: fail - [-33.44,-6.25] using coverages from [-33.44,-6.25]; initial residual was 5.582622154119255e+25 (residual = 9.590183074515155e-22)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 11178914.49313039)
+minresid_iteration_1: fail - [-33.44,-6.25] using coverages from [-33.44,-5.94]; initial residual was 11178914.49313039 (residual = 11178914.49313039)
+minresid_iteration_2: success - [-33.44,-6.25] using coverages from [-33.29,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.7262350450206825e-13)
+minresid_iteration_0: fail - [-33.44,-6.56] using coverages from [-33.44,-6.56]; initial residual was 6.099777364160023e+25 (residual = 3.7262350450206825e-13)
+minresid_iteration_1: success - [-33.44,-6.56] using coverages from [-33.44,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.00014478167416467772)
+minresid_iteration_0: fail - [-33.44,-6.87] using coverages from [-33.44,-6.87]; initial residual was 2.9820334953805536e+31 (residual = 0.00014478167416467772)
+minresid_iteration_1: success - [-33.44,-6.87] using coverages from [-33.44,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 56254.45770507095)
+minresid_iteration_0: fail - [-33.44,-7.18] using coverages from [-33.44,-7.18]; initial residual was 2.930939936272443e+40 (residual = 56254.45770507095)
+minresid_iteration_1: success - [-33.44,-7.18] using coverages from [-33.44,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 21857490113646.387)
+minresid_iteration_0: fail - [-33.44,-7.49] using coverages from [-33.44,-7.49]; initial residual was 2.879385121906174e+49 (residual = 21857490113646.387)
+minresid_iteration_1: success - [-33.44,-7.49] using coverages from [-33.44,-7.18]
+minresid_iteration_0: success - [-33.44,-7.81] using coverages from [-33.44,-7.81]
+minresid_iteration_0: success - [-33.44,-8.12] using coverages from [-33.44,-8.12]
+minresid_iteration_0: success - [-33.44,-8.43] using coverages from [-33.44,-8.43]
+minresid_iteration_0: success - [-33.44,-8.74] using coverages from [-33.44,-8.74]
+minresid_iteration_0: success - [-33.44,-9.05] using coverages from [-33.44,-9.05]
+minresid_iteration_0: success - [-33.44,-9.36] using coverages from [-33.44,-9.36]
+minresid_iteration_0: success - [-33.44,-9.67] using coverages from [-33.44,-9.67]
+minresid_iteration_0: success - [-33.44,-9.98] using coverages from [-33.44,-9.98]
+minresid_iteration_0: success - [-33.44,-10.29] using coverages from [-33.44,-10.29]
+minresid_iteration_0: success - [-33.44,-10.60] using coverages from [-33.44,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.1946987221734422e-41)
+minresid_iteration_0: fail - [-33.58,-4.70] using coverages from [-33.58,-4.70]; initial residual was 1.9405640042467873e+26 (residual = 2.1946987221734422e-41)
+minresid_iteration_1: success - [-33.58,-4.70] using coverages from [-33.44,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.314013707849154e-42)
+minresid_iteration_0: fail - [-33.58,-5.01] using coverages from [-33.58,-5.01]; initial residual was 1.9638532642501934e+26 (residual = 3.314013707849154e-42)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.12604361850084e-31)
+minresid_iteration_1: fail - [-33.58,-5.01] using coverages from [-33.58,-4.70]; initial residual was 6.12604361850084e-31 (residual = 6.12604361850084e-31)
+minresid_iteration_2: success - [-33.58,-5.01] using coverages from [-33.44,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.088054974978659e-43)
+minresid_iteration_0: fail - [-33.58,-5.32] using coverages from [-33.58,-5.32]; initial residual was 1.9978788291612723e+26 (residual = 5.088054974978659e-43)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.356032201636401e-22)
+minresid_iteration_1: fail - [-33.58,-5.32] using coverages from [-33.58,-5.01]; initial residual was 8.356032201636401e-22 (residual = 8.356032201636401e-22)
+minresid_iteration_2: success - [-33.58,-5.32] using coverages from [-33.44,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.570398780747269e-40)
+minresid_iteration_0: fail - [-33.58,-5.63] using coverages from [-33.58,-5.63]; initial residual was 2.0483321997059826e+26 (residual = 1.570398780747269e-40)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.1397964625886443e-12)
+minresid_iteration_1: fail - [-33.58,-5.63] using coverages from [-33.58,-5.32]; initial residual was 1.1397964625886443e-12 (residual = 1.1397964625886443e-12)
+minresid_iteration_2: success - [-33.58,-5.63] using coverages from [-33.44,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.092888258245508e-32)
+minresid_iteration_0: fail - [-33.58,-5.94] using coverages from [-33.58,-5.94]; initial residual was 2.1240933112865377e+26 (residual = 6.092888258245508e-32)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.0015547283025952297)
+minresid_iteration_1: fail - [-33.58,-5.94] using coverages from [-33.58,-5.63]; initial residual was 0.0015547283025952297 (residual = 0.0015547283025952297)
+minresid_iteration_2: success - [-33.58,-5.94] using coverages from [-33.44,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.367372579546968e-23)
+minresid_iteration_0: fail - [-33.58,-6.25] using coverages from [-33.58,-6.25]; initial residual was 2.238943373725607e+26 (residual = 2.367372579546968e-23)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2120711.7003724533)
+minresid_iteration_1: fail - [-33.58,-6.25] using coverages from [-33.58,-5.94]; initial residual was 2120711.7003724533 (residual = 2120711.7003724533)
+minresid_iteration_2: success - [-33.58,-6.25] using coverages from [-33.44,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.198350648784176e-15)
+minresid_iteration_0: fail - [-33.58,-6.56] using coverages from [-33.58,-6.56]; initial residual was 2.4054451285754283e+26 (residual = 9.198350648784176e-15)
+minresid_iteration_1: success - [-33.58,-6.56] using coverages from [-33.58,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.573989805780839e-06)
+minresid_iteration_0: fail - [-33.58,-6.87] using coverages from [-33.58,-6.87]; initial residual was 4.661791010241403e+30 (residual = 3.573989805780839e-06)
+minresid_iteration_1: success - [-33.58,-6.87] using coverages from [-33.58,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1388.6623395373313)
+minresid_iteration_0: fail - [-33.58,-7.18] using coverages from [-33.58,-7.18]; initial residual was 4.60446240338404e+39 (residual = 1388.6623395373313)
+minresid_iteration_1: success - [-33.58,-7.18] using coverages from [-33.58,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 539560322788.3254)
+minresid_iteration_0: fail - [-33.58,-7.49] using coverages from [-33.58,-7.49]; initial residual was 4.523471332505651e+48 (residual = 539560322788.3254)
+minresid_iteration_1: success - [-33.58,-7.49] using coverages from [-33.58,-7.18]
+minresid_iteration_0: success - [-33.58,-7.81] using coverages from [-33.58,-7.81]
+minresid_iteration_0: success - [-33.58,-8.12] using coverages from [-33.58,-8.12]
+minresid_iteration_0: success - [-33.58,-8.43] using coverages from [-33.58,-8.43]
+minresid_iteration_0: success - [-33.58,-8.74] using coverages from [-33.58,-8.74]
+minresid_iteration_0: success - [-33.58,-9.05] using coverages from [-33.58,-9.05]
+minresid_iteration_0: success - [-33.58,-9.36] using coverages from [-33.58,-9.36]
+minresid_iteration_0: success - [-33.58,-9.67] using coverages from [-33.58,-9.67]
+minresid_iteration_0: success - [-33.58,-9.98] using coverages from [-33.58,-9.98]
+minresid_iteration_0: success - [-33.58,-10.29] using coverages from [-33.58,-10.29]
+minresid_iteration_0: success - [-33.58,-10.60] using coverages from [-33.58,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0147699713215443e-40)
+minresid_iteration_0: fail - [-33.72,-4.70] using coverages from [-33.72,-4.70]; initial residual was 3.7895323701950144e+27 (residual = 1.0147699713215443e-40)
+minresid_iteration_1: success - [-33.72,-4.70] using coverages from [-33.58,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.1553407200707549e-42)
+minresid_iteration_0: fail - [-33.72,-5.01] using coverages from [-33.72,-5.01]; initial residual was 3.796360514936528e+27 (residual = 1.1553407200707549e-42)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.1704302663227654e-31)
+minresid_iteration_1: fail - [-33.72,-5.01] using coverages from [-33.72,-4.70]; initial residual was 1.1704302663227654e-31 (residual = 1.1704302663227654e-31)
+minresid_iteration_2: success - [-33.72,-5.01] using coverages from [-33.58,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.460122180432923e-44)
+minresid_iteration_0: fail - [-33.72,-5.32] using coverages from [-33.72,-5.32]; initial residual was 3.806689188431859e+27 (residual = 5.460122180432923e-44)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.5851898514896016e-22)
+minresid_iteration_1: fail - [-33.72,-5.32] using coverages from [-33.72,-5.01]; initial residual was 1.5851898514896016e-22 (residual = 1.5851898514896016e-22)
+minresid_iteration_2: success - [-33.72,-5.32] using coverages from [-33.58,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.616490726350711e-42)
+minresid_iteration_0: fail - [-33.72,-5.63] using coverages from [-33.72,-5.63]; initial residual was 3.82242919386436e+27 (residual = 4.616490726350711e-42)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.162262831984015e-13)
+minresid_iteration_1: fail - [-33.72,-5.63] using coverages from [-33.72,-5.32]; initial residual was 2.162262831984015e-13 (residual = 2.162262831984015e-13)
+minresid_iteration_2: success - [-33.72,-5.63] using coverages from [-33.58,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.5040611539326223e-33)
+minresid_iteration_0: fail - [-33.72,-5.94] using coverages from [-33.72,-5.94]; initial residual was 3.8463067420212923e+27 (residual = 1.5040611539326223e-33)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.00029494136303300433)
+minresid_iteration_1: fail - [-33.72,-5.94] using coverages from [-33.72,-5.63]; initial residual was 0.00029494136303300433 (residual = 0.00029494136303300433)
+minresid_iteration_2: success - [-33.72,-5.94] using coverages from [-33.58,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.84394780226163e-25)
+minresid_iteration_0: fail - [-33.72,-6.25] using coverages from [-33.72,-6.25]; initial residual was 3.881889725598252e+27 (residual = 5.84394780226163e-25)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 402311.8975873497)
+minresid_iteration_1: fail - [-33.72,-6.25] using coverages from [-33.72,-5.94]; initial residual was 402311.8975873497 (residual = 402311.8975873497)
+minresid_iteration_2: success - [-33.72,-6.25] using coverages from [-33.58,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.270647278975357e-16)
+minresid_iteration_0: fail - [-33.72,-6.56] using coverages from [-33.72,-6.56]; initial residual was 3.93077945816029e+27 (residual = 2.270647278975357e-16)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 548603394596462.2)
+minresid_iteration_1: fail - [-33.72,-6.56] using coverages from [-33.72,-6.25]; initial residual was 548603394596462.2 (residual = 548603394596462.2)
+minresid_iteration_2: success - [-33.72,-6.56] using coverages from [-33.58,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.822527578522558e-08)
+minresid_iteration_0: fail - [-33.72,-6.87] using coverages from [-33.72,-6.87]; initial residual was 6.881263923566856e+29 (residual = 8.822527578522558e-08)
+minresid_iteration_1: success - [-33.72,-6.87] using coverages from [-33.72,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 34.279649505455346)
+minresid_iteration_0: fail - [-33.72,-7.18] using coverages from [-33.72,-7.18]; initial residual was 7.236047137351781e+38 (residual = 34.279649505455346)
+minresid_iteration_1: success - [-33.72,-7.18] using coverages from [-33.72,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 13319248477.918247)
+minresid_iteration_0: fail - [-33.72,-7.49] using coverages from [-33.72,-7.49]; initial residual was 7.108782141923213e+47 (residual = 13319248477.918247)
+minresid_iteration_1: success - [-33.72,-7.49] using coverages from [-33.72,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.175151513389398e+18)
+minresid_iteration_0: fail - [-33.72,-7.81] using coverages from [-33.72,-7.81]; initial residual was 6.981307374649181e+56 (residual = 5.175151513389398e+18)
+minresid_iteration_1: success - [-33.72,-7.81] using coverages from [-33.72,-7.49]
+minresid_iteration_0: success - [-33.72,-8.12] using coverages from [-33.72,-8.12]
+minresid_iteration_0: success - [-33.72,-8.43] using coverages from [-33.72,-8.43]
+minresid_iteration_0: success - [-33.72,-8.74] using coverages from [-33.72,-8.74]
+minresid_iteration_0: success - [-33.72,-9.05] using coverages from [-33.72,-9.05]
+minresid_iteration_0: success - [-33.72,-9.36] using coverages from [-33.72,-9.36]
+minresid_iteration_0: success - [-33.72,-9.67] using coverages from [-33.72,-9.67]
+minresid_iteration_0: success - [-33.72,-9.98] using coverages from [-33.72,-9.98]
+minresid_iteration_0: success - [-33.72,-10.29] using coverages from [-33.72,-10.29]
+minresid_iteration_0: success - [-33.72,-10.60] using coverages from [-33.72,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 7.81822282969135e-40)
+minresid_iteration_0: fail - [-33.86,-4.70] using coverages from [-33.86,-4.70]; initial residual was 8.96253390197072e+28 (residual = 7.81822282969135e-40)
+minresid_iteration_1: success - [-33.86,-4.70] using coverages from [-33.72,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.985912815268381e-42)
+minresid_iteration_0: fail - [-33.86,-5.01] using coverages from [-33.86,-5.01]; initial residual was 8.96468641874515e+28 (residual = 9.985912815268381e-42)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.142243431963466e-32)
+minresid_iteration_1: fail - [-33.86,-5.01] using coverages from [-33.86,-4.70]; initial residual was 9.142243431963466e-32 (residual = 9.142243431963466e-32)
+minresid_iteration_2: success - [-33.86,-5.01] using coverages from [-33.72,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.724630819487916e-41)
+minresid_iteration_0: fail - [-33.86,-5.32] using coverages from [-33.86,-5.32]; initial residual was 8.96791166669365e+28 (residual = 4.724630819487916e-41)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.0072010321990447e-23)
+minresid_iteration_1: fail - [-33.86,-5.32] using coverages from [-33.86,-5.01]; initial residual was 3.0072010321990447e-23 (residual = 3.0072010321990447e-23)
+minresid_iteration_2: success - [-33.86,-5.32] using coverages from [-33.72,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.8517750947509835e-41)
+minresid_iteration_0: fail - [-33.86,-5.63] using coverages from [-33.86,-5.63]; initial residual was 8.97256919888881e+28 (residual = 1.8517750947509835e-41)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.1019433802772826e-14)
+minresid_iteration_1: fail - [-33.86,-5.63] using coverages from [-33.86,-5.32]; initial residual was 4.1019433802772826e-14 (residual = 4.1019433802772826e-14)
+minresid_iteration_2: success - [-33.86,-5.63] using coverages from [-33.72,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.7122736599573277e-35)
+minresid_iteration_0: fail - [-33.86,-5.94] using coverages from [-33.86,-5.94]; initial residual was 8.97874314909493e+28 (residual = 3.7122736599573277e-35)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.595216056846787e-05)
+minresid_iteration_1: fail - [-33.86,-5.94] using coverages from [-33.86,-5.63]; initial residual was 5.595216056846787e-05 (residual = 5.595216056846787e-05)
+minresid_iteration_2: success - [-33.86,-5.94] using coverages from [-33.72,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.4426003837996955e-26)
+minresid_iteration_0: fail - [-33.86,-6.25] using coverages from [-33.86,-6.25]; initial residual was 8.985517210357367e+28 (residual = 1.4426003837996955e-26)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 76321.00142696254)
+minresid_iteration_1: fail - [-33.86,-6.25] using coverages from [-33.86,-5.94]; initial residual was 76321.00142696254 (residual = 76321.00142696254)
+minresid_iteration_2: success - [-33.86,-6.25] using coverages from [-33.72,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.605177778472088e-18)
+minresid_iteration_0: fail - [-33.86,-6.56] using coverages from [-33.86,-6.56]; initial residual was 8.989080114520407e+28 (residual = 5.605177778472088e-18)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 104100555757721.66)
+minresid_iteration_1: fail - [-33.86,-6.56] using coverages from [-33.86,-6.25]; initial residual was 104100555757721.66 (residual = 104100555757721.66)
+minresid_iteration_2: success - [-33.86,-6.56] using coverages from [-33.72,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.177873947705536e-09)
+minresid_iteration_0: fail - [-33.86,-6.87] using coverages from [-33.86,-6.87]; initial residual was 1.0375749173221653e+29 (residual = 2.177873947705536e-09)
+minresid_iteration_1: success - [-33.86,-6.87] using coverages from [-33.86,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.8462059758946127)
+minresid_iteration_0: fail - [-33.86,-7.18] using coverages from [-33.86,-7.18]; initial residual was 1.1367429558675986e+38 (residual = 0.8462059758946127)
+minresid_iteration_1: success - [-33.86,-7.18] using coverages from [-33.86,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 328790632.8987278)
+minresid_iteration_0: fail - [-33.86,-7.49] using coverages from [-33.86,-7.49]; initial residual was 1.1167791330546307e+47 (residual = 328790632.8987278)
+minresid_iteration_1: success - [-33.86,-7.49] using coverages from [-33.86,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2775055171131202e+17)
+minresid_iteration_0: fail - [-33.86,-7.81] using coverages from [-33.86,-7.81]; initial residual was 1.097135132456358e+56 (residual = 1.2775055171131202e+17)
+minresid_iteration_1: success - [-33.86,-7.81] using coverages from [-33.86,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 9776627310.692945)
+minresid_iteration_0: fail - [-33.86,-8.12] using coverages from [-33.86,-8.12]; initial residual was 1.077461291924906e+65 (residual = 9776627310.692945)
+minresid_iteration_1: success - [-33.86,-8.12] using coverages from [-33.86,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 4.1636524458099835)
+minresid_iteration_0: fail - [-33.86,-8.43] using coverages from [-33.86,-8.43]; initial residual was 5.289433041413406e+65 (residual = 4.1636524458099835)
+minresid_iteration_1: success - [-33.86,-8.43] using coverages from [-33.86,-8.12]
+minresid_iteration_0: success - [-33.86,-8.74] using coverages from [-33.86,-8.74]
+minresid_iteration_0: success - [-33.86,-9.05] using coverages from [-33.86,-9.05]
+minresid_iteration_0: success - [-33.86,-9.36] using coverages from [-33.86,-9.36]
+minresid_iteration_0: success - [-33.86,-9.67] using coverages from [-33.86,-9.67]
+minresid_iteration_0: success - [-33.86,-9.98] using coverages from [-33.86,-9.98]
+minresid_iteration_0: success - [-33.86,-10.29] using coverages from [-33.86,-10.29]
+minresid_iteration_0: success - [-33.86,-10.60] using coverages from [-33.86,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.3333441110668023e-39)
+minresid_iteration_0: fail - [-34.01,-4.70] using coverages from [-34.01,-4.70]; initial residual was 2.1471010365051922e+30 (residual = 1.3333441110668023e-39)
+minresid_iteration_1: success - [-34.01,-4.70] using coverages from [-33.86,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.0858304727008264e-38)
+minresid_iteration_0: fail - [-34.01,-5.01] using coverages from [-34.01,-5.01]; initial residual was 2.1471592750894478e+30 (residual = 2.0858304727008264e-38)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.802194242979754e-30)
+minresid_iteration_1: fail - [-34.01,-5.01] using coverages from [-34.01,-4.70]; initial residual was 5.802194242979754e-30 (residual = 5.802194242979754e-30)
+minresid_iteration_2: success - [-34.01,-5.01] using coverages from [-33.86,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.1779397630680042e-38)
+minresid_iteration_0: fail - [-34.01,-5.32] using coverages from [-34.01,-5.32]; initial residual was 2.1472273817171837e+30 (residual = 1.1779397630680042e-38)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.704843158737739e-24)
+minresid_iteration_1: fail - [-34.01,-5.32] using coverages from [-34.01,-5.01]; initial residual was 5.704843158737739e-24 (residual = 5.704843158737739e-24)
+minresid_iteration_2: success - [-34.01,-5.32] using coverages from [-33.86,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.0049984341368324e-39)
+minresid_iteration_0: fail - [-34.01,-5.63] using coverages from [-34.01,-5.63]; initial residual was 2.1472789945138926e+30 (residual = 4.0049984341368324e-39)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 7.781634705135922e-15)
+minresid_iteration_1: fail - [-34.01,-5.63] using coverages from [-34.01,-5.32]; initial residual was 7.781634705135922e-15 (residual = 7.781634705135922e-15)
+minresid_iteration_2: success - [-34.01,-5.63] using coverages from [-33.86,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.156661368178924e-37)
+minresid_iteration_0: fail - [-34.01,-5.94] using coverages from [-34.01,-5.94]; initial residual was 2.1472491434874494e+30 (residual = 9.156661368178924e-37)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.061446329562768e-05)
+minresid_iteration_1: fail - [-34.01,-5.94] using coverages from [-34.01,-5.63]; initial residual was 1.061446329562768e-05 (residual = 1.061446329562768e-05)
+minresid_iteration_2: success - [-34.01,-5.94] using coverages from [-33.86,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.5611135649017804e-28)
+minresid_iteration_0: fail - [-34.01,-6.25] using coverages from [-34.01,-6.25]; initial residual was 2.1470677855810449e+30 (residual = 3.5611135649017804e-28)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 14478.555633599073)
+minresid_iteration_1: fail - [-34.01,-6.25] using coverages from [-34.01,-5.94]; initial residual was 14478.555633599073 (residual = 14478.555633599073)
+minresid_iteration_2: success - [-34.01,-6.25] using coverages from [-33.86,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.383659109867012e-19)
+minresid_iteration_0: fail - [-34.01,-6.56] using coverages from [-34.01,-6.56]; initial residual was 2.1469859111343728e+30 (residual = 1.383659109867012e-19)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 10349487442746.896)
+minresid_iteration_1: fail - [-34.01,-6.56] using coverages from [-34.01,-6.25]; initial residual was 10349487442746.896 (residual = 10349487442746.896)
+minresid_iteration_2: success - [-34.01,-6.56] using coverages from [-33.86,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.376163338546504e-11)
+minresid_iteration_0: fail - [-34.01,-6.87] using coverages from [-34.01,-6.87]; initial residual was 1.9679244526805888e+30 (residual = 5.376163338546504e-11)
+minresid_iteration_1: success - [-34.01,-6.87] using coverages from [-34.01,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.020888911175296516)
+minresid_iteration_0: fail - [-34.01,-7.18] using coverages from [-34.01,-7.18]; initial residual was 1.7852374607893647e+37 (residual = 0.020888911175296516)
+minresid_iteration_1: success - [-34.01,-7.18] using coverages from [-34.01,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8116319.810469414)
+minresid_iteration_0: fail - [-34.01,-7.49] using coverages from [-34.01,-7.49]; initial residual was 1.7544434411863728e+46 (residual = 8116319.810469414)
+minresid_iteration_1: success - [-34.01,-7.49] using coverages from [-34.01,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3153570174769207.0)
+minresid_iteration_0: fail - [-34.01,-7.81] using coverages from [-34.01,-7.81]; initial residual was 1.7235830253538284e+55 (residual = 3153570174769207.0)
+minresid_iteration_1: success - [-34.01,-7.81] using coverages from [-34.01,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 11289573358.678482)
+minresid_iteration_0: fail - [-34.01,-8.12] using coverages from [-34.01,-8.12]; initial residual was 1.6932654212084157e+64 (residual = 11289573358.678482)
+minresid_iteration_1: success - [-34.01,-8.12] using coverages from [-34.01,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 9.01501898210457)
+minresid_iteration_0: fail - [-34.01,-8.43] using coverages from [-34.01,-8.43]; initial residual was 3.366212238810685e+66 (residual = 9.01501898210457)
+minresid_iteration_1: success - [-34.01,-8.43] using coverages from [-34.01,-8.12]
+minresid_iteration_0: success - [-34.01,-8.74] using coverages from [-34.01,-8.74]
+minresid_iteration_0: success - [-34.01,-9.05] using coverages from [-34.01,-9.05]
+minresid_iteration_0: success - [-34.01,-9.36] using coverages from [-34.01,-9.36]
+minresid_iteration_0: success - [-34.01,-9.67] using coverages from [-34.01,-9.67]
+minresid_iteration_0: success - [-34.01,-9.98] using coverages from [-34.01,-9.98]
+minresid_iteration_0: success - [-34.01,-10.29] using coverages from [-34.01,-10.29]
+minresid_iteration_0: success - [-34.01,-10.60] using coverages from [-34.01,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.025356370271954e-36)
+minresid_iteration_0: fail - [-34.15,-4.70] using coverages from [-34.15,-4.70]; initial residual was 5.149914068396835e+31 (residual = 9.025356370271954e-36)
+minresid_iteration_1: success - [-34.15,-4.70] using coverages from [-34.01,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.974731124342266e-36)
+minresid_iteration_0: fail - [-34.15,-5.01] using coverages from [-34.15,-5.01]; initial residual was 5.149913969196437e+31 (residual = 6.974731124342266e-36)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.845614475382584e-28)
+minresid_iteration_1: fail - [-34.15,-5.01] using coverages from [-34.15,-4.70]; initial residual was 4.845614475382584e-28 (residual = 4.845614475382584e-28)
+minresid_iteration_2: success - [-34.15,-5.01] using coverages from [-34.01,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.300575791830458e-37)
+minresid_iteration_0: fail - [-34.15,-5.32] using coverages from [-34.15,-5.32]; initial residual was 5.1498996701187955e+31 (residual = 3.300575791830458e-37)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0823188908792082e-24)
+minresid_iteration_1: fail - [-34.15,-5.32] using coverages from [-34.15,-5.01]; initial residual was 1.0823188908792082e-24 (residual = 1.0823188908792082e-24)
+minresid_iteration_2: success - [-34.15,-5.32] using coverages from [-34.01,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.706557715155835e-39)
+minresid_iteration_0: fail - [-34.15,-5.63] using coverages from [-34.15,-5.63]; initial residual was 5.149883318610378e+31 (residual = 1.706557715155835e-39)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0627934195478453e-15)
+minresid_iteration_1: fail - [-34.15,-5.63] using coverages from [-34.15,-5.32]; initial residual was 1.0627934195478453e-15 (residual = 1.0627934195478453e-15)
+minresid_iteration_2: success - [-34.15,-5.63] using coverages from [-34.01,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.4498183616869185e-38)
+minresid_iteration_0: fail - [-34.15,-5.94] using coverages from [-34.15,-5.94]; initial residual was 5.149909109115795e+31 (residual = 3.4498183616869185e-38)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.129449933089345e-07)
+minresid_iteration_1: fail - [-34.15,-5.94] using coverages from [-34.15,-5.63]; initial residual was 4.129449933089345e-07 (residual = 4.129449933089345e-07)
+minresid_iteration_2: success - [-34.15,-5.94] using coverages from [-34.01,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.790529960480442e-30)
+minresid_iteration_0: fail - [-34.15,-6.25] using coverages from [-34.15,-6.25]; initial residual was 5.149955080819253e+31 (residual = 8.790529960480442e-30)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 160.44846000616195)
+minresid_iteration_1: fail - [-34.15,-6.25] using coverages from [-34.15,-5.94]; initial residual was 160.44846000616195 (residual = 160.44846000616195)
+minresid_iteration_2: success - [-34.15,-6.25] using coverages from [-34.01,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.4156142898827805e-21)
+minresid_iteration_0: fail - [-34.15,-6.56] using coverages from [-34.15,-6.56]; initial residual was 5.1500019521859435e+31 (residual = 3.4156142898827805e-21)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 62341524372.82436)
+minresid_iteration_1: fail - [-34.15,-6.56] using coverages from [-34.15,-6.25]; initial residual was 62341524372.82436 (residual = 62341524372.82436)
+minresid_iteration_2: success - [-34.15,-6.56] using coverages from [-34.01,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.327126038362668e-12)
+minresid_iteration_0: fail - [-34.15,-6.87] using coverages from [-34.15,-6.87]; initial residual was 5.1119753712248145e+31 (residual = 1.327126038362668e-12)
+minresid_iteration_1: success - [-34.15,-6.87] using coverages from [-34.15,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.0005156505892413913)
+minresid_iteration_0: fail - [-34.15,-7.18] using coverages from [-34.15,-7.18]; initial residual was 2.794560732423748e+36 (residual = 0.0005156505892413913)
+minresid_iteration_1: success - [-34.15,-7.18] using coverages from [-34.15,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 200354.39174491694)
+minresid_iteration_0: fail - [-34.15,-7.49] using coverages from [-34.15,-7.49]; initial residual was 2.7562042858915167e+45 (residual = 200354.39174491694)
+minresid_iteration_1: success - [-34.15,-7.49] using coverages from [-34.15,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 77847059867673.36)
+minresid_iteration_0: fail - [-34.15,-7.81] using coverages from [-34.15,-7.81]; initial residual was 2.707723376451579e+54 (residual = 77847059867673.36)
+minresid_iteration_1: success - [-34.15,-7.81] using coverages from [-34.15,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 73106944109.57246)
+minresid_iteration_0: fail - [-34.15,-8.12] using coverages from [-34.15,-8.12]; initial residual was 2.6600948698832736e+63 (residual = 73106944109.57246)
+minresid_iteration_1: success - [-34.15,-8.12] using coverages from [-34.15,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 132.8740573365263)
+minresid_iteration_0: fail - [-34.15,-8.43] using coverages from [-34.15,-8.43]; initial residual was 2.1430146604603974e+67 (residual = 132.8740573365263)
+minresid_iteration_1: success - [-34.15,-8.43] using coverages from [-34.15,-8.12]
+minresid_iteration_0: success - [-34.15,-8.74] using coverages from [-34.15,-8.74]
+minresid_iteration_0: success - [-34.15,-9.05] using coverages from [-34.15,-9.05]
+minresid_iteration_0: success - [-34.15,-9.36] using coverages from [-34.15,-9.36]
+minresid_iteration_0: success - [-34.15,-9.67] using coverages from [-34.15,-9.67]
+minresid_iteration_0: success - [-34.15,-9.98] using coverages from [-34.15,-9.98]
+minresid_iteration_0: success - [-34.15,-10.29] using coverages from [-34.15,-10.29]
+minresid_iteration_0: success - [-34.15,-10.60] using coverages from [-34.15,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.691004222004076e-33)
+minresid_iteration_0: fail - [-34.29,-4.70] using coverages from [-34.29,-4.70]; initial residual was 1.234886867883562e+33 (residual = 2.691004222004076e-33)
+minresid_iteration_1: success - [-34.29,-4.70] using coverages from [-34.15,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.846912863672314e-34)
+minresid_iteration_0: fail - [-34.29,-5.01] using coverages from [-34.29,-5.01]; initial residual was 1.2348870237593064e+33 (residual = 9.846912863672314e-34)
+minresid_iteration_1: success - [-34.29,-5.01] using coverages from [-34.29,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.051559169181206e-36)
+minresid_iteration_0: fail - [-34.29,-5.32] using coverages from [-34.29,-5.32]; initial residual was 1.2348874556723485e+33 (residual = 2.051559169181206e-36)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.2811986016635034e-26)
+minresid_iteration_1: fail - [-34.29,-5.32] using coverages from [-34.29,-5.01]; initial residual was 2.2811986016635034e-26 (residual = 2.2811986016635034e-26)
+minresid_iteration_2: success - [-34.29,-5.32] using coverages from [-34.15,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2837526660404136e-36)
+minresid_iteration_0: fail - [-34.29,-5.63] using coverages from [-34.29,-5.63]; initial residual was 1.234887940966275e+33 (residual = 1.2837526660404136e-36)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.401835154690957e-18)
+minresid_iteration_1: fail - [-34.29,-5.63] using coverages from [-34.29,-5.32]; initial residual was 6.401835154690957e-18 (residual = 6.401835154690957e-18)
+minresid_iteration_2: success - [-34.29,-5.63] using coverages from [-34.15,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.282191163597551e-36)
+minresid_iteration_0: fail - [-34.29,-5.94] using coverages from [-34.29,-5.94]; initial residual was 1.2348883863559446e+33 (residual = 1.282191163597551e-36)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.4874126298544254e-09)
+minresid_iteration_1: fail - [-34.29,-5.94] using coverages from [-34.29,-5.63]; initial residual was 2.4874126298544254e-09 (residual = 2.4874126298544254e-09)
+minresid_iteration_2: success - [-34.29,-5.94] using coverages from [-34.15,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.173334989693683e-31)
+minresid_iteration_0: fail - [-34.29,-6.25] using coverages from [-34.29,-6.25]; initial residual was 1.2348887599130919e+33 (residual = 2.173334989693683e-31)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.9664762434900983)
+minresid_iteration_1: fail - [-34.29,-6.25] using coverages from [-34.29,-5.94]; initial residual was 0.9664762434900983 (residual = 0.9664762434900983)
+minresid_iteration_2: success - [-34.29,-6.25] using coverages from [-34.15,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.431572047373911e-23)
+minresid_iteration_0: fail - [-34.29,-6.56] using coverages from [-34.29,-6.56]; initial residual was 1.2348890350344241e+33 (residual = 8.431572047373911e-23)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 375520788.2696061)
+minresid_iteration_1: fail - [-34.29,-6.56] using coverages from [-34.29,-6.25]; initial residual was 375520788.2696061 (residual = 375520788.2696061)
+minresid_iteration_2: success - [-34.29,-6.56] using coverages from [-34.15,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.276060288334584e-14)
+minresid_iteration_0: fail - [-34.29,-6.87] using coverages from [-34.29,-6.87]; initial residual was 1.2341452850835182e+33 (residual = 3.276060288334584e-14)
+minresid_iteration_1: success - [-34.29,-6.87] using coverages from [-34.29,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2729027758011889e-05)
+minresid_iteration_0: fail - [-34.29,-7.18] using coverages from [-34.29,-7.18]; initial residual was 4.188030620097741e+35 (residual = 1.2729027758011889e-05)
+minresid_iteration_1: success - [-34.29,-7.18] using coverages from [-34.29,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4945.82313522143)
+minresid_iteration_0: fail - [-34.29,-7.49] using coverages from [-34.29,-7.49]; initial residual was 4.3314578480897535e+44 (residual = 4945.82313522143)
+minresid_iteration_1: success - [-34.29,-7.49] using coverages from [-34.29,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1921683804129.9119)
+minresid_iteration_0: fail - [-34.29,-7.81] using coverages from [-34.29,-7.81]; initial residual was 4.255275245319864e+53 (residual = 1921683804129.9119)
+minresid_iteration_1: success - [-34.29,-7.81] using coverages from [-34.29,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 2546806385736.8086)
+minresid_iteration_0: fail - [-34.29,-8.12] using coverages from [-34.29,-8.12]; initial residual was 4.178969598120806e+62 (residual = 2546806385736.8086)
+minresid_iteration_1: success - [-34.29,-8.12] using coverages from [-34.29,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 3225.9778844465786)
+minresid_iteration_0: fail - [-34.29,-8.43] using coverages from [-34.29,-8.43]; initial residual was 1.3638214382358018e+68 (residual = 3225.9778844465786)
+minresid_iteration_1: success - [-34.29,-8.43] using coverages from [-34.29,-8.12]
+minresid_iteration_0: success - [-34.29,-8.74] using coverages from [-34.29,-8.74]
+minresid_iteration_0: success - [-34.29,-9.05] using coverages from [-34.29,-9.05]
+minresid_iteration_0: success - [-34.29,-9.36] using coverages from [-34.29,-9.36]
+minresid_iteration_0: success - [-34.29,-9.67] using coverages from [-34.29,-9.67]
+minresid_iteration_0: success - [-34.29,-9.98] using coverages from [-34.29,-9.98]
+minresid_iteration_0: success - [-34.29,-10.29] using coverages from [-34.29,-10.29]
+minresid_iteration_0: success - [-34.29,-10.60] using coverages from [-34.29,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.3155026024984843e-31)
+minresid_iteration_0: fail - [-34.43,-4.70] using coverages from [-34.43,-4.70]; initial residual was 2.9621605657936774e+34 (residual = 1.3155026024984843e-31)
+minresid_iteration_1: success - [-34.43,-4.70] using coverages from [-34.29,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.9483270103756134e-33)
+minresid_iteration_0: fail - [-34.43,-5.01] using coverages from [-34.43,-5.01]; initial residual was 2.96216061225919e+34 (residual = 1.9483270103756134e-33)
+minresid_iteration_1: success - [-34.43,-5.01] using coverages from [-34.43,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.762321827374625e-34)
+minresid_iteration_0: fail - [-34.43,-5.32] using coverages from [-34.43,-5.32]; initial residual was 2.9621606518085913e+34 (residual = 4.762321827374625e-34)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.295906633327425e-25)
+minresid_iteration_1: fail - [-34.43,-5.32] using coverages from [-34.43,-5.01]; initial residual was 5.295906633327425e-25 (residual = 5.295906633327425e-25)
+minresid_iteration_2: success - [-34.43,-5.32] using coverages from [-34.29,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.840791045093277e-34)
+minresid_iteration_0: fail - [-34.43,-5.63] using coverages from [-34.43,-5.63]; initial residual was 2.9621606836997458e+34 (residual = 5.840791045093277e-34)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.85621331685434e-20)
+minresid_iteration_1: fail - [-34.43,-5.63] using coverages from [-34.43,-5.32]; initial residual was 3.85621331685434e-20 (residual = 3.85621331685434e-20)
+minresid_iteration_2: success - [-34.43,-5.63] using coverages from [-34.29,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.0488873690015488e-34)
+minresid_iteration_0: fail - [-34.43,-5.94] using coverages from [-34.43,-5.94]; initial residual was 2.962160708608261e+34 (residual = 1.0488873690015488e-34)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.498316165933883e-11)
+minresid_iteration_1: fail - [-34.43,-5.94] using coverages from [-34.43,-5.63]; initial residual was 1.498316165933883e-11 (residual = 1.498316165933883e-11)
+minresid_iteration_2: success - [-34.43,-5.94] using coverages from [-34.29,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.240809046276004e-33)
+minresid_iteration_0: fail - [-34.43,-6.25] using coverages from [-34.43,-6.25]; initial residual was 2.9621607276452392e+34 (residual = 5.240809046276004e-33)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.005821659672729118)
+minresid_iteration_1: fail - [-34.43,-6.25] using coverages from [-34.43,-5.94]; initial residual was 0.005821659672729118 (residual = 0.005821659672729118)
+minresid_iteration_2: success - [-34.43,-6.25] using coverages from [-34.29,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.0813654868064574e-24)
+minresid_iteration_0: fail - [-34.43,-6.56] using coverages from [-34.43,-6.56]; initial residual was 2.962160737402135e+34 (residual = 2.0813654868064574e-24)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2261986.2184883356)
+minresid_iteration_1: fail - [-34.43,-6.56] using coverages from [-34.43,-6.25]; initial residual was 2261986.2184883356 (residual = 2261986.2184883356)
+minresid_iteration_2: success - [-34.43,-6.56] using coverages from [-34.29,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 8.08707741597268e-16)
+minresid_iteration_0: fail - [-34.43,-6.87] using coverages from [-34.43,-6.87]; initial residual was 2.962016218965327e+34 (residual = 8.08707741597268e-16)
+minresid_iteration_1: success - [-34.43,-6.87] using coverages from [-34.43,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.1422081356022055e-07)
+minresid_iteration_0: fail - [-34.43,-7.18] using coverages from [-34.43,-7.18]; initial residual was 5.359049190587508e+34 (residual = 3.1422081356022055e-07)
+minresid_iteration_1: success - [-34.43,-7.18] using coverages from [-34.43,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 122.08949487882698)
+minresid_iteration_0: fail - [-34.43,-7.49] using coverages from [-34.43,-7.49]; initial residual was 6.804525573638801e+43 (residual = 122.08949487882698)
+minresid_iteration_1: success - [-34.43,-7.49] using coverages from [-34.43,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 47437483821.899666)
+minresid_iteration_0: fail - [-34.43,-7.81] using coverages from [-34.43,-7.81]; initial residual was 6.684974311359388e+52 (residual = 47437483821.899666)
+minresid_iteration_1: success - [-34.43,-7.81] using coverages from [-34.43,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 61884273977595.69)
+minresid_iteration_0: fail - [-34.43,-8.12] using coverages from [-34.43,-8.12]; initial residual was 6.567386475797155e+61 (residual = 61884273977595.69)
+minresid_iteration_1: success - [-34.43,-8.12] using coverages from [-34.43,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 78182.69455556013)
+minresid_iteration_0: fail - [-34.43,-8.43] using coverages from [-34.43,-8.43]; initial residual was 8.679403597696216e+68 (residual = 78182.69455556013)
+minresid_iteration_1: success - [-34.43,-8.43] using coverages from [-34.43,-8.12]
+minresid_iteration_0: success - [-34.43,-8.74] using coverages from [-34.43,-8.74]
+minresid_iteration_0: success - [-34.43,-9.05] using coverages from [-34.43,-9.05]
+minresid_iteration_0: success - [-34.43,-9.36] using coverages from [-34.43,-9.36]
+minresid_iteration_0: success - [-34.43,-9.67] using coverages from [-34.43,-9.67]
+minresid_iteration_0: success - [-34.43,-9.98] using coverages from [-34.43,-9.98]
+minresid_iteration_0: success - [-34.43,-10.29] using coverages from [-34.43,-10.29]
+minresid_iteration_0: success - [-34.43,-10.60] using coverages from [-34.43,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 7.081394813283686e-29)
+minresid_iteration_0: fail - [-34.57,-4.70] using coverages from [-34.57,-4.70]; initial residual was 7.102949605574631e+35 (residual = 7.081394813283686e-29)
+minresid_iteration_1: success - [-34.57,-4.70] using coverages from [-34.43,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.6281673785165701e-31)
+minresid_iteration_0: fail - [-34.57,-5.01] using coverages from [-34.57,-5.01]; initial residual was 7.102949613267357e+35 (residual = 1.6281673785165701e-31)
+minresid_iteration_1: success - [-34.57,-5.01] using coverages from [-34.57,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.6903119003377877e-31)
+minresid_iteration_0: fail - [-34.57,-5.32] using coverages from [-34.57,-5.32]; initial residual was 7.102949618472857e+35 (residual = 2.6903119003377877e-31)
+minresid_iteration_1: success - [-34.57,-5.32] using coverages from [-34.57,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2053083161905135e-31)
+minresid_iteration_0: fail - [-34.57,-5.63] using coverages from [-34.57,-5.63]; initial residual was 7.102949622008089e+35 (residual = 1.2053083161905135e-31)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.3920520277808175e-22)
+minresid_iteration_1: fail - [-34.57,-5.63] using coverages from [-34.57,-5.32]; initial residual was 2.3920520277808175e-22 (residual = 2.3920520277808175e-22)
+minresid_iteration_2: success - [-34.57,-5.63] using coverages from [-34.43,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.7438147610183057e-32)
+minresid_iteration_0: fail - [-34.57,-5.94] using coverages from [-34.57,-5.94]; initial residual was 7.102949624416113e+35 (residual = 3.7438147610183057e-32)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.025246982271418e-14)
+minresid_iteration_1: fail - [-34.57,-5.94] using coverages from [-34.57,-5.63]; initial residual was 9.025246982271418e-14 (residual = 9.025246982271418e-14)
+minresid_iteration_2: success - [-34.57,-5.94] using coverages from [-34.43,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.1340628616609073e-34)
+minresid_iteration_0: fail - [-34.57,-6.25] using coverages from [-34.57,-6.25]; initial residual was 7.102949626063387e+35 (residual = 2.1340628616609073e-34)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.506730928212119e-05)
+minresid_iteration_1: fail - [-34.57,-6.25] using coverages from [-34.57,-5.94]; initial residual was 3.506730928212119e-05 (residual = 3.506730928212119e-05)
+minresid_iteration_2: success - [-34.57,-6.25] using coverages from [-34.43,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.1381709587461437e-26)
+minresid_iteration_0: fail - [-34.57,-6.56] using coverages from [-34.57,-6.56]; initial residual was 7.102949626299885e+35 (residual = 5.1381709587461437e-26)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 13625.28869362793)
+minresid_iteration_1: fail - [-34.57,-6.56] using coverages from [-34.57,-6.25]; initial residual was 13625.28869362793 (residual = 13625.28869362793)
+minresid_iteration_2: success - [-34.57,-6.56] using coverages from [-34.43,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.9963253263551432e-17)
+minresid_iteration_0: fail - [-34.57,-6.87] using coverages from [-34.57,-6.87]; initial residual was 7.102921574287593e+35 (residual = 1.9963253263551432e-17)
+minresid_iteration_1: success - [-34.57,-6.87] using coverages from [-34.57,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 7.756658367902959e-09)
+minresid_iteration_0: fail - [-34.57,-7.18] using coverages from [-34.57,-7.18]; initial residual was 6.332499831841122e+35 (residual = 7.756658367902959e-09)
+minresid_iteration_1: success - [-34.57,-7.18] using coverages from [-34.57,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.013824868424534)
+minresid_iteration_0: fail - [-34.57,-7.49] using coverages from [-34.57,-7.49]; initial residual was 1.0687276972790557e+43 (residual = 3.013824868424534)
+minresid_iteration_1: success - [-34.57,-7.49] using coverages from [-34.57,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1171012039.8140953)
+minresid_iteration_0: fail - [-34.57,-7.81] using coverages from [-34.57,-7.81]; initial residual was 1.0501995442534194e+52 (residual = 1171012039.8140953)
+minresid_iteration_1: success - [-34.57,-7.81] using coverages from [-34.57,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 357043787262443.1)
+minresid_iteration_0: fail - [-34.57,-8.12] using coverages from [-34.57,-8.12]; initial residual was 1.0317266775771129e+61 (residual = 357043787262443.1)
+minresid_iteration_1: success - [-34.57,-8.12] using coverages from [-34.57,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 1824183.4387824433)
+minresid_iteration_0: fail - [-34.57,-8.43] using coverages from [-34.57,-8.43]; initial residual was 5.5255247840484656e+69 (residual = 1824183.4387824433)
+minresid_iteration_1: success - [-34.57,-8.43] using coverages from [-34.57,-8.12]
+minresid_iteration_0: success - [-34.57,-8.74] using coverages from [-34.57,-8.74]
+minresid_iteration_0: success - [-34.57,-9.05] using coverages from [-34.57,-9.05]
+minresid_iteration_0: success - [-34.57,-9.36] using coverages from [-34.57,-9.36]
+minresid_iteration_0: success - [-34.57,-9.67] using coverages from [-34.57,-9.67]
+minresid_iteration_0: success - [-34.57,-9.98] using coverages from [-34.57,-9.98]
+minresid_iteration_0: success - [-34.57,-10.29] using coverages from [-34.57,-10.29]
+minresid_iteration_0: success - [-34.57,-10.60] using coverages from [-34.57,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.892399476652606e-29)
+minresid_iteration_0: fail - [-34.72,-4.70] using coverages from [-34.72,-4.70]; initial residual was 1.7038060545538949e+37 (residual = 4.892399476652606e-29)
+minresid_iteration_1: success - [-34.72,-4.70] using coverages from [-34.57,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2245562900218794e-28)
+minresid_iteration_0: fail - [-34.72,-5.01] using coverages from [-34.72,-5.01]; initial residual was 1.7038060602656455e+37 (residual = 1.2245562900218794e-28)
+minresid_iteration_1: success - [-34.72,-5.01] using coverages from [-34.72,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.8459376690663585e-29)
+minresid_iteration_0: fail - [-34.72,-5.32] using coverages from [-34.72,-5.32]; initial residual was 1.7038060638605045e+37 (residual = 3.8459376690663585e-29)
+minresid_iteration_1: success - [-34.72,-5.32] using coverages from [-34.72,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.332358917755601e-30)
+minresid_iteration_0: fail - [-34.72,-5.63] using coverages from [-34.72,-5.63]; initial residual was 1.703806066121446e+37 (residual = 1.332358917755601e-30)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.7998754511360075e-22)
+minresid_iteration_1: fail - [-34.72,-5.63] using coverages from [-34.72,-5.32]; initial residual was 5.7998754511360075e-22 (residual = 5.7998754511360075e-22)
+minresid_iteration_2: success - [-34.72,-5.63] using coverages from [-34.57,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.256708152354405e-33)
+minresid_iteration_0: fail - [-34.72,-5.94] using coverages from [-34.72,-5.94]; initial residual was 1.7038060675441938e+37 (residual = 3.256708152354405e-33)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.436442488155694e-16)
+minresid_iteration_1: fail - [-34.72,-5.94] using coverages from [-34.72,-5.63]; initial residual was 5.436442488155694e-16 (residual = 5.436442488155694e-16)
+minresid_iteration_2: success - [-34.72,-5.94] using coverages from [-34.57,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.135764078028697e-32)
+minresid_iteration_0: fail - [-34.72,-6.25] using coverages from [-34.72,-6.25]; initial residual was 1.7038060684395616e+37 (residual = 5.135764078028697e-32)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.112312037128843e-07)
+minresid_iteration_1: fail - [-34.72,-6.25] using coverages from [-34.72,-5.94]; initial residual was 2.112312037128843e-07 (residual = 2.112312037128843e-07)
+minresid_iteration_2: success - [-34.72,-6.25] using coverages from [-34.57,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2623035620459357e-27)
+minresid_iteration_0: fail - [-34.72,-6.56] using coverages from [-34.72,-6.56]; initial residual was 1.7038060689858825e+37 (residual = 1.2623035620459357e-27)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 82.07320474226005)
+minresid_iteration_1: fail - [-34.72,-6.56] using coverages from [-34.72,-6.25]; initial residual was 82.07320474226005 (residual = 82.07320474226005)
+minresid_iteration_2: success - [-34.72,-6.56] using coverages from [-34.57,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.928003516538163e-19)
+minresid_iteration_0: fail - [-34.72,-6.87] using coverages from [-34.72,-6.87]; initial residual was 1.7038055247696287e+37 (residual = 4.928003516538163e-19)
+minresid_iteration_1: success - [-34.72,-6.87] using coverages from [-34.72,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.9147601444544747e-10)
+minresid_iteration_0: fail - [-34.72,-7.18] using coverages from [-34.72,-7.18]; initial residual was 1.686907808914414e+37 (residual = 1.9147601444544747e-10)
+minresid_iteration_1: success - [-34.72,-7.18] using coverages from [-34.72,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.07439739468619813)
+minresid_iteration_0: fail - [-34.72,-7.49] using coverages from [-34.72,-7.49]; initial residual was 1.6746401720053364e+42 (residual = 0.07439739468619813)
+minresid_iteration_1: success - [-34.72,-7.49] using coverages from [-34.72,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 28906870.40945448)
+minresid_iteration_0: fail - [-34.72,-7.81] using coverages from [-34.72,-7.81]; initial residual was 1.6504225450380684e+51 (residual = 28906870.40945448)
+minresid_iteration_1: success - [-34.72,-7.81] using coverages from [-34.72,-7.49]
+minresid_iteration_0: success - [-34.72,-8.12] using coverages from [-34.72,-8.12]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 40365709.76233929)
+minresid_iteration_0: fail - [-34.72,-8.43] using coverages from [-34.72,-8.43]; initial residual was 1.592317168232085e+69 (residual = 40365709.76233929)
+minresid_iteration_1: success - [-34.72,-8.43] using coverages from [-34.72,-8.12]
+minresid_iteration_0: success - [-34.72,-8.74] using coverages from [-34.72,-8.74]
+minresid_iteration_0: success - [-34.72,-9.05] using coverages from [-34.72,-9.05]
+minresid_iteration_0: success - [-34.72,-9.36] using coverages from [-34.72,-9.36]
+minresid_iteration_0: success - [-34.72,-9.67] using coverages from [-34.72,-9.67]
+minresid_iteration_0: success - [-34.72,-9.98] using coverages from [-34.72,-9.98]
+minresid_iteration_0: success - [-34.72,-10.29] using coverages from [-34.72,-10.29]
+minresid_iteration_0: success - [-34.72,-10.60] using coverages from [-34.72,-10.60]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.496699119957673e-26)
+minresid_iteration_0: fail - [-34.86,-4.70] using coverages from [-34.86,-4.70]; initial residual was 4.0855477821767845e+38 (residual = 5.496699119957673e-26)
+minresid_iteration_1: success - [-34.86,-4.70] using coverages from [-34.72,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.842584918764752e-26)
+minresid_iteration_0: fail - [-34.86,-5.01] using coverages from [-34.86,-5.01]; initial residual was 4.0855478465408345e+38 (residual = 2.842584918764752e-26)
+minresid_iteration_1: success - [-34.86,-5.01] using coverages from [-34.86,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.349455436891553e-27)
+minresid_iteration_0: fail - [-34.86,-5.32] using coverages from [-34.86,-5.32]; initial residual was 4.085547887022193e+38 (residual = 9.349455436891553e-27)
+minresid_iteration_1: success - [-34.86,-5.32] using coverages from [-34.86,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.114971207148905e-47)
+minresid_iteration_0: fail - [-34.86,-5.63] using coverages from [-34.86,-5.63]; initial residual was 4.0855479124902065e+38 (residual = 1.114971207148905e-47)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.835471414367633e-20)
+minresid_iteration_1: fail - [-34.86,-5.63] using coverages from [-34.86,-5.32]; initial residual was 4.835471414367633e-20 (residual = 4.835471414367633e-20)
+minresid_iteration_2: success - [-34.86,-5.63] using coverages from [-34.72,-5.63]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 2.2044504420920486e-29)
+minresid_iteration_0: fail - [-34.86,-5.94] using coverages from [-34.86,-5.94]; initial residual was 4.0855479285006435e+38 (residual = 2.2044504420920486e-29)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.2822562673845353e-18)
+minresid_iteration_1: fail - [-34.86,-5.94] using coverages from [-34.86,-5.63]; initial residual was 3.2822562673845353e-18 (residual = 3.2822562673845353e-18)
+minresid_iteration_2: success - [-34.86,-5.94] using coverages from [-34.72,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.3795275799063464e-29)
+minresid_iteration_0: fail - [-34.86,-6.25] using coverages from [-34.86,-6.25]; initial residual was 4.085547938570313e+38 (residual = 1.3795275799063464e-29)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2723708301342202e-09)
+minresid_iteration_1: fail - [-34.86,-6.25] using coverages from [-34.86,-5.94]; initial residual was 1.2723708301342202e-09 (residual = 1.2723708301342202e-09)
+minresid_iteration_2: success - [-34.86,-6.25] using coverages from [-34.72,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.849357722585103e-29)
+minresid_iteration_0: fail - [-34.86,-6.56] using coverages from [-34.86,-6.56]; initial residual was 4.085547944900203e+38 (residual = 4.849357722585103e-29)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.4943756144472856)
+minresid_iteration_1: fail - [-34.86,-6.56] using coverages from [-34.86,-6.25]; initial residual was 0.4943756144472856 (residual = 0.4943756144472856)
+minresid_iteration_2: success - [-34.86,-6.56] using coverages from [-34.72,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.2165089871082674e-20)
+minresid_iteration_0: fail - [-34.86,-6.87] using coverages from [-34.86,-6.87]; initial residual was 4.085547843169763e+38 (residual = 1.2165089871082674e-20)
+minresid_iteration_1: success - [-34.86,-6.87] using coverages from [-34.86,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.726657069384367e-12)
+minresid_iteration_0: fail - [-34.86,-7.18] using coverages from [-34.86,-7.18]; initial residual was 4.082237679605083e+38 (residual = 4.726657069384367e-12)
+minresid_iteration_1: success - [-34.86,-7.18] using coverages from [-34.86,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.0018365275282194282)
+minresid_iteration_0: fail - [-34.86,-7.49] using coverages from [-34.86,-7.49]; initial residual was 2.5394591262509545e+41 (residual = 0.0018365275282194282)
+minresid_iteration_1: success - [-34.86,-7.49] using coverages from [-34.86,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 713576.9133523618)
+minresid_iteration_0: fail - [-34.86,-7.81] using coverages from [-34.86,-7.81]; initial residual was 2.592786355429579e+50 (residual = 713576.9133523618)
+minresid_iteration_1: success - [-34.86,-7.81] using coverages from [-34.86,-7.49]
+minresid_iteration_0: success - [-34.86,-8.12] using coverages from [-34.86,-8.12]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 827886219.24877)
+minresid_iteration_0: fail - [-34.86,-8.43] using coverages from [-34.86,-8.43]; initial residual was 2.5015066612629875e+68 (residual = 827886219.24877)
+minresid_iteration_1: success - [-34.86,-8.43] using coverages from [-34.86,-8.12]
+minresid_iteration_0: success - [-34.86,-8.74] using coverages from [-34.86,-8.74]
+minresid_iteration_0: success - [-34.86,-9.05] using coverages from [-34.86,-9.05]
+minresid_iteration_0: success - [-34.86,-9.36] using coverages from [-34.86,-9.36]
+minresid_iteration_0: success - [-34.86,-9.67] using coverages from [-34.86,-9.67]
+minresid_iteration_0: success - [-34.86,-9.98] using coverages from [-34.86,-9.98]
+minresid_iteration_0: success - [-34.86,-10.29] using coverages from [-34.86,-10.29]
+minresid_iteration_0: success - [-34.86,-10.60] using coverages from [-34.86,-10.60]
+minresid_iteration_0: success - [-35.00,-4.70] using coverages from [-35.00,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.940758890748247e-25)
+minresid_iteration_0: fail - [-35.00,-5.01] using coverages from [-35.00,-5.01]; initial residual was 9.800126599718159e+39 (residual = 5.940758890748247e-25)
+minresid_iteration_1: success - [-35.00,-5.01] using coverages from [-35.00,-4.70]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.293488837704602e-28)
+minresid_iteration_0: fail - [-35.00,-5.32] using coverages from [-35.00,-5.32]; initial residual was 9.800127056956019e+39 (residual = 9.293488837704602e-28)
+minresid_iteration_1: success - [-35.00,-5.32] using coverages from [-35.00,-5.01]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 9.304555426850933e-27)
+minresid_iteration_0: fail - [-35.00,-5.63] using coverages from [-35.00,-5.63]; initial residual was 9.800127344532445e+39 (residual = 9.304555426850933e-27)
+minresid_iteration_1: success - [-35.00,-5.63] using coverages from [-35.00,-5.32]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.572799109520729e-27)
+minresid_iteration_0: fail - [-35.00,-5.94] using coverages from [-35.00,-5.94]; initial residual was 9.800127525401545e+39 (residual = 6.572799109520729e-27)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 6.519632382274732e-19)
+minresid_iteration_1: fail - [-35.00,-5.94] using coverages from [-35.00,-5.63]; initial residual was 6.519632382274732e-19 (residual = 6.519632382274732e-19)
+minresid_iteration_2: success - [-35.00,-5.94] using coverages from [-34.86,-5.94]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 5.12509938212189e-28)
+minresid_iteration_0: fail - [-35.00,-6.25] using coverages from [-35.00,-6.25]; initial residual was 9.800127639191426e+39 (residual = 5.12509938212189e-28)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 7.664244305811695e-12)
+minresid_iteration_1: fail - [-35.00,-6.25] using coverages from [-35.00,-5.94]; initial residual was 7.664244305811695e-12 (residual = 7.664244305811695e-12)
+minresid_iteration_2: success - [-35.00,-6.25] using coverages from [-34.86,-6.25]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.815872925637884e-30)
+minresid_iteration_0: fail - [-35.00,-6.56] using coverages from [-35.00,-6.56]; initial residual was 9.800127710724511e+39 (residual = 3.815872925637884e-30)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 0.002977917609942324)
+minresid_iteration_1: fail - [-35.00,-6.56] using coverages from [-35.00,-6.25]; initial residual was 0.002977917609942324 (residual = 0.002977917609942324)
+minresid_iteration_2: success - [-35.00,-6.56] using coverages from [-34.86,-6.56]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 3.003273206129932e-22)
+minresid_iteration_0: fail - [-35.00,-6.87] using coverages from [-35.00,-6.87]; initial residual was 9.800127735193684e+39 (residual = 3.003273206129932e-22)
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1156761.7293784916)
+minresid_iteration_1: fail - [-35.00,-6.87] using coverages from [-35.00,-6.56]; initial residual was 1156761.7293784916 (residual = 1156761.7293784916)
+minresid_iteration_2: success - [-35.00,-6.87] using coverages from [-34.86,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 1.1667929912232e-13)
+minresid_iteration_0: fail - [-35.00,-7.18] using coverages from [-35.00,-7.18]; initial residual was 9.799484593170203e+39 (residual = 1.1667929912232e-13)
+minresid_iteration_1: success - [-35.00,-7.18] using coverages from [-35.00,-6.87]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 4.533536928453045e-05)
+minresid_iteration_0: fail - [-35.00,-7.49] using coverages from [-35.00,-7.49]; initial residual was 3.1104158621963063e+40 (residual = 4.533536928453045e-05)
+minresid_iteration_1: success - [-35.00,-7.49] using coverages from [-35.00,-7.18]
+rootfinding_iteration_2: cancel - stationary point or singular jacobian (residual = 17614.91313506882)
+minresid_iteration_0: fail - [-35.00,-7.81] using coverages from [-35.00,-7.81]; initial residual was 4.07317085309575e+49 (residual = 17614.91313506882)
+minresid_iteration_1: success - [-35.00,-7.81] using coverages from [-35.00,-7.49]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 2908701030121.512)
+minresid_iteration_0: fail - [-35.00,-8.12] using coverages from [-35.00,-8.12]; initial residual was 4.001586367274211e+58 (residual = 2908701030121.512)
+minresid_iteration_1: success - [-35.00,-8.12] using coverages from [-35.00,-7.81]
+rootfinding_iteration_3: cancel - stationary point or singular jacobian (residual = 15089257895.311245)
+minresid_iteration_0: fail - [-35.00,-8.43] using coverages from [-35.00,-8.43]; initial residual was 3.9311989787345184e+67 (residual = 15089257895.311245)
+minresid_iteration_1: success - [-35.00,-8.43] using coverages from [-35.00,-8.12]
+minresid_iteration_0: success - [-35.00,-8.74] using coverages from [-35.00,-8.74]
+minresid_iteration_0: success - [-35.00,-9.05] using coverages from [-35.00,-9.05]
+minresid_iteration_0: success - [-35.00,-9.36] using coverages from [-35.00,-9.36]
+minresid_iteration_0: success - [-35.00,-9.67] using coverages from [-35.00,-9.67]
+minresid_iteration_0: success - [-35.00,-9.98] using coverages from [-35.00,-9.98]
+minresid_iteration_0: success - [-35.00,-10.29] using coverages from [-35.00,-10.29]
+minresid_iteration_0: success - [-35.00,-10.60] using coverages from [-35.00,-10.60]
+mapper_iteration_1: status - 0 points do not have valid solution.
+header_evaluation: fail - could not save adsorbate_coefficient_matrix = array([[  0.31554,   0.     ,   3.37358],
+       [  0.14248,   0.     ,  -1.12311],
+       [  1.     ,   0.     ,  -0.     ],
+       [  0.3739 ,   0.08575, -22.43595],
+       [  0.     ,   1.     ,  -0.     ],
+       [  0.34847,   0.05805,   4.50452],
+       [  0.     ,   0.     ,  -7.71701]])
+
+
+header_evaluation: fail - could not save coefficient_matrix = array([[  0.31554   ,   0.        ,   3.37358   ],
+       [  0.14248   ,   0.        ,  -1.12311   ],
+       [  1.        ,   0.        ,  -0.        ],
+       [  0.3739    ,   0.08575   , -22.43595   ],
+       [  0.        ,   1.        ,  -0.        ],
+       [  0.34847   ,   0.05805   ,   4.50452   ],
+       [  0.        ,   0.        ,  -7.71701   ],
+       [  0.82095111,   0.        ,  -5.8261799 ],
+       [  0.        ,   0.98839515,   0.02674878]])
+
+
+header_evaluation: fail - could not save kBT = mpf('0.028708643150456998040645441960805328562855720520019531249999999999999999999999999999999999999999999999999999999999999999999999997')
+
+
+header_evaluation: fail - could not save total_coefficient_dict = {'S1_s': array([0.31554, 0.     , 3.37358]), 'S2_s': array([ 0.14248,  0.     , -1.12311]), 'S3_s': array([ 1.,  0., -0.]), 'S4_s': array([  0.3739 ,   0.08575, -22.43595]), 'S5_s': array([ 0.,  1., -0.]), 'S6_s': array([0.34847, 0.05805, 4.50452]), 'S7_s': array([ 0.     ,  0.     , -7.71701]), 'TS1_s': array([ 0.82112,  0.     , -5.82054]), 'TS2_s': array([0.     , 0.98839, 0.0267 ])}
+
+
+header_evaluation: fail - could not save transition_state_coefficient_matrix = array([[ 0.82095111,  0.        , -5.8261799 ],
+       [ 0.        ,  0.98839515,  0.02674878]])
+
+
+header_evaluation: fail - could not save transition_state_scaling_matrix = array([[ 0.        ,  0.        ,  0.82095111,  0.        ,  0.        ,
+         0.        ,  0.        , -5.8261799 ],
+       [ 0.        ,  0.        ,  0.        ,  0.        ,  0.98839515,
+         0.        ,  0.        ,  0.02674878]])
+
+"""
