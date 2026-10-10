@@ -49,12 +49,12 @@ def make_temperature_bridge(
     and nearest-neighbor guesses. No changes to actual reaction conditions
     survive in the final single-point model.
     """
-    from catmap import ReactionModel
-
     if high_temperature <= 333.15:
         raise ValueError("Bridge temperature must exceed 333.15 K.")
     if steps < 3:
         raise ValueError("At least three temperature path points are needed.")
+
+    from catmap import ReactionModel
 
     work = RECOVERY_ROOT / "bridges" / surface / f"T{high_temperature:g}"
     work.mkdir(parents=True, exist_ok=True)
