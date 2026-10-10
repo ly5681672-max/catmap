@@ -38,7 +38,15 @@ SURFACES = [
 # Source: https://github.com/SUNCAT-Center/catmap/blob/master/catmap/solvers/numbers_solver.py
 DEFAULT_PRECISION = 180
 DEFAULT_TOLERANCE = "1e-120"
-DEFAULT_MIN_TOF = 1e-40  # diagnostic significance floor, not a physical TOF limit
+DEFAULT_MIN_TOF = 0.0  # compatibility argument only; never use as a physical/numerical validity filter
+MAX_RELATIVE_COVERAGE_RESIDUAL = 1e-4
+TOF_STABILITY_LOG10_TOL = 0.02  # consecutive-stage TOFs agree within about 4.7% in relative terms
+REFINEMENT_STAGES = (
+    (180, "1e-120"),
+    (260, "1e-180"),
+    (360, "1e-260"),
+    (460, "1e-340"),
+)
 MAX_RELATIVE_FLUX_ERROR = 1e-4
 MAX_ABSOLUTE_COVERAGE_RESIDUAL = 1e-45
 DIAGNOSTIC_SURFACES = ("tife", "titi", "tiw")
@@ -101,13 +109,14 @@ def remove_stale_plot(filename: str) -> None:
 
 
 def plot_linear(df: pd.DataFrame, x_col: str, y_col: str, filename: str,
-                xlabel: str, ylabel: str, log_tof: bool = False) -> None:
+                xlabel: str, ylabel: str, log_tof: bool = False,
+                min_points: int = 3) -> None:
     data = df[["surface", x_col, y_col]].copy()
     data[y_col] = pd.to_numeric(data[y_col], errors="coerce")
     data = data.replace([np.inf, -np.inf], np.nan).dropna()
-    if len(data) < 3:
+    if len(data) < min_points:
         remove_stale_plot(filename)
-        print(f"[跳过] {filename}: 有效点数不足3，当前不能做拟合。")
+        print(f"[跳过] {filename}: 有效点数不足{min_points}，当前不能做拟合。")
         return
     x = data[x_col].to_numpy(dtype=float)
     y = data[y_col].to_numpy(dtype=float)
@@ -115,9 +124,9 @@ def plot_linear(df: pd.DataFrame, x_col: str, y_col: str, filename: str,
         good = y > 0
         x, y = x[good], np.log10(y[good])
         data = data.loc[good]
-    if len(x) < 3:
+    if len(x) < min_points:
         remove_stale_plot(filename)
-        print(f"[跳过] {filename}: 正TOF点数不足3。")
+        print(f"[跳过] {filename}: 有效TOF点数不足{min_points}。")
         return
     a, b, r2, mae = fit_linear(x, y)
     xx = np.linspace(float(min(x)), float(max(x)), 150)
@@ -172,74 +181,91 @@ def check_steady_state(
     rates, gases, coverages, solver_residual, numbers_solver: bool,
     min_tof: float = DEFAULT_MIN_TOF
 ) -> dict:
-    """Independent diagnostics of eight-step flux and gas stoichiometry.
+    """Independent 8-step steady-state test in native mpmath precision.
 
-    Important: in CatMAP numbers_solver the convergence residual is L2**2.
-    Convert to ordinary L2 using sqrt before comparing to physical rates.
-    Preserve mpmath precision until writing summary floats.
+    The CatMAP numbers solver compares an L2-squared surface residual with
+    tolerance; the usual coverage solver uses an unsquared rate norm.
+    Never treat a fixed TOF plot threshold as a scientific activity cutoff.
     """
     from mpmath import mp
 
     rr = [mp.mpf(str(v)) for v in rates]
     if len(rr) != 8:
-        raise ValueError(f"Expected 8 elementary rates, got {len(rr)}")
+        raise ValueError(f"Expected eight elementary rates, got {len(rr)}")
     gas = {k: mp.mpf(str(v)) for k, v in gases.items()}
-    needed = ("C6H12O_g", "C6H12_g", "H2O2_g", "H2O_g")
-    if any(k not in gas for k in needed):
-        raise ValueError("Missing net gas flux labels, cannot check stoichiometry")
+    keys = ("C6H12O_g", "C6H12_g", "H2O2_g", "H2O_g")
+    if not all(k in gas for k in keys):
+        raise ValueError("Gas turnover frequency lacks one or more net stoichiometric fluxes")
 
     rmax = max(abs(r) for r in rr)
     cycle_abs = max(abs(r - rr[3]) for r in rr)
-    cycle_rel = cycle_abs / rmax if rmax else mp.nan
+    cycle_rel = cycle_abs / rmax if rmax else mp.inf
 
-    gas_terms = (gas["C6H12O_g"], -gas["C6H12_g"],
+    net_terms = (gas["C6H12O_g"], -gas["C6H12_g"],
                  -gas["H2O2_g"], gas["H2O_g"])
-    gas_scale = max(abs(v) for v in gas_terms)
-    gas_abs = max(abs(v - gas_terms[0]) for v in gas_terms[1:])
-    gas_rel = gas_abs / gas_scale if gas_scale else mp.nan
+    gas_max = max(abs(v) for v in net_terms)
+    gas_abs = max(abs(v - net_terms[0]) for v in net_terms[1:])
+    gas_rel = gas_abs / gas_max if gas_max else mp.inf
 
-    raw_resid = mp.mpf(str(solver_residual))
+    residual = mp.mpf(str(solver_residual))
     if numbers_solver:
-        raw_resid = mp.sqrt(max(raw_resid, mp.mpf("0")))
+        residual = mp.sqrt(max(residual, mp.mpf("0")))
+    residual_rel = residual / rmax if rmax else mp.inf
 
     cover = [mp.mpf(str(v)) for v in coverages]
-    coverage_sum_err = abs(sum(cover) - 1)
+    coverage_error = abs(sum(cover) - 1)
     nonnegative = all(v >= -mp.mpf("1e-25") for v in cover)
-    tof = gas["C6H12O_g"]
-    signs_ok = (tof > 0 and gas["C6H12_g"] < 0 and
-                gas["H2O2_g"] < 0 and gas["H2O_g"] > 0)
-
+    net_tof = gas["C6H12O_g"]
+    correct_signs = (net_tof > 0 and gas["C6H12_g"] < 0 and
+                     gas["H2O2_g"] < 0 and gas["H2O_g"] > 0)
     finite = all(mp.isfinite(v) for v in
-                 (rmax, cycle_rel, gas_rel, raw_resid, coverage_sum_err))
-    numeric_ok = bool(
-        finite and nonnegative and coverage_sum_err < mp.mpf("1e-8")
+                 (rmax, cycle_rel, gas_rel, residual, residual_rel, coverage_error))
+    consistent = bool(
+        finite and nonnegative and correct_signs
+        and coverage_error < mp.mpf("1e-8")
         and cycle_rel < mp.mpf(str(MAX_RELATIVE_FLUX_ERROR))
         and gas_rel < mp.mpf(str(MAX_RELATIVE_FLUX_ERROR))
-        and raw_resid < mp.mpf(str(MAX_ABSOLUTE_COVERAGE_RESIDUAL))
-        and signs_ok
+        and residual_rel < mp.mpf(str(MAX_RELATIVE_COVERAGE_RESIDUAL))
+        and residual < mp.mpf(str(MAX_ABSOLUTE_COVERAGE_RESIDUAL))
     )
-    significant = bool(tof >= mp.mpf(str(min_tof))) if mp.isfinite(tof) else False
-    if not finite:
-        quality = "invalid_nonfinite"
-    elif not numeric_ok:
-        quality = "failed_steady_state_checks"
-    elif not significant:
-        quality = "below_diagnostic_rate_floor"
-    else:
-        quality = "validated_numerically"
+    quality = ("validated_single_precision" if consistent else
+               "failed_steady_state_checks")
     return {
         "cycle_max_relative_error": float(cycle_rel),
         "cycle_max_absolute_error": float(cycle_abs),
         "balance_max_relative_error": float(gas_rel),
         "balance_max_absolute_error": float(gas_abs),
-        "steady_state_residual_max_abs": float(raw_resid),
-        "coverage_sum_error": float(coverage_sum_err),
+        "steady_state_residual_max_abs": float(residual),
+        "steady_state_residual_relative_to_max_rate": float(residual_rel),
+        "coverage_sum_error": float(coverage_error),
         "cycle_max_rate_abs": float(rmax),
         "quality_status": quality,
-        "quality_pass": quality == "validated_numerically",
-        "fit_rate_threshold": min_tof,
-        **{f"step_rate_{i + 1}": float(v) for i, v in enumerate(rr)}
+        "quality_pass": consistent,
+        "fit_rate_threshold": 0.0,  # deprecated; zero denotes no arbitrary TOF floor
+        **{f"step_rate_{i + 1}": float(v) for i, v in enumerate(rr)},
     }
+
+
+def compare_refinement_runs(previous: dict, current: dict,
+                            max_log_delta: float = TOF_STABILITY_LOG10_TOL) -> dict:
+    """Test stability across independently recomputed CatMAP precision/tolerance.
+
+    A small absolute squared residual alone can misclassify ultra-low fluxes;
+    two converged, stoichiometrically consistent roots with matching log(TOF)
+    are required before an activity point can be used for regression.
+    """
+    import math
+    old_log = float(previous.get("log10_net_C6H12O", float("nan")))
+    new_log = float(current.get("log10_net_C6H12O", float("nan")))
+    delta = abs(new_log - old_log)
+    valid = bool(previous.get("quality_pass") and current.get("quality_pass"))
+    stable = valid and math.isfinite(delta) and delta <= max_log_delta
+    return {
+        "refinement_stable": bool(stable),
+        "refinement_delta_log10_TOF": float(delta),
+    }
+
+
 
 
 def run_single_surface(
@@ -304,6 +330,8 @@ def run_single_surface(
             zip(cover_names + ["vacant"], [float(v) for v in full_coverages]),
             key=lambda x: x[1], reverse=True
         )[0]
+        log_tof = (float(mp.log10(gas_raw["C6H12O_g"]))
+                   if gas_raw["C6H12O_g"] > 0 else float("nan"))
         result = {
             "surface": surface,
             "status": "solved",  # solver accepted a root; NOT a physics quality gate
@@ -311,6 +339,8 @@ def run_single_surface(
             "run_tolerance": tolerance,
             "solver_mode": "numbers" if numbers_solver else "coverages",
             "net_C6H12O": float(gas_raw["C6H12O_g"]),
+            "net_C6H12O_high_precision": mp.nstr(gas_raw["C6H12O_g"], 40),
+            "log10_net_C6H12O": log_tof,
             "net_C6H12": float(gas_raw["C6H12_g"]),
             "net_H2O2": float(gas_raw["H2O2_g"]),
             "net_H2O": float(gas_raw["H2O_g"]),
@@ -327,6 +357,48 @@ def run_single_surface(
         os.chdir(old_cwd)
 
 
+def run_adaptive_surface(surface: str, stages: int = 3) -> tuple[dict, list[dict]]:
+    """Refine only where needed, retaining separate files for every attempt."""
+    snapshots = []
+    previous = None
+    final = None
+    for stage_idx, (prec, tol) in enumerate(REFINEMENT_STAGES[:stages], 1):
+        label = f"stage_{stage_idx:02d}"
+        try:
+            row = run_single_surface(
+                surface, precision=prec, tolerance=tol,
+                output_root=OUTPUT / "refinement" / label
+            )
+        except Exception as exc:
+            row = {
+                "surface": surface, "status": f"FAILED: {type(exc).__name__}: {exc}",
+                "quality_status": "solver_failed", "quality_pass": False,
+            }
+        row["refinement_stage"] = stage_idx
+        row["refinement_stable"] = False
+        row["refinement_delta_log10_TOF"] = float("nan")
+        if previous is not None:
+            row.update(compare_refinement_runs(previous, row))
+        snapshots.append(row)
+        final = dict(row)
+        print(
+            f"[{surface}] {label}: {row['quality_status']}"
+            f" | TOF={row.get('net_C6H12O_high_precision', 'none')}"
+            f" | relative_flux_error={row.get('cycle_max_relative_error', 'none')}"
+            f" | relative_residual={row.get('steady_state_residual_relative_to_max_rate', 'none')}"
+            f" | refinement_stable={row['refinement_stable']}"
+        )
+        if row["refinement_stable"]:
+            final["quality_status"] = "validated_refinement_stable"
+            final["quality_pass"] = True
+            break
+        previous = row
+    if not final["refinement_stable"]:
+        final["quality_pass"] = False
+        final["quality_status"] = "unresolved_precision_or_flux"
+    return final, snapshots
+
+
 def run_diagnostics(min_tof: float, compare_coverage_solver: bool = False) -> None:
     """Official CatMAP tolerance/precision refinement, isolated for TiFe/TiTi/TiW.
 
@@ -338,6 +410,8 @@ def run_diagnostics(min_tof: float, compare_coverage_solver: bool = False) -> No
     settings = [
         ("legacy_numbers", 100, "1e-50", True),
         ("strict_numbers", DEFAULT_PRECISION, DEFAULT_TOLERANCE, True),
+        ("refined_numbers", 260, "1e-180", True),
+        ("deep_numbers", 360, "1e-260", True),
     ]
     if compare_coverage_solver:
         settings.append(("strict_coverages", 180, "1e-70", False))
@@ -381,7 +455,9 @@ def main() -> None:
     parser.add_argument("--tolerance", default=DEFAULT_TOLERANCE,
                         help="numbers solver使用残差平方和；默认1e-120")
     parser.add_argument("--min-tof", type=float, default=DEFAULT_MIN_TOF,
-                        help="进入拟合所需的最低可分辨TOF，仅为诊断数值门槛")
+                        help="旧命令兼容参数：不再作为TOF物理/数值有效性门槛")
+    parser.add_argument("--max-stage", type=int, choices=(2, 3, 4), default=3,
+                        help="独立求解精度级数：2/3/4，默认3")
     args = parser.parse_args()
     if args.precision < 80:
         parser.error("precision须至少80位；建议180位")
@@ -411,16 +487,15 @@ def main() -> None:
         baseline = pd.read_csv(target)
     else:
         baseline_rows = []
+        stage_rows = []
         for surface in SURFACES:
             print(f"\n========== {surface}: strict DFT single-point baseline ==========")
             try:
-                row = run_single_surface(
-                    surface, precision=args.precision,
-                    tolerance=args.tolerance, min_tof=args.min_tof
-                )
+                row, snapshots = run_adaptive_surface(surface, stages=args.max_stage)
                 baseline_rows.append(row)
-                print("[计算完成]", surface, row["quality_status"],
-                      "cycle_err=", row["cycle_max_relative_error"])
+                stage_rows.extend(snapshots)
+                print("[复算完成]", surface, row["quality_status"],
+                      "cycle_err=", row.get("cycle_max_relative_error"))
             except Exception as exc:
                 print(f"[求解失败] {surface}: {type(exc).__name__}: {exc}")
                 baseline_rows.append({
@@ -430,6 +505,9 @@ def main() -> None:
                     "quality_pass": False,
                 })
         baseline = pd.DataFrame(baseline_rows)
+        pd.DataFrame(stage_rows).to_csv(
+            OUTPUT / "refinement_convergence.csv", index=False
+        )
         baseline.to_csv(OUTPUT / "dft_baseline.csv", index=False)
 
     result = df.merge(baseline, on="surface", how="left")
@@ -441,27 +519,29 @@ def main() -> None:
     if "quality_pass" not in result.columns:
         result["quality_pass"] = False
         result["quality_status"] = "legacy_unverified"
+    if "refinement_stable" not in result.columns:
+        result["refinement_stable"] = False
     result["quality_pass"] = result["quality_pass"].astype(str).str.lower().eq("true")
-    if "TS_requires_check" not in result.columns:
-        result["TS_requires_check"] = True
-    result["TS_requires_check"] = (
-        result["TS_requires_check"].fillna(True).astype(str).str.lower().eq("true")
-    )
+    result["refinement_stable"] = result["refinement_stable"].astype(str).str.lower().eq("true")
+    # Do NOT reject any original DFT row based on the sign of an input
+    # TS difference. CatMAP's effective barrier is non-negative by design;
+    # the original DFT is kept unchanged and all TS metadata is descriptive.
     result["eligible_for_tof_fit"] = (
-        result["quality_pass"] & ~result["TS_requires_check"]
-        & (pd.to_numeric(result["net_C6H12O"], errors="coerce") >= args.min_tof)
+        result["quality_pass"] & result["refinement_stable"]
+        & np.isfinite(pd.to_numeric(result.get("log10_net_C6H12O"), errors="coerce"))
     )
     result.to_csv(OUTPUT / "OOH_TOF_results.csv", index=False)
 
     selected = result.loc[result["eligible_for_tof_fit"]]
-    print("\n通过稳态、化学计量、数值速率阈值且无已知TS异常的数据：", len(selected))
+    print("\n通过两次独立精度收敛、八步通量、物料守恒的数据：", len(selected))
     print("催化剂：", ", ".join(selected["surface"]) or "无")
-    plot_linear(selected, "G_OOH_eV", "net_C6H12O",
+    plot_linear(selected, "G_OOH_eV", "log10_net_C6H12O",
                 "OOH_logTOF_linear.png", "OOH* formation energy (eV)",
-                "log10(net epoxide TOF)", log_tof=True)
+                "log10(net epoxide TOF)", min_points=5)
     print("\n输出目录：", OUTPUT)
-    print("OOH-OH拟合是DFT能量关系；OOH-TOF拟合仅纳入明确通过质量门槛的行。")
-    print("注意：TS异常标记仅基于现有NEB映射表，其他TS/溶剂效应问题仍需DFT复核。")
+    print("OOH-OH拟合直接使用原始DFT能量；OOH-TOF拟合要求两次独立求解的稳定性。")
+    print("DFT能量及相对TS数据保持原样；不以负相对能量排除催化剂。")
+    print("新的收敛轨迹在 analysis_ooh/refinement_convergence.csv。")
 
 
 if __name__ == "__main__":
