@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Build coadsorption CatMAP energies from the ORIGINAL Excel workbook.
 Requires: artifact_tool. No writes to the original workbook or old model.
-Run: python lyq_alkene_epoxidation1/build_coadsorption.py
+Run from any directory: python build_coadsorption.py
 """
 import csv
 from pathlib import Path
 from artifact_tool import Blob, SpreadsheetFile
 
 HERE = Path(__file__).resolve().parent
-SOURCE = HERE.parent / "lyq_alkene_epoxidation" / "己烯环氧化.xlsx"
+SOURCE = HERE / "己烯环氧化.xlsx"
 OUTPUT = HERE / "energies.txt"
 AUDIT = HERE / "energy_audit.csv"
 ELEMENT_REF = {"C": -9.28, "H": -1.11, "O": -4.37}
@@ -41,6 +41,7 @@ def main():
     for name,g in gases.items():
         output.append(("None","gas",name,g-atom_ref(name)))
     rows=[]
+    expected = {\n        "tiw": (-989.000342, -989.566993, -991.676126),\n        "tita": (-990.926295, -992.100931, -993.378832),\n    }
     for col,surface in surfaces:
         gcol = col+6 if surface == 'tita' else col+5
         # Raw corrected free energies, from the SAME sheet:
@@ -50,7 +51,7 @@ def main():
         initial=n(cell(12,gcol), f"{surface} IS G")
         marker=n(cell(16,gcol), f"{surface} NEB-marker G")
         final=n(cell(21 if surface == "timo" else 20,gcol), f"{surface} FS G")
-        delta_marker=marker-initial
+        if surface in expected and any(abs(x-y)>1e-5 for x,y in zip((initial,marker,final), expected[surface])):\n            raise ValueError(f"{surface}: workbook sheet/column mapping does not match verified reference")\n        delta_marker=marker-initial
         delta_final=final-initial
         # Rate-model effective barrier, not a claim about actual NEB saddle.
         # For downhill marker choose zero forward activation; for others
