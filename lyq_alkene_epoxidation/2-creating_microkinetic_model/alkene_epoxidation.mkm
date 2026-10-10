@@ -89,8 +89,8 @@ species_definitions['Hb-O_s'] = {
 #
 # Data / parser parameters
 #
-data_file = 'alkene_epoxidation.pkl'
-input_file = 'energies.txt'
+data_file = 'alkene_epoxidation_dft.pkl'
+input_file = 'energies_dft_neb.txt'
 
 #
 # Thermodynamic parameters
