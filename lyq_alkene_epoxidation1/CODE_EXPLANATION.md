@@ -44,3 +44,23 @@
 ### 本地重新运行
 
 在 `lyq_alkene_epoxidation1/2-creating_microkinetic_model` 打开 `test.ipynb`，按单元 1→7 顺序执行。不要使用旧版 `lyq_alkene_epoxidation` 的工作目录。预期新增 `rate.pdf`、`all_rates.pdf`、`production_rate.pdf`、`pretty_production_rate.pdf`、`coverage.pdf`、`R_P_coverage.pdf`、`scaling.pdf`、`production_rate_table.txt`、`ts_scaling_audit.csv`。第 8 单元是默认注释的敏感性计算选项，以免在基础验算时增加高刚性求解工作。
+
+## 2026-10-10 最新实跑错误（已修改 Notebook，待用户本地复跑）
+
+GitHub 最新已执行的 `test.ipynb`（In[12]–In[19]）包含以下可复现问题：
+
+1. **In[13]：TypeError**：`model.resolution` 是列表 `[10,10]`，误用了 `int(model.resolution)`。现改为对每维取乘积，预期 100 个描述符点。
+2. **In[15]：PermissionError**：`rate.pdf` 已存在且可能被 PDF 预览器锁定，Matplotlib 无法以 `wb` 覆盖。新版绘图首先尝试原文件名，受锁时回退到 `plots/rerun_YYYYmmdd_HHMMSS/<原文件名>`；若目录不可写仍需排查权限。
+3. **In[15]：RuntimeWarning invalid value encountered in log10**：净基元速率有符号，不能直接按对数绘制。新版 `rate.pdf`、`all_rates.pdf` 改为线性带符号速率；环氧产物净生成速率只有在全部非负时才采用对数显示。
+4. **CatMAP 文本日志序列化**：`coverage_map` 等大型映射数据无法被 CatMAP 的 `exec(repr(...))` 直接解析，新增 CatMAP 原生 `_pickle_attrs` 存档设置，以使它们从 .pkl 重建。旧日志仍保留以前的警告，须在重跑后复核。
+5. **实际已得到结果**：最新 `production_rate_table.txt` 已有 100 个网格点和 4 种气相物种的生成速率；`ts_scaling_audit.csv` 共 15 组催化剂，11 组 RP 拟合偏差 >0.05 eV。零有效输入势垒的 TiNb/TiW/TiTa 在当前拟合中对应 0.2416/0.1829/0.2586 eV。此问题属于动力学映射假设，**目前尚未通过编程修正为真实逐催化剂 NEB 势垒**。
+
+### 修复后的本地复跑顺序
+
+```powershell
+cd H:\\catmap\\catmap
+git status --short
+git pull --ff-only origin main
+```
+
+确认 PyCharm/Jupyter 刷新新版 `lyq_alkene_epoxidation1/2-creating_microkinetic_model/test.ipynb`，选择重新启动 Kernel、顺序运行各代码单元。首先关注网格完整性结果 `production_rate=100, rate=100, coverage=100` 和物理覆盖度警告数量；其次检查所有 PDF 保存提示（遇到锁定时自动转 `plots`），最后检查 TS 拟合误差文件。若缓存很大，强制重新计算可能花费一些时间。
