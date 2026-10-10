@@ -275,7 +275,7 @@ def run_single_surface(
     tolerance: str = DEFAULT_TOLERANCE, numbers_solver: bool = True,
     output_root: Path = OUTPUT, min_tof: float = DEFAULT_MIN_TOF,
     seed_file: Path | None = None, max_iterations: int = 250,
-    max_bisections: int = 3,
+    max_bisections: int = 3, seed_temperature: float | None = None,
 ) -> dict:
     from catmap import ReactionModel
 
@@ -287,10 +287,25 @@ def run_single_surface(
     )
     # Keep every attempt isolated. Only explicitly provided seed files may
     # populate CatMAP's numbers_map/coverage_map, as in the official tutorial.
-    if max_iterations != 250 or max_bisections != 3:
+    if seed_temperature is not None:
+        # Official MinResidMapper matches cached points to the descriptor
+        # grid. A 550 K cache is NOT used by a 333.15 K-only grid. Include
+        # both the vetted source point and 333.15 K, then map downward.
+        import math
+        if seed_file is None or not math.isfinite(seed_temperature):
+            raise ValueError("seed_temperature requires a finite temperature and seed_file")
+        if seed_temperature <= 333.15:
+            raise ValueError("Seed source temperature must exceed 333.15 K")
+    if (max_iterations != 250 or max_bisections != 3
+            or seed_temperature is not None):
         with config.open("a", encoding="utf-8") as fh:
             fh.write(f"\nmax_rootfinding_iterations = {int(max_iterations)}\n")
             fh.write(f"max_bisections = {int(max_bisections)}\n")
+            if seed_temperature is not None:
+                fh.write(
+                    f"descriptor_ranges = [[333.15, {seed_temperature!r}], [1.0, 1.0]]\n"
+                )
+                fh.write("resolution = [2, 1]\n")
     for suffix in (".log", ".pkl"):
         cache = work / (config.stem + suffix)
         if cache.is_file():
@@ -377,6 +392,8 @@ def run_single_surface(
             "adsorbate_thermo_mode": str(model.adsorbate_thermo_mode),
             "gas_effective_activities": str(GAS_EFFECTIVE_ACTIVITIES),
             "kinetic_prefactor_assumption": "CatMAP setup default (no explicit prefactor_list in base file)",
+            "initial_seed_temperature_K": seed_temperature,
+            "initial_seed_source": str(seed_file) if seed_file else "",
             "solver_mode": "numbers" if numbers_solver else "coverages",
             "net_C6H12O": float(gas_raw["C6H12O_g"]),
             "net_C6H12O_high_precision": mp.nstr(gas_raw["C6H12O_g"], 40),
