@@ -152,7 +152,7 @@ def main():
         if current!=expected: raise ValueError('energies.txt differs from original Excel')
         print('MATCH energies.txt / original Excel')
         current_audit=(HERE/'energy_audit.csv').read_text(encoding='utf-8-sig').replace('\r\n','\n')
-        if current_audit!=audit(rec): raise ValueError('energy_audit.csv differs from original Excel')
+        if current_audit.replace('-0.000000000','0.000000000')!=audit(rec).replace('-0.000000000','0.000000000'): raise ValueError('energy_audit.csv differs from original Excel')
         print('MATCH energy_audit.csv / original Excel')
     print('15 surfaces; TS1 below FS = 0; max cycle error =',max(abs(e) for _,_,_,e in rec))
     for surf,v,_,_ in rec:
