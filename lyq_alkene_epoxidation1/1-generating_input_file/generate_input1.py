@@ -11,7 +11,14 @@ HERE = Path(__file__).resolve().parent
 SOURCE = HERE.parent / "己烯环氧化.xlsx"
 OUTPUT = HERE.parent / "2-creating_microkinetic_model" / "energies.txt"
 AUDIT = HERE / "energy_audit.csv"
-ELEMENT_REF = {"C": -9.28, "H": -1.11, "O": -4.37}
+# 与原版 data_only_not_executable.py 相同的原子参考能，单位 eV。
+# 固定元素参考值不能直接作为火山图的横纵坐标。
+ref_dict = {
+    'O': -4.37,
+    'C': -9.28,
+    'H': -1.11,
+}
+# 15 个不同催化剂必须使用各自的裸板自由能作为位点参考。
 STOICH = {
     "C6H12": {"C":6,"H":12}, "H2O2": {"H":2,"O":2},
     "C6H12O": {"C":6,"H":12,"O":1}, "H2O": {"H":2,"O":1},
@@ -20,7 +27,7 @@ STOICH = {
 }
 
 def atom_ref(formula):
-    return sum(ELEMENT_REF[k] * v for k,v in STOICH[formula].items())
+    return sum(ref_dict[k] * v for k,v in STOICH[formula].items())
 
 def n(value, what):
     if not isinstance(value,(float,int)):
@@ -47,6 +54,7 @@ def main():
         # slab row 4, coadsorbed reactant row 12, pathway marker row 16,
         # coadsorbed product row 20 (TiMo composite total: row 21).
         slab=n(cell(4,gcol), f"{surface} slab G")
+        site_ref_dict = {**ref_dict, "111": slab}
         initial=n(cell(12,gcol), f"{surface} IS G")
         marker=n(cell(16,gcol), f"{surface} NEB-marker G")
         final=n(cell(21 if surface == "timo" else 20,gcol), f"{surface} FS G")
@@ -56,7 +64,7 @@ def main():
         # For downhill marker choose zero forward activation; for others
         # marker is used as a provisional candidate until full NEB validation.
         effective=max(initial, marker, final)
-        gfs={name:g-slab-atom_ref(name) for name,g in
+        gfs={name:g-site_ref_dict["111"]-atom_ref(name) for name,g in
              [("R",initial),("P",final),("RP",effective)]}
         for name,gf in gfs.items():
             output.append((surface,"111",name,gf))
