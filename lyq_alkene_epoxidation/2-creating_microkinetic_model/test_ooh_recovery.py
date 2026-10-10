@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-"""CatMAP recovery bookkeeping and verified warm-start tests (no CatMAP required).
+"""333.15 K multi-start recovery bookkeeping tests.
 
-Run:
-  python -m unittest -v test_ooh_numerics test_ooh_recovery
-
-Actual CatMAP rootfinding, temperature-map residuals and 333.15 K TOF
-must be checked separately in the local CatMAP environment.
+These tests do not require CatMAP.  Real CatMAP roots still require the local
+CatMAP environment and are accepted only after the independent numerical
+quality gates in ``run_ooh_analysis.py``.
 """
 import pickle
 import unittest
@@ -15,12 +13,15 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 
 from recover_ooh_solver import (
+    INITIAL_DOMINANTS,
+    TARGET_PRESSURE,
+    TARGET_TEMPERATURE,
     _boolean,
-    _target_present,
-    _unique_temperature_candidates,
     _compare_independent_seeds,
+    _coverage_to_squared_numbers,
+    _make_initial_coverages,
     _store_single_verified_seed,
-    make_temperature_bridge,
+    _target_present,
 )
 
 
@@ -33,63 +34,74 @@ class RecoveryMetadataTests(unittest.TestCase):
 
     def test_boolean_columns_require_explicit_true(self):
         values = pd.Series([True, False, "True", "False", "NaN", None])
-        self.assertEqual(_boolean(values).tolist(),
-                         [True, False, True, False, False, False])
+        self.assertEqual(
+            _boolean(values).tolist(), [True, False, True, False, False, False]
+        )
 
-    def test_invalid_temperature_rejected_without_catmap(self):
-        with self.assertRaises(ValueError):
-            make_temperature_bridge("titi", 333.15)
-        with self.assertRaises(ValueError):
-            make_temperature_bridge("titi", 500.0, steps=2)
+    def test_initial_states_are_target_condition_only(self):
+        self.assertEqual(TARGET_TEMPERATURE, 333.15)
+        self.assertEqual(TARGET_PRESSURE, 1.0)
+        self.assertEqual(len(INITIAL_DOMINANTS), 8)
+        self.assertEqual(INITIAL_DOMINANTS[0], ("vacant", "vacant"))
 
-    def test_only_independently_validated_sources_can_be_selected(self):
-        choices = [
-            {"source_temperature_K": 333.15, "source_quality_pass": True,
-             "seed_file": "target.pkl"},
-            {"source_temperature_K": 360, "source_quality_pass": False,
-             "seed_file": "failed.pkl"},
-            {"source_temperature_K": 370, "source_quality_pass": True,
-             "seed_file": "a.pkl"},
-            {"source_temperature_K": 450, "source_quality_pass": True,
-             "seed_file": "b.pkl"},
-            {"source_temperature_K": 550, "source_quality_pass": True,
-             "seed_file": "c.pkl"},
-            {"source_temperature_K": 650, "source_quality_pass": True,
-             "seed_file": "d.pkl"},
-        ]
-        picked = _unique_temperature_candidates(choices, max_seeds=3)
-        self.assertEqual(len(picked), 3)
-        self.assertEqual([v["source_temperature_K"] for v in picked],
-                         [370, 450, 650])
-        self.assertNotIn("failed.pkl", [x["seed_file"] for x in picked])
+    def test_coverage_seeds_sum_to_one_and_convert_to_numbers(self):
+        adsorbates = ["OOH_s", "OH_s", "O_s"]
+        for _, dominant in INITIAL_DOMINANTS[:4]:
+            if dominant != "vacant" and dominant not in adsorbates:
+                continue
+            coverage = _make_initial_coverages(adsorbates, dominant)
+            numbers = _coverage_to_squared_numbers(coverage)
+            self.assertEqual(len(coverage), len(numbers))
+            self.assertAlmostEqual(float(sum(coverage)), 1.0, places=12)
+            self.assertTrue(all(float(value) >= 0 for value in numbers))
+
+    def test_unknown_initial_species_fails_closed(self):
+        with self.assertRaises(ValueError):
+            _make_initial_coverages(["OOH_s"], "not_a_species")
 
     def test_cross_seed_requires_two_valid_matching_roots(self):
-        valid = {"quality_pass": True, "refinement_stable": True,
-                 "log10_net_C6H12O": -80.0}
-        agree = {"quality_pass": True, "refinement_stable": True,
-                 "log10_net_C6H12O": -80.005}
-        differ = {"quality_pass": True, "refinement_stable": True,
-                  "log10_net_C6H12O": -82.0}
-        self.assertFalse(_compare_independent_seeds([valid])["independent_seed_agreement"])
-        self.assertTrue(_compare_independent_seeds([valid, agree])["independent_seed_agreement"])
-        self.assertFalse(_compare_independent_seeds([valid, differ])["independent_seed_agreement"])
+        valid = {
+            "quality_pass": True,
+            "refinement_stable": True,
+            "log10_net_C6H12O": -80.0,
+        }
+        agree = {
+            "quality_pass": True,
+            "refinement_stable": True,
+            "log10_net_C6H12O": -80.005,
+        }
+        differ = {
+            "quality_pass": True,
+            "refinement_stable": True,
+            "log10_net_C6H12O": -82.0,
+        }
+        self.assertFalse(
+            _compare_independent_seeds([valid])["independent_seed_agreement"]
+        )
+        self.assertTrue(
+            _compare_independent_seeds([valid, agree])["independent_seed_agreement"]
+        )
+        self.assertFalse(
+            _compare_independent_seeds([valid, differ])["independent_seed_agreement"]
+        )
 
     def test_seed_pickle_contains_only_native_solution_maps(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "seed.pkl"
-            _store_single_verified_seed([450., 1.], [0.3, 0.7],
-                                        [-0.5, 0.0], path)
-            with path.open("rb") as f:
-                data = pickle.load(f)
+            _store_single_verified_seed(
+                [333.15, 1.0], [0.3, 0.7], [0.5, 0.5], path
+            )
+            with path.open("rb") as fh:
+                data = pickle.load(fh)
             self.assertEqual(sorted(data), ["coverage_map", "numbers_map"])
-            self.assertEqual(data["coverage_map"][0][0], [450., 1.])
-            self.assertEqual(data["numbers_map"][0][1], [-0.5, 0.0])
+            self.assertEqual(data["coverage_map"][0][0], [333.15, 1.0])
+            self.assertEqual(data["numbers_map"][0][1], [0.5, 0.5])
 
     def test_missing_numbers_vector_must_fail_closed(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "seed.pkl"
             with self.assertRaises(ValueError):
-                _store_single_verified_seed([450., 1.], [0.3], None, path)
+                _store_single_verified_seed([333.15, 1.0], [0.3], None, path)
             self.assertFalse(path.exists())
 
 

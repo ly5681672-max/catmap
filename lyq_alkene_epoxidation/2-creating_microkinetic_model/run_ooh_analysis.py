@@ -32,7 +32,7 @@ SURFACES = [
     "tife", "timn", "tihf", "tire", "timo", "tiv", "tizr",
     "tico", "titi", "tiw", "tita", "ticr", "ti", "tini",
 ]
-# CatMAP 0.2.79: numbers_solver compares the SUM OF SQUARED residuals to tolerance.
+# CatMAP numbers_solver compares the SUM OF SQUARED residuals to tolerance.
 # Old tolerance=1e-50 permits raw d(theta)/dt around 1e-25, making ~1e-26 TOFs unreliable.
 # Ref: https://catmap.readthedocs.io/en/latest/tutorials/refining_a_microkinetic_model.html
 # Source: https://github.com/SUNCAT-Center/catmap/blob/master/catmap/solvers/numbers_solver.py
@@ -57,6 +57,13 @@ GAS_EFFECTIVE_ACTIVITIES = {
     "H2O_g": 0.815,
     "C6H12O_g": 1e-20,
 }
+
+
+def serialize_mp_vector(values, digits: int = 80) -> str:
+    """Serialize an mpmath/vector-like sequence without float conversion."""
+    from mpmath import mp
+
+    return ";".join(mp.nstr(mp.mpf(value), n=digits) for value in values)
 
 
 def read_data() -> pd.DataFrame:
@@ -179,11 +186,54 @@ def create_single_surface_setup(
     return path
 
 
+def build_stoichiometric_matrices(elementary_rxns, gas_species=GAS_EFFECTIVE_ACTIVITIES):
+    """Build gas/surface net-stoichiometry from CatMAP's parsed reactions.
+
+    A CatMAP elementary reaction can contain transition-state/intermediate
+    arrows. Its net balance is therefore taken from the first and last
+    states, rather than inferred from a hard-coded step number. Bare ``s``
+    and ``g`` site markers are omitted from the species-balance rows; the
+    site balance is checked separately from the returned coverages.
+    """
+    from collections import Counter
+
+    gas_names = tuple(gas_species)
+    gas_set = set(gas_names)
+    surface_names = []
+    for reaction in elementary_rxns:
+        if len(reaction) < 2:
+            raise ValueError(f"Malformed CatMAP elementary reaction: {reaction!r}")
+        for state in (reaction[0], reaction[-1]):
+            for species in state:
+                if species in gas_set or species in {"s", "g"}:
+                    continue
+                if species not in surface_names:
+                    surface_names.append(species)
+
+    def delta(reaction, species):
+        initial = Counter(reaction[0])
+        final = Counter(reaction[-1])
+        return final.get(species, 0) - initial.get(species, 0)
+
+    return {
+        "gas_species": gas_names,
+        "surface_species": tuple(surface_names),
+        "gas_matrix": [
+            [delta(reaction, species) for reaction in elementary_rxns]
+            for species in gas_names
+        ],
+        "surface_matrix": [
+            [delta(reaction, species) for reaction in elementary_rxns]
+            for species in surface_names
+        ],
+    }
+
+
 def check_steady_state(
     rates, gases, coverages, solver_residual, numbers_solver: bool,
-    min_tof: float = DEFAULT_MIN_TOF
+    min_tof: float = DEFAULT_MIN_TOF, stoich_matrix: dict | None = None,
 ) -> dict:
-    """Independent 8-step steady-state test in native mpmath precision.
+    """Independent steady-state test in native mpmath precision.
 
     The CatMAP numbers solver compares an L2-squared surface residual with
     tolerance; the usual coverage solver uses an unsquared rate norm.
@@ -192,15 +242,18 @@ def check_steady_state(
     from mpmath import mp
 
     rr = [mp.mpf(str(v)) for v in rates]
-    if len(rr) != 8:
-        raise ValueError(f"Expected eight elementary rates, got {len(rr)}")
+    if len(rr) == 0:
+        raise ValueError("At least one elementary rate is required")
     gas = {k: mp.mpf(str(v)) for k, v in gases.items()}
     keys = ("C6H12O_g", "C6H12_g", "H2O2_g", "H2O_g")
     if not all(k in gas for k in keys):
         raise ValueError("Gas turnover frequency lacks one or more net stoichiometric fluxes")
 
     rmax = max(abs(r) for r in rr)
-    cycle_abs = max(abs(r - rr[3]) for r in rr)
+    # Retain this legacy metric for this linear eight-step network. The
+    # parsed stoichiometric balance below is the model-derived gate.
+    cycle_reference = rr[3] if len(rr) > 3 else rr[0]
+    cycle_abs = max(abs(r - cycle_reference) for r in rr)
     cycle_rel = cycle_abs / rmax if rmax else mp.inf
 
     net_terms = (gas["C6H12O_g"], -gas["C6H12_g"],
@@ -220,10 +273,45 @@ def check_steady_state(
     net_tof = gas["C6H12O_g"]
     correct_signs = (net_tof > 0 and gas["C6H12_g"] < 0 and
                      gas["H2O2_g"] < 0 and gas["H2O_g"] > 0)
+    stoich_surface_abs = mp.mpf("0")
+    stoich_surface_rel = mp.mpf("0")
+    gas_reconstruction_abs = mp.mpf("0")
+    gas_reconstruction_rel = mp.mpf("0")
+    if stoich_matrix is not None:
+        if not stoich_matrix["gas_matrix"] or len(stoich_matrix["gas_matrix"][0]) != len(rr):
+            raise ValueError("Stoichiometric matrix/rate vector length mismatch")
+        gas_expected = [
+            sum(mp.mpf(str(coeff)) * rate for coeff, rate in zip(row, rr))
+            for row in stoich_matrix["gas_matrix"]
+        ]
+        gas_reconstruction_abs = max(
+            abs(gas_expected[i] - gas[name])
+            for i, name in enumerate(stoich_matrix["gas_species"])
+        )
+        gas_reconstruction_rel = (
+            gas_reconstruction_abs / rmax if rmax else mp.inf
+        )
+        surface_expected = [
+            sum(mp.mpf(str(coeff)) * rate for coeff, rate in zip(row, rr))
+            for row in stoich_matrix["surface_matrix"]
+        ]
+        if surface_expected:
+            stoich_surface_abs = max(abs(value) for value in surface_expected)
+            stoich_surface_rel = (
+                stoich_surface_abs / rmax if rmax else mp.inf
+            )
+    parsed_stoich_ok = (
+        stoich_matrix is None
+        or (
+            stoich_surface_rel < mp.mpf(str(MAX_RELATIVE_FLUX_ERROR))
+            and gas_reconstruction_rel < mp.mpf(str(MAX_RELATIVE_FLUX_ERROR))
+        )
+    )
     finite = all(mp.isfinite(v) for v in
                  (rmax, cycle_rel, gas_rel, residual, residual_rel, coverage_error))
     consistent = bool(
         finite and nonnegative and correct_signs
+        and parsed_stoich_ok
         and coverage_error < mp.mpf("1e-8")
         and cycle_rel < mp.mpf(str(MAX_RELATIVE_FLUX_ERROR))
         and gas_rel < mp.mpf(str(MAX_RELATIVE_FLUX_ERROR))
@@ -241,6 +329,12 @@ def check_steady_state(
         "steady_state_residual_relative_to_max_rate": float(residual_rel),
         "coverage_sum_error": float(coverage_error),
         "cycle_max_rate_abs": float(rmax),
+        "parsed_surface_balance_max_abs": float(stoich_surface_abs),
+        "parsed_surface_balance_relative_to_max_rate": float(stoich_surface_rel),
+        "parsed_gas_reconstruction_max_abs": float(gas_reconstruction_abs),
+        "parsed_gas_reconstruction_relative_to_max_rate": float(gas_reconstruction_rel),
+        "parsed_stoichiometry_checked": stoich_matrix is not None,
+        "parsed_stoichiometry_pass": parsed_stoich_ok,
         "quality_status": quality,
         "quality_pass": consistent,
         "fit_rate_threshold": 0.0,  # deprecated; zero denotes no arbitrary TOF floor
@@ -275,7 +369,7 @@ def run_single_surface(
     tolerance: str = DEFAULT_TOLERANCE, numbers_solver: bool = True,
     output_root: Path = OUTPUT, min_tof: float = DEFAULT_MIN_TOF,
     seed_file: Path | None = None, max_iterations: int = 250,
-    max_bisections: int = 3, seed_temperature: float | None = None,
+    max_bisections: int = 3, capture_state: bool = False,
 ) -> dict:
     from catmap import ReactionModel
 
@@ -287,25 +381,10 @@ def run_single_surface(
     )
     # Keep every attempt isolated. Only explicitly provided seed files may
     # populate CatMAP's numbers_map/coverage_map, as in the official tutorial.
-    if seed_temperature is not None:
-        # Official MinResidMapper matches cached points to the descriptor
-        # grid. A 550 K cache is NOT used by a 333.15 K-only grid. Include
-        # both the vetted source point and 333.15 K, then map downward.
-        import math
-        if seed_file is None or not math.isfinite(seed_temperature):
-            raise ValueError("seed_temperature requires a finite temperature and seed_file")
-        if seed_temperature <= 333.15:
-            raise ValueError("Seed source temperature must exceed 333.15 K")
-    if (max_iterations != 250 or max_bisections != 3
-            or seed_temperature is not None):
+    if max_iterations != 250 or max_bisections != 3:
         with config.open("a", encoding="utf-8") as fh:
             fh.write(f"\nmax_rootfinding_iterations = {int(max_iterations)}\n")
             fh.write(f"max_bisections = {int(max_bisections)}\n")
-            if seed_temperature is not None:
-                fh.write(
-                    f"descriptor_ranges = [[333.15, {seed_temperature!r}], [1.0, 1.0]]\n"
-                )
-                fh.write("resolution = [2, 1]\n")
     for suffix in (".log", ".pkl"):
         cache = work / (config.stem + suffix)
         if cache.is_file():
@@ -323,6 +402,28 @@ def run_single_surface(
         model = ReactionModel(setup_file=config.name)
         model.output_variables = ["coverage", "rate", "turnover_frequency"]
         model.run(recalculate=(seed_file is not None))
+
+        # CatMAP only creates output labels/maps after a point has been
+        # accepted by the mapper.  When no point converges (the legacy
+        # coverage solver commonly reports a singular Jacobian), indexing
+        # output_labels directly would hide the numerical cause as a bare
+        # KeyError.  Fail closed with the official CatMAP state exposed.
+        labels = getattr(model, "output_labels", {}) or {}
+        required = ("coverage", "rate", "turnover_frequency")
+        missing = [name for name in required if name not in labels]
+        if missing:
+            available = ", ".join(sorted(labels)) or "<none>"
+            map_state = ", ".join(
+                f"{name}_map={'present' if getattr(model, name + '_map', None) else 'empty'}"
+                for name in required
+            )
+            log_path = config.with_suffix(".log")
+            raise RuntimeError(
+                "CatMAP did not produce the requested output labels "
+                f"{missing!r}; available={available}; {map_state}. "
+                "This means the mapper did not accept a usable steady-state "
+                f"point. Inspect the CatMAP log: {log_path}"
+            )
 
         def target_values(variable):
             entries = getattr(model, variable + "_map", None)
@@ -343,11 +444,12 @@ def run_single_surface(
                 )
             return matches[-1]
 
-        gas_labels = list(model.output_labels["turnover_frequency"])
+        gas_labels = list(labels["turnover_frequency"])
         gas_raw = dict(zip(gas_labels, target_values("turnover_frequency")))
         cover_names = list(model.output_labels["coverage"])
         covers_raw = list(target_values("coverage"))
         rates_raw = list(target_values("rate"))
+        numbers_raw = list(target_values("numbers")) if capture_state else None
 
         # CatMAP supports an additional last coverage for vacant sites
         # when the numbers-based solver is in use.
@@ -372,14 +474,18 @@ def run_single_surface(
         # not at the most recently visited high-temperature seed point.
         model._descriptors = [333.15, 1.0]
         model.solver._descriptors = [333.15, 1.0]
-        model.scaler.get_rxn_parameters([333.15, 1.0])
+        rxn_parameters = model.scaler.get_rxn_parameters([333.15, 1.0])
         residual_input = full_coverages if numbers_solver else list(covers_raw)
         residual = model.solver.get_residual(
             residual_input, validate_coverages=False, refresh_rate_constants=True
         )
+        stoich_matrix = build_stoichiometric_matrices(
+            model.elementary_rxns, gas_species=gas_raw.keys()
+        )
         quality = check_steady_state(
             rates_raw, gas_raw, full_coverages, residual,
-            numbers_solver=numbers_solver, min_tof=min_tof
+            numbers_solver=numbers_solver, min_tof=min_tof,
+            stoich_matrix=stoich_matrix,
         )
         dominant = sorted(
             zip(cover_names + ["vacant"], [float(v) for v in full_coverages]),
@@ -398,7 +504,7 @@ def run_single_surface(
             "adsorbate_thermo_mode": str(model.adsorbate_thermo_mode),
             "gas_effective_activities": str(GAS_EFFECTIVE_ACTIVITIES),
             "kinetic_prefactor_assumption": "CatMAP setup default (no explicit prefactor_list in base file)",
-            "initial_seed_temperature_K": seed_temperature,
+            "initial_seed_temperature_K": None,
             "initial_seed_source": str(seed_file) if seed_file else "",
             "solver_mode": "numbers" if numbers_solver else "coverages",
             "net_C6H12O": float(gas_raw["C6H12O_g"]),
@@ -415,6 +521,98 @@ def run_single_surface(
             "dominant_coverage": dominant[1],
         }
         result.update(quality)
+        if capture_state:
+            # Recompute rates from the captured physical coverage on a fresh
+            # solver state.  This is deliberately separate from CatMAP's map
+            # extraction so stale rate constants cannot silently pass.
+            for memo_name in ("_rate_constant_memoize", "_steady_state_memoize"):
+                memo = getattr(model.solver, memo_name, None)
+                if hasattr(memo, "clear"):
+                    memo.clear()
+            recomputed_rates = list(model.solver.get_rate(
+                rxn_parameters,
+                coverages=full_coverages,
+                verify_coverages=False,
+            ))
+            recomputed_gas_values = list(model.solver.get_turnover_frequency(
+                rxn_parameters,
+                rates=recomputed_rates,
+                verify_coverages=False,
+            ))
+            recomputed_gas = dict(zip(gas_labels, recomputed_gas_values))
+            for memo_name in ("_rate_constant_memoize", "_steady_state_memoize"):
+                memo = getattr(model.solver, memo_name, None)
+                if hasattr(memo, "clear"):
+                    memo.clear()
+            recomputed_residual = model.solver.get_residual(
+                full_coverages,
+                validate_coverages=False,
+                refresh_rate_constants=True,
+            )
+            recomputed_quality = check_steady_state(
+                recomputed_rates,
+                recomputed_gas,
+                full_coverages,
+                recomputed_residual,
+                numbers_solver=numbers_solver,
+                min_tof=min_tof,
+                stoich_matrix=stoich_matrix,
+            )
+            from mpmath import mp
+            rate_abs = max(
+                abs(mp.mpf(a) - mp.mpf(b))
+                for a, b in zip(rates_raw, recomputed_rates)
+            )
+            rate_scale = max(abs(mp.mpf(value)) for value in rates_raw)
+            tof_abs = max(
+                abs(mp.mpf(a) - mp.mpf(b))
+                for a, b in zip(gas_raw.values(), recomputed_gas_values)
+            )
+            tof_scale = max(abs(mp.mpf(value)) for value in gas_raw.values())
+            result.update({
+                "coverage_order": ";".join(cover_names + ["vacant"]),
+                "numbers_order": ";".join(
+                    list(model.solver.adsorbate_names)
+                    + [name for name in model.solver.site_names if name != "g"]
+                ),
+                "full_coverage_vector_high_precision": serialize_mp_vector(
+                    full_coverages
+                ),
+                "full_numbers_vector_high_precision": serialize_mp_vector(
+                    numbers_raw
+                ),
+                "net_rate_vector_high_precision": serialize_mp_vector(rates_raw),
+                "gas_tof_vector_high_precision": serialize_mp_vector(
+                    gas_raw.values()
+                ),
+                "recomputed_rate_vector_high_precision": serialize_mp_vector(
+                    recomputed_rates
+                ),
+                "recomputed_gas_tof_vector_high_precision": serialize_mp_vector(
+                    recomputed_gas_values
+                ),
+                "rate_recompute_max_abs": float(rate_abs),
+                "rate_recompute_relative_error": float(
+                    rate_abs / rate_scale if rate_scale else mp.inf
+                ),
+                "tof_recompute_max_abs": float(tof_abs),
+                "tof_recompute_relative_error": float(
+                    tof_abs / tof_scale if tof_scale else mp.inf
+                ),
+                "recompute_cache_cleared": True,
+                "recomputed_quality_status": recomputed_quality["quality_status"],
+                "recomputed_quality_pass": recomputed_quality["quality_pass"],
+                "recomputed_steady_state_residual_relative_to_max_rate": (
+                    recomputed_quality[
+                        "steady_state_residual_relative_to_max_rate"
+                    ]
+                ),
+                "recomputed_parsed_surface_balance_relative_to_max_rate": (
+                    recomputed_quality[
+                        "parsed_surface_balance_relative_to_max_rate"
+                    ]
+                ),
+            })
         return result
     finally:
         os.chdir(old_cwd)
@@ -512,9 +710,6 @@ def main() -> None:
                         help="用CatMAP官方MinResidMapper温度路径+缓存种子尝试恢复未验证的表面")
     parser.add_argument("--recover-surfaces", nargs="*", default=None,
                         help="指定恢复表面，如: --recover-surfaces titi timn ticr")
-    parser.add_argument("--bridge-temperatures", type=float, nargs="+",
-                        default=[550.0, 750.0],
-                        help="仅用于数值路径的起点温度(K)，最终结果仍计算333.15 K")
     parser.add_argument("--fit-only", action="store_true",
                         help="只读取已有CSV，不运行CatMAP；未验证的旧结果不会自动拟合")
     parser.add_argument("--diagnose", action="store_true",
@@ -538,7 +733,6 @@ def main() -> None:
         from recover_ooh_solver import recover_unvalidated_surfaces
         recover_unvalidated_surfaces(
             surfaces=args.recover_surfaces,
-            bridge_temperatures=args.bridge_temperatures,
         )
         return
 

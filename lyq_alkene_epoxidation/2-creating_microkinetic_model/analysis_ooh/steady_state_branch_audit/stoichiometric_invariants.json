@@ -1,0 +1,118 @@
+{
+  "adsorbate_order": [
+    "C6H12O_s",
+    "C6H12_s",
+    "H2O2_s",
+    "H2O_s",
+    "Ha_s",
+    "Hb_s",
+    "OH_s",
+    "OOH_s",
+    "O_s"
+  ],
+  "reaction_count": 8,
+  "stoichiometric_rank": 7,
+  "independent_conserved_inventories": 2,
+  "invariants": {
+    "I1_Ha_minus_OOH_OH_O": {
+      "Ha_s": 1,
+      "OOH_s": -1,
+      "OH_s": -1,
+      "O_s": -1
+    },
+    "I2_Hb_minus_O": {
+      "Hb_s": 1,
+      "O_s": -1
+    }
+  },
+  "parsed_elementary_rxns": [
+    [
+      [
+        "s",
+        "H2O2_g"
+      ],
+      [
+        "H2O2_s"
+      ]
+    ],
+    [
+      [
+        "H2O2_s",
+        "s"
+      ],
+      [
+        "Ha_s",
+        "OOH_s"
+      ]
+    ],
+    [
+      [
+        "s",
+        "C6H12_g"
+      ],
+      [
+        "C6H12_s"
+      ]
+    ],
+    [
+      [
+        "OOH_s",
+        "C6H12_s",
+        "s"
+      ],
+      [
+        "OOH-C6H12_s",
+        "s",
+        "s"
+      ],
+      [
+        "C6H12O_s",
+        "O_s",
+        "Hb_s"
+      ]
+    ],
+    [
+      [
+        "C6H12O_s"
+      ],
+      [
+        "C6H12O_g",
+        "s"
+      ]
+    ],
+    [
+      [
+        "Hb_s",
+        "O_s"
+      ],
+      [
+        "Hb-O_s",
+        "s"
+      ],
+      [
+        "OH_s",
+        "s"
+      ]
+    ],
+    [
+      [
+        "Ha_s",
+        "OH_s"
+      ],
+      [
+        "s",
+        "H2O_s"
+      ]
+    ],
+    [
+      [
+        "H2O_s"
+      ],
+      [
+        "H2O_g",
+        "s"
+      ]
+    ]
+  ],
+  "source_config": "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\analysis_ooh\\steady_state_branch_audit\\replay\\ticr__Ha_dominant__stage_02\\ticr\\baseline_ticr.mkm"
+}

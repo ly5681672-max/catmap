@@ -1,0 +1,15 @@
+surface,validated_algebraic_roots,sampled_stationary_solution_clusters,compatibility_stable_clusters,full_simplex_neutral_clusters,zero_inventory_candidate_clusters,zero_inventory_reproduced_roots,zero_inventory_branch_ids,zero_inventory_log10_TOF,zero_inventory_classification,official_TOF_action
+ti,12,5,5,5,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tico,8,3,3,3,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+ticr,4,3,3,3,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tife,10,5,5,5,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tihf,2,1,1,1,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+timn,3,2,2,2,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+timo,3,3,3,3,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tini,13,7,7,7,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tire,3,3,3,3,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tita,3,3,3,3,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+titi,3,3,3,3,1,1,titi_branch_03,-40.03852921112599,insufficient_evidence,retain_prior_outputs_as_historical; no_automatic_update
+tiv,3,2,2,2,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update
+tiw,10,1,1,1,1,10,tiw_branch_01,-136.91173989076393,conditional_single_supported_branch,retain_prior_outputs_as_historical; no_automatic_update
+tizr,2,2,2,2,0,0,,,unresolved_zero_inventory,retain_prior_outputs_as_historical; no_automatic_update

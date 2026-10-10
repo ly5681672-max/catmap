@@ -1,0 +1,30 @@
+{
+  "audit_date": "2026-10-11",
+  "temperature_K": "333.15",
+  "pressure_or_concentration_descriptor": "1.0",
+  "catmap_python": "G:\\anaconda\\python.exe",
+  "catmap_version": "0.3.1",
+  "surfaces": [
+    "tife", "timn", "tihf", "tire", "timo", "tiv", "tizr",
+    "tico", "titi", "tiw", "tita", "ticr", "ti", "tini"
+  ],
+  "immutable_inputs_sha256": {
+    "alkene_epoxidation.mkm": "86115CEFB7784FE28AB519271CDFAF0E308B6F6E3A8308B1E90E4318CB497CFE",
+    "energies_dft_neb.txt": "55AD4E94D9C603B6705EC8C92630C9A1CEFF5859CF69865145152375E203CA30",
+    "DFT_TS_relative.csv": "A967325EC1FD17207A7D51857CDA01A23D8F76A846200B74F229E64D30E1CDFD"
+  },
+  "audit_inputs_sha256": {
+    "recover_ooh_solver.py": "A85849BA2D1D0C0AE60B81B4342F9203C09559F367451CBE8190642C3F810ECB",
+    "run_ooh_analysis.py": "E28C07065C8DCBA6B8F2ABE6D43B580300E20E065902E56F519F098500A1CEE9",
+    "recovery_single_temperature/recovery_results.csv": "39A6391BDEBD7ED67282DB1EA86BEF153F5C84FC46DFC142752F5E7C48DA2D01",
+    "recovery_single_temperature/seed_trials.csv": "3E278626C76E7B53116381683C0D1ADE8D7CEA9B2853A06C2547D33B862BCA39",
+    "recovery_single_temperature/seed_definitions.csv": "9DC381B7DB09E685C20DB4E3A060D4369EA90D02A0C88886B1D1B7153ADB7254"
+  },
+  "policy": {
+    "high_temperature_paths": false,
+    "modify_dft_inputs": false,
+    "modify_mechanism": false,
+    "promote_unverified_tof": false,
+    "overwrite_historical_outputs": false
+  }
+}

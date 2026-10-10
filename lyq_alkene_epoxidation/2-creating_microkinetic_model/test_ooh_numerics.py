@@ -8,7 +8,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from run_ooh_analysis import (
-    check_steady_state, compare_refinement_runs, create_single_surface_setup
+    build_stoichiometric_matrices, check_steady_state,
+    compare_refinement_runs, create_single_surface_setup
 )
 
 
@@ -22,6 +23,26 @@ def gas_fluxes(rate):
 
 
 class NumericalGateTests(unittest.TestCase):
+    def test_parsed_stoichiometry_has_expected_gas_balance(self):
+        reactions = [
+            [["s", "H2O2_g"], ["H2O2_s"]],
+            [["H2O2_s", "s"], ["Ha_s", "OOH_s"]],
+            [["s", "C6H12_g"], ["C6H12_s"]],
+            [["OOH_s", "C6H12_s", "s"], ["C6H12O_s", "O_s", "Hb_s"]],
+            [["C6H12O_s"], ["C6H12O_g", "s"]],
+            [["Hb_s", "O_s"], ["OH_s", "s"]],
+            [["Ha_s", "OH_s"], ["s", "H2O_s"]],
+            [["H2O_s"], ["H2O_g", "s"]],
+        ]
+        matrix = build_stoichiometric_matrices(
+            reactions,
+            gas_species=("C6H12O_g", "C6H12_g", "H2O2_g", "H2O_g"),
+        )
+        self.assertEqual(matrix["gas_matrix"][0], [0, 0, 0, 0, 1, 0, 0, 0])
+        self.assertEqual(matrix["gas_matrix"][1], [0, 0, -1, 0, 0, 0, 0, 0])
+        self.assertEqual(matrix["gas_matrix"][2], [-1, 0, 0, 0, 0, 0, 0, 0])
+        self.assertEqual(matrix["gas_matrix"][3], [0, 0, 0, 0, 0, 0, 0, 1])
+
     def test_mathematically_consistent_cycle(self):
         rate = 1e-20
         r = check_steady_state(

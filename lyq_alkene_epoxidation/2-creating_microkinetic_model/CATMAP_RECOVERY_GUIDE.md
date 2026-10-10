@@ -1,42 +1,59 @@
-# CatMAP 稳态恢复V2：合格种子与多初值验证
+# CatMAP 333.15 K 单温度多初值恢复
 
-## 研究输入保持不变
+## 研究条件保持不变
 
-不修改 `energies_dft_neb.txt`、`DFT_TS_relative.csv`、`alkene_epoxidation.mkm` 中的DFT能量和八步反应。正式TOF计算温度仍为333.15 K，有效储库活度也不变。
+恢复程序只在 **333.15 K、pressure=1.0** 求解。以下内容保持原样：
 
-## 为什么修正上一版温度路径
+- `energies_dft_neb.txt`
+- `DFT_TS_relative.csv`
+- `alkene_epoxidation.mkm`
+- 有效气相活度和八步反应机理
 
-CatMAP `MinResidMapper.get_coverage_map` 先检查历史 `numbers_map/coverage_map` 点是否属于新描述符网格。之前从高温缓存复制到仅含333.15 K的单点网格时，高温历史点可能被忽略。V2让 **333.15 K和已验证的高温种子同时位于目标网格**，并用 `run(recalculate=True)` 重新求解。
+550 K、750 K 曾经用于数值桥接，但它们不是研究条件，也不再由恢复程序生成或读取。旧的 `analysis_ooh/recovery_v2/` 目录保留为历史证据，不参与新的正式恢复。
 
-官方来源：[Refining a Microkinetic Model](https://catmap.readthedocs.io/en/latest/tutorials/refining_a_microkinetic_model.html)、[MinResidMapper源码](https://github.com/SUNCAT-Center/catmap/blob/master/catmap/mappers/min_resid_mapper.py)、[ReactionModel源码](https://github.com/SUNCAT-Center/catmap/blob/master/catmap/model.py)。逐点质量检查和跨初值TOF一致性是**本项目加严的质量控制**，不是CatMAP默认参数。
+## 单温度多初值方案
 
-## V2 求解方案
+对每个未通过验证的表面，在同一个 `[333.15 K, 1.0]` 描述符点生成以下初始状态：
 
-1. 对当前未通过验证的9种催化剂建立550/750 K→333.15 K映射（各17点）。
-2. 对每一个温度点，用CatMAP已经算出的 `coverage_map`、`rate_map`、`turnover_frequency_map` 核查同一温度下八步净通量、物料守恒和稳态残差。不把内部 `numbers_map` 数值直接当成覆盖度。
-3. 只有通过**独立通量及残差校验**的高温点才能打包为新的单点 `coverage_map/numbers_map` 初始种子。
-4. 选取最多3个不同温度的合格种子，分别在333.15 K进行260/360/460位精度复算。每级从**相同合格高温初值**重新启动，不传播不合格目标解。
-5. 每个初值要求连续两个精度结果均通过且TOF一致；至少两个独立温度种子得出的 `|Δlog10(TOF)| ≤ 0.02` 才可更新最终基准表。存在分支分歧则记录，不擅自选择某一根。
-6. 原先已经数值验证的Ti–Fe、Ti–Co、Ti–Ni、Ti–W、Ti不会被未通过的恢复结果覆盖。
+1. 空位主导；
+2. OOH* 主导；
+3. OH* 主导；
+4. O* 主导；
+5. C6H12* 主导；
+6. H2O*、Ha*、Hb* 主导的合理替代初值。
 
-这些阈值是数值质量控制，并非对稳态解唯一性或实验活性的证明。
+CatMAP 默认 `numbers_solver` 使用平方 numbers 参数。程序将覆盖度初值转换为对应的 `numbers_map`，每个初值独立运行，不传播前一个初值的目标解。
 
-## Windows运行
+每个初值进行 260/360/460 位精度的连续复算。只有同时满足以下条件才算有效：
+
+- 八步基元通量闭合；
+- 气相物料守恒；
+- 覆盖度归一化且非负；
+- 稳态残差相对于最大通量达标；
+- 连续两级精度的 `log10(TOF)` 差值不超过 0.02；
+- 至少两个不同初始状态得到一致的有效根。
+
+不同初值产生不同有效根时，标记为 `different_valid_steady_state_branches`，不自动选择其中一支。
+
+## Windows 运行
 
 ```powershell
 cd H:\catmap\catmap
 git -c http.proxy=http://127.0.0.1:6696 -c https.proxy=http://127.0.0.1:6696 pull --ff-only origin main
 cd lyq_alkene_epoxidation\2-creating_microkinetic_model
+$env:PYTHONUTF8='1'
 python -m unittest -v test_ooh_numerics test_ooh_recovery
 python run_ooh_analysis.py --recover --recover-surfaces titi timn ticr
 python run_ooh_analysis.py --recover
 ```
 
-## 新版输出
+`PYTHONUTF8=1` 只用于避免 Windows 默认代码页遮蔽 CatMAP 的中文错误日志；它不改变反应、DFT 能量或求解器判据。
 
-- `analysis_ooh/recovery_v2/bridge_diagnostics.csv`：每条温度路径的映射点数及质量合格种子数。
-- `analysis_ooh/recovery_v2/bridge_point_quality.csv`：每个温度点的通量和残差验证记录。
-- `analysis_ooh/recovery_v2/seed_trials.csv`：每个高温种子独立精度计算的详细记录。
-- `analysis_ooh/recovery_v2/recovery_results.csv`：各催化剂跨种子一致性及最终判定。
+## 输出
 
-新恢复模块**不覆盖旧版 `analysis_ooh/recovery/` 结果**。只有额外验证通过的催化剂才会更新 `dft_baseline.csv`、`OOH_TOF_results.csv` 和相应拟合图。GitHub代码提交不等于已在本地完成新的CatMAP真实求解，需运行后查看V2 CSV。
+- `analysis_ooh/recovery_single_temperature/seed_definitions.csv`：初始状态、物种顺序和覆盖度向量；
+- `analysis_ooh/recovery_single_temperature/seed_trials.csv`：每个初值的精度复算；
+- `analysis_ooh/recovery_single_temperature/recovery_results.csv`：跨初值最终判定；
+- `analysis_ooh/recovery_single_temperature/target/`：每个初值和精度级别的 CatMAP 日志、pkl 和结果。
+
+只有通过全部质量门槛的表面才会更新 `dft_baseline.csv`、`OOH_TOF_results.csv` 和拟合图。代码运行成功不等于科学结果验证成功。
