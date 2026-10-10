@@ -1,0 +1,11 @@
+﻿descriptors,count,R2,LOOCV_RMSE_eV,intercept_eV,coef_1,coef_2,note
+O_form+Ha_form,14,0.4536432021457749,0.15610815740781536,0.11407146133608426,0.044401592325023505,-0.10816106643515447,linear association of provisional net-NEB barrier; not elementary-step BEP
+Ha_form,14,0.26341963249502975,0.17219552124432183,0.11071886130104067,-0.10136233368018492,,linear association of provisional net-NEB barrier; not elementary-step BEP
+Ha_form+Hb_form,14,0.3179613051363396,0.1783929643459385,0.08158950614080437,-0.09251343345136412,-0.02934733772645267,linear association of provisional net-NEB barrier; not elementary-step BEP
+O_form,14,0.15555855583150624,0.1904121926441205,0.2860806549863725,0.04002807516893981,,linear association of provisional net-NEB barrier; not elementary-step BEP
+Hb_form,14,0.10631723972611506,0.1993948976349588,0.21383752082644833,-0.04023992007499625,,linear association of provisional net-NEB barrier; not elementary-step BEP
+O_form+Hb_form,14,0.18381981294005312,0.20392632733083418,0.24916442693364227,0.031549868845898055,-0.023167157061676096,linear association of provisional net-NEB barrier; not elementary-step BEP
+C6H12_ads+Ha_form,14,0.3953124459699229,0.9246832809126887,0.15046685454373487,0.06353438720707778,-0.09307565036942823,linear association of provisional net-NEB barrier; not elementary-step BEP
+C6H12_ads+O_form,14,0.2252738884456249,1.8591879996982443,0.30315567046326924,0.05214234917014337,0.02556616565969337,linear association of provisional net-NEB barrier; not elementary-step BEP
+C6H12_ads+Hb_form,14,0.22957650993243484,1.935506402316455,0.25601802162564913,0.06289129233584093,-0.029409108732636424,linear association of provisional net-NEB barrier; not elementary-step BEP
+C6H12_ads,14,0.17612875761946478,1.9838201451522182,0.3036089300926152,0.07293466323042545,,linear association of provisional net-NEB barrier; not elementary-step BEP
