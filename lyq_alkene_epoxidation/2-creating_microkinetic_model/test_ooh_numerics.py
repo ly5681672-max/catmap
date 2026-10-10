@@ -5,7 +5,7 @@ Run: python -m unittest -v test_ooh_numerics
 """
 import unittest
 
-from run_ooh_analysis import check_steady_state
+from run_ooh_analysis import check_steady_state, compare_refinement_runs
 
 
 def gas_fluxes(rate):
@@ -24,7 +24,7 @@ class NumericalGateTests(unittest.TestCase):
             [rate] * 8, gas_fluxes(rate), [0.2, 0.8],
             solver_residual="1e-130", numbers_solver=True
         )
-        self.assertEqual(r["quality_status"], "validated_numerically")
+        self.assertEqual(r["quality_status"], "validated_single_precision")
         self.assertTrue(r["quality_pass"])
 
     def test_spurious_legacy_desorption_tof_is_rejected(self):
@@ -39,14 +39,32 @@ class NumericalGateTests(unittest.TestCase):
         self.assertFalse(r["quality_pass"])
         self.assertGreater(r["cycle_max_relative_error"], 0.99)
 
-    def test_tiny_consistent_rate_is_not_used_for_tof_fit(self):
+    def test_ultralow_but_consistent_rate_is_not_arbitrarily_rejected(self):
         rate = 1e-60
         r = check_steady_state(
             [rate] * 8, gas_fluxes(rate), [0.2, 0.8],
             solver_residual="1e-140", numbers_solver=True
         )
-        self.assertEqual(r["quality_status"], "below_diagnostic_rate_floor")
+        self.assertEqual(r["quality_status"], "validated_single_precision")
+        self.assertTrue(r["quality_pass"])
+
+    def test_absolute_residual_passes_but_relative_residual_fails(self):
+        rate = 1e-100
+        r = check_steady_state(
+            [rate] * 8, gas_fluxes(rate), [0.2, 0.8],
+            solver_residual="1e-120", numbers_solver=True
+        )
         self.assertFalse(r["quality_pass"])
+        self.assertGreater(r["steady_state_residual_relative_to_max_rate"], 1e20)
+
+    def test_refinement_requires_two_independent_valid_solutions(self):
+        a = {"quality_pass": True, "log10_net_C6H12O": -55.0}
+        b = {"quality_pass": True, "log10_net_C6H12O": -55.005}
+        c = {"quality_pass": True, "log10_net_C6H12O": -54.0}
+        self.assertTrue(compare_refinement_runs(a, b)["refinement_stable"])
+        self.assertFalse(compare_refinement_runs(a, c)["refinement_stable"])
+        self.assertFalse(compare_refinement_runs(a, {"quality_pass": False,
+            "log10_net_C6H12O": -55.0})["refinement_stable"])
 
     def test_wrong_net_gas_signs_are_rejected(self):
         r = check_steady_state(
