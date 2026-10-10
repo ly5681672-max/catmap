@@ -166,7 +166,9 @@ def create_single_surface_setup(
         f"input_file = {str(ENERGIES)!r}",
         f"data_file = {'baseline_' + surface + '.pkl'!r}",
         f"decimal_precision = {precision}",
-        f"tolerance = {tolerance}",
+        # Use a true mpmath value: 1e-340 as a Python float becomes ZERO.
+        "from mpmath import mp",
+        f"tolerance = mp.mpf({tolerance!r})",
         "max_rootfinding_iterations = 250",
         f"use_numbers_solver = {numbers_solver}",
     ]
