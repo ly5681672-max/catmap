@@ -1,51 +1,65 @@
-# lyq_alkene_epoxidation1 — NEB-consistent epoxidation reference
+# lyq_alkene_epoxidation1 — 独立 NEB 共吸附 CatMAP 模型
 
-**Isolated experiment, not a replacement for `lyq_alkene_epoxidation`.**
-Created on branch `feature/lyq-alkene-epoxidation1-neb`; do **not** merge until the mechanistic assumptions are reviewed.
+**独立目录，原版 `lyq_alkene_epoxidation` 原封不动。当前在 `feature/lyq-alkene-epoxidation1-neb`，不合并 main。**
 
-## Goal and provenance
-- Source: `../lyq_alkene_epoxidation/己烯环氧化.xlsx`, worksheet **吉布斯自由能汇总**.
-- `neb_three_state_summary.csv`: 15 surfaces, **G** relative to the Excel coadsorption initial state. TiW has full precision; most other entries are rounded 0.001 eV from the previously extracted worksheet summary. This is **not** the complete CI-NEB image series.
-- Never alter the source Excel electronic energies (`E0`), free-energy corrections (`ΔG`), or corrected `G`.
-- Do **not** mix the source's corrected free energies with the old model's formation energies unless the reference convention and correction levels are reconciled.
+## 文件及运行
+- `己烯环氧化.xlsx`：独立拷贝的原始计算数据；读取 Sheet「吉布斯自由能汇总」。
+- `energies.txt`：已生成的 15 个表面的完整共吸附态 **形成自由能** 和四气相物种参考值。无需重新读取 Excel 即可运行。
+- `coadsorption_model.mkm`：完整共吸附反应网络的 CatMAP 输入。
+- `run_model.py`：一键检查和调用 CatMAP；显式确认临时势垒才可求解。
+- `build_coadsorption.py`：可选，从**本目录 Excel** 重建输入（需要 `artifact_tool`）。
+- `energy_audit.csv`：原始 G 值、三态差值、暂定有效动力学势垒。
+- `check_neb.py` 与 `neb_three_state_summary.csv`：最初与八步模型的辅助对照（前者跨目录对照，**不是新版运行依赖**）。
+- `coadsorption_model.mkm.template`：历史初稿，仅供比较，不用于运行。
 
-## State mapping
-| Workbook state | Formula | Mapping |
-|---|---|---|
-| IS | coadsorbed (H2O2)(C6H12)* | `R*` (full C6H14O2) |
-| labelled TS | complete C6H14O2 intermediate NEB image | pathway marker, **not automatically a CatMAP saddle point** |
-| FS | coadsorbed (C6H12O)(H2O)* | `P*` (full C6H14O2) |
+先激活安装了 CatMAP 的 Python 环境（如本地已有 `H:\\catmap\\catmap`，请自行确保模块在该环境可导入），在本目录运行：
 
-The old step `OOH* + C6H12* -> C6H12O* + O* + Hb*` is **not** this net coadsorbed reaction. In particular it omits the `Ha*` atom (handled elsewhere in the old network), so substituting its pseudo-TS species with this full-composition NEB marker is physically inconsistent.
-
-## Files
-- `neb_three_state_summary.csv`: read-only snapshot of the three reported points.
-- `check_neb.py`: standard-library validation of state ordering and the old model's mismatched step-4 final state. It **never writes energies.txt**.
-- `coadsorption_model.mkm.template`: a separate **CatMAP model template**, not executable as-is until coadsorption and gas chemical potential input is provided.
-- `README.md`: assumptions, exact needed next inputs and usage.
-
-## Generated Gibbs energies and provisional CatMAP model
-The branch includes `energies.txt`, `energy_audit.csv`, `build_coadsorption.py`, and `coadsorption_model.mkm`. They use gas G (rows 57–60), catalyst slab G (row 4), coadsorbed IS G (row 12), path marker G (row 16), and coadsorbed FS G (row 20; TiMo row 21 combined total). TiTa has an extra address column, so its G column is 87 rather than 86. Element reference convention C=-9.28, H=-1.11, O=-4.37 eV, identical to the earlier CatMAP input convention. For surfaces with a downhill path marker, `RP` is set to `max(G_IS,G_marker,G_FS)` for a nonnegative model barrier; **this is a provisional kinetic assumption, not a measured NEB saddle**. The gas reservoir activities continue the old model approximation and require sensitivity/solvation validation. Running CatMAP to convergence has NOT been verified in this environment.
-
-## Why no immediately validated CatMAP kinetics?
-CatMAP needs thermodynamically consistent **absolute formation free energies** for `R*`, `P*`, gases and empty sites on *the same reference scale*. The three relative energies alone determine `G_P-G_R`, **not** `G_R-(G_H2O2,g+G_C6H12,g)` or product desorption. Choosing an arbitrary adsorption energy would silently invent kinetics. The workbook gives free-energy-corrected values but the complete reference-state crosswalk for every surface and gas correction must be verified first.
-
-In a one-site minimal network, after reference alignment:
+```powershell
+python run_model.py --validate-only
+python run_model.py --allow-provisional
 ```
+
+第二条会运行 CatMAP，并在本目录生成求解缓存/结果。如需重新由 Excel 提取（仅在已安装 artifact_tool 时）：
+
+```powershell
+python run_model.py --rebuild --validate-only
+```
+
+## 反应状态与元素守恒
+- `R*`：共吸附 `(H2O2)(C6H12)*`，组成 C6H14O2。
+- `P*`：共吸附 `(C6H12O)(H2O)*`，组成 C6H14O2。
+- `RP*`：**暂定有效过渡态**；仅用于让 CatMAP 在非负势垒模型下工作，不是已验证的一阶鞍点。
+
+```text
 * + H2O2_g + C6H12_g <-> R*
-R* -> P*                  # downhill barrierless elementary conversion only where NEB validates it
+R* <-> RP* -> P*
 P* <-> C6H12O_g + H2O_g + *
 ```
-For barriered surfaces, the true NEB saddle energy is needed; **do not treat a single labelled midpoint as TS without checking all images**. An irreversible first-order step alone also cannot capture liquid-phase mass transfer.
 
-## Run checks
-```powershell
-python lyq_alkene_epoxidation1/check_neb.py
+相比旧版八步机制，这三步直接描述总体协同环氧化；不能直接将其动力学参数解释为旧版 OOH 或 H 转移基元反应的参数。
+
+## 形成自由能参考
+对于完整共吸附态 X∈{R,P,RP}：
+
+```text
+Gf(X*) = G_sheet(X*) - G_sheet(clean_slab) - 6*mu_C - 14*mu_H - 2*mu_O
+Gf(gas) = G_sheet(gas) - sum(n_element * mu_element)
+mu_C=-9.28, mu_H=-1.11, mu_O=-4.37 eV
 ```
-This reports all surfaces and compares the old model's step-4 final state, explicitly marking different chemical states. No files in the original directory are changed.
 
-## What data is still required for defensible TOF?
-1. Full NEB image sequence for each surface, with energy correction convention specified.
-2. Clean-slab and gas free energies in a consistent convention (same temperature, corrections and reference).
-3. For every surface, verified absolute formation free energies of coadsorbed `R*` and `P*`.
-4. Confirm adsorbed site occupancy, adsorption/desorption mechanisms and kinetic prefactors.
+严格说这是指定元素参考态上的形成自由能，不是传统热力学标准生成 Gibbs 能。元素基准只用于一致化，同原子计量反应的差值相消。选择冻结热力学项 `frozen_gas`/`frozen_adsorbate` 避免重复添加自由能校正。
+
+读取行：裸板 4；R 12；路径标记 16；P 20（TiMo P = 第21行组合总能）；气相 G = 57–60；TiTa 的 G 列特殊偏移。对所有模型点按相同参考计算。
+
+## 势垒及物理限制
+`G_RP = max(G_R, G_marker, G_P)`（同一表面的绝对自由能）。
+这是**用于数值求解的暂定势垒假设**。尤其 TiNb/TiW/TiTa 三态下降，不等于整条 NEB 图像经审查完全无峰；**只有 NEB 全图像 + 适当自由能修正验证后才可确认无能垒**。其余表面的单个 marker 也不等于真实最高鞍点。
+
+气相后缀代表 CatMAP 的外部化学势库；液相 H2O2/C6H12/H2O/C6H12O 的 `pressure` 是**近似有效活度**，并非真实气相分压。模型使用单总位点、无显式溶剂作用及单位活度初期环氧产物近似。绝对 TOF 未经过实验/完整 NEB 验证，不应发表为定量预测。
+
+**独立性**：运行/生成只使用本目录的 Excel、energies、配置和脚本；无需原有 lyq_alkene_epoxidation 文件。唯一外部软件依赖为 Python+CatMAP，选择重建时另需 artifact_tool。
+
+## 状态
+- 数据及源文件自包含，已通过静态能量守恒和形成能一致性检查。
+- 已提供可直接调用 CatMAP 的运行入口。
+- CatMAP 运行和收敛**需要在有 CatMAP 依赖的用户环境中执行，当前交付环境未安装 CatMAP，不能宣称已跑通求解器**。
