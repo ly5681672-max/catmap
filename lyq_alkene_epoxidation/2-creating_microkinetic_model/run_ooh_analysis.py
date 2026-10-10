@@ -367,6 +367,12 @@ def run_single_surface(
         # instead returns maximum absolute d(theta)/dt.
         # Coverage-based solver expects adsorbate coverages only; the
         # numbers solver uses adsorbates PLUS the vacant-site coverage.
+        # Warm-start runs have TWO temperature grid points. Ensure the
+        # independent residual is evaluated at the final target (333.15 K),
+        # not at the most recently visited high-temperature seed point.
+        model._descriptors = [333.15, 1.0]
+        model.solver._descriptors = [333.15, 1.0]
+        model.scaler.get_rxn_parameters([333.15, 1.0])
         residual_input = full_coverages if numbers_solver else list(covers_raw)
         residual = model.solver.get_residual(
             residual_input, validate_coverages=False, refresh_rate_constants=True
