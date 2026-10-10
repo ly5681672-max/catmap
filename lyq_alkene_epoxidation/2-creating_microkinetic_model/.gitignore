@@ -9,3 +9,8 @@
 
 # Fresh figures are local runtime outputs, not source files.
 /figures_latest/
+
+# CatMAP continuation scratch work is reproducible and potentially large.
+# Keep recovery/*.csv summaries on GitHub; do not commit per-point caches.
+/analysis_ooh/recovery/bridges/
+/analysis_ooh/recovery/target/
