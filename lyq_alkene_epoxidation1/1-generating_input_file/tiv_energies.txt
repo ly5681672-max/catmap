@@ -1,0 +1,16 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+None	gas	C6H12	-26.031	[]	Input File Tutorial.
+None	gas	C6H12O	-27.668	[]	Input File Tutorial.
+None	gas	H2O	-7.614	[]	Input File Tutorial.
+None	gas	H2O2	-7.162	[]	Input File Tutorial.
+tiv	111	C6H12	-26.127	[]	Input File Tutorial.
+tiv	111	C6H12O	-27.867	[]	Input File Tutorial.
+tiv	111	H2O	-7.565	[]	Input File Tutorial.
+tiv	111	H2O2	-7.12	[]	Input File Tutorial.
+tiv	111	Ha	-1.213	[]	Input File Tutorial.
+tiv	111	Hb	-0.803	[]	Input File Tutorial.
+tiv	111	Hb-O	-1.292677	[]	Input File Tutorial.
+tiv	111	O	-0.465	[]	Input File Tutorial.
+tiv	111	OH	-4.81	[]	Input File Tutorial.
+tiv	111	OOH	-4.738	[]	Input File Tutorial.
+tiv	111	OOH-C6H12	-30.707851	[]	Input File Tutorial.
