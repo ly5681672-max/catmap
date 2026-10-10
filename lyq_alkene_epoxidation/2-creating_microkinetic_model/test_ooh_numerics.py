@@ -4,8 +4,12 @@
 Run: python -m unittest -v test_ooh_numerics
 """
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
-from run_ooh_analysis import check_steady_state, compare_refinement_runs
+from run_ooh_analysis import (
+    check_steady_state, compare_refinement_runs, create_single_surface_setup
+)
 
 
 def gas_fluxes(rate):
@@ -65,6 +69,15 @@ class NumericalGateTests(unittest.TestCase):
         self.assertFalse(compare_refinement_runs(a, c)["refinement_stable"])
         self.assertFalse(compare_refinement_runs(a, {"quality_pass": False,
             "log10_net_C6H12O": -55.0})["refinement_stable"])
+
+    def test_mpmath_tolerance_never_underflows_to_float_zero(self):
+        with TemporaryDirectory() as folder:
+            path = create_single_surface_setup(
+                "tiw", Path(folder), precision=460, tolerance="1e-340"
+            )
+            data = path.read_text(encoding="utf-8")
+        self.assertIn("from mpmath import mp", data)
+        self.assertIn("tolerance = mp.mpf('1e-340')", data)
 
     def test_wrong_net_gas_signs_are_rejected(self):
         r = check_steady_state(
