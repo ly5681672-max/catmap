@@ -9,6 +9,7 @@ Run: python 1-generating_input_file/bep_descriptor_analysis.py
 from __future__ import annotations
 import ast
 import csv
+from datetime import datetime
 from itertools import combinations
 from pathlib import Path
 import numpy as np
@@ -95,6 +96,17 @@ def save_csv(filename, records, columns):
         writer.writeheader()
         writer.writerows(records)
 
+def save_plot(fig, filename):
+    target = MODEL_DIR / filename
+    try:
+        fig.savefig(target)
+    except PermissionError:
+        folder = MODEL_DIR / "plots" / ("rerun_" + datetime.now().strftime("%Y%m%d_%H%M%S"))
+        folder.mkdir(parents=True, exist_ok=True)
+        target = folder / filename
+        fig.savefig(target)
+    print("Saved", target)
+
 def run(make_plots=True):
     rows = read_rows()
     reports=[]
@@ -150,7 +162,7 @@ def run(make_plots=True):
                ylabel="Linear-model prediction (eV)",title=f"C/O/H screening: R²={r2:.3f}; LOO RMSE={cv:.3f} eV")
         ax.legend()
         fig.tight_layout()
-        fig.savefig(MODEL_DIR/"bep_fit.pdf")
+        save_plot(fig, "bep_fit.pdf")
         plt.close(fig)
         # Plane of activation barriers, NOT a turnover-frequency volcano.
         x=np.array([r[names[0]] for r in rows]);y=np.array([r[names[1]] for r in rows])
@@ -166,7 +178,7 @@ def run(make_plots=True):
         ax.set(xlabel=names[0]+" (eV)",ylabel=names[1]+" (eV)",
                title="Linear BEP-like descriptor plane (NOT TOF volcano)")
         fig.tight_layout()
-        fig.savefig(MODEL_DIR/"bep_barrier_map.pdf")
+        save_plot(fig, "bep_barrier_map.pdf")
         plt.close(fig)
         print("Saved bep_fit.pdf, bep_barrier_map.pdf")
     return rows,best
