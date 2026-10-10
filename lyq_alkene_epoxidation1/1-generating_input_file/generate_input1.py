@@ -1,250 +1,85 @@
-# 生成 CatMAP 输入文件：计算形成能、输出 TXT/CSV，并验证解析结果。
-from ase.symbols import string2symbols
+#!/usr/bin/env python3
+"""Build coadsorption CatMAP energies from the ORIGINAL Excel workbook.
+Requires: artifact_tool. No writes to the original workbook or old model.
+Run: python lyq_alkene_epoxidation1/build_coadsorption.py
+"""
 import csv
-import os
 from pathlib import Path
+from artifact_tool import Blob, SpreadsheetFile
 
-abinitio_energies = {
-    # ========== 气相物种 ==========
-    'H2O2_gas': -18.122091,
-    'C6H12_gas': -95.031223,
-    'C6H12O_gas': -101.037771,
-    'H2O_gas': -14.204457,
-
-    # ========== 吸附物种 ==========
-    'H2O2_111':  -891.610975,
-    'Ha_111':    -874.30923,
-    'Hb_111':    -879.2156865,
-    'OOH_111':   -887.017207,
-    'C6H12_111': -968.7609275,
-    'C6H12O_111':-974.959544,
-    'O_111':     -876.0788065,
-    'OH_111':    -881.650587,
-    'H2O_111':   -887.646684,
-
-    # ========== 过渡态 ==========
-    'OOH-C6H12_111': -983.35808,
-    'Hb-O_111': -881.739798,
-
-    # ========== 裸板 ==========
-    'slab_111': -873.6310625,
-}
-# 预计算原子参考能，单位：eV
-ref_dict = {
-    'O': -4.37,
-    'C': -9.28,
-    'H': -1.11,
-    '111': abinitio_energies['slab_111'],
+HERE = Path(__file__).resolve().parent
+SOURCE = HERE.parent / "lyq_alkene_epoxidation" / "己烯环氧化.xlsx"
+OUTPUT = HERE.parent / "2-creating_microkinetic_model" / "energies.txt"
+AUDIT = HERE / "energy_audit.csv"
+ELEMENT_REF = {"C": -9.28, "H": -1.11, "O": -4.37}
+STOICH = {
+    "C6H12": {"C":6,"H":12}, "H2O2": {"H":2,"O":2},
+    "C6H12O": {"C":6,"H":12,"O":1}, "H2O": {"H":2,"O":1},
+    "R": {"C":6,"H":14,"O":2}, "P": {"C":6,"H":14,"O":2},
+    "RP": {"C":6,"H":14,"O":2}
 }
 
-# 特殊物种名称 -> 实际化学组成。
-# Ha/Hb 表示不同吸附位置上的 H，不是化学元素 Ha/Hb。
-formula_map = {
-    'Ha': 'H',
-    'Hb': 'H',
-    'Hb-O': 'HO',
-}
+def atom_ref(formula):
+    return sum(ELEMENT_REF[k] * v for k,v in STOICH[formula].items())
 
+def n(value, what):
+    if not isinstance(value,(float,int)):
+        raise ValueError(f"Missing numeric cell: {what}: {value!r}")
+    return float(value)
 
-def get_formation_energies(energy_dict, references):
-    """根据原子参考能和裸板能计算形成能。"""
-    formation_energies = {}
+def main():
+    book = SpreadsheetFile.import_xlsx(Blob.load(str(SOURCE)))
+    ws = book.worksheets.get_item("吉布斯自由能汇总")
+    values = ws.get_range("A1:DE81").values
+    def cell(row, col): return values[row-1][col-1]
+    surfaces = [(1,"tife"),(9,"timn"),(17,"tihf"),(24,"tire"),(32,"tinb"),
+                (39,"timo"),(46,"tiv"),(53,"tizr"),(60,"tico"),(67,"titi"),
+                (74,"tiw"),(81,"tita"),(89,"ticr"),(96,"ti"),(103,"tini")]
+    gases = {name:n(cell(r,6), f"gas {name} G") for name,r in
+             [("H2O2",57),("C6H12",58),("H2O",59),("C6H12O",60)]}
+    output = []
+    for name,g in gases.items():
+        output.append(("None","gas",name,g-atom_ref(name)))
+    rows=[]
+    for col,surface in surfaces:
+        gcol = col+6 if surface == 'tita' else col+5
+        # Raw corrected free energies, from the SAME sheet:
+        # slab row 4, coadsorbed reactant row 12, pathway marker row 16,
+        # coadsorbed product row 20 (TiMo composite total: row 21).
+        slab=n(cell(4,gcol), f"{surface} slab G")
+        initial=n(cell(12,gcol), f"{surface} IS G")
+        marker=n(cell(16,gcol), f"{surface} NEB-marker G")
+        final=n(cell(21 if surface == "timo" else 20,gcol), f"{surface} FS G")
+        delta_marker=marker-initial
+        delta_final=final-initial
+        # Rate-model effective barrier, not a claim about actual NEB saddle.
+        # For downhill marker choose zero forward activation; for others
+        # marker is used as a provisional candidate until full NEB validation.
+        effective=max(initial, marker, final)
+        gfs={name:g-slab-atom_ref(name) for name,g in
+             [("R",initial),("P",final),("RP",effective)]}
+        for name,gf in gfs.items():
+            output.append((surface,"111",name,gf))
+        rows.append((surface,slab,initial,marker,final,delta_marker,
+                     delta_final,effective-initial,
+                     "UNVERIFIED_FULL_NEB",
+                     "EFFECTIVE_TS_CLAMPED" if effective!=marker else "NEB_MARKER_CANDIDATE"))
+        if abs((gfs["P"]-gfs["R"])-delta_final)>1e-7:
+            raise AssertionError(surface+" inconsistent free-energy reference")
+    with OUTPUT.open("w",encoding="utf-8",newline="") as fh:
+        wr=csv.writer(fh,delimiter="\t",lineterminator="\n")
+        wr.writerow(["surface_name","site_name","species_name","formation_energy","frequencies","reference"])
+        for surface,site,name,gf in output:
+            wr.writerow([surface,site,name,f"{gf:.9f}","[]",
+                         "Original workbook Gibbs summary; 333.15 K"])
+    with AUDIT.open("w",encoding="utf-8",newline="") as fh:
+        wr=csv.writer(fh)
+        wr.writerow(["surface","G_slab","G_IS","G_path_marker","G_FS",
+                     "marker_minus_IS","FS_minus_IS","effective_barrier",
+                     "full_NEB_status","kinetic_TS_status"])
+        wr.writerows(rows)
+    print(f"Wrote {len(output)} energy entries and {len(rows)} audit rows.")
+    print("NOTE: effective barriers are MODEL ASSUMPTIONS until full NEB validation.")
 
-    for key, energy in energy_dict.items():
-        if '_' not in key:
-            raise ValueError(f'物种 key 缺少 site 信息: {key}')
-
-        name, site = key.split('_', 1)
-
-        if 'slab' in name:
-            continue
-
-        E0 = energy
-
-        # 表面吸附态/过渡态先减去裸板能；气相不减裸板。
-        if site == '111':
-            E0 -= references['111']
-
-        # 特殊名称显式映射，普通名称则移除 TS 连字符后按化学式解析。
-        formula = formula_map.get(name, name.replace('-', ''))
-
-        try:
-            composition = string2symbols(formula)
-        except Exception as exc:
-            raise ValueError(
-                f'无法解析物种 {name}，对应化学式 {formula}，原 key: {key}'
-            ) from exc
-
-        for atom in composition:
-            if atom not in references:
-                raise KeyError(f'物种 {key} 中的原子 {atom} 未在 ref_dict 中定义参考能')
-            E0 -= references[atom]
-
-        formation_energies[key] = round(E0, 3)
-
-    return formation_energies
-
-
-formation_energies = get_formation_energies(abinitio_energies, ref_dict)
-
-# 打印形成能检查
-for key, value in formation_energies.items():
-    print(f'{key} {value}')
-
-frequency_dict = {
-    'H2O2_gas': [],
-    'C6H12_gas': [],
-    'C6H12O_gas': [],
-    'H2O_gas': [],
-    'H2O2_111': [],
-    'Ha_111': [],
-    'Hb_111': [],
-    'OOH_111': [],
-    'C6H12_111': [],
-    'C6H12O_111': [],
-    'O_111': [],
-    'OH_111': [],
-    'H2O_111': [],
-    'OOH-C6H12_111': [],
-    'Hb-O_111': [],
-    'slab_111': [],
-}
-
-
-def make_input_file(file_name, energy_dict, frequencies):
-    """生成 CatMAP TableParser 使用的制表符分隔输入文件。"""
-    header = '\t'.join([
-        'surface_name',
-        'site_name',
-        'species_name',
-        'formation_energy',
-        'frequencies',
-        'reference',
-    ])
-
-    lines = []
-
-    for key, energy in energy_dict.items():
-        if '_' not in key:
-            continue
-
-        name, site = key.split('_', 1)
-
-        if 'slab' in name:
-            continue
-
-        frequency = frequencies.get(key, [])
-        surface = None if site == 'gas' else 'ti'
-        outline = [surface, site, name, energy, frequency, 'Input File Tutorial.']
-        lines.append('\t'.join(str(value) for value in outline))
-
-    lines.sort()
-    input_file = '\n'.join([header] + lines)
-
-    with open(file_name, 'w', encoding='utf-8') as file:
-        file.write(input_file)
-
-    print(f'Successfully created input file: {file_name}')
-
-
-def make_csv_file(file_name, energy_dict, frequencies):
-    """将同一套形成能数据输出为 CSV，便于表格软件检查。"""
-    fieldnames = [
-        'surface_name',
-        'site_name',
-        'species_name',
-        'formation_energy',
-        'frequencies',
-        'reference',
-    ]
-
-    with open(file_name, 'w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-
-        for key, energy in energy_dict.items():
-            if '_' not in key:
-                continue
-
-            name, site = key.split('_', 1)
-
-            if 'slab' in name:
-                continue
-
-            freq_list = frequencies.get(key, [])
-            freq_str = ';'.join(
-                str(int(freq))
-                if isinstance(freq, (int, float)) and float(freq).is_integer()
-                else str(freq)
-                for freq in freq_list
-            ) if freq_list else ''
-
-            writer.writerow({
-                'surface_name': None if site == 'gas' else 'ti',
-                'site_name': site,
-                'species_name': name,
-                'formation_energy': energy,
-                'frequencies': freq_str,
-                'reference': 'Input File Tutorial.',
-            })
-
-    print(f'Successfully created CSV file: {file_name}')
-
-
-# Prevent silently overwriting reviewed energy tables. Opt in explicitly if needed.
-def assert_safe_output(paths):
-    existing = [str(p) for p in paths if Path(p).exists()]
-    if existing and os.environ.get('ALLOW_ENERGY_OVERWRITE') != '1':
-        raise FileExistsError(
-            'Refusing to overwrite existing energy tables: ' + ', '.join(existing)
-            + '. Set ALLOW_ENERGY_OVERWRITE=1 only after reviewing the source values.'
-        )
-
-
-# 生成输出文件
-txt_file_name = 'ti_energies.txt'
-csv_file_name = 'ti_energies.csv'
-assert_safe_output([txt_file_name, csv_file_name])
-make_input_file(txt_file_name, formation_energies, frequency_dict)
-make_csv_file(csv_file_name, formation_energies, frequency_dict)
-
-# CatMAP 解析测试
-try:
-    from catmap.model import ReactionModel
-    from catmap.parsers import TableParser
-
-    rxm = ReactionModel()
-    rxm.surface_names = ['ti']
-
-    # CatMAP 内部物种 key 必须带 site 后缀。
-    # 输入表中的 species_name 仍保持 H2O2/Ha/Hb/...，TableParser 会根据 site_name=111
-    # 将这些名称匹配到 *_s 物种。
-    rxm.adsorbate_names = (
-        'H2O2_s', 'Ha_s', 'Hb_s', 'OOH_s',
-        'C6H12_s', 'C6H12O_s', 'O_s', 'OH_s', 'H2O_s'
-    )
-    rxm.transition_state_names = ('OOH-C6H12_s', 'Hb-O_s')
-    rxm.gas_names = ('H2O2_g', 'C6H12_g', 'C6H12O_g', 'H2O_g')
-    rxm.site_names = ('s',)
-
-    # Ha/Hb/Hb-O 不是标准化学式，必须在与模型一致的 *_s key 上显式指定组成。
-    rxm.species_definitions = {
-        's': {'site_names': ['111']},
-        'Ha_s': {'composition': {'H': 1}},
-        'Hb_s': {'composition': {'H': 1}},
-        'Hb-O_s': {'composition': {'H': 1, 'O': 1}},
-    }
-
-    parser = TableParser(rxm)
-    parser.input_file = txt_file_name
-    parser.parse()
-
-    print('CatMAP parsing successful.')
-    for key, value in rxm.species_definitions.items():
-        print(f'{key} {value}')
-
-except Exception as exc:
-    print('CatMAP 解析测试失败：')
-    print(exc)
-    # 不再吞掉异常：解析失败时让进程返回非 0 退出码，便于定位问题。
-    raise
+if __name__=="__main__":
+    main()

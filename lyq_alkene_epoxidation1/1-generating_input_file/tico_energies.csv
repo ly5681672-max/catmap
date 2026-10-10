@@ -1,16 +1,8 @@
 surface_name,site_name,species_name,formation_energy,frequencies,reference
-,gas,H2O2,-7.162,,Input File Tutorial.
-,gas,C6H12,-26.031,,Input File Tutorial.
-,gas,C6H12O,-27.668,,Input File Tutorial.
-,gas,H2O,-7.614,,Input File Tutorial.
-tico,111,H2O2,-6.218,,Input File Tutorial.
-tico,111,Ha,-2.121,,Input File Tutorial.
-tico,111,Hb,-2.162,,Input File Tutorial.
-tico,111,OOH,-2.773,,Input File Tutorial.
-tico,111,C6H12,-26.162,,Input File Tutorial.
-tico,111,C6H12O,-26.952,,Input File Tutorial.
-tico,111,O,1.98,,Input File Tutorial.
-tico,111,OH,-2.245,,Input File Tutorial.
-tico,111,H2O,-6.563,,Input File Tutorial.
-tico,111,OOH-C6H12,-28.378656,,Input File Tutorial.
-tico,111,Hb-O,0.043994,,Input File Tutorial.
+None,gas,C6H12,-26.031223000,[],Workbook Gibbs summary 333.15K
+None,gas,C6H12O,-27.667771000,[],Workbook Gibbs summary 333.15K
+None,gas,H2O,-7.614457000,[],Workbook Gibbs summary 333.15K
+None,gas,H2O2,-7.162091000,[],Workbook Gibbs summary 333.15K
+tico,111,R,-34.598087000,[],Workbook Gibbs summary 333.15K
+tico,111,P,-34.837773000,[],Workbook Gibbs summary 333.15K
+tico,111,RP,-34.041743000,[],Workbook Gibbs summary 333.15K
