@@ -290,8 +290,11 @@ def run_single_surface(
         # Independently recompute the CatMAP coverage residual.
         # Numbers solver returns a *squared L2 norm*; coverage solver
         # instead returns maximum absolute d(theta)/dt.
+        # Coverage-based solver expects adsorbate coverages only; the
+        # numbers solver uses adsorbates PLUS the vacant-site coverage.
+        residual_input = full_coverages if numbers_solver else list(covers_raw)
         residual = model.solver.get_residual(
-            full_coverages, validate_coverages=False, refresh_rate_constants=True
+            residual_input, validate_coverages=False, refresh_rate_constants=True
         )
         quality = check_steady_state(
             rates_raw, gas_raw, full_coverages, residual,
