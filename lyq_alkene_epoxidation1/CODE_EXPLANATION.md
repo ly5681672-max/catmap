@@ -64,3 +64,21 @@ git pull --ff-only origin main
 ```
 
 确认 PyCharm/Jupyter 刷新新版 `lyq_alkene_epoxidation1/2-creating_microkinetic_model/test.ipynb`，选择重新启动 Kernel、顺序运行各代码单元。首先关注网格完整性结果 `production_rate=100, rate=100, coverage=100` 和物理覆盖度警告数量；其次检查所有 PDF 保存提示（遇到锁定时自动转 `plots`），最后检查 TS 拟合误差文件。若缓存很大，强制重新计算可能花费一些时间。
+
+## 2026-10-10 第二次实跑：绘图异常与 C/O/H 火山图
+
+本次直接读取 GitHub 最新已执行 Notebook 输出：
+- CatMAP 网格计算：100/100 点；coverage：0 个物理范围异常。
+- Notebook rate/coverage 绘图：`TypeError: ufunc 'isfinite' not supported`（CatMAP 高精度 mpmath 结果引入 NumPy object 数组）。
+- 原 `ScalingAnalysis`：`AttributeError: 'NoneType' object has no attribute 'keys'`（当前绘图模块接收到 `parameter_dict=None`）。
+- `ts_scaling_audit.csv` 仍有 11/15 个催化剂 RP 拟合偏差 >0.05 eV。未修改 DFT 原始能量，未伪称拟合后的 TOF 为真实 NEB 值。
+
+修复：
+1. 在 `2-creating_microkinetic_model/test.ipynb` 中采用 NumPy `dtype=float64`，将 CatMAP `mpf` 标量转为可用于 Matplotlib 的数值。原 PDF 图名保持不变，输出包含 `volcano_R_P.pdf`（**仅 R/P 描述符**）。
+2. 以 `RP_input` 对 `RP_scaled` 进行 Scaling 对比，独立生成 `scaling.pdf`，绕过当前 CatMAP `ScalingAnalysis` 的空参数错误。
+3. 新增 `descriptor_C_O_H.csv` 和 `plot_C_O_H_volcano.py`。模板每一组催化剂都须填写 **独立、经验证的** `E_C`、`E_O`、`E_H` 逐表面数据。填完后 Notebook 末尾一格绘制 `volcano_C_O_H.pdf`（三页：C–O、C–H、O–H）。
+4. **物理定义警示**：当前 `alkene_epoxidation.mkm` 的实际 CatMAP 描述符仍是 `R_s, P_s`；新的 C/O/H 页将当前 R/P 网格中的环氧产物生成速率在每个催化剂的 R/P 坐标处进行数值插值，之后投影到 C/O/H 坐标。故它是*已有模型结果的描述符相关性图*，不是以 C/O/H 为模型输入重新求解后的真实三描述符微观动力学火山图。若需后者，应另构建 R/P/RP 对 C/O/H 的可验证标度关系、输入能量表并重新扫描。
+5. `C=-9.28`、`O=-4.37`、`H=-1.11` 为元素原子**固定参考能**，不能直接作为跨催化剂变化的活性描述符。原始 Excel 现有的 OOH、C6H12、O、Ha/Hb 吸附态也不能未经定义就被冒充为 C*、O*、H*。
+6. 这次仅进行了 GitHub 代码更新和静态查验；Windows/CatMAP 环境的完整新一轮动态执行仍需在用户本机核实。
+
+在新模型目录运行 `python plot_C_O_H_volcano.py`（需 CSV 15 行全部真实填好），或执行 Notebook 最后一格。若 CSV 未填好，Notebook 会提示缺失的催化剂而非生成虚假火山图。
