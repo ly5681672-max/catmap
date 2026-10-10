@@ -6,3 +6,6 @@
 /*.log
 /*_table.txt
 /outer_solver.log
+
+# Fresh figures are local runtime outputs, not source files.
+/figures_latest/
