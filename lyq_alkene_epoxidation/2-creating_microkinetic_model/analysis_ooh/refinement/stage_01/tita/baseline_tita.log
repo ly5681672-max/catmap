@@ -1,0 +1,209 @@
+from numpy import array
+
+try:
+    import cPickle as pickle
+
+except: #workaround for python3.X
+    import _pickle as pickle
+
+
+from mpmath import mpf 
+
+parser = None
+
+scaler = 'ThermodynamicScaler'
+
+thermodynamics = 'ThermoCorrections'
+
+solver = 'SteadyStateSolver'
+
+mapper = 'MinResidMapper'
+
+binary_data = pickle.load(open("baseline_tita.pkl","rb"))
+
+locals().update(binary_data)
+
+__citation__ = """If you find CatMAP useful to your research, please cite both the following papers:
+
+ Medford, A. J., Shi, C., Hoffmann, M. J., Lausche, A. C., Fitzgibbon, S. R., Bligaard, T., & Nørskov, J. K. (2015). CatMAP: a software package for descriptor-based microkinetic mapping of catalytic trends. Catalysis Letters, 145, 794-807. 
+ Vijay, S., H. Heenen, H., Singh, A. R., Chan, K., & Voss, J. (2024). Number of sites-based solver for determining coverages from steady-state mean-field micro-kinetic models. Journal of Computational Chemistry, 45(9), 546-551.
+"""
+A_uc = None
+
+DEBUG = False
+
+adsorbate_interaction_model = 'ideal'
+
+adsorbate_interactions = None
+
+adsorbate_names = ('C6H12O_s', 'C6H12_s', 'H2O2_s', 'H2O_s', 'Ha_s', 'Hb_s', 'OH_s', 'OOH_s', 'O_s')
+
+adsorbate_thermo_mode = 'frozen_adsorbate'
+
+analytical_jacobian = True
+
+atomic_reservoir_dict = {'C': 'C6H12_g', 'H': 'H2O2_g', 'O': 'H2O_g'}
+
+atomic_reservoir_list = [{'C': 'C6H12O_g', 'H': 'C6H12_g', 'O': 'H2O2_g'}, {'C': 'C6H12O_g', 'H': 'C6H12_g', 'O': 'H2O_g'}, {'C': 'C6H12O_g', 'H': 'H2O2_g', 'O': 'H2O_g'}, {'C': 'C6H12_g', 'H': 'H2O2_g', 'O': 'H2O_g'}]
+
+atoms_dict = {}
+
+citation_info_written = True
+
+coverage_headers = ['coverage', 'coadsorbate_coverage']
+
+data_file = 'baseline_tita.pkl'
+
+decimal_precision = 180
+
+descriptor_decimal_precision = 2
+
+descriptor_names = ('temperature', 'pressure')
+
+descriptor_ranges = [[333.15, 333.15], [1.0, 1.0]]
+
+echem_transition_state_names = []
+
+electrochemical_thermo_mode = 'simple_electrochemical'
+
+elementary_rxns = ([['s', 'H2O2_g'], ['H2O2_s']], [['H2O2_s', 's'], ['Ha_s', 'OOH_s']], [['s', 'C6H12_g'], ['C6H12_s']], [['OOH_s', 'C6H12_s', 's'], ['OOH-C6H12_s', 's', 's'], ['C6H12O_s', 'O_s', 'Hb_s']], [['C6H12O_s'], ['C6H12O_g', 's']], [['Hb_s', 'O_s'], ['Hb-O_s', 's'], ['OH_s', 's']], [['Ha_s', 'OH_s'], ['s', 'H2O_s']], [['H2O_s'], ['H2O_g', 's']])
+
+estimate_frequencies = True
+
+extrapolate_coverages = False
+
+fix_x_star = False
+
+fixed_entropy_dict = {'H2_g': 0.00135, 'other': 0.002}
+
+force_recalculation = False
+
+force_recompilation = False
+
+frequency_dict = {'C6H12_g': [], 'H2O2_g': [], 'H2O_g': [], 'C6H12O_g': [], 's': [], 'Ha_s': [], 'Hb_s': [], 'Hb-O_s': [], 'C6H12O_s': [], 'C6H12_s': [], 'H2O2_s': [], 'H2O_s': [], 'OH_s': [], 'OOH_s': [], 'O_s': [], 'OOH-C6H12_s': [], 'g': [], '*_g': [], '*_s': []}
+
+frequency_surface_names = []
+
+frequency_unit_conversion = 0.0001239842
+
+gas_names = ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')
+
+gas_pressures = [np.float64(1e-20), np.float64(1.0), np.float64(0.185), np.float64(0.815)]
+
+gas_thermo_mode = 'frozen_gas'
+
+hbond_dict = {'COOH': -0.25, 'OCHO': 0.0, 'CO': -0.1, 'CHO': -0.1, 'CH2O': 0.0, 'OCH3': 0.0, 'O': 0.0, 'OH': -0.5, 'H': 0.0, 'COH': -0.25, 'C': 0.0, 'CH': 0.0, 'CH2': 0.0, 'CH3': 0.0, 'CHOH': -0.25, 'COHOH': -0.25, 'OCH2O': 0.0, 'CH2OH': -0.25, 'OCHCH2': 0.0, 'OCHCHO': 0.0}
+
+hindered_ads_params = {}
+
+ideal_gas_params = {'H2_g': [2, 'linear', 0], 'N2_g': [2, 'linear', 0], 'O2_g': [2, 'linear', 1.0], 'H2O_g': [2, 'nonlinear', 0], 'CO_g': [1, 'linear', 0], 'CH4_g': [12, 'nonlinear', 0], 'NH3_g': [3, 'nonlinear', 0], 'CH3OH_g': [1, 'nonlinear', 0], 'CH3CH2OH_g': [1, 'nonlinear', 0], 'CO2_g': [2, 'linear', 0], 'CH2O_g': [2, 'nonlinear', 0], 'HCOOH_g': [1, 'nonlinear', 0], 'CH2CH2_g': [4, 'nonlinear', 0], 'CH3CHCH2_g': [1, 'nonlinear', 0], 'CH3CH2CHCH2_g': [1, 'nonlinear', 0], 'CH3CHCHCH3_g': [2, 'nonlinear', 0], 'CH3CH3CCH2_g': [2, 'nonlinear', 0], 'pe_g': [2, 'linear', 0], 'C2H2_g': [2, 'linear', 0], 'C2H4_g': [4, 'nonlinear', 0], 'C2H6_g': [6, 'nonlinear', 0], 'C3H6_g': [1, 'nonlinear', 0], 'CH3COOH_g': [1, 'nonlinear', 0], 'CH3CHO_g': [1, 'nonlinear', 0], 'C5H4O2_g': [1, 'nonlinear', 0], 'C5H6O2_g': [1, 'nonlinear', 0], 'C5H6O_g': [1, 'nonlinear', 0], 'HCl_g': [1, 'linear', 0], 'Cl2_g': [2, 'linear', 0]}
+
+input_file = 'H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt'
+
+interaction_fitting_mode = None
+
+interaction_surface_names = None
+
+internally_constrain_coverages = True
+
+max_bisections = 3
+
+max_damping_iterations = 10
+
+max_initial_guesses = 3
+
+max_rootfinding_iterations = 250
+
+model_name = 'baseline_tita'
+
+numerical_representation = 'mpmath'
+
+optimize_analytical_expressions = False
+
+outer_solver_log = 'outer_solver.log'
+
+output_labels = {'coverage': ('C6H12O_s', 'C6H12_s', 'H2O2_s', 'H2O_s', 'Ha_s', 'Hb_s', 'OH_s', 'OOH_s', 'O_s'), 'rate': ([['s', 'H2O2_g'], ['H2O2_s']], [['H2O2_s', 's'], ['Ha_s', 'OOH_s']], [['s', 'C6H12_g'], ['C6H12_s']], [['OOH_s', 'C6H12_s', 's'], ['OOH-C6H12_s', 's', 's'], ['C6H12O_s', 'O_s', 'Hb_s']], [['C6H12O_s'], ['C6H12O_g', 's']], [['Hb_s', 'O_s'], ['Hb-O_s', 's'], ['OH_s', 's']], [['Ha_s', 'OH_s'], ['s', 'H2O_s']], [['H2O_s'], ['H2O_g', 's']]), 'turnover_frequency': ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')}
+
+output_variables = ['coverage', 'rate', 'turnover_frequency']
+
+parameter_mode = 'formation_energy'
+
+parameter_names = ('C6H12O_s', 'C6H12_s', 'H2O2_s', 'H2O_s', 'Ha_s', 'Hb_s', 'OH_s', 'OOH_s', 'O_s', 'Hb-O_s', 'OOH-C6H12_s')
+
+parse_headers = ['formation_energy', 'frequencies']
+
+perturbation_size = 1e-14
+
+prefactor_list = ['kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h', 'kB*T/h']
+
+pressure = np.float64(1.0)
+
+pressure_mode = 'concentration'
+
+required_headers = ['species_name', 'surface_name', 'site_name', 'formation_energy', 'frequencies', 'reference']
+
+residual_threshold = 0.9
+
+resolution = [1, 1]
+
+rxn_expressions = ['* + H2O2_g <-> H2O2*', 'H2O2* + * -> Ha* + OOH*', '* + C6H12_g <-> C6H12*', 'OOH* + C6H12* + * <-> OOH-C6H12* + 2* -> C6H12O* + O* + Hb*', 'C6H12O* <-> C6H12O_g + *', 'Hb* + O* <-> Hb-O* + * -> OH* + *', 'Ha* + OH* -> * + H2O*', 'H2O* <-> H2O_g + *']
+
+rxn_options_dict = {'prefactor': {}, 'beta': {}}
+
+scaling_constraint_dict = {'OOH_s': ['+', 0, None], 'O_s': [0, '+', None]}
+
+search_directions = [[0, 0], [0, 1], [1, 0], [0, -1], [-1, 0], [-1, 1], [1, 1], [1, -1], [-1, -1]]
+
+setup_file = 'baseline_tita.mkm'
+
+shomate_params = {'H2_g:298-1000': [33.066178, -11.363417, 11.432816, -2.772874, -0.158558, -9.980797, 172.707974, 0], 'H2_g:1000-2500': [18.563083, 12.257357, -2.859786, 0.268238, 1.97799, -1.147438, 156.288133, 0], 'H2_g:2500-6000': [43.41356, -4.293079, 1.272428, -0.096876, -20.533862, -38.515158, 162.081354, 0], 'CH4_g:298-1300': [-0.703029, 108.4773, -42.52157, 5.862788, 0.678565, -76.84376, 158.7163, -74.8731], 'CH4_g:1300-1600': [85.81217, 11.26467, -2.114146, 0.13819, -26.42221, -153.5327, 224.4143, -74.8731], 'CO_g:298-1300': [25.56759, 6.09613, 4.054656, -2.671201, 0.131021, -118.0089, 227.3665, -110.5271], 'CO_g:1300-1600': [35.1507, 1.300095, -0.205921, 0.01355, -3.28278, -127.8375, 231.712, -110.5271], 'H2O_g:100-500': [36.303952, -24.11232, 63.64111, -38.9524, -0.01385, -10.23966, 237.39431, 0.0], 'H2O_g:500-1700': [30.092, 6.832514, 6.793435, -2.53448, 0.082139, -250.881, 223.3967, -241.8264], 'H2O_g:1700-6000': [41.96426, 8.622053, -1.49978, 0.098119, -11.15764, -272.1797, 219.7809, -241.8264], 'CO2_g:298-1200': [24.99735, 55.18696, -33.69137, 7.948387, -0.136638, -403.6075, 228.2431, -393.5224], 'CO2_g:1200-6000': [58.16639, 2.720075, -0.492289, 0.038844, -6.447293, -425.9186, 263.6125, -393.5224], 'O2_g:100-700': [31.32234, -20.23531, 57.8664, -36.50624, -0.007374, -8.903471, 246.7945, 0.0], 'O2_g:700-2000': [30.03235, 8.772972, -3.988133, 0.788313, -0.741599, -11.32468, 236.1663, 0.0], 'O2_g:2000-6000': [20.91111, 10.72071, -2.020498, 0.146449, 9.245722, 5.337651, 237.6185, 0.0], 'NH3_g:298-1400': [19.99563, 49.77119, -15.37599, 1.921168, 0.189174, -53.30667, 203.8591, -45.89806], 'N2_g:100-500': [28.98641, 1.853978, -9.647459, 16.63537, 0.000117, -8.671914, 226.4168, 0.0], 'N2_g:500-2000': [19.50583, 19.88705, -8.598535, 1.369784, 0.527601, -4.935202, 212.39, 0.0], 'N2O_g:298-1400': [27.67988, 51.14898, -30.64454, 6.847911, -0.157906, 71.24934, 238.6164, 82.04824], 'NO2_g:298-1200': [16.10857, 75.89525, -54.3874, 14.30777, 0.239423, 26.17464, 240.5386, 33.09502], 'NO_g:298-1200': [23.83491, 12.58878, -1.139011, -1.497459, 0.214194, 83.35783, 237.1219, 90.29114], 'NO3_g:298-1200': [11.22316, 166.3889, -148.4458, 47.40598, -0.176791, 61.00858, 221.7679, 71.128], 'HNO2_g:298-1200': [24.89974, 91.37563, -64.84614, 17.92007, -0.134737, -88.13596, 254.2671, -76.73498], 'HNO3_g:298-1200': [19.63229, 153.9599, -115.8378, 32.87955, -0.249114, -146.8818, 247.7049, -134.306], 'HCN_g:298-1200': [32.69373, 22.59205, -4.369142, -0.407697, -0.282399, 123.4811, 233.2597, 135.1432], 'CH2CH2_g:298-1200': [-6.38788, 184.4019, -112.9718, 28.49593, 0.31554, 48.17332, 163.1568, 52.46694], 'CH2O_g:298-1500': [5.193767, 93.23249, -44.85457, 7.882279, 0.551175, -119.3591, 202.4663, -115.8972], 'CH3OH_g:298-1500': [-1.0845814245433651, 153.2463565199489, -79.53050359618254, 16.47130239316011, 0.5220334601533215, -4.897417024069, 199.1893745506112, 0.0], 'C5H4O2_g:100-1500': [-16.36694, 0.46958, -0.000331925, 8.50912e-08, 198590.9145, -1661.34999, -15.68938, 12461.34999], 'C5H6O2_g:100-1500': [-18.57626, 0.50733, -0.000335824, 8.28263e-08, 231619.2141, -6357.53523, 2.75692, 7057.53523], 'C5H6O_g:50-1500': [1.26847, 0.35388, -0.000173962, 2.87427e-08, 48401.71207, -5691.94893, -85.38991, 7191.94893], 'Cl2_g:298-1000': [33.0506, 12.2294, -12.0651, 4.38533, -0.159494, -10.8348, 259.029, 0.0], 'HCl_g:298-1200': [32.12392, -13.45805, 19.86852, -6.853936, -0.049672, -101.6206, 228.6866, -92.31201], 'CH3CH2OH_g:298-1500': [-4.7367880805894265, 271.96181550301463, -169.34946529216657, 43.73860153608533, 0.24643430702178773, -9.828280829187861, 203.3325622617075, 0.0], 'CH3CHO_g:298-1500': [4.8037386340099095, 185.92002366990326, -99.1084610902012, 20.61473919069016, 0.2770802548558646, -8.566600040790945, 220.00244674443837, 0.0], 'HCOOH_g:298-1500': [3.802752304225226, 153.66217894746168, -84.64046773816926, 16.297377707561505, 0.2772064997263338, -6.16527, 212.9698972559699, 0]}
+
+site_names = ('g', 's')
+
+species_definitions = {'C6H12_g': {'name': 'C6H12', 'site': 'g', 'type': 'gas', 'n_sites': 0, 'composition': {'C': 6, 'H': 12}, 'concentration': 1.0, 'formation_energy': -26.031223, 'formation_energy_source': 'DFT_Gibbs_gas', 'frequencies': []}, 'H2O2_g': {'name': 'H2O2', 'site': 'g', 'type': 'gas', 'n_sites': 0, 'composition': {'H': 2, 'O': 2}, 'concentration': 0.185, 'formation_energy': -7.162091, 'formation_energy_source': 'DFT_Gibbs_gas', 'frequencies': []}, 'H2O_g': {'name': 'H2O', 'site': 'g', 'type': 'gas', 'n_sites': 0, 'composition': {'H': 2, 'O': 1}, 'concentration': 0.815, 'formation_energy': -7.614457, 'formation_energy_source': 'DFT_Gibbs_gas', 'frequencies': []}, 'C6H12O_g': {'name': 'C6H12O', 'site': 'g', 'type': 'gas', 'n_sites': 0, 'composition': {'C': 6, 'H': 12, 'O': 1}, 'concentration': 1e-20, 'formation_energy': -27.667771, 'formation_energy_source': 'DFT_Gibbs_gas', 'frequencies': []}, 's': {'name': 's', 'site': 's', 'type': 'site', 'formation_energy': 0, 'n_sites': 1, 'composition': {}, 'site_names': ['111'], 'total': 1, 'frequencies': []}, 'Ha_s': {'name': 'Ha', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'H': 1}, 'formation_energy': [-1.4626565], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'Hb_s': {'name': 'Hb', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'H': 1}, 'formation_energy': [0.003346], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'Hb-O_s': {'name': 'Hb-O', 'site': 's', 'type': 'transition_state', 'n_sites': 1, 'composition': {'H': 1, 'O': 1}, 'formation_energy': [-1.906543], 'formation_energy_source': ['NEB_forward_TS_minus_IS_mapped'], 'frequencies': []}, 'C6H12O_s': {'name': 'C6H12O', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'C': 6, 'H': 12, 'O': 1}, 'formation_energy': [-27.9589435], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'C6H12_s': {'name': 'C6H12', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'C': 6, 'H': 12}, 'formation_energy': [-26.142467], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'H2O2_s': {'name': 'H2O2', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'H': 2, 'O': 2}, 'formation_energy': [-7.5032825], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'H2O_s': {'name': 'H2O', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'H': 2, 'O': 1}, 'formation_energy': [-7.943637], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'OH_s': {'name': 'OH', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'H': 1, 'O': 1}, 'formation_energy': [-6.484365], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'OOH_s': {'name': 'OOH', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'H': 1, 'O': 2}, 'formation_energy': [-6.172301], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'O_s': {'name': 'O', 'site': 's', 'type': 'adsorbate', 'n_sites': 1, 'composition': {'O': 1}, 'formation_energy': [-1.925856], 'formation_energy_source': ['DFT_Gibbs_single'], 'frequencies': []}, 'OOH-C6H12_s': {'name': 'OOH-C6H12', 'site': 's', 'type': 'transition_state', 'n_sites': 1, 'composition': {'C': 6, 'H': 13, 'O': 2}, 'formation_energy': [-33.489404], 'formation_energy_source': ['NEB_forward_TS_minus_IS_mapped'], 'frequencies': []}, 'g': {'name': 'g', 'site': 'g', 'type': 'site', 'formation_energy': 0, 'n_sites': 0, 'site_names': ['gas'], 'total': 0, 'composition': {}, 'frequencies': []}, '*_g': {'name': 'g', 'site': 'g', 'type': 'site', 'formation_energy': 0, 'n_sites': 0, 'site_names': ['gas'], 'total': 0, 'composition': {}, 'frequencies': []}, '*_s': {'name': 's', 'site': 's', 'type': 'site', 'formation_energy': 0, 'n_sites': 1, 'composition': {}, 'site_names': ['111'], 'total': 1, 'frequencies': []}}
+
+standard_coadsorbate_coverage = 'min'
+
+standard_coverage = 'min'
+
+surface_names = ('tita',)
+
+temperature = np.float64(333.15)
+
+thermodynamic_corrections = ['gas', 'adsorbate']
+
+thermodynamic_variables = ['temperature', 'gas_pressures', 'voltage', 'beta', 'pH', 'Upzc', 'gas_thermo_mode', 'adsorbate_thermo_mode', 'pressure']
+
+transition_state_names = ('Hb-O_s', 'OOH-C6H12_s')
+
+use_numbers_solver = True
+
+verbose = 1
+
+stdout = """header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x000001F9A6FF3230>
+
+
+header_evaluation: fail - could not save tolerance = mpf('1.0e-120')
+
+
+mapper_iteration_0: status - 1 points do not have valid solution.
+minresid_iteration_0: success - [333.15, 1.00] using coverages from [333.15, 1.00]
+mapper_iteration_1: status - 0 points do not have valid solution.
+header_evaluation: fail - could not save coverage_map = [[[np.float64(333.15), np.float64(1.0)], [mpf('1.133034437851166143897865475235630569385061558850840160062452769458048574084335463040949657499959441398603755384172712578043505110114362967790803063760647920773380469581311907490961792605492776700908228257546e-83'), mpf('0.000000000000000000000000000000000000000000000000000000000000000002149545448120175283745846604067999576332170938104615925142250492710257411917384487151117220657435904509132783190018435238730337740228756941413248664133015917391070339256413000256680002947335900077100047056721'), mpf('0.000000000000000000000000000000000000000000000000000000000000001196974976118258618912485349075300049307754079525486626522194809675678076230249384554261975149134803501808641530080461738540878890936622624415392646914799365393958444384273844771576837084309785309585238240286'), mpf('0.000000000000000000000000000000000000000000000000000000000000003470287984023292446009630434986680934040322270856369117948364479943644864531939288084715399625928562050549655006027703661698044388684033546215149047118216284775911335664918563751693182231120041173816759529949'), mpf('1.176301681789518958670354349995464191131522864033390112097437329917160776375557608417019822665544217359347776913374814773491462286326352967122342128641286095162898907157527059275731155503800498035226283092124e-105'), mpf('1.524601254202758872240308805518065622352513320009227412078485314774625057279241035629341139952634687923853499961281136692157438183599099096259574821090603392733417679869258185685259681796123883683212743687633e-97'), mpf('0.9999999999999999999999999999966726385517015396477640380640270945125282933319074266374776333329612646197081449059844137900409792055920722816320709183067317535985401586441423556970225510592440254703162786728399'), mpf('0.000000000000000000000000000003327361448012598919243232349507679798822748402392685897271614872038213115398286948124313189620934305016029409012148677057993136438591438846278445615804170292356201188493442223581913087463996705563613050194194'), mpf('0.0000000000000000000000000000000000000002858614329927295864652210191918371875830217156448512698932599709400185938883436155222801266829440082452651405014990271887949094061363275694506763187020298182349108731068340704977597617823334304313405558803057'), mpf('0.00000000000000000000000000000000000000000000000000000000000000000004461548844562553241392548054646547043977690211724976542442850125512381085679799781955710756634250599087189194000586114359428902888538531072492342042580668256817306016314285177849823829454368539355412762654605')]]]
+
+
+header_evaluation: fail - could not save kBT = mpf('0.02870864315045699804064544196080532856285572052001953124999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999993')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x000001F9A6FF3230>
+
+
+header_evaluation: fail - could not save rate_map = [[[np.float64(333.15), np.float64(1.0)], [mpf('1.579218683586220262648930895987812732623751008846066437873493613492247676589303118442874708607864736480105229477579406311710477132811013515671484005341099706671083278116533766340426217047849216376893490421525e-101'), mpf('3.707126869420343135098525845739716886549920240110664240115924327702715259380572932070248613425194517977842737397322698794587035310033849699344501990229333776012305448827296843414664580232328692245128110640221e-118'), mpf('-2.061794661493623121203288043351519373613522398735258379520428712891235862195770149003188897182667117791632458242204366959966435948314611459413736711086741966945457229514249972278270341521426525739209391875986e-104'), mpf('3.428106231765069558328880236447206713362892827975759843135215929463223428046220421159867840369160205957959231425044991831080169761872927917948354302597342599567985694477402401884824971188689685860975444225875e-187'), mpf('4.231402808260399552832429225152194894253701660397029031735007415140669640037685785394551238130257190933401330069556703222682629964334344682560758601903072109315303701303210607422527415373340800496566087552627e-97'), mpf('-1.443229980505591305654569772538092944336231501044301559840988287672682144246204358179780500881643069371887977307070287783992142479255585171551966694436239847511176156619190730812105176909057016541882724798745e-173'), mpf('7.257486155838878912904466518989529843637654856257801139477152668267533345887293442178920263163877733535545206494189496188070348896164262305161393220762812061664469650611833556157387466159880270916057138729769e-93'), mpf('0.0000000000000000000000000000000000000000000000000000000000002363965737751188440361992602176095629158890748434381311067049631823560560395262431706143232195181920712061715518029297080853577447345034554770536330026430661317646080758598204996026927375705749017856825774847')]]]
+
+
+header_evaluation: fail - could not save tolerance = mpf('1.0e-120')
+
+
+header_evaluation: fail - could not save turnover_frequency_map = [[[np.float64(333.15), np.float64(1.0)], [mpf('4.231402808260399552832429225152194894253701660397029031735007415140669640037685785394551238130257190933401330069556703222682629964334344682560758601903072109315303701303210607422527415373340800496566087552627e-97'), mpf('2.061794661493623121203288043351519373613522398735258379520428712891235862195770149003188897182667117791632458242204366959966435948314611459413736711086741966945457229514249972278270341521426525739209391875986e-104'), mpf('-1.579218683586220262648930895987812732623751008846066437873493613492247676589303118442874708607864736480105229477579406311710477132811013515671484005341099706671083278116533766340426217047849216376893490421525e-101'), mpf('0.0000000000000000000000000000000000000000000000000000000000002363965737751188440361992602176095629158890748434381311067049631823560560395262431706143232195181920712061715518029297080853577447345034554770536330026430661317646080758598204996026927375705749017856825774847')]]]
+
+"""

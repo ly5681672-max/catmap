@@ -131,7 +131,8 @@ pressure_mode = 'concentration'
 input_file = 'H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt'
 data_file = 'baseline_titi.pkl'
 decimal_precision = 100
-tolerance = 1e-50
+from mpmath import mp
+tolerance = mp.mpf('1e-50')
 max_rootfinding_iterations = 250
 use_numbers_solver = True
 species_definitions['C6H12_g'] = {'concentration': 1.0}
