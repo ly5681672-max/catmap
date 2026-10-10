@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Build coadsorption CatMAP energies from the ORIGINAL Excel workbook.
 Requires: artifact_tool. No writes to the original workbook or old model.
-Run: python lyq_alkene_epoxidation1/build_coadsorption.py
+Run: python generate_input1.py (from 1-generating_input_file).
 """
 import csv
 from pathlib import Path
 from artifact_tool import Blob, SpreadsheetFile
 
 HERE = Path(__file__).resolve().parent
-SOURCE = HERE.parent / "lyq_alkene_epoxidation" / "己烯环氧化.xlsx"
+SOURCE = HERE.parent / "己烯环氧化.xlsx"
 OUTPUT = HERE.parent / "2-creating_microkinetic_model" / "energies.txt"
 AUDIT = HERE / "energy_audit.csv"
 ELEMENT_REF = {"C": -9.28, "H": -1.11, "O": -4.37}
