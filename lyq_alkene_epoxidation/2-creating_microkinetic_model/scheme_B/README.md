@@ -72,3 +72,19 @@ it never performs the 14 exact catalyst solves. To calculate those, run
 `python run_scheme_B.py` instead.
 
 The uploaded earlier saved map gave 240/400 flux-consistent grid points and 160/400 excluded; exact catalyst solves require the user's installed CatMAP. A solved grid is not proof that all transition-state positions are physically validated.
+
+## Original-energy cross-check (additional, no edits to the source DFT data)
+
+Running `python run_scheme_B.py` now produces three extra CSV files:
+
+- `catalysts_original_energies.csv`: independent solver calls at each of the 14 measured catalyst coordinates **with all nine effective-state energies S1–S7, TS1, TS2 taken directly from energy_audit.csv**, not from the generalized linear scaling model.
+- `catalysts_scaled_vs_original.csv`: side-by-side net epoxide rates, 1% flux-check statuses, and log10(rate ratio); `comparison_valid=1` requires both modes to pass.
+- `summary_grid_only.csv`: written instead of `summary.csv` by a direct `analyze_scheme_B.py` / `--grid-only` run, so it does not overwrite the existing 14-catalyst summary.
+
+The existing `catalysts_exact.csv` retains its original meaning: independent *coordinate* solves using **linearly fitted** state energies. It is not a direct all-DFT calculation.
+
+The new original-energy mode preserves the eight chemical steps and all original source data, including negative TS endpoint-order flags. S2 is still an existing independent-adsorption sum proxy; S7 is the existing isolated H2O adsorption energy; TiMo gas-phase product normalization is preserved. The results are therefore direct evaluations of the **existing effective-state model**, not new transition-state DFT calculations.
+
+CatMAP's solver may use an endpoint as the effective kinetic barrier when the supplied TS is below IS or FS. These original-data anomalies are explicitly flagged; no energy is artificially raised in the input. Some stiff systems may fail to converge; such rows are marked FAILED, never assigned nearest-grid TOFs.
+
+Only compare rates for surfaces where both models pass the flux consistency filter and have positive product rates. A large scaled-vs-original discrepancy indicates sensitivity to generalized linear energy fitting and should preclude using fitted rankings as DFT-supported activity evidence.

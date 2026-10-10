@@ -155,6 +155,60 @@ def solve_catalysts(model,data,tolerance,min_signal):
         result.append(row)
     return result
 
+def solve_original_energy_catalysts(model,data,tolerance,min_signal):
+    """Independent solves with the original effective-state energies from energy_audit.csv.
+    No linear scaling is used for the nine S1..S7, TS1, TS2 energies.
+    S2 and S7 remain existing-data proxies; TiMo retains its gas normalization.
+    """
+    conf=settings()
+    original=read_input()
+    names=[name.split('_')[0] for name in
+           list(model.adsorbate_names)+list(model.transition_state_names)]
+    expected={'S1','S2','S3','S4','S5','S6','S7','TS1','TS2'}
+    if len(names)!=9 or set(names)!=expected:
+        raise ValueError('Unexpected CatMAP species order; no original-energy solve performed')
+    seeds=data['numbers_map'] if model.use_numbers_solver else data['coverage_map']
+    model.solver.compile()
+    rows=[]
+    for surface in conf['surface_names']:
+        item=original[surface]
+        point=(float(item['S3']),float(item['S5']))
+        # Initialize the same frozen-gas energies used by the fitted model.
+        model.scaler.get_rxn_parameters(list(point))
+        params=[float(item[name]) for name in names]
+        source_energies={name:float(item[name]) for name in names}
+        row={'surface':surface, 'source_mode':'original_effective_state_energies',
+             'descriptor_S3_eV':point[0], 'descriptor_S5_eV':point[1]}
+        row.update(energy_stats(source_energies))
+        row['original_TS1_below_IS']=int(row['TS1_minus_IS_eV'] < -1e-8)
+        row['original_TS1_below_FS']=int(row['TS1_minus_FS_eV'] < -1e-8)
+        row['original_TS2_below_IS']=int(row['TS2_minus_IS_eV'] < -1e-8)
+        row['original_TS2_below_FS']=int(row['TS2_minus_FS_eV'] < -1e-8)
+        candidates=[]
+        for oldpt,seed in seeds:
+            distance=math.sqrt(sum(((float(a)-float(b))/(hi-lo))**2
+                      for a,b,(lo,hi) in zip(oldpt,point,conf['descriptor_ranges'])))
+            candidates.append((distance,seed))
+        candidates.sort(key=lambda pair:pair[0])
+        failures=[]
+        for distance,seed in candidates[:8]:
+            try:
+                coverage=list(model.solver.get_coverage(list(params),c0=seed))
+                rates=list(model.solver.get_rate(list(params),coverages=coverage,
+                                                verify_coverages=False))
+                row.update(diagnostics(point,coverage,rates,tolerance=tolerance,
+                                       min_signal=min_signal))
+                row['solve_status']='SOLVED'
+                row['seed_distance_normalized']=distance
+                break
+            except (ArithmeticError,ValueError,TypeError,OverflowError) as exc:
+                failures.append(type(exc).__name__+': '+str(exc)[:120])
+        else:
+            row.update({'solve_status':'FAILED','status':'ORIGINAL_ENERGY_SOLVE_FAILED',
+                        'volcano_eligible':0,'error':' | '.join(failures[:3])})
+        rows.append(row)
+    return rows
+
 def analyze(model=None,tolerance=.01,min_signal=0):
     dest=ROOT/"diagnostics"
     dest.mkdir(parents=True,exist_ok=True)
@@ -202,20 +256,57 @@ def analyze(model=None,tolerance=.01,min_signal=0):
             {"metric":"grid_TS1_below_FS","value":sum(r["TS1_minus_FS_eV"]<0 for r in grid)},
             {"metric":"grid_TS2_below_FS","value":sum(r["TS2_minus_FS_eV"]<0 for r in grid)}]
         exact=solve_catalysts(model,data,tolerance,min_signal)
-        writecsv(dest/"catalysts_exact.csv",exact)
+        writecsv(dest/'catalysts_exact.csv',exact)
+        direct=solve_original_energy_catalysts(model,data,tolerance,min_signal)
+        writecsv(dest/'catalysts_original_energies.csv',direct)
+        comparisons=[]
+        direct_by_surface={r['surface']:r for r in direct}
+        for predicted in exact:
+            actual=direct_by_surface[predicted['surface']]
+            fitted_rate=f(predicted.get('epoxide_net_step5'))
+            original_rate=f(actual.get('epoxide_net_step5'))
+            log_ratio=(math.log10(fitted_rate/original_rate)
+                       if fitted_rate>0 and original_rate>0
+                       else float('nan'))
+            comparisons.append({
+                'surface':predicted['surface'],
+                'scaled_solver_status':predicted['solve_status'],
+                'scaled_flux_status':predicted.get('status',''),
+                'scaled_TOF':fitted_rate,
+                'original_solver_status':actual['solve_status'],
+                'original_flux_status':actual.get('status',''),
+                'original_TOF':original_rate,
+                'log10_scaled_over_original':log_ratio,
+                'comparison_valid':int(predicted.get('volcano_eligible')==1 and
+                                       actual.get('volcano_eligible')==1),
+            })
+        writecsv(dest/'catalysts_scaled_vs_original.csv',comparisons)
         summary += [
-            {"metric":"exact_catalysts_solved",
-             "value":sum(r["solve_status"]=="SOLVED" for r in exact)},
-            {"metric":"exact_catalysts_eligible",
-             "value":sum(r["volcano_eligible"] for r in exact)}]
+            {'metric':'exact_catalysts_solved',
+             'value':sum(r['solve_status']=='SOLVED' for r in exact)},
+            {'metric':'exact_catalysts_eligible',
+             'value':sum(r['volcano_eligible'] for r in exact)},
+            {'metric':'original_energy_catalysts_solved',
+             'value':sum(r['solve_status']=='SOLVED' for r in direct)},
+            {'metric':'original_energy_catalysts_eligible',
+             'value':sum(r['volcano_eligible'] for r in direct)},
+            {'metric':'scaled_vs_original_both_valid',
+             'value':sum(r['comparison_valid'] for r in comparisons)},
+        ]
     else:
-        summary.append({"metric":"exact_catalysts_solved","value":"grid_only"})
-    writecsv(dest/"summary.csv",summary)
-    print("Scheme B grid:",len(grid),"regular nodes;",
-          len(ranked),"eligible;",len(grid)-len(ranked),"excluded.")
+        summary.append({'metric':'exact_catalysts_solved','value':'not_run_grid_only'})
+    # Never let a grid-only PyCharm run overwrite the full catalyst-solve summary.
+    summary_name='summary.csv' if model is not None else 'summary_grid_only.csv'
+    writecsv(dest/summary_name,summary)
+    print('Scheme B grid:',len(grid),'regular nodes;',
+          len(ranked),'eligible;',len(grid)-len(ranked),'excluded.')
     if model is not None:
-        print("Exact catalyst points solved:",summary[-2]["value"],"/",
-              len(cfg["surface_names"]))
+        print('Fitted-coordinate catalyst solves:',
+              sum(r['solve_status']=='SOLVED' for r in exact),'/',len(exact))
+        print('Original-energy catalyst solves:',
+              sum(r['solve_status']=='SOLVED' for r in direct),'/',len(direct))
+        print('Both modes pass flux QA:',
+              sum(r['comparison_valid'] for r in comparisons),'/',len(comparisons))
     print("Outputs:",dest)
     return summary
 
