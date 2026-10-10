@@ -36,3 +36,9 @@ This uses **Python standard library** for XLSX extraction (no openpyxl/pandas ne
 - Scaling over new descriptors is an additional approximation; first validate all actual catalyst input states/flags before interpreting interpolated volcano maps.
 
 **Validation boundary:** Static energy, stoichiometry, and closure checks passed before commit. Full CatMAP kinetic convergence was **not** run in the remote-editing environment (CatMAP module unavailable); run `python run_scheme_B.py` in your local CatMAP environment.
+
+## Windows file encoding
+
+Some CatMAP installations use Windows' GBK default when reading `energies.txt`. The `reference` column therefore uses **ASCII-only labels** (`Excel:GibbsSummary/...`, `Excel:SingleAds/...`). These are provenance descriptions only and do **not** change any numerical energies. The original Excel worksheet names inside `build_scheme_B.py` remain in Chinese.
+
+If `UnicodeDecodeError: 'gbk'` occurred on an older checkout, pull the newest main branch and rerun `python build_scheme_B.py` followed by `python run_scheme_B.py`.

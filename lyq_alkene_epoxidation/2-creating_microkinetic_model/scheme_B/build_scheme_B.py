@@ -116,13 +116,13 @@ def create(path):
 def rows(rec,gas):
     out=['surface_name\tsite_name\tspecies_name\tformation_energy\tfrequencies\treference']
     for g in ('H2O2','C6H12','C6H12O','H2O'):
-        out.append(f'None\tgas\t{g}\t{gas[g]:.3f}\t[]\tExcel:吉布斯自由能汇总/gas')
+        out.append(f'None\tgas\t{g}\t{gas[g]:.3f}\t[]\tExcel:GibbsSummary/gas')
     for surf,v,_,_ in rec:
         for s in NAMES:
-            source=('catmap数据集:Ha+OOH代理' if s=='S2' else
-                'catmap数据集:H2O' if s=='S7' else
-                '吉布斯自由能汇总:TiMo气相归一' if surf=='timo' and s in ('S4','S6') else
-                '吉布斯自由能汇总:共吸附G')
+            source=('Excel:SingleAds/Ha+OOH_proxy' if s=='S2' else
+                'Excel:SingleAds/H2O' if s=='S7' else
+                'Excel:GibbsSummary/TiMo_gas_adjusted' if surf=='timo' and s in ('S4','S6') else
+                'Excel:GibbsSummary/coadsorbed_G')
             out.append(f'{surf}\t111\t{s}\t{v[s]:.9f}\t[]\t{source}')
     return '\n'.join(out)+'\n'
 
@@ -143,6 +143,9 @@ def main():
     args=p.parse_args()
     rec,gas=create(args.xlsx)
     expected=rows(rec,gas)
+    # Windows CatMAP TableParser may open energies.txt using the GBK locale.
+    # Keep parser-facing files ASCII-only; the source XLSX remains untouched.
+    expected.encode('ascii')
     if args.write:
         (HERE/'energies.txt').write_text(expected,encoding='utf-8',newline='\n')
         (HERE/'energy_audit.csv').write_text(audit(rec),encoding='utf-8',newline='\n')
