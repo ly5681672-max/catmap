@@ -1,0 +1,8 @@
+# Temporary notebooks and generated run artifacts only.
+/.ipynb_checkpoints/
+/__pycache__/
+/*.pdf
+/*.pkl
+/*.log
+/*_table.txt
+/outer_solver.log
