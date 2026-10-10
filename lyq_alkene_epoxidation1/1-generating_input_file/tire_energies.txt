@@ -1,8 +1,16 @@
 surface_name	site_name	species_name	formation_energy	frequencies	reference
-None	gas	C6H12	-26.031223000	[]	Workbook Gibbs summary 333.15K
-None	gas	C6H12O	-27.667771000	[]	Workbook Gibbs summary 333.15K
-None	gas	H2O	-7.614457000	[]	Workbook Gibbs summary 333.15K
-None	gas	H2O2	-7.162091000	[]	Workbook Gibbs summary 333.15K
-tire	111	R	-33.385886000	[]	Workbook Gibbs summary 333.15K
-tire	111	P	-35.313318000	[]	Workbook Gibbs summary 333.15K
-tire	111	RP	-32.941040000	[]	Workbook Gibbs summary 333.15K
+None	gas	C6H12	-26.031	[]	Input File Tutorial.
+None	gas	C6H12O	-27.668	[]	Input File Tutorial.
+None	gas	H2O	-7.614	[]	Input File Tutorial.
+None	gas	H2O2	-7.162	[]	Input File Tutorial.
+tire	111	C6H12	-26.15	[]	Input File Tutorial.
+tire	111	C6H12O	-27.912	[]	Input File Tutorial.
+tire	111	H2O	-7.767	[]	Input File Tutorial.
+tire	111	H2O2	-7.275	[]	Input File Tutorial.
+tire	111	Ha	-1.558	[]	Input File Tutorial.
+tire	111	Hb	-0.878	[]	Input File Tutorial.
+tire	111	Hb-O	-3.110127	[]	Input File Tutorial.
+tire	111	O	-2.45	[]	Input File Tutorial.
+tire	111	OH	-3.748	[]	Input File Tutorial.
+tire	111	OOH	-5.104	[]	Input File Tutorial.
+tire	111	OOH-C6H12	-30.809154	[]	Input File Tutorial.
