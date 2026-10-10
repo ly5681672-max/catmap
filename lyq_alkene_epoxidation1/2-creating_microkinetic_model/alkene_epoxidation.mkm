@@ -20,11 +20,9 @@ surface_names = [
     'tico', 'titi', 'tiw', 'tita', 'ticr', 'ti', 'tini'
 ]
 
-# The original eight elementary reactions are preserved.
-# C/O/H-family BEP screening of the 14 modeled surfaces (see
-# ../1-generating_input_file/bep_descriptor_analysis.py) selects O_s and Ha_s
-# by LOOCV RMSE among C6H12_ads, O_s, Ha_s and Hb_s.
-# C, O, H in ref_dict are fixed elemental references, NOT descriptors.
+# C/O/H-family BEP-like screening selects O* and Ha* for this parallel model.
+# Atomic reference energies (ref_dict C/O/H) are fixed, not descriptors.
+# All eight elementary reactions and other original settings are retained.
 descriptor_names = ['O_s', 'Ha_s']
 
 # Ranges cover the present Ti-M data and leave a small margin for interpolation.
