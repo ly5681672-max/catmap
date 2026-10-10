@@ -221,12 +221,15 @@ def analyze(model=None,tolerance=.01,min_signal=0):
 
 if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--grid-only",action="store_true")
+    p.add_argument("--grid-only",action="store_true",
+                   help="Optional: grid-only is now the default for direct execution")
     p.add_argument("--flux-tol",type=float,default=.01)
     p.add_argument("--min-signal",type=float,default=0)
     args=p.parse_args()
     if not (0<args.flux_tol<1) or args.min_signal<0:
         p.error("flux-tol must be 0..1 and min-signal >=0")
-    if not args.grid_only:
-        p.error("For exact points run run_scheme_B.py; for saved data add --grid-only")
+    # Direct execution from PyCharm defaults to saved-grid diagnostics.
+    # The --grid-only option is retained for backward compatibility.
+    print("Grid-only mode: examining saved scheme_B.pkl; exact catalyst solves are NOT performed.")
+    print("For 14 independent catalyst-point solves, execute run_scheme_B.py.")
     analyze(tolerance=args.flux_tol,min_signal=args.min_signal)

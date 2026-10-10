@@ -64,6 +64,11 @@ Run from the scheme_B folder in the same CatMAP environment:
 
 For already saved scheme_B.pkl, without re-running CatMAP and without exact catalyst solves:
 
-    python analyze_scheme_B.py --grid-only
+    python analyze_scheme_B.py
+
+The optional legacy form `python analyze_scheme_B.py --grid-only` is also supported.
+Running this file directly in PyCharm analyzes the saved 400-point map **only**;
+it never performs the 14 exact catalyst solves. To calculate those, run
+`python run_scheme_B.py` instead.
 
 The uploaded earlier saved map gave 240/400 flux-consistent grid points and 160/400 excluded; exact catalyst solves require the user's installed CatMAP. A solved grid is not proof that all transition-state positions are physically validated.
