@@ -1,84 +1,72 @@
-# NEB 共吸附独立对照版说明
+# lyq_alkene_epoxidation1：原版八步框架 + BEP 描述符筛选 + CatMAP 活性火山图
 
-与原目录的子目录、文件名称和相对位置保持相同。**此副本**对应整体共吸附反应；旧项目仍为八步基元机理。二者的 `energies.txt` 不能混用。
+**本项目与 `lyq_alkene_epoxidation` 同构；反应网络仍然是原来的八个基元步骤。**
+本次修复纠正了此前误将新版换成 R/P/RP 三步共吸附模型的偏差。
+原项目不变，所有 DFT 原始总能及 Excel 不变。
 
-## 运行
+## 1. 两类数据不可混淆
 
-1. 激活可导入 `catmap` 的 Python 环境。
-2. `cd lyq_alkene_epoxidation1/2-creating_microkinetic_model`。
-3. `python -c "from catmap import ReactionModel; ReactionModel(setup_file='alkene_epoxidation.mkm').run()"`。
-4. 在 `test.ipynb` 中复现和检查。
+- `1-generating_input_file/data_only_not_executable.py`：已从原版**逐字恢复**完整 Ti 原始总能、`ref_dict`、形成能函数、频率字典和 CatMAP 表格解析逻辑。该脚本名虽写 `not_executable`，但其原本含有实际输出语句；不要在不审阅时重复执行。
+- `1-generating_input_file/generate_input1.py` 以及每个 `ti*_energies.txt/.csv`：已恢复原版代码与原版逐催化剂输入。
+- `2-creating_microkinetic_model/energies.txt` 与 `energies_origin.txt`：已恢复原版**8步机理所需的完整形成能**。不能改成只含 R/P/RP 的数据表。
+- `1-generating_input_file/energy_audit.csv`：保留之前直接从 Excel 提取的完整 NEB 反应 IS/marker/FS、相对能及暂定有效势垒；作为**独立 BEP 筛选的数据源**，不在 CatMAP 中冒充第4步的 TS。
+- `己烯环氧化.xlsx`：原始工作簿保留不变。
 
-## 生成数据
+`ref_dict['C']=-9.28`、`ref_dict['O']=-4.37`、`ref_dict['H']=-1.11` 为固定**原子参考能**，不是随催化剂变化的描述符。
 
-在 `1-generating_input_file` 执行 `python generate_input1.py`；其输入直接来自本目录上一层的 Excel，写入同目录的 `energy_audit.csv` 及模型目录的 `energies.txt`。额外依赖 `artifact_tool`，如未安装可直接使用已提交的能量表。
+## 2. C/O/H-family 的实际候选描述符
 
-## 反应与物种
+- `C6H12_ads` = \(G_f(C_6H_{12}^*)-G_f(C_6H_{12,g})\)；代表 C 相关烯烃吸附。
+- `O_form` = \(G_f(O^*)\)；代表 O*。
+- `Ha_form`、`Hb_form` = \(G_f(Ha^*)\)、\(G_f(Hb^*)\)；分别代表两种 H 吸附位置。
+- `OH_form` 等可作为**扩展**描述符，但默认筛选严格限定 C/O/H-family。
 
-- `R*`: (H2O2)(C6H12) 完整共吸附态，C6H14O2。
-- `P*`: (C6H12O)(H2O) 完整共吸附态，C6H14O2。
-- `RP*`: 按 `max(G_IS,G_marker,G_FS)` 建立的**数值有效 TS**；未验证为 CI-NEB 最高点。
-- `* + H2O2_g + C6H12_g <-> R*`
-- `R* <-> RP* -> P*`
-- `P* <-> C6H12O_g + H2O_g + *`
+环氧化的目标是来自 Excel 的**完整净反应**暂定正向有效势垒 \(\max(0,\Delta G_{marker},\Delta G_{FS})\)；这不是 NEB 全部图像经过 saddle 验证的真实势垒，也不是原八步机理第4步的精确势垒。
+因此回归应称为 **BEP-like descriptor–barrier linear relation**，不能直接将其宣称为已验证的传统同一步 BEP 定律。
 
-气相后缀的 pressure 参数在此仅为液相近似有效活度；TOF 尚未通过 CatMAP 实跑及完整 NEB 校准。不同自由能修正基准不可混用。TiMo 的末态取 Excel 第21行组合总能，TiTa 的 G 列单独偏移。
+默认以原版 .mkm 采用的**14 个催化剂**做筛选（原版排除 TiNb）；分析文件中保留 TiNb 原始数据，未删除。用线性 OLS + 留一交叉验证（LOOCV）筛选两描述符，避免只按训练 R² 排序。
 
-## 与原版直接比对
+本轮筛选的 C/O/H-family 最优组合为 **O_form + Ha_form**：14组 R²≈0.454、LOOCV RMSE≈0.156 eV。
+若允许扩展描述符，**OH_form + Ha_form** 更强：14组 R²≈0.679、LOOCV RMSE≈0.114 eV。因用户当前指定 C/O/H-family，.mkm 仅采用 **O_s / Ha_s** 两坐标。
 
-- 原：`lyq_alkene_epoxidation/2-creating_microkinetic_model/alkene_epoxidation.mkm`
-- 新：`lyq_alkene_epoxidation1/2-creating_microkinetic_model/alkene_epoxidation.mkm`
+## 3. CatMAP 火山图与 BEP 图的不同含义
 
-项目根目录及子目录命名仅差一个 `1`，其他主要对应文件路径保持一致。
+`2-creating_microkinetic_model/alkene_epoxidation.mkm` **8步反应、气相活度、温度、物种定义均按原版**；仅改为：
+```python
+descriptor_names = ['O_s', 'Ha_s']
+descriptor_ranges = [[-4.0, 2.5], [-4.0, 0.8]]
+scaling_constraint_dict = {
+    'O_s': ['+', 0, None],
+    'Ha_s': [0, '+', None],
+}
+```
 
-## 2026-10-10 运行日志排查与绘图修复
+`1-generating_input_file/bep_descriptor_analysis.py` 输出：
+- `bep_screening.csv`、`bep_predictions.csv`：候选线性拟合、LOOCV 与逐表面残差；
+- `bep_fit.pdf`：实际暂定势垒 vs 拟合势垒；
+- `bep_barrier_map.pdf`：拟合的二维能垒平面，**不是 TOF 火山图**。
 
-- 已检查运行日志：`mapper_iteration_1: status - 0 points do not have valid solution`，表明本次 10×10 网格最终获得数值解，初始失败点经重试/二分恢复；这不等于结果已物理验证。
-- `Damping step size exceeded max_damping` 与 `stationary point or singular jacobian` 是数值刚性/收敛尝试告警。本次没有盲目调整 DFT 能量或把它们隐藏。
-- `header_evaluation: fail - could not save ...` 来自 CatMAP 生成文本日志时无法执行某些 NumPy/mpmath 表示。已在 Notebook 第一单元使用 CatMAP 自身的 `_pickle_attrs` 将这些属性写入 .pkl，避免同类文本重建失败；这不改变速率常数的计算。
-- 原版所具有的速率、产物生成速率、覆盖度和 scaling PDF 图，已在新版 `2-creating_microkinetic_model/test.ipynb` 中逐图恢复。Notebook 增加 100 点网格完整性检查、覆盖度值域检查、结果表及 `ts_scaling_audit.csv`。
-- **核心物理差异**：`RP_s` 使用 GeneralizedLinearScaler 的线性拟合，模型并不逐催化剂保留 `energies.txt` 输入的 `RP`。在用户实际日志中 `G_RP^{fit}≈0.87204633·G_R−4.01396471`。据此，TiW/TiNb/TiTa 的输入 0 eV 有效势垒，在标度映射中分别变为约 0.183/0.242/0.259 eV；该拟合误差对 TOF 可造成显著影响。`ts_scaling_audit.csv` 显示所有 15 个催化剂的差别，**切勿把其 TOF 当作精确 NEB 输入后的动力学预测**。
-- 修复了 `1-generating_input_file/generate_input1.py` 的 Excel 路径错误，使其只读取 `../己烯环氧化.xlsx`。
-- 本仓库的更改已通过文件核对、工作表数值一致性与 Notebook 静态语法检查，**尚未在用户本地 CatMAP 环境完成绘图和结果收敛的动态复核**。
+`2-creating_microkinetic_model/test.ipynb` 将先运行上述筛选，然后运行**原版八步 CatMAP**，输出标准 rate / all_rates / coverage / scaling 图，并额外输出：
+- `production_rate_volcano.pdf`：真正基于 CatMAP `production_rate_map` 的 O*/Ha* 二维环氧产物生成速率图，带催化剂位置标注；
+- `production_rate_table.txt`：完整数值表。
 
-### 本地重新运行
+**模型边界**：在八步网络中，CatMAP 对其他吸附态和 TS 使用 generalized linear scaling，自动拟合的 TS 能量不会严格等于 BEP 筛选值；且原始第4步使用的名义 TS 与整体共吸附 NEB 的化学阶段不完全一致。因此火山图只能作为原机理假设下的**探索性活性映射**，不能直接拿来作为验证的 TOF 预测。要得到严格 BEP 控制的第4步，必须额外提供该基元步骤对应的真实 NEB 路径并建立能量一致的过渡态约束。
 
-在 `lyq_alkene_epoxidation1/2-creating_microkinetic_model` 打开 `test.ipynb`，按单元 1→7 顺序执行。不要使用旧版 `lyq_alkene_epoxidation` 的工作目录。预期新增 `rate.pdf`、`all_rates.pdf`、`production_rate.pdf`、`pretty_production_rate.pdf`、`coverage.pdf`、`R_P_coverage.pdf`、`scaling.pdf`、`production_rate_table.txt`、`ts_scaling_audit.csv`。第 8 单元是默认注释的敏感性计算选项，以免在基础验算时增加高刚性求解工作。
-
-## 2026-10-10 最新实跑错误（已修改 Notebook，待用户本地复跑）
-
-GitHub 最新已执行的 `test.ipynb`（In[12]–In[19]）包含以下可复现问题：
-
-1. **In[13]：TypeError**：`model.resolution` 是列表 `[10,10]`，误用了 `int(model.resolution)`。现改为对每维取乘积，预期 100 个描述符点。
-2. **In[15]：PermissionError**：`rate.pdf` 已存在且可能被 PDF 预览器锁定，Matplotlib 无法以 `wb` 覆盖。新版绘图首先尝试原文件名，受锁时回退到 `plots/rerun_YYYYmmdd_HHMMSS/<原文件名>`；若目录不可写仍需排查权限。
-3. **In[15]：RuntimeWarning invalid value encountered in log10**：净基元速率有符号，不能直接按对数绘制。新版 `rate.pdf`、`all_rates.pdf` 改为线性带符号速率；环氧产物净生成速率只有在全部非负时才采用对数显示。
-4. **CatMAP 文本日志序列化**：`coverage_map` 等大型映射数据无法被 CatMAP 的 `exec(repr(...))` 直接解析，新增 CatMAP 原生 `_pickle_attrs` 存档设置，以使它们从 .pkl 重建。旧日志仍保留以前的警告，须在重跑后复核。
-5. **实际已得到结果**：最新 `production_rate_table.txt` 已有 100 个网格点和 4 种气相物种的生成速率；`ts_scaling_audit.csv` 共 15 组催化剂，11 组 RP 拟合偏差 >0.05 eV。零有效输入势垒的 TiNb/TiW/TiTa 在当前拟合中对应 0.2416/0.1829/0.2586 eV。此问题属于动力学映射假设，**目前尚未通过编程修正为真实逐催化剂 NEB 势垒**。
-
-### 修复后的本地复跑顺序
+## 4. 本地运行
 
 ```powershell
-cd H:\\catmap\\catmap
+cd H:\catmap\catmap
 git status --short
 git pull --ff-only origin main
 ```
 
-确认 PyCharm/Jupyter 刷新新版 `lyq_alkene_epoxidation1/2-creating_microkinetic_model/test.ipynb`，选择重新启动 Kernel、顺序运行各代码单元。首先关注网格完整性结果 `production_rate=100, rate=100, coverage=100` 和物理覆盖度警告数量；其次检查所有 PDF 保存提示（遇到锁定时自动转 `plots`），最后检查 TS 拟合误差文件。若缓存很大，强制重新计算可能花费一些时间。
+在 `lyq_alkene_epoxidation1/2-creating_microkinetic_model/test.ipynb` 中重启 Kernel，依次运行所有单元。第一单元拟合并生成 BEP 图，第二单元求解八步 CatMAP，第三单元输出原始类的速率/覆盖度/Scaling PDF，第四单元生成 `production_rate_volcano.pdf`。
 
-## 2026-10-10 第二次实跑：绘图异常与 C/O/H 火山图
+单独检验描述符：
+```powershell
+python lyq_alkene_epoxidation1/1-generating_input_file/bep_descriptor_analysis.py
+```
 
-本次直接读取 GitHub 最新已执行 Notebook 输出：
-- CatMAP 网格计算：100/100 点；coverage：0 个物理范围异常。
-- Notebook rate/coverage 绘图：`TypeError: ufunc 'isfinite' not supported`（CatMAP 高精度 mpmath 结果引入 NumPy object 数组）。
-- 原 `ScalingAnalysis`：`AttributeError: 'NoneType' object has no attribute 'keys'`（当前绘图模块接收到 `parameter_dict=None`）。
-- `ts_scaling_audit.csv` 仍有 11/15 个催化剂 RP 拟合偏差 >0.05 eV。未修改 DFT 原始能量，未伪称拟合后的 TOF 为真实 NEB 值。
+该脚本仅写本项目 2-creating_microkinetic_model 文件夹的 BEP 报表/诊断图，不修改任何 `energies.txt`、Excel、`.mkm`。
 
-修复：
-1. 在 `2-creating_microkinetic_model/test.ipynb` 中采用 NumPy `dtype=float64`，将 CatMAP `mpf` 标量转为可用于 Matplotlib 的数值。原 PDF 图名保持不变，输出包含 `volcano_R_P.pdf`（**仅 R/P 描述符**）。
-2. 以 `RP_input` 对 `RP_scaled` 进行 Scaling 对比，独立生成 `scaling.pdf`，绕过当前 CatMAP `ScalingAnalysis` 的空参数错误。
-3. 新增 `descriptor_C_O_H.csv` 和 `plot_C_O_H_volcano.py`。模板每一组催化剂都须填写 **独立、经验证的** `E_C`、`E_O`、`E_H` 逐表面数据。填完后 Notebook 末尾一格绘制 `volcano_C_O_H.pdf`（三页：C–O、C–H、O–H）。
-4. **物理定义警示**：当前 `alkene_epoxidation.mkm` 的实际 CatMAP 描述符仍是 `R_s, P_s`；新的 C/O/H 页将当前 R/P 网格中的环氧产物生成速率在每个催化剂的 R/P 坐标处进行数值插值，之后投影到 C/O/H 坐标。故它是*已有模型结果的描述符相关性图*，不是以 C/O/H 为模型输入重新求解后的真实三描述符微观动力学火山图。若需后者，应另构建 R/P/RP 对 C/O/H 的可验证标度关系、输入能量表并重新扫描。
-5. `C=-9.28`、`O=-4.37`、`H=-1.11` 为元素原子**固定参考能**，不能直接作为跨催化剂变化的活性描述符。原始 Excel 现有的 OOH、C6H12、O、Ha/Hb 吸附态也不能未经定义就被冒充为 C*、O*、H*。
-6. 这次仅进行了 GitHub 代码更新和静态查验；Windows/CatMAP 环境的完整新一轮动态执行仍需在用户本机核实。
-
-在新模型目录运行 `python plot_C_O_H_volcano.py`（需 CSV 15 行全部真实填好），或执行 Notebook 最后一格。若 CSV 未填好，Notebook 会提示缺失的催化剂而非生成虚假火山图。
+目前已完成 GitHub 源码级核查及 14/15 组候选回归数值核验。更新后的八步 CatMAP 全网格在用户 Windows 环境是否全部收敛、全部图片是否生成，仍需运行时检查。
