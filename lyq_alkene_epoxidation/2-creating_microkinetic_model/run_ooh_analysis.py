@@ -273,7 +273,9 @@ def compare_refinement_runs(previous: dict, current: dict,
 def run_single_surface(
     surface: str, precision: int = DEFAULT_PRECISION,
     tolerance: str = DEFAULT_TOLERANCE, numbers_solver: bool = True,
-    output_root: Path = OUTPUT, min_tof: float = DEFAULT_MIN_TOF
+    output_root: Path = OUTPUT, min_tof: float = DEFAULT_MIN_TOF,
+    seed_file: Path | None = None, max_iterations: int = 250,
+    max_bisections: int = 3,
 ) -> dict:
     from catmap import ReactionModel
 
@@ -283,24 +285,54 @@ def run_single_surface(
         surface, work, precision=precision, tolerance=tolerance,
         numbers_solver=numbers_solver
     )
-    # Do not carry over solutions from a previous, possibly invalid configuration.
+    # Keep every attempt isolated. Only explicitly provided seed files may
+    # populate CatMAP's numbers_map/coverage_map, as in the official tutorial.
+    if max_iterations != 250 or max_bisections != 3:
+        with config.open("a", encoding="utf-8") as fh:
+            fh.write(f"\nmax_rootfinding_iterations = {int(max_iterations)}\n")
+            fh.write(f"max_bisections = {int(max_bisections)}\n")
     for suffix in (".log", ".pkl"):
         cache = work / (config.stem + suffix)
         if cache.is_file():
             cache.unlink()
+    if seed_file is not None:
+        import shutil
+        seed = Path(seed_file).resolve()
+        if not seed.is_file():
+            raise FileNotFoundError(f"CatMAP warm-start seed missing: {seed}")
+        shutil.copy2(seed, work / (config.stem + ".pkl"))
 
     old_cwd = Path.cwd()
     try:
         os.chdir(work)
         model = ReactionModel(setup_file=config.name)
         model.output_variables = ["coverage", "rate", "turnover_frequency"]
-        model.run()
+        model.run(recalculate=(seed_file is not None))
+
+        def target_values(variable):
+            entries = getattr(model, variable + "_map", None)
+            if not entries:
+                raise RuntimeError(
+                    f"CatMAP did not converge at 333.15 K: missing {variable}_map;"
+                    f" inspect {config.with_suffix('.log')}"
+                )
+            matches = [
+                values for coords, values in entries
+                if abs(float(coords[0]) - 333.15) < 1e-5
+                and abs(float(coords[1]) - 1.0) < 1e-7
+            ]
+            if not matches:
+                raise RuntimeError(
+                    f"CatMAP map contains no result at the required 333.15 K, 1.0 "
+                    f"coordinate ({variable})."
+                )
+            return matches[-1]
 
         gas_labels = list(model.output_labels["turnover_frequency"])
-        gas_raw = dict(zip(gas_labels, model.turnover_frequency_map[0][1]))
+        gas_raw = dict(zip(gas_labels, target_values("turnover_frequency")))
         cover_names = list(model.output_labels["coverage"])
-        covers_raw = list(model.coverage_map[0][1])
-        rates_raw = list(model.rate_map[0][1])
+        covers_raw = list(target_values("coverage"))
+        rates_raw = list(target_values("rate"))
 
         # CatMAP supports an additional last coverage for vacant sites
         # when the numbers-based solver is in use.
@@ -453,6 +485,13 @@ def run_diagnostics(min_tof: float, compare_coverage_solver: bool = False) -> No
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="OOH-centered CatMAP DFT diagnostics")
+    parser.add_argument("--recover", action="store_true",
+                        help="用CatMAP官方MinResidMapper温度路径+缓存种子尝试恢复未验证的表面")
+    parser.add_argument("--recover-surfaces", nargs="*", default=None,
+                        help="指定恢复表面，如: --recover-surfaces titi timn ticr")
+    parser.add_argument("--bridge-temperatures", type=float, nargs="+",
+                        default=[550.0, 750.0],
+                        help="仅用于数值路径的起点温度(K)，最终结果仍计算333.15 K")
     parser.add_argument("--fit-only", action="store_true",
                         help="只读取已有CSV，不运行CatMAP；未验证的旧结果不会自动拟合")
     parser.add_argument("--diagnose", action="store_true",
@@ -471,6 +510,14 @@ def main() -> None:
     df.to_csv(OUTPUT / "dft_formation_descriptors.csv", index=False)
     plot_linear(df, "G_OOH_eV", "G_OH_eV", "OOH_OH_linear.png",
                 "OOH* formation energy (eV)", "OH* formation energy (eV)")
+
+    if args.recover:
+        from recover_ooh_solver import recover_unvalidated_surfaces
+        recover_unvalidated_surfaces(
+            surfaces=args.recover_surfaces,
+            bridge_temperatures=args.bridge_temperatures,
+        )
+        return
 
     if args.diagnose:
         run_diagnostics(args.min_tof, args.coverage_crosscheck)
