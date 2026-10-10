@@ -131,34 +131,39 @@ def _store_single_verified_seed(point, coverages, numbers, path: Path) -> None:
         pickle.dump(payload, fh, protocol=2)
 
 
-def _inspect_bridge_point(model, point) -> dict:
-    """Independently validate a CatMAP map entry at its OWN temperature.
+def _inspect_bridge_point(model, point, coverages, rates, gas_rates) -> dict:
+    """Validate the *stored CatMAP maps*, not an internal numbers vector.
 
-    The map being populated only proves solver acceptance. This function
-    checks the eight real net elementary rates and the independent coverage
-    residual at the same descriptor point.
+    CatMAP MinResidMapper may return a cached numbers_map entry when asked
+    for get_point_coverage(); those exponential number variables are NOT
+    coverages. Use the verified coverage_map/rate_map/TOF_map values instead,
+    and independently refresh the residual at the matching descriptors.
     """
     from mpmath import mp
 
-    model.mapper.get_point_output(point)
     cover_names = list(model.output_labels["coverage"])
-    coverage = list(model._coverage)
-    if len(coverage) == len(cover_names):
-        coverage.append(mp.mpf(1) - mp.fsum(coverage))
-    if len(coverage) != len(cover_names) + 1:
-        raise ValueError("Inconsistent adsorbate and vacant-site coverage vector")
+    cover = list(coverages)
+    if len(cover) == len(cover_names):
+        cover.append(mp.mpf("1") - mp.fsum(cover))
+    if len(cover) != len(cover_names) + 1:
+        raise ValueError("Stored coverages have unexpected dimensions")
 
     gas_labels = list(model.output_labels["turnover_frequency"])
-    gas = dict(zip(gas_labels, model._turnover_frequency))
-    rates = list(model._rate)
+    if len(gas_rates) != len(gas_labels):
+        raise ValueError("Stored gas rate vector is incomplete")
+    gas = dict(zip(gas_labels, gas_rates))
+
+    # Synchronize thermodynamics, pressure and temperature to this point.
+    # Use the original energy data, do not rerun or alter the mapper root.
+    model._descriptors = list(point)
     model.solver._descriptors = list(point)
+    model.scaler.get_rxn_parameters(list(point))
     residual = model.solver.get_residual(
-        coverage, validate_coverages=False, refresh_rate_constants=True
+        cover, validate_coverages=False, refresh_rate_constants=True
     )
     return core.check_steady_state(
-        rates, gas, coverage, residual, numbers_solver=True
+        list(rates), gas, cover, residual, numbers_solver=True
     )
-
 
 def make_temperature_bridge(
     surface: str, high_temperature: float,
@@ -199,6 +204,8 @@ def make_temperature_bridge(
         model.run()
         point_map = list(getattr(model, "coverage_map", []) or [])
         numbers_map = list(getattr(model, "numbers_map", []) or [])
+        rate_map = list(getattr(model, "rate_map", []) or [])
+        gas_map = list(getattr(model, "turnover_frequency_map", []) or [])
         diagnostics = []
         vetted_count = 0
 
@@ -214,7 +221,13 @@ def make_temperature_bridge(
                 "seed_file": "",
             }
             try:
-                quality = _inspect_bridge_point(model, point)
+                recorded_rates = _find_point(point, rate_map)
+                recorded_tof = _find_point(point, gas_map)
+                if recorded_rates is None or recorded_tof is None:
+                    raise ValueError("Rate or gas turnover map missing at this bridge point")
+                quality = _inspect_bridge_point(
+                    model, point, coverages, recorded_rates, recorded_tof
+                )
                 record.update({f"source_{k}": v for k, v in quality.items()
                                if k in ("quality_status", "cycle_max_relative_error",
                                         "balance_max_relative_error",
