@@ -337,6 +337,12 @@ def run_single_surface(
             "status": "solved",  # solver accepted a root; NOT a physics quality gate
             "run_precision": precision,
             "run_tolerance": tolerance,
+            "temperature_K": float(model.temperature),
+            "pressure_mode": str(model.pressure_mode),
+            "gas_thermo_mode": str(model.gas_thermo_mode),
+            "adsorbate_thermo_mode": str(model.adsorbate_thermo_mode),
+            "gas_effective_activities": str(GAS_EFFECTIVE_ACTIVITIES),
+            "kinetic_prefactor_assumption": "CatMAP setup default (no explicit prefactor_list in base file)",
             "solver_mode": "numbers" if numbers_solver else "coverages",
             "net_C6H12O": float(gas_raw["C6H12O_g"]),
             "net_C6H12O_high_precision": mp.nstr(gas_raw["C6H12O_g"], 40),
@@ -451,24 +457,13 @@ def main() -> None:
                         help="专门对TiFe/TiTi/TiW比较旧求解与高精度求解")
     parser.add_argument("--coverage-crosscheck", action="store_true",
                         help="在--diagnose中额外对照传统coverage solver")
-    parser.add_argument("--precision", type=int, default=DEFAULT_PRECISION)
-    parser.add_argument("--tolerance", default=DEFAULT_TOLERANCE,
-                        help="numbers solver使用残差平方和；默认1e-120")
+    # Precision/tolerance are selected as matched refinement stages to prevent
+    # choosing an apparently converged residual that exceeds the actual TOF.
     parser.add_argument("--min-tof", type=float, default=DEFAULT_MIN_TOF,
                         help="旧命令兼容参数：不再作为TOF物理/数值有效性门槛")
     parser.add_argument("--max-stage", type=int, choices=(2, 3, 4), default=3,
                         help="独立求解精度级数：2/3/4，默认3")
     args = parser.parse_args()
-    if args.precision < 80:
-        parser.error("precision须至少80位；建议180位")
-    try:
-        from decimal import Decimal
-        tol = Decimal(args.tolerance)
-        if tol <= 0 or tol < Decimal(10) ** (-args.precision):
-            parser.error("tolerance必须大于0且不小于10^(-decimal_precision)")
-    except (ValueError, ArithmeticError):
-        parser.error("tolerance必须是正数科学计数法，如1e-120")
-
     OUTPUT.mkdir(parents=True, exist_ok=True)
     df = read_data()
     df.to_csv(OUTPUT / "dft_formation_descriptors.csv", index=False)
@@ -521,6 +516,8 @@ def main() -> None:
         result["quality_status"] = "legacy_unverified"
     if "refinement_stable" not in result.columns:
         result["refinement_stable"] = False
+    if "log10_net_C6H12O" not in result.columns:
+        result["log10_net_C6H12O"] = np.nan
     result["quality_pass"] = result["quality_pass"].astype(str).str.lower().eq("true")
     result["refinement_stable"] = result["refinement_stable"].astype(str).str.lower().eq("true")
     # Do NOT reject any original DFT row based on the sign of an input
