@@ -1,0 +1,49 @@
+# Isolated exploratory kinetic run for CatMAP 0.3.1.
+# Energies are pre-corrected Excel Gibbs values; frozen modes prevent double correction.
+output_variables = ['coverage', 'rate', 'turnover_frequency', 'directional_rates']
+rxn_expressions = [
+    '* + H2O2_g + C6H12_g <-> Rpair*',
+    'Rpair* <-> TS1* -> EpoxideHHO*',
+    'EpoxideHHO* <-> HHO* + C6H12O_g',
+    'HHO* <-> TS2* -> OHHa*',
+    'OHHa* <-> H2O*',
+    'H2O* <-> H2O_g + *',
+]
+
+# ThermodynamicScaler is officially limited to one surface; this setup validates Ti-Re.
+surface_names = ['tini']
+descriptor_ranges = [[333.15, 333.15], [1.0, 1.0]]
+descriptor_names = ['temperature', 'pressure']
+resolution = 1
+max_damping_iterations = 50
+temperature = 333.15
+
+species_definitions = {}
+species_definitions['s'] = {'site_names': ['active'], 'total': 1}
+# Preserve the specified effective reservoir numbers as concentrations; the
+# pressure descriptor is fixed at 1.0, without assigning bar or mol/L units.
+species_definitions['H2O2_g'] = {'concentration': 0.185}
+species_definitions['C6H12_g'] = {'concentration': 1.0}
+species_definitions['H2O_g'] = {'concentration': 0.815}
+species_definitions['C6H12O_g'] = {'concentration': 1e-20}
+
+# Researcher-approved single effective active-center coarse graining: n_sites=1.
+# This is not a claim that the geometric footprint has been independently validated.
+species_definitions['Rpair_s'] = {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1}
+species_definitions['TS1_s'] = {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1}
+species_definitions['EpoxideHHO_s'] = {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1}
+species_definitions['HHO_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+species_definitions['TS2_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+species_definitions['OHHa_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+species_definitions['H2O_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+
+input_file = 'energies.txt'
+parser = 'TableParser'
+scaler = 'ThermodynamicScaler'
+solver = 'SteadyStateSolver'
+gas_thermo_mode = 'frozen_gas'
+adsorbate_thermo_mode = 'frozen_adsorbate'
+pressure_mode = 'concentration'
+estimate_frequencies = False
+data_file = 'catmap_tire.pkl'
+log_file = 'catmap_tire.log'

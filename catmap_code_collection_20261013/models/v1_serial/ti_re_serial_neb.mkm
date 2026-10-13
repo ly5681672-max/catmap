@@ -1,0 +1,37 @@
+# CatMAP 0.3.1 parse-only candidate model. Do not run as a kinetic model.
+# All composite adsorbates use explicit atom counts. n_sites=1 is a coarse-grained
+# single Ti-M effective-center assumption, not a coordinate-verified occupancy.
+# formation energies are intentionally absent until a common slab reference exists.
+
+rxn_expressions = [
+    '* + H2O2_g + C6H12_g <-> Rpair*',
+    'Rpair* <-> TS1* -> EpoxideHHO*',
+    'EpoxideHHO* <-> HHO* + C6H12O_g',
+    'HHO* <-> TS2* -> OHHa*',
+    'OHHa* <-> H2O*',
+    'H2O* <-> H2O_g + *',
+]
+
+surface_names = ['tire']
+temperature = 333.15
+descriptor_names = []
+descriptor_ranges = []
+resolution = 1
+
+species_definitions = {
+    's': {'site_names': ['111'], 'total': 1},
+    'H2O2_g': {'composition': {'H': 2, 'O': 2}, 'pressure': 0.185},
+    'C6H12_g': {'composition': {'C': 6, 'H': 12}, 'pressure': 1.0},
+    'C6H12O_g': {'composition': {'C': 6, 'H': 12, 'O': 1}, 'pressure': 1e-20},
+    'H2O_g': {'composition': {'H': 2, 'O': 1}, 'pressure': 0.815},
+    'Rpair_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1},
+    'TS1_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1},
+    'EpoxideHHO_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1},
+    'HHO_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 1},
+    'TS2_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 1},
+    'OHHa_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 1},
+    'H2O_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 1},
+}
+
+model_evidence_status = 'PARSE_ONLY_COMMON_REFERENCE_AND_KINETICS_INCOMPLETE'
+tof_calculation_authorized = False
