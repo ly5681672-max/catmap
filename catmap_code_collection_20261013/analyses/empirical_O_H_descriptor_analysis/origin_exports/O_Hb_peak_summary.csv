@@ -1,0 +1,3 @@
+﻿x_peak,y_peak,predicted_log10_TOF_peak,predicted_TOF_peak,peak_type
+2.244505525,-3.570268685834236,4.249739530981704,17772.132030281104,global maximum in full rectangular plotting range
+1.9460959894966503,-3.5146867243166007,2.4122719010157807,258.38773859564196,maximum within catalyst convex hull

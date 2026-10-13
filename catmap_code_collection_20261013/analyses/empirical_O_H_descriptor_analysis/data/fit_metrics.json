@@ -1,0 +1,256 @@
+{
+  "temperature_K": 333.15,
+  "n_catalysts": 13,
+  "one_dimensional": {
+    "O": {
+      "species": "O",
+      "n": 13,
+      "linear_r2": 0.1920536762779913,
+      "quadratic_r2": 0.4193561204726157,
+      "segmented_left_slope": -1.1765557011165817,
+      "segmented_right_slope": 8.815103920020743,
+      "fits": {
+        "linear": {
+          "loocv_rmse": 8.628752002820624
+        },
+        "quadratic": {
+          "loocv_rmse": 7.546534232781593
+        },
+        "segmented": {
+          "loocv_rmse": 8.611338420307968
+        }
+      },
+      "peaks": [
+        {
+          "model": "linear",
+          "descriptor": 1.9796865,
+          "log10_TOF": -5.033197417312828,
+          "TOF": 9.26408609939528e-06,
+          "kind": "boundary maximum"
+        },
+        {
+          "model": "quadratic",
+          "descriptor": 1.9796865,
+          "log10_TOF": 1.636901370057613,
+          "TOF": 43.34124375830706,
+          "kind": "boundary maximum"
+        },
+        {
+          "model": "segmented",
+          "descriptor": 1.9796865,
+          "log10_TOF": 2.261685693462267,
+          "TOF": 182.67776665699532,
+          "kind": "boundary maximum",
+          "left_slope": -1.1765557011165817,
+          "right_slope": 8.815103920020743
+        }
+      ]
+    },
+    "Ha": {
+      "species": "Ha",
+      "n": 13,
+      "linear_r2": 0.039896410793556214,
+      "quadratic_r2": 0.2457064118208434,
+      "segmented_left_slope": -7.252819980447897,
+      "segmented_right_slope": 6.900971932307586,
+      "fits": {
+        "linear": {
+          "loocv_rmse": 11.354929267666343
+        },
+        "quadratic": {
+          "loocv_rmse": 24.96784711689961
+        },
+        "segmented": {
+          "loocv_rmse": 18.3340922069974
+        }
+      },
+      "peaks": [
+        {
+          "model": "linear",
+          "descriptor": -3.820431,
+          "log10_TOF": -6.326700375601368,
+          "TOF": 4.7130237079445233e-07,
+          "kind": "boundary maximum"
+        },
+        {
+          "model": "quadratic",
+          "descriptor": -3.820431,
+          "log10_TOF": 2.461290486339438,
+          "TOF": 289.2614016785816,
+          "kind": "boundary maximum"
+        },
+        {
+          "model": "segmented",
+          "descriptor": -3.820431,
+          "log10_TOF": 2.764668355489217,
+          "TOF": 581.6588703226533,
+          "kind": "boundary maximum",
+          "left_slope": -7.252819980447897,
+          "right_slope": 6.900971932307586
+        }
+      ]
+    },
+    "Hb": {
+      "species": "Hb",
+      "n": 13,
+      "linear_r2": 0.7085011889568495,
+      "quadratic_r2": 0.7950390581186166,
+      "segmented_left_slope": -3.1955040514676942,
+      "segmented_right_slope": -12.254280988497465,
+      "fits": {
+        "linear": {
+          "loocv_rmse": 5.286294647815979
+        },
+        "quadratic": {
+          "loocv_rmse": 4.787196430445862
+        },
+        "segmented": {
+          "loocv_rmse": 4.6807761491078645
+        }
+      },
+      "peaks": [
+        {
+          "model": "linear",
+          "descriptor": -4.474624,
+          "log10_TOF": 4.040312481276299,
+          "TOF": 10972.67412247206,
+          "kind": "boundary maximum"
+        },
+        {
+          "model": "quadratic",
+          "descriptor": -4.114212492770828,
+          "log10_TOF": -0.7312742468204121,
+          "TOF": 0.18566316653093728,
+          "kind": "internal peak"
+        },
+        {
+          "model": "segmented",
+          "descriptor": -4.474624,
+          "log10_TOF": 0.8506374372794614,
+          "TOF": 7.0898563727900115,
+          "kind": "boundary maximum",
+          "left_slope": -3.1955040514676942,
+          "right_slope": -12.254280988497465
+        }
+      ]
+    }
+  },
+  "two_dimensional": {
+    "Ha": {
+      "descriptor_pair": [
+        "O",
+        "Ha"
+      ],
+      "n": 13,
+      "in_sample_r2": 0.6790025418527054,
+      "loocv_rmse": 16.946477572005218,
+      "maximum": {
+        "kind": "boundary maximum within catalyst convex hull",
+        "O_eV": 1.9796865,
+        "Ha_eV": -2.1214675,
+        "log10_TOF": 2.0249848716502634,
+        "TOF": 105.92168274445764,
+        "nearest_catalysts": [
+          "Ti-Co",
+          "Ti-Fe",
+          "Ti-Ti"
+        ]
+      },
+      "coefficients_standardized": [
+        -15.811506923000826,
+        4.130857173570107,
+        -8.313710222994562,
+        5.750420646415757,
+        5.757076116937558,
+        -0.3093309059525248
+      ],
+      "convex_hull_vertices": [
+        [
+          1.922256,
+          0.4318325
+        ],
+        [
+          -3.316694,
+          -1.192385
+        ],
+        [
+          -3.1477795,
+          -1.805428
+        ],
+        [
+          0.512307,
+          -3.820431
+        ],
+        [
+          1.9796865,
+          -2.1214675
+        ]
+      ]
+    },
+    "Hb": {
+      "descriptor_pair": [
+        "O",
+        "Hb"
+      ],
+      "n": 13,
+      "in_sample_r2": 0.8957287272774436,
+      "loocv_rmse": 4.821214431827736,
+      "maximum": {
+        "kind": "boundary maximum within catalyst convex hull",
+        "O_eV": 1.922256,
+        "Hb_eV": -4.474624,
+        "log10_TOF": 1.132057233655889,
+        "TOF": 13.553680182480598,
+        "nearest_catalysts": [
+          "Ti",
+          "Ti-Ni",
+          "Ti-Fe"
+        ]
+      },
+      "coefficients_standardized": [
+        -10.678109527857357,
+        1.1136544146521643,
+        -7.466135459586776,
+        3.0658107253599383,
+        -0.07709024651519039,
+        -2.702730480719911
+      ],
+      "convex_hull_vertices": [
+        [
+          1.922256,
+          -4.474624
+        ],
+        [
+          1.9796865,
+          -2.1621365
+        ],
+        [
+          0.3350345,
+          0.4834265
+        ],
+        [
+          -3.316694,
+          -0.22028
+        ],
+        [
+          -3.1477795,
+          -1.2340725
+        ],
+        [
+          0.512307,
+          -3.662821
+        ]
+      ]
+    }
+  },
+  "source_audit": {
+    "legacy_rows_verified": 39,
+    "legacy_formula_reconstruction_matches": 39,
+    "old_single_species_temperature_missing": 39
+  },
+  "source_hashes": {
+    "legacy_formation_table_sha256": "9ea18aa87759d3df9b3c268eebb5631f55fc71d4737605ab3b2d991cc4014baf",
+    "converter_sha256": "8bc8fa564a39e15498284e0c64b40417dc1115a18101c997419f6506d7bd1ba9",
+    "workbook_sha256": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd"
+  }
+}
