@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="790" viewBox="0 0 1500 790" role="img" aria-label="Quadratic OOH corrected BEP predicted-versus-calculated energies and residuals">
+<rect width="1500" height="790" fill="#ffffff"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#253449}.title{font-size:30px;font-weight:700}.subtitle{font-size:16px;fill:#667085}.panel{font-size:21px;font-weight:700}.axis{font-size:17px}.tick{font-size:14px;fill:#667085}.pt{font-size:15px}.formula{font-size:20px;font-weight:600}.metric{font-size:17px;font-weight:600}.minor{font-size:14px;fill:#667085}</style>
+<text x="750" y="50" text-anchor="middle" class="title">OOH* quadratic correction to NEB1 BEP: 13-site fit</text>
+<text x="750" y="79" text-anchor="middle" class="subtitle">Signed transition-state difference: Y₁ = G(TS1*) − G(Rpair*) | DFT-derived archive; no new CatMAP run</text>
+<line x1="70" y1="103" x2="1430" y2="103" stroke="#d9e1ed"/>
+<text x="115" y="144" class="panel">(a) Calculated vs fitted</text>
+<text x="900" y="144" class="panel">(b) Site-wise residual comparison</text>
+<line x1="148.51063829787236" y1="185" x2="148.51063829787236" y2="615" stroke="#e7eaf0" stroke-width="1"/>
+<line x1="115" y1="587.5531914893617" x2="640" y2="587.5531914893617" stroke="#e7eaf0" stroke-width="1"/>
+<text x="148.51063829787236" y="642" text-anchor="middle" class="tick">-1.2</text>
+<text x="100" y="592.5531914893617" text-anchor="end" class="tick">-1.2</text>
+<line x1="237.87234042553192" y1="185" x2="237.87234042553192" y2="615" stroke="#e7eaf0" stroke-width="1"/>
+<line x1="115" y1="514.3617021276596" x2="640" y2="514.3617021276596" stroke="#e7eaf0" stroke-width="1"/>
+<text x="237.87234042553192" y="642" text-anchor="middle" class="tick">-0.8</text>
+<text x="100" y="519.3617021276596" text-anchor="end" class="tick">-0.8</text>
+<line x1="327.2340425531915" y1="185" x2="327.2340425531915" y2="615" stroke="#e7eaf0" stroke-width="1"/>
+<line x1="115" y1="441.17021276595744" x2="640" y2="441.17021276595744" stroke="#e7eaf0" stroke-width="1"/>
+<text x="327.2340425531915" y="642" text-anchor="middle" class="tick">-0.4</text>
+<text x="100" y="446.17021276595744" text-anchor="end" class="tick">-0.4</text>
+<line x1="416.5957446808511" y1="185" x2="416.5957446808511" y2="615" stroke="#e7eaf0" stroke-width="1"/>
+<line x1="115" y1="367.97872340425533" x2="640" y2="367.97872340425533" stroke="#e7eaf0" stroke-width="1"/>
+<text x="416.5957446808511" y="642" text-anchor="middle" class="tick">0.0</text>
+<text x="100" y="372.97872340425533" text-anchor="end" class="tick">0.0</text>
+<line x1="505.9574468085106" y1="185" x2="505.9574468085106" y2="615" stroke="#e7eaf0" stroke-width="1"/>
+<line x1="115" y1="294.7872340425532" x2="640" y2="294.7872340425532" stroke="#e7eaf0" stroke-width="1"/>
+<text x="505.9574468085106" y="642" text-anchor="middle" class="tick">0.4</text>
+<text x="100" y="299.7872340425532" text-anchor="end" class="tick">0.4</text>
+<line x1="595.3191489361702" y1="185" x2="595.3191489361702" y2="615" stroke="#e7eaf0" stroke-width="1"/>
+<line x1="115" y1="221.595744680851" x2="640" y2="221.595744680851" stroke="#e7eaf0" stroke-width="1"/>
+<text x="595.3191489361702" y="642" text-anchor="middle" class="tick">0.8</text>
+<text x="100" y="226.595744680851" text-anchor="end" class="tick">0.8</text>
+<path d="M115 185V615H640" fill="none" stroke="#3d4b5d" stroke-width="1.6"/>
+<path d="M115 615L640 185" fill="none" stroke="#8794a7" stroke-width="2" stroke-dasharray="9 6"/>
+<circle cx="452.2099574468086" cy="373.2887514270805" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="465.2099574468086" y="394.2887514270805" text-anchor="start" class="pt">Ti-Fe</text>
+<circle cx="491.2797872340423" cy="291.41098338678637" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="499.2797872340423" y="273.41098338678637" text-anchor="start" class="pt">Ti-Mn</text>
+<circle cx="468.3902340425533" cy="310.14457131736697" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="394.3902340425533" y="334.14457131736697" text-anchor="end" class="pt">Ti-Hf</text>
+<circle cx="515.9762340425528" cy="346.2638739012179" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="531.9762340425528" y="366.2638739012179" text-anchor="start" class="pt">Ti-Re</text>
+<circle cx="447.4666382978713" cy="332.04171109514203" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="382.4666382978713" y="310.04171109514203" text-anchor="end" class="pt">Ti-Mo</text>
+<circle cx="451.7035000000009" cy="325.0826164746091" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="376.7035000000009" y="361.0826164746091" text-anchor="end" class="pt">Ti-V</text>
+<circle cx="540.8853617021282" cy="244.53376159376893" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="553.8853617021282" y="232.53376159376893" text-anchor="start" class="pt">Ti-Co</text>
+<circle cx="482.4144361702133" cy="308.304005912512" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="417.4144361702133" y="270.304005912512" text-anchor="end" class="pt">Ti-Ti</text>
+<polygon points="290.0034999999999,414.31969364131885 282.0034999999999,429.31969364131885 298.0034999999999,429.31969364131885" fill="#c04b50" stroke="#fff" stroke-width="1.5"/>
+<text x="305.0034999999999" y="443.31969364131885" text-anchor="start" class="pt">Ti-W</text>
+<polygon points="154.17706382978736,573.8266173938637 146.17706382978736,588.8266173938637 162.17706382978736,588.8266173938637" fill="#c04b50" stroke="#fff" stroke-width="1.5"/>
+<text x="167.17706382978736" y="568.8266173938637" text-anchor="start" class="pt">Ti-Ta</text>
+<circle cx="532.8564361702136" cy="319.87381139073915" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="546.8564361702136" y="347.87381139073915" text-anchor="start" class="pt">Ti-Cr</text>
+<circle cx="459.83854255319096" cy="321.43068119193407" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="442.83854255319096" y="308.43068119193407" text-anchor="end" class="pt">Ti</text>
+<circle cx="532.1337234042553" cy="276.6422957417447" r="6.8" fill="#1e5b9c" stroke="#fff" stroke-width="1.5"/>
+<text x="547.1337234042553" y="274.6422957417447" text-anchor="start" class="pt">Ti-Ni</text>
+<text x="377.5" y="687" text-anchor="middle" class="axis">Calculated signed TS1 − Rpair (eV)</text>
+<text x="28" y="400" transform="rotate(-90 28 400)" text-anchor="middle" class="axis">Fitted signed TS1 − Rpair (eV)</text>
+<rect x="126" y="197" width="355" height="69" rx="7" fill="#fff" stroke="#dde5ef" opacity=".97"/>
+<text x="139" y="225" class="metric">R² = 0.8867   |   RMSE = 0.1578 eV</text>
+<text x="139" y="252" class="minor">13 sites · LOOCV RMSE = 0.3814 eV</text>
+<line x1="918.2777777777778" y1="189" x2="918.2777777777778" y2="609" stroke="#e7eaf0" stroke-width="1"/>
+<text x="918.2777777777778" y="636" text-anchor="middle" class="tick">-1.2</text>
+<line x1="996.6111111111111" y1="189" x2="996.6111111111111" y2="609" stroke="#e7eaf0" stroke-width="1"/>
+<text x="996.6111111111111" y="636" text-anchor="middle" class="tick">-0.9</text>
+<line x1="1074.9444444444443" y1="189" x2="1074.9444444444443" y2="609" stroke="#e7eaf0" stroke-width="1"/>
+<text x="1074.9444444444443" y="636" text-anchor="middle" class="tick">-0.6</text>
+<line x1="1153.2777777777778" y1="189" x2="1153.2777777777778" y2="609" stroke="#e7eaf0" stroke-width="1"/>
+<text x="1153.2777777777778" y="636" text-anchor="middle" class="tick">-0.3</text>
+<line x1="1231.611111111111" y1="189" x2="1231.611111111111" y2="609" stroke="#8e9bad" stroke-width="2"/>
+<text x="1231.611111111111" y="636" text-anchor="middle" class="tick">0.0</text>
+<line x1="1309.9444444444443" y1="189" x2="1309.9444444444443" y2="609" stroke="#e7eaf0" stroke-width="1"/>
+<text x="1309.9444444444443" y="636" text-anchor="middle" class="tick">0.3</text>
+<text x="885" y="216.26153846153846" text-anchor="end" class="tick">Ti-Fe</text>
+<rect x="1231.611111111111" y="198.76615384615386" width="13.653227286863512" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1231.611111111111" y="210.37846153846155" width="49.202712598462995" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="247.64615384615385" text-anchor="end" class="tick">Ti-Mn</text>
+<rect x="1231.611111111111" y="230.15076923076924" width="56.631233476138505" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1209.6381927011696" y="241.76307692307694" width="21.972918409941485" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="279.03076923076924" text-anchor="end" class="tick">Ti-Hf</text>
+<rect x="1231.611111111111" y="261.5353846153846" width="54.88281816179324" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1209.6181488630903" y="273.1476923076923" width="21.99296224802083" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="310.4153846153846" text-anchor="end" class="tick">Ti-Re</text>
+<rect x="1231.611111111111" y="292.91999999999996" width="64.06368375167949" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1231.611111111111" y="304.53230769230765" width="85.16708698177627" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="341.8" text-anchor="end" class="tick">Ti-Mo</text>
+<rect x="1217.610990343108" y="324.3046153846154" width="14.000120768003171" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1216.410279463286" y="335.91692307692307" width="15.200831647824998" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="373.18461538461537" text-anchor="end" class="tick">Ti-V</text>
+<rect x="1231.611111111111" y="355.68923076923073" width="13.886903481965192" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1211.4316056798534" y="367.3015384615384" width="20.179505431257667" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="404.5692307692307" text-anchor="end" class="tick">Ti-Co</text>
+<rect x="1162.9685638587412" y="387.0738461538461" width="68.64254725236992" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1200.7224316283182" y="398.6861538461538" width="30.888679482792895" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="435.95384615384614" text-anchor="end" class="tick">Ti-Ti</text>
+<rect x="1231.611111111111" y="418.4584615384615" width="71.26735662354281" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1223.38290727438" y="430.0707692307692" width="8.228203836731154" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="467.33846153846156" text-anchor="end" class="tick">Ti-W</text>
+<rect x="1103.3130189244148" y="449.8430769230769" width="128.2980921866963" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1161.1969438331223" y="461.4553846153846" width="70.41416727798878" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="498.7230769230769" text-anchor="end" class="tick">Ti-Ta</text>
+<rect x="923.1566546081248" y="481.2276923076923" width="308.4544565029863" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1230.0620973017085" y="492.84" width="1.5490138094025951" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="530.1076923076922" text-anchor="end" class="tick">Ti-Cr</text>
+<rect x="1231.611111111111" y="512.6123076923077" width="115.4740274769656" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1231.611111111111" y="524.2246153846154" width="67.23769403239294" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="561.4923076923077" text-anchor="end" class="tick">Ti</text>
+<rect x="1231.611111111111" y="543.9969230769232" width="47.18318790052649" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1215.7283845949491" y="555.6092307692309" width="15.882726516161938" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="885" y="592.8769230769229" text-anchor="end" class="tick">Ti-Ni</text>
+<rect x="1231.611111111111" y="575.3815384615384" width="82.35277855058166" height="8.473846153846154" rx="1" fill="#a7aeb9"/>
+<rect x="1231.611111111111" y="586.9938461538461" width="4.701515047489693" height="8.473846153846154" rx="1" fill="#245e9d"/>
+<text x="1135" y="681" text-anchor="middle" class="axis">Observed − fitted (eV)</text>
+<rect x="1105" y="154" width="13" height="13" fill="#a7aeb9"/><text x="1125" y="166" class="tick">Traditional BEP</text>
+<rect x="1235" y="154" width="13" height="13" fill="#245e9d"/><text x="1255" y="166" class="tick">OOH* quadratic</text>
+<line x1="80" y1="707" x2="1420" y2="707" stroke="#d9e1ed"/>
+<text x="750" y="742" class="formula" text-anchor="middle">Y₁ = 0.4121 + 0.3704u + 0.2002z − 0.3098z²</text>
+<text x="750" y="770" text-anchor="middle" class="minor">u = ΔG₂ + 2.0923 eV; z = E(OOH*) + 4.3099 eV. Legacy OOH* reference is not fully reconciled with strict-site slab energies.</text>
+</svg>
