@@ -1,0 +1,12 @@
+BEP package validation
+valid catalyst rows: 13
+energy surfaces incl. unresolved: 14
+staged input snapshots checked: 17
+snapshot SHA matches: 17
+official CatMAP coefficient rows: 2
+saved VectorMap coordinate mappings: 13/13
+CatMAP ReactionModel.run(): NOT CALLED
+new steady-state/TOF calculation: NOT RUN
+raw inputs modified: NO
+H archive target absent or expected package identity confirmed: True
+RESULT: PASS

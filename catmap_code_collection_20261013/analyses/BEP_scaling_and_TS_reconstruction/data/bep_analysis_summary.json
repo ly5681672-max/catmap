@@ -1,0 +1,86 @@
+{
+  "n_catalysts": 13,
+  "surface_names": [
+    "tife",
+    "timn",
+    "tihf",
+    "tire",
+    "timo",
+    "tiv",
+    "tico",
+    "titi",
+    "tiw",
+    "tita",
+    "ticr",
+    "ti",
+    "tini"
+  ],
+  "NEB1": {
+    "fit": {
+      "alpha": 0.3671966216345433,
+      "beta": 0.9072422406323892,
+      "R2": 0.20542753321490248,
+      "RMSE_eV": 0.41769472237702737,
+      "MAE_eV": 0.3060266415967597,
+      "LOOCV_RMSE_eV": 0.7134306722655978,
+      "LOOCV_R2": -1.318030200298975
+    },
+    "negative_signed_TS_minus_IS": [
+      "Ti-W",
+      "Ti-Ta"
+    ]
+  },
+  "NEB2": {
+    "fit": {
+      "alpha": 0.0792131766864678,
+      "beta": 0.1995116589961295,
+      "R2": 0.18209367892171524,
+      "RMSE_eV": 0.1171700525054815,
+      "MAE_eV": 0.0926142544978455,
+      "LOOCV_RMSE_eV": 0.13883112699384118,
+      "LOOCV_R2": -0.1482699877214504
+    },
+    "negative_signed_TS_minus_IS": [
+      "Ti-Mo",
+      "Ti-V",
+      "Ti-Cr"
+    ]
+  },
+  "CatMAP_run_called": false,
+  "steady_state_rerun": false,
+  "grid_reused": true,
+  "NEB1_path2_TiFe_excluded_sensitivity": {
+    "alpha": 0.36832810384375425,
+    "beta": 0.9052440259688744,
+    "R2": 0.2063411631321821,
+    "RMSE_eV": 0.43446594779192504,
+    "MAE_eV": 0.3288169905349639,
+    "LOOCV_RMSE_eV": 0.7469123277264499,
+    "LOOCV_R2": -1.3456414338258047
+  },
+  "NEB1_path2_best_one_extra_descriptor_in_sample": {
+    "added_descriptor": "OH_star_legacy",
+    "R2": 0.49344387216708063,
+    "RMSE_eV": 0.3335078177422093,
+    "LOOCV_RMSE_eV": 0.7821479401455339,
+    "LOOCV_R2": -1.7860784937436036,
+    "descriptor_reference_note": "historical single-adsorbate reference; slab closure not validated"
+  },
+  "NEB2_path4_TiFe_excluded_sensitivity": {
+    "alpha": 0.07698948359214006,
+    "beta": 0.19494885363362102,
+    "R2": 0.1666750145542264,
+    "RMSE_eV": 0.12175928626292305,
+    "MAE_eV": 0.09923005920708931,
+    "LOOCV_RMSE_eV": 0.14590148852812895,
+    "LOOCV_R2": -0.19654672247650096
+  },
+  "NEB2_path4_best_one_extra_descriptor_in_sample": {
+    "added_descriptor": "OH_star_legacy",
+    "R2": 0.47652011990595955,
+    "RMSE_eV": 0.09373781787980509,
+    "LOOCV_RMSE_eV": 0.1143315455529004,
+    "LOOCV_R2": 0.22124210182254933,
+    "descriptor_reference_note": "historical single-adsorbate reference; slab closure not validated"
+  }
+}

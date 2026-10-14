@@ -1,0 +1,42 @@
+{
+  "catmap_version": "0.3.1",
+  "source_setup": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_scaling_and_TS_reconstruction\\data\\source_grid_setup.mkm",
+  "probe_setup": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_scaling_and_TS_reconstruction\\reports\\catmap_bep_mode_probe.mkm",
+  "strict_energy_snapshot": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_scaling_and_TS_reconstruction\\data\\source_strict_energies.txt",
+  "surface_count": 13,
+  "reaction_count": 6,
+  "transition_state_names": [
+    "TS1_s",
+    "TS2_s"
+  ],
+  "scaler": "GeneralizedLinearScaler",
+  "mode": "BEP",
+  "reaction_model_run_called": false,
+  "probe_data_cache_created": false,
+  "coefficients": [
+    {
+      "catmap_version": "0.3.1",
+      "path": "NEB1_path2",
+      "transition_state": "TS1_s",
+      "initial_state": "Rpair_s",
+      "final_state": "EpoxideHHO_s",
+      "transition_state_scaling_mode": "BEP",
+      "official_alpha": 0.3671966216345435,
+      "official_beta_eV": 0.9072422406323891,
+      "coefficient_source": "CatMAP GeneralizedLinearScaler.get_transition_state_scaling_matrix",
+      "reaction_model_run_called": false
+    },
+    {
+      "catmap_version": "0.3.1",
+      "path": "NEB2_path4",
+      "transition_state": "TS2_s",
+      "initial_state": "HHO_s",
+      "final_state": "OHHa_s",
+      "transition_state_scaling_mode": "BEP",
+      "official_alpha": 0.07921317668646777,
+      "official_beta_eV": 0.1995116589961294,
+      "coefficient_source": "CatMAP GeneralizedLinearScaler.get_transition_state_scaling_matrix",
+      "reaction_model_run_called": false
+    }
+  ]
+}

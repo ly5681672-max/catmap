@@ -1,0 +1,60 @@
+# Independent CatMAP 0.3.1 two-descriptor exploration.
+# This uses the unchanged 6-step network, the frozen Gibbs input and the
+# strict baseline conditions; only the descriptor axes are TS1_s and TS2_s.
+rxn_expressions = [
+    '* + H2O2_g + C6H12_g <-> Rpair*',
+    'Rpair* <-> TS1* -> EpoxideHHO*',
+    'EpoxideHHO* <-> HHO* + C6H12O_g',
+    'HHO* <-> TS2* -> OHHa*',
+    'OHHa* <-> H2O*',
+    'H2O* <-> H2O_g + *',
+]
+
+surface_names = [
+    'tife', 'timn', 'tihf', 'tire', 'timo', 'tiv', 'tico',
+    'titi', 'tiw', 'tita', 'ticr', 'ti', 'tini',
+]
+descriptor_names = ['TS1_s', 'TS2_s']
+descriptor_ranges = [[-34.566395, -32.451521], [-7.921799, -4.880121]]
+resolution = [5, 5]
+descriptor_decimal_precision = 8
+avoid_scaling = True
+
+temperature = 333.15
+pressure = 1.0
+pressure_mode = 'concentration'
+species_definitions = {}
+species_definitions['s'] = {'site_names': ['active'], 'total': 1}
+species_definitions['H2O2_g'] = {'concentration': 0.185}
+species_definitions['C6H12_g'] = {'concentration': 1.0}
+species_definitions['H2O_g'] = {'concentration': 0.815}
+species_definitions['C6H12O_g'] = {'concentration': 1e-20}
+species_definitions['Rpair_s'] = {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1}
+species_definitions['TS1_s'] = {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1}
+species_definitions['EpoxideHHO_s'] = {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1}
+species_definitions['HHO_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+species_definitions['TS2_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+species_definitions['OHHa_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+species_definitions['H2O_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+
+input_file = 'H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_scaling_and_TS_reconstruction\\data\\source_strict_energies.txt'
+parser = 'TableParser'
+scaler = 'GeneralizedLinearScaler'
+solver = 'SteadyStateSolver'
+mapper = 'MinResidMapper'
+gas_thermo_mode = 'frozen_gas'
+adsorbate_thermo_mode = 'frozen_adsorbate'
+estimate_frequencies = False
+numerical_representation = 'mpmath'
+decimal_precision = 75
+use_numbers_solver = True
+tolerance = 1e-70
+max_rootfinding_iterations = 300
+max_damping_iterations = 50
+max_bisections = 3
+max_initial_guesses = 3
+default_constraints = ['+', '+', None]
+transition_state_scaling_mode = 'BEP'
+output_variables = ['coverage', 'turnover_frequency']
+data_file = 'H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_scaling_and_TS_reconstruction\\reports\\catmap_bep_mode_probe_not_run.pkl'
+log_file = 'catmap_ts1_ts2_5x5.log'

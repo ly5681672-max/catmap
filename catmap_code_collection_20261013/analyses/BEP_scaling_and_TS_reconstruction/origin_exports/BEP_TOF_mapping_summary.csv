@@ -1,0 +1,14 @@
+surface_name,catalyst,NEB1_chain_predictor,NEB2_chain_predictor,TS1_LOOCV_prediction_eV,TS2_LOOCV_prediction_eV,existing_grid_bounds_supported,nearest_saved_VectorMap_TS1_eV,nearest_saved_VectorMap_TS2_eV,nearest_saved_interpolated_log10_TOF,mapping_method
+tife,Ti-Fe,Ha,Hb,-33.2385355006615,-6.653639737906809,True,-33.23598554135339,-6.656338979949874,-4.851663891719182,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+timn,Ti-Mn,Ha,Hb,-33.493488934356975,-6.588323734800901,True,-33.495706909774434,-6.587729701754386,-6.863566135182324,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tihf,Ti-Hf,Ha,Hb,-33.023055329614266,-5.457735571057242,True,-33.02396809774436,-5.459488238095238,-16.72037376047191,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tire,Ti-Re,Ha,Hb,-33.252407144964224,-5.890359319925767,True,-33.25188684962406,-5.894013666666666,-13.1506131352149,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+timo,Ti-Mo,Ha,Hb,-33.348291747209274,-6.099599527449312,True,-33.34729469924812,-6.099841501253133,-11.398191313677344,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tiv,Ti-V,Ha,Hb,-33.16329345632961,-5.940102681550907,True,-33.16177943609023,-5.939753185463659,-12.216040700158189,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tico,Ti-Co,Ha,Hb,-33.29974099634102,-6.528871473800085,True,-33.29959077443609,-6.526743676691729,-6.560757655458057,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+titi,Ti-Ti,Ha,Hb,-33.31666951310103,-6.168479744830143,True,-33.31549208270677,-6.168450779448621,-10.502539084144418,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tiw,Ti-W,Ha,Hb,-33.078989372811584,-5.585387142193453,True,-33.076972458646615,-5.589083541353384,-15.582384672028493,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tita,Ti-Ta,Ha,Hb,-33.07603440341514,-5.475413055131213,True,-33.076972458646615,-5.474734744360902,-16.815545367644727,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+ticr,Ti-Cr,Ha,Hb,-33.431481085620746,-6.09919914178434,True,-33.43210167669173,-6.099841501253133,-11.813540160288165,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+ti,Ti,Ha,Hb,-32.49659081269971,-7.837033569479957,True,-32.499224924812026,-7.837943215538846,-3.9816378899731366,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve
+tini,Ti-Ni,Ha,Hb,-34.17945346257212,-7.118324203603756,True,-34.17946316541354,-7.121357421052632,-4.457566289966728,nearest node in previously saved 400x400 CatMAP VectorMap interpolation; not a new solve

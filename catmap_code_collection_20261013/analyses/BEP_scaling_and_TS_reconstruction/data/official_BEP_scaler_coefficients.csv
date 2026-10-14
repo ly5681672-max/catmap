@@ -1,0 +1,3 @@
+﻿catmap_version,path,transition_state,initial_state,final_state,transition_state_scaling_mode,official_alpha,official_beta_eV,coefficient_source,reaction_model_run_called
+0.3.1,NEB1_path2,TS1_s,Rpair_s,EpoxideHHO_s,BEP,0.3671966216345435,0.9072422406323891,CatMAP GeneralizedLinearScaler.get_transition_state_scaling_matrix,False
+0.3.1,NEB2_path4,TS2_s,HHO_s,OHHa_s,BEP,0.07921317668646777,0.1995116589961294,CatMAP GeneralizedLinearScaler.get_transition_state_scaling_matrix,False

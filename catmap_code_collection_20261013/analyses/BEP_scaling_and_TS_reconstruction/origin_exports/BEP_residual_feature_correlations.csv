@@ -1,0 +1,23 @@
+path,candidate_feature,N,pearson_r,spearman_r,reference_note
+NEB1_path2,overall_coadsorption_dG1_strict,13,0.03267683841060562,0.0,strict six-step gas and Rpair energy; not pure interaction energy
+NEB1_path2,HHO_strict_initial_state_overlap,13,-0.2418257540467968,-0.2857142857142857,strict BEP2 initial-state energy; overlaps the reaction-energy coordinate
+NEB1_path2,OHHa_strict_final_state_overlap,13,0.008682544934825733,-0.15934065934065936,strict BEP2 final-state energy; overlaps the reaction-energy coordinate
+NEB1_path2,C6H12_star_legacy,13,0.3322478174065114,-0.17032967032967034,historical single-adsorbate reference; not closed against strict slab
+NEB1_path2,C6H12_adsorption_legacy,13,0.3322478174065114,-0.17032967032967034,historical gas-to-adsorbate difference; reference conditional
+NEB1_path2,C6H12O_star_legacy_postreaction,13,-0.09087615837458532,0.14835164835164835,historical product-side adsorbate; post-reaction diagnostic
+NEB1_path2,O_star_legacy,13,0.3503736368622968,0.1758241758241758,historical single-adsorbate reference; slab closure not validated
+NEB1_path2,Ha_star_legacy,13,-0.14527984451419307,-0.34065934065934067,historical single-adsorbate reference; slab closure not validated
+NEB1_path2,Hb_star_legacy,13,-0.3971560944513772,-0.34615384615384615,historical single-adsorbate reference; slab closure not validated
+NEB1_path2,OOH_star_legacy,13,0.4849356880429993,0.18131868131868134,historical descriptor; not an independent strict-network OOH state
+NEB1_path2,OH_star_legacy,13,0.5302468351966594,0.23076923076923078,historical single-adsorbate reference; slab closure not validated
+NEB2_path4,overall_coadsorption_dG1_strict,13,-0.0553793970862588,-0.049450549450549455,strict six-step gas and Rpair energy; not pure interaction energy
+NEB2_path4,HHO_strict_initial_state_overlap,13,0.02126812043425476,-0.06593406593406594,strict BEP2 initial-state energy; overlaps the reaction-energy coordinate
+NEB2_path4,OHHa_strict_final_state_overlap,13,0.03306789686172314,0.17032967032967034,strict BEP2 final-state energy; overlaps the reaction-energy coordinate
+NEB2_path4,C6H12_star_legacy,13,-0.03710863882394199,0.32967032967032966,historical single-adsorbate reference; not closed against strict slab
+NEB2_path4,C6H12_adsorption_legacy,13,-0.03710863882394202,0.32967032967032966,historical gas-to-adsorbate difference; reference conditional
+NEB2_path4,C6H12O_star_legacy_postreaction,13,0.0953713454687028,0.03296703296703297,historical product-side adsorbate; post-reaction diagnostic
+NEB2_path4,O_star_legacy,13,0.2530173523042234,0.22527472527472525,historical single-adsorbate reference; slab closure not validated
+NEB2_path4,Ha_star_legacy,13,0.34708068565790734,0.2087912087912088,historical single-adsorbate reference; slab closure not validated
+NEB2_path4,Hb_star_legacy,13,0.1284030825638412,0.06593406593406594,historical single-adsorbate reference; slab closure not validated
+NEB2_path4,OOH_star_legacy,13,0.301439974401696,0.37912087912087916,historical descriptor; not an independent strict-network OOH state
+NEB2_path4,OH_star_legacy,13,0.4684775713730706,0.5934065934065934,historical single-adsorbate reference; slab closure not validated
