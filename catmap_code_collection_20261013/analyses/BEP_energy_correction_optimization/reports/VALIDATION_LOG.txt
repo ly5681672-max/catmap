@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "catalysts": 13,
+  "subset_11_excludes": [
+    "tiw",
+    "tita"
+  ],
+  "figures_png": 7,
+  "figures_pdf": 7,
+  "origin_csv_count": 8,
+  "metrics_checked": 6
+}

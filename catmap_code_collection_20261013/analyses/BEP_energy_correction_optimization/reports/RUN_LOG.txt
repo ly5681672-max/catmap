@@ -1,0 +1,96 @@
+{
+  "n": 13,
+  "models_13": [
+    {
+      "subset": "13site_refit",
+      "model": "traditional_BEP",
+      "n": 13,
+      "R2": 0.20542753321490226,
+      "RMSE_eV": 0.41769472237702737,
+      "MAE_eV": 0.3060266415967597,
+      "MaxAbsError_eV": 1.181314939798671,
+      "LOOCV_RMSE_eV": 0.713430672265598,
+      "LOOCV_R2": -1.3180302002989759
+    },
+    {
+      "subset": "13site_refit",
+      "model": "model_A_OH_Ha_OOH",
+      "n": 13,
+      "R2": 0.6305746995970117,
+      "RMSE_eV": 0.2848102070492015,
+      "MAE_eV": 0.22260162438547726,
+      "MaxAbsError_eV": 0.6003518931962681,
+      "LOOCV_RMSE_eV": 0.7135941784373467,
+      "LOOCV_R2": -1.3190928282188668
+    },
+    {
+      "subset": "13site_refit",
+      "model": "model_B_OH_Ha_OHHa",
+      "n": 13,
+      "R2": 0.6756588733318574,
+      "RMSE_eV": 0.2668659977374489,
+      "MAE_eV": 0.2149001153760896,
+      "MaxAbsError_eV": 0.5235841683372784,
+      "LOOCV_RMSE_eV": 0.6710370996105984,
+      "LOOCV_R2": -1.0507305415725683
+    },
+    {
+      "subset": "13site_refit",
+      "model": "variable_slope_OH",
+      "n": 13,
+      "R2": 0.7563994313961024,
+      "RMSE_eV": 0.23127643312808743,
+      "MAE_eV": 0.1742929507795445,
+      "MaxAbsError_eV": 0.5154991654226431,
+      "LOOCV_RMSE_eV": 0.41967788966321284,
+      "LOOCV_R2": 0.19786454126337694
+    }
+  ],
+  "models_11": [
+    {
+      "subset": "11site_refit",
+      "model": "traditional_BEP",
+      "n": 11,
+      "R2": 0.2934875237790152,
+      "RMSE_eV": 0.1293215971404056,
+      "MAE_eV": 0.10709327828566426,
+      "MaxAbsError_eV": 0.2335333906902769,
+      "LOOCV_RMSE_eV": 0.15493160674324694,
+      "LOOCV_R2": -0.014046255986406297
+    },
+    {
+      "subset": "11site_refit",
+      "model": "model_A_OH_Ha_OOH",
+      "n": 11,
+      "R2": 0.726991148088036,
+      "RMSE_eV": 0.0803895330784755,
+      "MAE_eV": 0.05086374322089957,
+      "MaxAbsError_eV": 0.23720340457364397,
+      "LOOCV_RMSE_eV": 0.24524902087147954,
+      "LOOCV_R2": -1.5409275414299466
+    },
+    {
+      "subset": "11site_refit",
+      "model": "model_B_OH_Ha_OHHa",
+      "n": 11,
+      "R2": 0.704215871469061,
+      "RMSE_eV": 0.08367554989520552,
+      "MAE_eV": 0.06407815417454596,
+      "MaxAbsError_eV": 0.2024313671381166,
+      "LOOCV_RMSE_eV": 0.1420619388540508,
+      "LOOCV_R2": 0.14742382651260544
+    },
+    {
+      "subset": "11site_refit",
+      "model": "variable_slope_OH",
+      "n": 11,
+      "R2": 0.31032408497634456,
+      "RMSE_eV": 0.12777140539262358,
+      "MAE_eV": 0.10666166100518545,
+      "MaxAbsError_eV": 0.21224719736705416,
+      "LOOCV_RMSE_eV": 0.6140058197401889,
+      "LOOCV_R2": -14.926586011181724
+    }
+  ],
+  "out": "C:\\Users\\Administrator\\Documents\\codexÌ½Ë÷\\catmap_neb_coadsorption_model\\analyses\\BEP_energy_correction_optimization"
+}
