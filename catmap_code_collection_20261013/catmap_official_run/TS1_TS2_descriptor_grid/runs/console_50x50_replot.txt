@@ -1,0 +1,106 @@
+G:\anaconda\Lib\site-packages\catmap\analyze\analysis_base.py:330: UserWarning: The following kwargs were not used by contour: 'title'
+  plot = getattr(ax,self.plot_function)(*plot_in,**plot_args)
+{
+  "catmap_version": "0.3.1",
+  "resolution": [
+    50,
+    50
+  ],
+  "computed_nodes": 2500,
+  "surface_names": [
+    "tife",
+    "timn",
+    "tihf",
+    "tire",
+    "timo",
+    "tiv",
+    "tico",
+    "titi",
+    "tiw",
+    "tita",
+    "ticr",
+    "ti",
+    "tini"
+  ],
+  "descriptor_names": [
+    "TS1_s",
+    "TS2_s"
+  ],
+  "temperature_K": 333.15,
+  "reservoir_concentrations": {
+    "C6H12_g": 1.0,
+    "H2O2_g": 0.185,
+    "H2O_g": 0.815,
+    "C6H12O_g": 1e-20
+  },
+  "scaler": "GeneralizedLinearScaler",
+  "solver": "SteadyStateSolver",
+  "mapper": "MinResidMapper",
+  "tolerance": "1e-70",
+  "maximum_recomputed_steady_state_residual": "9.79100920169101e-71",
+  "decimal_precision": 75,
+  "avoid_scaling": true,
+  "descriptor_decimal_precision": 8,
+  "max_bisections": 3,
+  "max_initial_guesses": 3,
+  "all_grid_nodes_positive_and_finite": true,
+  "maximum": {
+    "TS1_s_eV": -33.31473487755102,
+    "TS2_s_eV": -7.673498755102041,
+    "CatMAP_log10_TOF_C6H12O": 4.82189965425523,
+    "CatMAP_TOF_C6H12O": 66358.97272176265,
+    "grid_resolution": [
+      50,
+      50
+    ],
+    "boundary_maximum": false,
+    "classification": "interior grid maximum; local neighborhood requires inspection"
+  },
+  "official_VectorMap_400x400_interpolated_maximum": {
+    "TS1_s_eV": -33.31019164661654,
+    "TS2_s_eV": -7.647361887218045,
+    "CatMAP_VectorMap_interpolated_log10_TOF_C6H12O": 4.8320397768302605,
+    "interpolated_TOF_C6H12O": 67926.58434119057,
+    "source": "CatMAP 0.3.1 ReactionModel.map_to_array via VectorMap; not an independent solver node"
+  },
+  "vector_map_interpolation": "CatMAP 0.3.1 ReactionModel.map_to_array cubic interpolation used by VectorMap",
+  "vector_map_400x400_is_independent_solver_run": false,
+  "grid_descriptor_ranges": [
+    [
+      -34.566395,
+      -32.451521
+    ],
+    [
+      -7.921799,
+      -4.880121
+    ]
+  ],
+  "actual_catalysts_overlaid": [
+    "Ti-Fe",
+    "Ti-Mn",
+    "Ti-Hf",
+    "Ti-Re",
+    "Ti-Mo",
+    "Ti-V",
+    "Ti-Co",
+    "Ti-Ti",
+    "Ti-W",
+    "Ti-Ta",
+    "Ti-Cr",
+    "Ti",
+    "Ti-Ni"
+  ],
+  "outputs": [
+    "catmap_grid_maximum.csv",
+    "catmap_TS1_TS2_50x50_matrix.csv",
+    "catmap_TS1_TS2_50x50_xyz.csv",
+    "catmap_TS1_TS2_activity_grid_50x50.pdf",
+    "catmap_TS1_TS2_activity_grid_50x50.png",
+    "catmap_VectorMap_400x400_from_grid_50x50.pdf",
+    "catmap_VectorMap_400x400_from_grid_50x50.png",
+    "catmap_VectorMap_interpolated_400x400_matrix.csv",
+    "catmap_VectorMap_interpolated_400x400_xyz.csv",
+    "catmap_VectorMap_interpolated_maximum.csv",
+    "validated_catalyst_points.csv"
+  ]
+}

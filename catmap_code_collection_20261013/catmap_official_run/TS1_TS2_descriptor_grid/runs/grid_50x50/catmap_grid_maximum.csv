@@ -1,0 +1,2 @@
+﻿TS1_s_eV,TS2_s_eV,CatMAP_log10_TOF_C6H12O,CatMAP_TOF_C6H12O,grid_resolution,boundary_maximum,classification
+-33.31473487755102,-7.673498755102041,4.82189965425523,66358.97272176265,"[50, 50]",False,interior discrete-grid local maximum; all eight neighboring nodes are lower; not continuous optimization

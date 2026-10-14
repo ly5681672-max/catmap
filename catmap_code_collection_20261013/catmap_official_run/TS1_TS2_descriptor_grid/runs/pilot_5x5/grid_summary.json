@@ -1,0 +1,90 @@
+{
+  "catmap_version": "0.3.1",
+  "resolution": [
+    5,
+    5
+  ],
+  "computed_nodes": 25,
+  "surface_names": [
+    "tife",
+    "timn",
+    "tihf",
+    "tire",
+    "timo",
+    "tiv",
+    "tico",
+    "titi",
+    "tiw",
+    "tita",
+    "ticr",
+    "ti",
+    "tini"
+  ],
+  "descriptor_names": [
+    "TS1_s",
+    "TS2_s"
+  ],
+  "temperature_K": 333.15,
+  "reservoir_concentrations": {
+    "C6H12_g": 1.0,
+    "H2O2_g": 0.185,
+    "H2O_g": 0.815,
+    "C6H12O_g": 1e-20
+  },
+  "scaler": "GeneralizedLinearScaler",
+  "solver": "SteadyStateSolver",
+  "mapper": "MinResidMapper",
+  "tolerance": "1e-70",
+  "decimal_precision": 75,
+  "avoid_scaling": true,
+  "descriptor_decimal_precision": 8,
+  "max_bisections": 3,
+  "max_initial_guesses": 3,
+  "all_grid_nodes_positive_and_finite": true,
+  "maximum": {
+    "TS1_s_eV": -33.508958,
+    "TS2_s_eV": -7.921799,
+    "CatMAP_log10_TOF_C6H12O": 4.027554740314952,
+    "CatMAP_TOF_C6H12O": 10655.031557322454,
+    "grid_resolution": [
+      5,
+      5
+    ],
+    "boundary_maximum": true,
+    "classification": "maximum within sampled range (boundary)"
+  },
+  "grid_descriptor_ranges": [
+    [
+      -34.566395,
+      -32.451521
+    ],
+    [
+      -7.921799,
+      -4.880121
+    ]
+  ],
+  "actual_catalysts_overlaid": [
+    "Ti-Fe",
+    "Ti-Mn",
+    "Ti-Hf",
+    "Ti-Re",
+    "Ti-Mo",
+    "Ti-V",
+    "Ti-Co",
+    "Ti-Ti",
+    "Ti-W",
+    "Ti-Ta",
+    "Ti-Cr",
+    "Ti",
+    "Ti-Ni"
+  ],
+  "outputs": [
+    "catmap_grid_maximum.csv",
+    "catmap_TS1_TS2_5x5_matrix.csv",
+    "catmap_TS1_TS2_5x5_xyz.csv",
+    "catmap_TS1_TS2_activity_pilot_5x5.pdf",
+    "catmap_TS1_TS2_activity_pilot_5x5.png",
+    "catmap_VectorMap_pilot_5x5.pdf",
+    "validated_catalyst_points.csv"
+  ]
+}

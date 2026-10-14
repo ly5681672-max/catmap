@@ -1,0 +1,637 @@
+{
+  "catmap_version": "0.3.1",
+  "surface_count": 13,
+  "surface_names": [
+    "tife",
+    "timn",
+    "tihf",
+    "tire",
+    "timo",
+    "tiv",
+    "tico",
+    "titi",
+    "tiw",
+    "tita",
+    "ticr",
+    "ti",
+    "tini"
+  ],
+  "descriptor_names": [
+    "TS1_s",
+    "TS2_s"
+  ],
+  "descriptor_ranges": [
+    [
+      -34.566395,
+      -32.451521
+    ],
+    [
+      -7.921799,
+      -4.880121
+    ]
+  ],
+  "resolution": [
+    5,
+    5
+  ],
+  "scaler": "GeneralizedLinearScaler",
+  "solver": "SteadyStateSolver",
+  "mapper": "MinResidMapper",
+  "coefficient_matrix_shape": [
+    7,
+    3
+  ],
+  "avoid_scaling": true,
+  "descriptor_decimal_precision": 8,
+  "all_raw_anchor_checks_passed": true,
+  "raw_anchor_state_check_count": 91,
+  "non_anchor_scaled_check_passed": true,
+  "non_anchor_state_checks": {
+    "EpoxideHHO_s": {
+      "scaled_prediction_eV": -35.6209197039911,
+      "returned_eV": -35.620919703991106,
+      "absolute_error_eV": 7.105427357601002e-15
+    },
+    "H2O_s": {
+      "scaled_prediction_eV": -7.927664479929972,
+      "returned_eV": -7.927664479929972,
+      "absolute_error_eV": 0.0
+    },
+    "HHO_s": {
+      "scaled_prediction_eV": -6.513003666704463,
+      "returned_eV": -6.5130036667044635,
+      "absolute_error_eV": 8.881784197001252e-16
+    },
+    "OHHa_s": {
+      "scaled_prediction_eV": -7.637436453884398,
+      "returned_eV": -7.637436453884397,
+      "absolute_error_eV": 8.881784197001252e-16
+    },
+    "Rpair_s": {
+      "scaled_prediction_eV": -33.58576656612315,
+      "returned_eV": -33.58576656612315,
+      "absolute_error_eV": 0.0
+    }
+  },
+  "anchor_checks": [
+    {
+      "surface_name": "tife",
+      "descriptor_1": -34.502614,
+      "descriptor_2": -7.921799,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -36.841013,
+          "returned_eV": -36.841013,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -8.549732,
+          "returned_eV": -8.549732,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -8.09478,
+          "returned_eV": -8.09478,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -8.711846,
+          "returned_eV": -8.711846,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -34.66203,
+          "returned_eV": -34.66203,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -34.502614,
+          "returned_eV": -34.502614,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -7.921799,
+          "returned_eV": -7.921799,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "timn",
+      "descriptor_1": -33.017608,
+      "descriptor_2": -6.015056,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.502875,
+          "returned_eV": -35.502875,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.66431,
+          "returned_eV": -7.66431,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -6.20477,
+          "returned_eV": -6.20477,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.500589,
+          "returned_eV": -7.500589,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.351908,
+          "returned_eV": -33.351908,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -33.017608,
+          "returned_eV": -33.017608,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -6.015056,
+          "returned_eV": -6.015056,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tihf",
+      "descriptor_1": -32.775798,
+      "descriptor_2": -4.880121,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.419399,
+          "returned_eV": -35.419399,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.729694,
+          "returned_eV": -7.729694,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -5.104086,
+          "returned_eV": -5.104086,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.369564,
+          "returned_eV": -7.369564,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.00764,
+          "returned_eV": -33.00764,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -32.775798,
+          "returned_eV": -32.775798,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -4.880121,
+          "returned_eV": -4.880121,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tire",
+      "descriptor_1": -32.94104,
+      "descriptor_2": -6.177019,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.313318,
+          "returned_eV": -35.313318,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.772397,
+          "returned_eV": -7.772397,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -6.394892,
+          "returned_eV": -6.394892,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.207727,
+          "returned_eV": -7.207727,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.385886,
+          "returned_eV": -33.385886,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -32.94104,
+          "returned_eV": -32.94104,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -6.177019,
+          "returned_eV": -6.177019,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "timo",
+      "descriptor_1": -32.903373,
+      "descriptor_2": -5.854553,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -34.989943,
+          "returned_eV": -34.989943,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.833472,
+          "returned_eV": -7.833472,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -5.841733,
+          "returned_eV": -5.841733,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.616676,
+          "returned_eV": -7.616676,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.041557,
+          "returned_eV": -33.041557,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -32.903373,
+          "returned_eV": -32.903373,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -5.854553,
+          "returned_eV": -5.854553,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tiv",
+      "descriptor_1": -32.597286,
+      "descriptor_2": -5.450012,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -34.942029,
+          "returned_eV": -34.942029,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.570105,
+          "returned_eV": -7.570105,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -5.425335,
+          "returned_eV": -5.425335,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -6.910664,
+          "returned_eV": -6.910664,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -32.754435,
+          "returned_eV": -32.754435,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -32.597286,
+          "returned_eV": -32.597286,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -5.450012,
+          "returned_eV": -5.450012,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tico",
+      "descriptor_1": -34.041743,
+      "descriptor_2": -6.132771,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -34.837773,
+          "returned_eV": -34.837773,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.440454,
+          "returned_eV": -7.440454,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -6.358765,
+          "returned_eV": -6.358765,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -6.839345,
+          "returned_eV": -6.839345,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -34.598087,
+          "returned_eV": -34.598087,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -34.041743,
+          "returned_eV": -34.041743,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -6.132771,
+          "returned_eV": -6.132771,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "titi",
+      "descriptor_1": -33.036814,
+      "descriptor_2": -6.607812,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.74312,
+          "returned_eV": -35.74312,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -8.566935,
+          "returned_eV": -8.566935,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -6.763999,
+          "returned_eV": -6.763999,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -8.198049,
+          "returned_eV": -8.198049,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.331431,
+          "returned_eV": -33.331431,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -33.036814,
+          "returned_eV": -33.036814,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -6.607812,
+          "returned_eV": -6.607812,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tiw",
+      "descriptor_1": -33.366912,
+      "descriptor_2": -5.866817,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.476045,
+          "returned_eV": -35.476045,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.877219,
+          "returned_eV": -7.877219,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -5.975055,
+          "returned_eV": -5.975055,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.378142,
+          "returned_eV": -7.378142,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -32.800261,
+          "returned_eV": -32.800261,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -33.366912,
+          "returned_eV": -33.366912,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -5.866817,
+          "returned_eV": -5.866817,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tita",
+      "descriptor_1": -34.566395,
+      "descriptor_2": -5.782189,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.844296,
+          "returned_eV": -35.844296,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -8.072482,
+          "returned_eV": -8.072482,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -5.798156,
+          "returned_eV": -5.798156,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.810579,
+          "returned_eV": -7.810579,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.391759,
+          "returned_eV": -33.391759,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -34.566395,
+          "returned_eV": -34.566395,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -5.782189,
+          "returned_eV": -5.782189,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "ticr",
+      "descriptor_1": -32.625732,
+      "descriptor_2": -6.159078,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.403996,
+          "returned_eV": -35.403996,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.812039,
+          "returned_eV": -7.812039,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -5.965923,
+          "returned_eV": -5.965923,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.404774,
+          "returned_eV": -7.404774,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -33.146137,
+          "returned_eV": -33.146137,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -32.625732,
+          "returned_eV": -32.625732,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -6.159078,
+          "returned_eV": -6.159078,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "ti",
+      "descriptor_1": -32.451521,
+      "descriptor_2": -7.043893,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.080784,
+          "returned_eV": -35.080784,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.426043,
+          "returned_eV": -7.426043,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -7.320964,
+          "returned_eV": -7.320964,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -6.915569,
+          "returned_eV": -6.915569,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -32.645084,
+          "returned_eV": -32.645084,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -32.451521,
+          "returned_eV": -32.451521,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -7.043893,
+          "returned_eV": -7.043893,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    },
+    {
+      "surface_name": "tini",
+      "descriptor_1": -33.553242,
+      "descriptor_2": -7.334101,
+      "state_checks": {
+        "EpoxideHHO_s": {
+          "raw_eV": -35.991633,
+          "returned_eV": -35.991633,
+          "absolute_error_eV": 0.0
+        },
+        "H2O_s": {
+          "raw_eV": -7.903475,
+          "returned_eV": -7.903475,
+          "absolute_error_eV": 0.0
+        },
+        "HHO_s": {
+          "raw_eV": -7.367208,
+          "returned_eV": -7.367208,
+          "absolute_error_eV": 0.0
+        },
+        "OHHa_s": {
+          "raw_eV": -7.941617,
+          "returned_eV": -7.941617,
+          "absolute_error_eV": 0.0
+        },
+        "Rpair_s": {
+          "raw_eV": -34.070412,
+          "returned_eV": -34.070412,
+          "absolute_error_eV": 0.0
+        },
+        "TS1_s": {
+          "raw_eV": -33.553242,
+          "returned_eV": -33.553242,
+          "absolute_error_eV": 0.0
+        },
+        "TS2_s": {
+          "raw_eV": -7.334101,
+          "returned_eV": -7.334101,
+          "absolute_error_eV": 0.0
+        }
+      },
+      "is_raw_anchor": true
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+﻿TS1_s_eV,TS2_s_eV,predicted_log10_TOF,predicted_TOF,inside_observed_rectangle,inside_catalyst_convex_hull,peak_type
+-33.28304478366853,-7.713785160302973,0.6029781557352507,4.008465552286179,True,False,empirical quadratic stationary maximum; outside catalyst convex hull
