@@ -170,7 +170,7 @@ def main():
                          "axes.spines.top": False, "axes.spines.right": False,
                          "pdf.fonttype": 42, "ps.fonttype": 42})
 
-    fig, ax = plt.subplots(figsize=(8.2, 4.7), layout="constrained")
+    fig, ax = plt.subplots(figsize=(8.2, 8), layout="constrained")
     y = list(range(len(ordered)))
     for yi, row in zip(y, ordered):
         key = row["surface"]
