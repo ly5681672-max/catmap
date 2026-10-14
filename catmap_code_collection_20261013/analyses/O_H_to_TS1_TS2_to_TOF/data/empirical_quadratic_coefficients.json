@@ -1,0 +1,39 @@
+{
+  "model": "z=c0+c1*u+c2*v+c3*u^2+c4*u*v+c5*v^2; u=(TS1-mean)/std; v=(TS2-mean)/std",
+  "coefficients_standardized": [
+    -6.771122529866386,
+    0.32135571611799263,
+    -7.8247057134657725,
+    -1.4975631396969489,
+    0.22410203359835065,
+    -2.0761922347832598
+  ],
+  "scales": {
+    "TS1_mean": -33.260006000000004,
+    "TS1_std": 0.6808569484770925,
+    "TS2_mean": -6.248093923076923,
+    "TS2_std": 0.777054273549544
+  },
+  "n": 13,
+  "in_sample_R2": 0.7432570585569894,
+  "in_sample_RMSE_log10TOF": 4.196360726995349,
+  "hessian_eigenvalues": [
+    -4.194265931314916,
+    -2.953244817645501
+  ],
+  "peak": {
+    "TS1_s_eV": -33.28304478366853,
+    "TS2_s_eV": -7.713785160302973,
+    "predicted_log10_TOF": 0.6029781557352507,
+    "predicted_TOF": 4.008465552286179,
+    "inside_observed_rectangle": true,
+    "inside_catalyst_convex_hull": false,
+    "peak_type": "empirical quadratic stationary maximum; outside catalyst convex hull"
+  },
+  "descriptor_ranges_eV": {
+    "TS1_min": -34.566395,
+    "TS1_max": -32.451521,
+    "TS2_min": -7.921799,
+    "TS2_max": -4.880121
+  }
+}

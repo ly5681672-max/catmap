@@ -1,0 +1,39 @@
+{
+  "n_catalysts": 13,
+  "temperature_K": 333.15,
+  "in_sample_R2": 0.7432570585569894,
+  "in_sample_RMSE_log10TOF": 4.196360726995349,
+  "descriptor_rectangle_eV": {
+    "TS1_min": -34.566395,
+    "TS1_max": -32.451521,
+    "TS2_min": -7.921799,
+    "TS2_max": -4.880121
+  },
+  "hessian_eigenvalues": [
+    -4.194265931314916,
+    -2.953244817645501
+  ],
+  "peak": {
+    "TS1_s_eV": -33.28304478366853,
+    "TS2_s_eV": -7.713785160302973,
+    "predicted_log10_TOF": 0.6029781557352507,
+    "predicted_TOF": 4.008465552286179,
+    "inside_observed_rectangle": true,
+    "inside_catalyst_convex_hull": false,
+    "peak_type": "empirical quadratic stationary maximum; outside catalyst convex hull"
+  },
+  "peak_nearest_catalysts_standardized_distance": [
+    [
+      0.629474618857659,
+      "Ti-Ni"
+    ],
+    [
+      1.4685170812143806,
+      "Ti-Ti"
+    ],
+    [
+      1.4949085707081349,
+      "Ti"
+    ]
+  ]
+}

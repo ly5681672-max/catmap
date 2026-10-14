@@ -1,0 +1,122 @@
+[
+  {
+    "descriptor_set": "O+Ha",
+    "activity_source": "empirical_TS_quadratic",
+    "x_range_eV": [
+      -3.581513025,
+      2.244505525
+    ],
+    "y_range_eV": [
+      -4.033044175000001,
+      0.644445675
+    ],
+    "TS_grid_bounds_eV": {
+      "TS1": [
+        -34.566395,
+        -32.451521
+      ],
+      "TS2": [
+        -7.921799,
+        -4.880121
+      ]
+    },
+    "available": true,
+    "x_eV": 2.244505525,
+    "y_eV": -3.3882774036967422,
+    "log10_TOF": -1.4532172377459438,
+    "TOF": 0.03521946562502146,
+    "valid_grid_points": 160000,
+    "boundary_of_rectangular_grid": true,
+    "eight_neighbor_local_maximum": false
+  },
+  {
+    "descriptor_set": "O+Ha",
+    "activity_source": "saved_CatMAP_VectorMap_interpolation",
+    "x_range_eV": [
+      -3.581513025,
+      2.244505525
+    ],
+    "y_range_eV": [
+      -4.033044175000001,
+      0.644445675
+    ],
+    "TS_grid_bounds_eV": {
+      "TS1": [
+        -34.566395,
+        -32.451521
+      ],
+      "TS2": [
+        -7.921799,
+        -4.880121
+      ]
+    },
+    "available": true,
+    "x_eV": 2.244505525,
+    "y_eV": -4.033044175000001,
+    "log10_TOF": -1.4488302505932855,
+    "TOF": 0.0355770348667736,
+    "valid_grid_points": 160000,
+    "boundary_of_rectangular_grid": true,
+    "eight_neighbor_local_maximum": false
+  },
+  {
+    "descriptor_set": "O+Hb",
+    "activity_source": "empirical_TS_quadratic",
+    "x_range_eV": [
+      -3.581513025,
+      2.244505525
+    ],
+    "y_range_eV": [
+      -4.722526525,
+      0.731329025
+    ],
+    "TS_grid_bounds_eV": {
+      "TS1": [
+        -34.566395,
+        -32.451521
+      ],
+      "TS2": [
+        -7.921799,
+        -4.880121
+      ]
+    },
+    "available": true,
+    "x_eV": 1.4560218114661656,
+    "y_eV": -4.722526525,
+    "log10_TOF": 0.6013316967904103,
+    "TOF": 3.9932977806661114,
+    "valid_grid_points": 160000,
+    "boundary_of_rectangular_grid": true,
+    "eight_neighbor_local_maximum": false
+  },
+  {
+    "descriptor_set": "O+Hb",
+    "activity_source": "saved_CatMAP_VectorMap_interpolation",
+    "x_range_eV": [
+      -3.581513025,
+      2.244505525
+    ],
+    "y_range_eV": [
+      -4.722526525,
+      0.731329025
+    ],
+    "TS_grid_bounds_eV": {
+      "TS1": [
+        -34.566395,
+        -32.451521
+      ],
+      "TS2": [
+        -7.921799,
+        -4.880121
+      ]
+    },
+    "available": true,
+    "x_eV": 2.244505525,
+    "y_eV": -4.722526525,
+    "log10_TOF": 4.823460763150418,
+    "TOF": 66597.93498868222,
+    "valid_grid_points": 155508,
+    "boundary_of_rectangular_grid": true,
+    "eight_neighbor_local_maximum": false
+  }
+]

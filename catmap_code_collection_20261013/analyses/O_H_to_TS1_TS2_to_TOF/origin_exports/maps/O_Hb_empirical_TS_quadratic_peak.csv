@@ -1,0 +1,2 @@
+﻿descriptor_1,descriptor_2,predicted_log10_TOF,predicted_TOF,valid_grid_points,boundary_of_rectangular_grid,eight_neighbor_local_maximum,activity_source
+1.4560218114661656,-4.722526525,0.6013316967904103,3.9932977806661114,160000,True,False,empirical_TS_quadratic
