@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="800" viewBox="0 0 1450 800"><rect width="1450" height="800" fill="#ffffff"/><style>text{font-family:Arial,"Microsoft YaHei",sans-serif;fill:#20314c}.title{font-size:31px;font-weight:700}.sub{font-size:17px;fill:#69788b}.axis{font-size:21px}.tick{font-size:17px;fill:#53647b}.note{font-size:20px}.point{font-size:17px}.metric{font-size:25px;font-weight:700;fill:#15477b}</style>
+<text x="725" y="51" text-anchor="middle" class="title">Rpair* steady-state coverage vs epoxide TOF · 13 catalytic sites</text>
+<text x="725" y="80" text-anchor="middle" class="sub">CatMAP 0.3.1 · 333.15 K · fixed feed · baseline data reused (no new steady-state calculation)</text>
+<line x1="177.08333333333331" y1="125" x2="177.08333333333331" y2="640" stroke="#e8edf3"/><text x="177.08333333333331" y="674" class="tick" text-anchor="middle">-35</text>
+<line x1="305.55555555555554" y1="125" x2="305.55555555555554" y2="640" stroke="#e8edf3"/><text x="305.55555555555554" y="674" class="tick" text-anchor="middle">-30</text>
+<line x1="434.02777777777777" y1="125" x2="434.02777777777777" y2="640" stroke="#e8edf3"/><text x="434.02777777777777" y="674" class="tick" text-anchor="middle">-25</text>
+<line x1="562.5" y1="125" x2="562.5" y2="640" stroke="#e8edf3"/><text x="562.5" y="674" class="tick" text-anchor="middle">-20</text>
+<line x1="690.9722222222222" y1="125" x2="690.9722222222222" y2="640" stroke="#e8edf3"/><text x="690.9722222222222" y="674" class="tick" text-anchor="middle">-15</text>
+<line x1="819.4444444444445" y1="125" x2="819.4444444444445" y2="640" stroke="#e8edf3"/><text x="819.4444444444445" y="674" class="tick" text-anchor="middle">-10</text>
+<line x1="947.9166666666666" y1="125" x2="947.9166666666666" y2="640" stroke="#e8edf3"/><text x="947.9166666666666" y="674" class="tick" text-anchor="middle">-5</text>
+<line x1="100" y1="578.375" x2="1025" y2="578.375" stroke="#e8edf3"/><text x="82" y="584.375" text-anchor="end" class="tick">-25</text>
+<line x1="100" y1="501.34375" x2="1025" y2="501.34375" stroke="#e8edf3"/><text x="82" y="507.34375" text-anchor="end" class="tick">-20</text>
+<line x1="100" y1="424.3125" x2="1025" y2="424.3125" stroke="#e8edf3"/><text x="82" y="430.3125" text-anchor="end" class="tick">-15</text>
+<line x1="100" y1="347.28125" x2="1025" y2="347.28125" stroke="#e8edf3"/><text x="82" y="353.28125" text-anchor="end" class="tick">-10</text>
+<line x1="100" y1="270.25" x2="1025" y2="270.25" stroke="#e8edf3"/><text x="82" y="276.25" text-anchor="end" class="tick">-5</text>
+<line x1="100" y1="193.21875" x2="1025" y2="193.21875" stroke="#e8edf3"/><text x="82" y="199.21875" text-anchor="end" class="tick">0</text>
+<path d="M100 125V640H1025" fill="none" stroke="#32445e" stroke-width="2"/>
+<line x1="100" y1="589.2389992361319" x2="1025" y2="140.50107657758696" stroke="#506479" stroke-width="2.6" stroke-dasharray="11 7"/>
+<circle cx="844.4377171317527" cy="179.5684474085573" r="8.1" fill="#134f9b" stroke="#ffffff" stroke-width="1.7"/>
+<text x="856.4377171317527" y="167.5684474085573" class="point" text-anchor="start">Ti</text>
+<circle cx="988.3857601226101" cy="184.44967574961663" r="8.1" fill="#d99c14" stroke="#ffffff" stroke-width="1.7"/>
+<text x="1003.3857601226101" y="201.44967574961663" class="point" text-anchor="start">Ti–Co</text>
+<circle cx="905.5628969195704" cy="218.33811384957" r="8.1" fill="#048b83" stroke="#ffffff" stroke-width="1.7"/>
+<text x="917.5628969195704" y="209.33811384957" class="point" text-anchor="start">Ti–Ni</text>
+<circle cx="691.9166487250992" cy="263.0609403171956" r="8.1" fill="#dd6337" stroke="#ffffff" stroke-width="1.7"/>
+<text x="706.9166487250992" y="278.0609403171956" class="point" text-anchor="start">Ti–Fe</text>
+<circle cx="763.1735733740898" cy="286.8581184125125" r="8.1" fill="#ae69a6" stroke="#ffffff" stroke-width="1.7"/>
+<text x="779.1735733740898" y="297.8581184125125" class="point" text-anchor="start">Ti–Re</text>
+<circle cx="681.1452866558316" cy="301.0293970218459" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="695.1452866558316" y="319.0293970218459" class="point" text-anchor="start">Ti–Ti</text>
+<circle cx="554.6587725459289" cy="340.41168141802183" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="569.6587725459289" y="331.41168141802183" class="point" text-anchor="start">Ti–Mo</text>
+<circle cx="572.6247236488824" cy="375.34627793763127" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="587.6247236488824" y="398.34627793763127" class="point" text-anchor="start">Ti–Mn</text>
+<circle cx="590.5580242348863" cy="407.96728334622503" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="606.5580242348863" y="394.96728334622503" class="point" text-anchor="start">Ti–Cr</text>
+<circle cx="363.8226759368252" cy="422.63074783245935" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="330.8226759368252" y="439.63074783245935" class="point" text-anchor="end">Ti–W</text>
+<circle cx="418.80188389671474" cy="426.29072917825" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="432.80188389671474" y="416.29072917825" class="point" text-anchor="start">Ti–V</text>
+<circle cx="152.73698822987643" cy="549.6836534848532" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="172.73698822987643" y="535.6836534848532" class="point" text-anchor="start">Ti–Ta</text>
+<circle cx="145.94121214766545" cy="612.4172346517813" r="6.4" fill="#8b93a2" stroke="#ffffff" stroke-width="1.7"/>
+<text x="165.94121214766545" y="605.4172346517813" class="point" text-anchor="start">Ti–Hf</text>
+<text x="562" y="735" class="axis" text-anchor="middle">log₁₀ θ(Rpair*)</text>
+<text transform="translate(29 380) rotate(-90)" text-anchor="middle" class="axis">log₁₀ TOF(C₆H₁₂O, s⁻¹)</text>
+<line x1="1070" y1="131" x2="1070" y2="654" stroke="#dbe4ee"/>
+<text x="1095" y="170" class="metric">OLS R² = 0.9365</text>
+<text x="1095" y="212" class="note">Spearman ρ = 0.9505</text>
+<text x="1095" y="252" class="note">Slope = 0.8091</text>
+<text x="1095" y="292" class="note">N = 13 sites</text>
+<text x="1095" y="351" font-size="21" font-weight="700">Interpretation</text>
+<text x="1095" y="387" font-size="19">Coverage and TOF</text>
+<text x="1095" y="416" font-size="19">are strongly associated</text>
+<text x="1095" y="445" font-size="19">within the same steady-</text>
+<text x="1095" y="474" font-size="19">state model; NOT proof</text>
+<text x="1095" y="503" font-size="19">that Rpair* controls TOF.</text>
+<text x="1095" y="575" font-size="17" fill="#ba463e">Compare with official</text><text x="1095" y="603" font-size="17" fill="#ba463e">DRC (next figure).</text>
+<line x1="90" y1="767" x2="1365" y2="767" stroke="#dce3ed"/>
+<text x="105" y="790" class="sub">Input: coverage_13sites.csv + combined_dG3_coverage_DRC_TOF.csv; no Ti–Zr (unresolved).</text></svg>
