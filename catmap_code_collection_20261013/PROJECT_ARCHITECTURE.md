@@ -37,3 +37,8 @@ O*/Ha*/Hb* 历史形成能与严格 CatMAP TOF 的经验二维图、全矩形 Or
 
 `analyses/empirical_O_H_descriptor_analysis/`
 
+13个位点 CatMAP 微观动力学机制分析（稳态覆盖度、六步通量、有效势垒、官方DRC及TS1–TS2网格覆盖度复核）归档至：
+
+`analyses/microkinetic_mechanism_13sites/`
+
+后续 CatMAP 相关代码和结果继续遵循本文件的功能分区：官方模型/运行放入 `catmap_official_run/`，通用项目脚本与测试分别放入 `scripts/`、`tests/`，研究问题专属的派生数据、脚本、图和报告放入对应的 `analyses/<analysis_name>/` 子目录。归档默认复制，不覆盖原始输入、正式基线或历史分析。

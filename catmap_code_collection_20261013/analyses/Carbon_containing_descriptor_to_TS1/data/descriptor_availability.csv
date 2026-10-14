@@ -1,0 +1,16 @@
+﻿feature_key,n_nonmissing,n_unique,min_eV,max_eV
+C6H12_star_legacy,13,13,-30.1092795,-26.1186915
+C6H12_adsorption_energy_legacy,13,13,-4.078056499999999,-0.08746849999999995
+C6H12O_star_legacy,13,13,-28.152308,-26.952178
+C6H12O_adsorption_energy_legacy,13,13,-0.4845370000000031,0.7155929999999984
+C6H12O_minus_C6H12_legacy,13,13,-1.9736185000000006,1.9960069999999988
+O_star_legacy,13,13,-3.316694,1.9796865
+Ha_star_legacy,13,13,-3.820431,0.4318325
+Hb_star_legacy,13,13,-4.474624,0.4834265
+OOH_star_legacy,13,13,-6.172301,-2.7734525
+OH_star_legacy,13,13,-6.484365,-2.244517
+OOH_C6H12_candidate_legacy,13,13,-41.379613,-30.0549255
+Hb_O_candidate_legacy,13,13,-6.5699505,-1.616619
+Rpair_strict,13,13,-34.66203,-32.645084
+TS1_strict,13,13,-34.566395,-32.451521
+NEB1_forward_energy_difference_TS1_minus_Rpair,13,13,-1.1746359999999996,0.5563440000000028

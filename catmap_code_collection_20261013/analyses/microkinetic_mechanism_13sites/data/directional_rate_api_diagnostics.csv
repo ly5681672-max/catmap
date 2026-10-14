@@ -1,0 +1,7 @@
+﻿step,negative_forward_rows,negative_reverse_rows,maximum_scaled_closure_error
+1,5,0,1.17879055185
+2,0,0,1.84958694262e-16
+3,0,0,1.61127018491e-16
+4,0,0,2.24166271462e-16
+5,0,0,2.00725279696e-16
+6,0,5,1.17386649832

@@ -1,0 +1,16 @@
+﻿feature_key,species_or_contrast,definition,source,status_and_interpretation
+C6H12_star_legacy,C6H12*,single-molecule alkene adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,primary; pre-reaction adsorbate
+C6H12_adsorption_energy_legacy,C6H12* adsorption,Eform(C6H12*) - Eform(C6H12_g),derived from historical gas and adsorbate rows,same site variation as C6H12* formation; constant gas shift; not a new independent feature
+C6H12O_star_legacy,C6H12O*,epoxide product adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,"supplementary; product-related, not a pre-reaction descriptor"
+C6H12O_adsorption_energy_legacy,C6H12O* adsorption,Eform(C6H12O*) - Eform(C6H12O_g),derived from historical gas and adsorbate rows,same site variation as C6H12O* formation; constant gas shift
+C6H12O_minus_C6H12_legacy,C6H12O* - C6H12*,same-surface state-energy difference,derived; common slab cancels algebraically,product-vs-reactant state contrast; exploratory
+O_star_legacy,O*,historical atomic oxygen adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,legacy reference; distinct from H features
+Ha_star_legacy,Ha*,historical Ha adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,legacy reference; not merged with Hb
+Hb_star_legacy,Hb*,historical Hb adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,legacy reference; not merged with Ha
+OOH_star_legacy,OOH*,historical OOH adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,historical single state; thermal/reference comparability conditional
+OH_star_legacy,OH*,historical OH adsorbate formation energy,historical DFT_formation_catmap.txt; DFT_Gibbs_single,historical single state; thermal/reference comparability conditional
+OOH_C6H12_candidate_legacy,OOH-C6H12*,historical candidate-state formation energy,DFT_Gibbs_TS_candidate,excluded from primary ranking: possible TS1 information overlap; structure identity unverified
+Hb_O_candidate_legacy,Hb-O*,historical candidate-state formation energy,DFT_Gibbs_TS_candidate,excluded: candidate transition-state-like state; not an independently verified stable adsorbate descriptor
+Rpair_strict,Rpair*,current six-step model initial coadsorbed-state formation energy,current official energies.txt,network-derived; barrier target includes subtraction of this same state
+TS1_strict,TS1*,current six-step model transition-state formation energy,current official energies.txt,target only; never a predictor
+NEB1_forward_energy_difference_TS1_minus_Rpair,TS1 - Rpair,literal signed NEB1 energy difference,derived from current strict energies.txt,separate target; no clipping of negative values

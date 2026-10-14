@@ -1,0 +1,14 @@
+﻿surface_name,catalyst,Cstar_structure_id,Cstar_geometry_source,Cstar_source_file,Cstar_source_sheet,Cstar_source_cell,Cstar_total_G_eV,Cstar_temperature_K,Cstar_thermo_correction_eV,clean_slab_structure_id,clean_slab_source_file,clean_slab_source_cell,clean_slab_total_G_eV,clean_slab_temperature_K,clean_slab_thermo_correction_eV,mu_C_eV,mu_C_source_and_method,functional_pseudopotential_cutoff_cell_kpoints,spin_charge_settings,formation_energy_formula,Cstar_formation_energy_eV,status
+tife,Ti-Fe,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+timn,Ti-Mn,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tihf,Ti-Hf,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tire,Ti-Re,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+timo,Ti-Mo,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tiv,Ti-V,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tico,Ti-Co,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+titi,Ti-Ti,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tiw,Ti-W,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tita,Ti-Ta,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+ticr,Ti-Cr,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+ti,Ti,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE
+tini,Ti-Ni,,,,,,,,,,,,,,,,,,,G(slab+C*) - G(clean slab) - mu_C,,NEEDS_REAL_CSTAR_DFT_AND_REFERENCE_PROVENANCE

@@ -1,0 +1,94 @@
+{
+  "missing_sites": [
+    "ticr",
+    "tihf",
+    "timn",
+    "timo",
+    "tita",
+    "titi",
+    "tiv",
+    "tiw"
+  ],
+  "runs": [
+    {
+      "surface": "ticr",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\ticr",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\ticr\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\ticr\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\ticr\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\ticr\\rate_control.csv"
+    },
+    {
+      "surface": "tihf",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tihf",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tihf\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tihf\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tihf\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tihf\\rate_control.csv"
+    },
+    {
+      "surface": "timn",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\timn",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\timn\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\timn\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\timn\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\timn\\rate_control.csv"
+    },
+    {
+      "surface": "timo",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\timo",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\timo\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\timo\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\timo\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\timo\\rate_control.csv"
+    },
+    {
+      "surface": "tita",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tita",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tita\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tita\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tita\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tita\\rate_control.csv"
+    },
+    {
+      "surface": "titi",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\titi",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\titi\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\titi\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\titi\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\titi\\rate_control.csv"
+    },
+    {
+      "surface": "tiv",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tiv",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tiv\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tiv\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tiv\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tiv\\rate_control.csv"
+    },
+    {
+      "surface": "tiw",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "run_dir": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tiw",
+      "log_file": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tiw\\catmap_console.log",
+      "source_setup": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tiw\\alkene_epoxidation.mkm",
+      "source_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\catmap_official_run\\results\\official_strict_tolerance\\tiw\\energies.txt",
+      "rate_control_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\catmap_neb_coadsorption_model\\analyses\\microkinetic_mechanism_13sites\\data\\official_drc_runs_supplemental\\tiw\\rate_control.csv"
+    }
+  ]
+}

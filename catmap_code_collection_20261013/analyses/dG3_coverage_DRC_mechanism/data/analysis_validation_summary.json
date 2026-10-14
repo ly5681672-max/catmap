@@ -1,0 +1,29 @@
+{
+  "sites": 13,
+  "unique_surface_names": 13,
+  "CatMAP_recalculated": false,
+  "descriptor_grid_recalculated": false,
+  "condition_search_recalculated": false,
+  "tife": {
+    "authoritative_workbook_sha256": "77b7a4870996cb1b3494b0bca0ce943de89a052c52b978f76501758f536e2815",
+    "project_workbook_sha256": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd",
+    "strict_slab_F4_eV": -869.897259,
+    "historical_slab_G51_eV": -870.962186,
+    "strict_minus_historical_slab_eV": 1.0649270000000115,
+    "strict_minus_historical_E0_eV": 1.05771900000002,
+    "strict_minus_historical_correction_eV": 0.007207999999999992,
+    "state10_F41_eV_not_a_slab": -870.960555,
+    "state10_minus_strict_slab_eV": -1.0632960000000367,
+    "formation_energy_reconstruction": "7/7 tife network species reproduced from strict F4 and atomic references within 2e-6 eV",
+    "temperature_metadata": "333.15 K explicit for F4, F12, F16, F20, F32; blank in C24/C28/C36; no inference/fill applied",
+    "structure_equivalence": "UNRESOLVED: workbook records calculation-path strings, but the archived package contains no matching POSCAR/CONTCAR/OUTCAR evidence to establish same slab composition/structure/setup"
+  },
+  "official_scaler": {
+    "catmap_version": "0.3.1",
+    "cached_grid_nodes": 2500,
+    "anchor_max_abs_dG_diff_eV": 1.2030450395605907e-07,
+    "anchor_max_abs_forward_barrier_diff_eV": 1.203045039144257e-07
+  },
+  "dG3_13site_spearman": -1.0,
+  "dG3_12site_sensitivity_spearman": -1.0
+}

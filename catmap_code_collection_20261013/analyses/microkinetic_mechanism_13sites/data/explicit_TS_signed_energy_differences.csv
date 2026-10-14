@@ -1,0 +1,27 @@
+﻿surface,catalyst,step,TS_species,initial_state,raw_signed_TS_minus_initial_eV,CatMAP_forward_effective_barrier_eV,CatMAP_reverse_effective_barrier_eV,raw_TS_minus_initial_negative,note
+tife,Ti–Fe,2,TS1_s,Rpair_s,0.159416,0.15941600000000022,2.3383989999999955,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tife,Ti–Fe,4,TS2_s,HHO_s,0.172981,0.17298100000000005,0.7900469999999995,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+timn,Ti–Mn,2,TS1_s,Rpair_s,0.334300,0.33429999999999893,2.4852670000000003,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+timn,Ti–Mn,4,TS2_s,HHO_s,0.189714,0.1897139999999995,1.4855329999999993,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tihf,Ti–Hf,2,TS1_s,Rpair_s,0.231842,0.23184200000000033,2.6436009999999968,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tihf,Ti–Hf,4,TS2_s,HHO_s,0.223965,0.22396499999999975,2.4894429999999996,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tire,Ti–Re,2,TS1_s,Rpair_s,0.444846,0.4448459999999983,2.3722780000000014,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tire,Ti–Re,4,TS2_s,HHO_s,0.217873,0.21787299999999998,1.0307080000000006,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+timo,Ti–Mo,2,TS1_s,Rpair_s,0.138184,0.13818399999999542,2.0865699999999947,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+timo,Ti–Mo,4,TS2_s,HHO_s,-0.012820,0,1.7749430000000004,True,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tiv,Ti–V,2,TS1_s,Rpair_s,0.157149,0.15714900000000398,2.344743000000001,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tiv,Ti–V,4,TS2_s,HHO_s,-0.024677,0,1.4853290000000001,True,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tico,Ti–Co,2,TS1_s,Rpair_s,0.556344,0.5563440000000028,0.7960300000000018,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tico,Ti–Co,4,TS2_s,HHO_s,0.225994,0.22599400000000003,0.7065739999999998,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+titi,Ti–Ti,2,TS1_s,Rpair_s,0.294617,0.29461700000000235,2.706305999999998,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+titi,Ti–Ti,4,TS2_s,HHO_s,0.156187,0.15618700000000008,1.5902369999999992,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tiw,Ti–W,2,TS1_s,Rpair_s,-0.566651,0,2.675784,True,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tiw,Ti–W,4,TS2_s,HHO_s,0.108238,0.10823800000000006,1.5113250000000003,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tita,Ti–Ta,2,TS1_s,Rpair_s,-1.174636,0,2.4525369999999995,True,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tita,Ti–Ta,4,TS2_s,HHO_s,0.015967,0.015966999999999842,2.02839,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+ticr,Ti–Cr,2,TS1_s,Rpair_s,0.520405,0.5204050000000038,2.778264,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+ticr,Ti–Cr,4,TS2_s,HHO_s,-0.193155,0,1.4388509999999997,True,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+ti,Ti,2,TS1_s,Rpair_s,0.193563,0.1935629999999975,2.6292630000000017,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+ti,Ti,4,TS2_s,HHO_s,0.277071,0.4053950000000004,0.0,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tini,Ti–Ni,2,TS1_s,Rpair_s,0.517170,0.5171700000000001,2.438391000000003,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.
+tini,Ti–Ni,4,TS2_s,HHO_s,0.033107,0.03310699999999933,0.6075159999999995,False,Raw signed difference preserved; CatMAP effective barrier is a separate model quantity.

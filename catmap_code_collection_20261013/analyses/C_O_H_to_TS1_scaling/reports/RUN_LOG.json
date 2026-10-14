@@ -1,0 +1,91 @@
+{
+  "out_root": "C:\\Users\\Administrator\\Documents\\codex̽��\\catmap_neb_coadsorption_model\\C_O_H_to_TS1_scaling",
+  "Cstar_source_status": "REAL_CSTAR_NOT_FOUND",
+  "matched_sites": 13,
+  "metrics": [
+    {
+      "R2_in_sample": 0.13821023138294164,
+      "RMSE_eV": 0.6320574299045727,
+      "MAE_eV": 0.5281010713483809,
+      "max_abs_error_eV": 1.3879729394884635,
+      "features": "O+Ha",
+      "N": 13,
+      "LOOCV_RMSE_eV": 0.7803079174314577,
+      "intercept_eV": -32.81472602369613,
+      "coefficients": "{\"O\": -0.02062079340732708, \"Ha\": 0.2758055056150705}",
+      "fit_equation": "(-0.0206207934073)*O + (0.275805505615)*Ha + (-32.8147260237)",
+      "data_scope": "13_site_common_O_H_subset",
+      "Cstar_source_status": "UNAVAILABLE"
+    },
+    {
+      "R2_in_sample": 0.13724473483823618,
+      "RMSE_eV": 0.6324113900355903,
+      "MAE_eV": 0.5224093461785672,
+      "max_abs_error_eV": 1.3259801972417193,
+      "features": "Ha+Hb",
+      "N": 13,
+      "LOOCV_RMSE_eV": 0.9381349311591699,
+      "intercept_eV": -32.83184898039226,
+      "coefficients": "{\"Ha\": 0.2792848787400024, \"Hb\": -0.020316534741106944}",
+      "fit_equation": "(0.27928487874)*Ha + (-0.0203165347411)*Hb + (-32.8318489804)",
+      "data_scope": "13_site_common_O_H_subset",
+      "Cstar_source_status": "UNAVAILABLE"
+    },
+    {
+      "R2_in_sample": 0.1355435821170553,
+      "RMSE_eV": 0.6330345670835039,
+      "MAE_eV": 0.5259615242695344,
+      "max_abs_error_eV": 1.3580129417741915,
+      "features": "Ha",
+      "N": 13,
+      "LOOCV_RMSE_eV": 0.7149751184008745,
+      "intercept_eV": -32.80599124729279,
+      "coefficients": "{\"Ha\": 0.27510957694648325}",
+      "fit_equation": "(0.275109576946)*Ha + (-32.8059912473)",
+      "data_scope": "13_site_common_O_H_subset",
+      "Cstar_source_status": "UNAVAILABLE"
+    },
+    {
+      "R2_in_sample": 0.0026659405089015653,
+      "RMSE_eV": 0.679948780732993,
+      "MAE_eV": 0.5749853249235599,
+      "max_abs_error_eV": 1.3185178211814375,
+      "features": "O+Hb",
+      "N": 13,
+      "LOOCV_RMSE_eV": 0.8999191416677145,
+      "intercept_eV": -33.29814240333897,
+      "coefficients": "{\"O\": -0.02612780688652827, \"Hb\": -0.015890358294543886}",
+      "fit_equation": "(-0.0261278068865)*O + (-0.0158903582945)*Hb + (-33.2981424033)",
+      "data_scope": "13_site_common_O_H_subset",
+      "Cstar_source_status": "UNAVAILABLE"
+    },
+    {
+      "R2_in_sample": 0.002024324378130604,
+      "RMSE_eV": 0.6801674617046922,
+      "MAE_eV": 0.5731107768836731,
+      "max_abs_error_eV": 1.3323745022051483,
+      "features": "O",
+      "N": 13,
+      "LOOCV_RMSE_eV": 0.7981833188974287,
+      "intercept_eV": -33.26861568361701,
+      "coefficients": "{\"O\": -0.017963537160698595}",
+      "fit_equation": "(-0.0179635371607)*O + (-33.2686156836)",
+      "data_scope": "13_site_common_O_H_subset",
+      "Cstar_source_status": "UNAVAILABLE"
+    },
+    {
+      "R2_in_sample": 7.314689851356526e-05,
+      "RMSE_eV": 0.6808320467346566,
+      "MAE_eV": 0.5733845429316232,
+      "max_abs_error_eV": 1.3131321984356816,
+      "features": "Hb",
+      "N": 13,
+      "LOOCV_RMSE_eV": 0.843847132189731,
+      "intercept_eV": -33.25327677016068,
+      "coefficients": "{\"Hb\": 0.004174714991969668}",
+      "fit_equation": "(0.00417471499197)*Hb + (-33.2532767702)",
+      "data_scope": "13_site_common_O_H_subset",
+      "Cstar_source_status": "UNAVAILABLE"
+    }
+  ]
+}

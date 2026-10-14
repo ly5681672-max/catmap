@@ -1,0 +1,35 @@
+{
+  "catmap_version": "0.3.1",
+  "surface": "tihf",
+  "temperature_K": 333.15,
+  "pressure_mode": "concentration",
+  "solver_tolerance": "1e-70",
+  "output_labels": [
+    [
+      "C6H12O_g",
+      "C6H12_g",
+      "H2O2_g",
+      "H2O_g"
+    ],
+    [
+      "EpoxideHHO_s",
+      "H2O_s",
+      "HHO_s",
+      "OHHa_s",
+      "Rpair_s",
+      "TS1_s",
+      "TS2_s"
+    ]
+  ],
+  "product_gas": "C6H12O_g",
+  "product_DRC": [
+    -1.0025076044398609,
+    -0.011490473228308118,
+    0.9825986783971913,
+    -0.012051980547290743,
+    -0.0026908267894952165,
+    -0.002709860549238615,
+    -0.018199926184210166
+  ],
+  "method": "CatMAP official get_rate_control; numerical Jacobian of turnover_frequency"
+}

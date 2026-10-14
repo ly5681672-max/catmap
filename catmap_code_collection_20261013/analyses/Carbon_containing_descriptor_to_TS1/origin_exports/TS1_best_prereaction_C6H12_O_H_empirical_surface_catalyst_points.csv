@@ -1,0 +1,14 @@
+﻿surface_name,catalyst_name,x,y,actual_target_eV,TOF_C6H12O,log10_TOF,point_type
+tife,Ti-Fe,-26.178974,-1.8933755,-34.502614,2.928415367060184e-05,-4.533367322822593,validated catalyst; empirical fit observation
+timn,Ti-Mn,-26.1502785,-2.207374,-33.017608,1.5077693148913226e-12,-11.821665099403525,validated catalyst; empirical fit observation
+tihf,Ti-Hf,-26.1186915,-0.8904355,-32.775798,6.171092426063817e-28,-27.209637948994963,validated catalyst; empirical fit observation
+tire,Ti-Re,-26.1495385,-1.5584925,-32.94104,8.355804248283937e-07,-6.078011742804452,validated catalyst; empirical fit observation
+timo,Ti-Mo,-26.1771085,-1.805428,-32.903373,2.7918682390521567e-10,-9.554105081895177,validated catalyst; empirical fit observation
+tiv,Ti-V,-26.127434,-1.213161,-32.597286,7.440389514076788e-16,-15.128404327977492,validated catalyst; empirical fit observation
+tico,Ti-Co,-26.161823,-2.1214675,-34.041743,3.708424176046353,0.5691894036764333,validated catalyst; empirical fit observation
+titi,Ti-Ti,-26.2167775,-1.754743,-33.036814,1.0049597592269005e-07,-6.997851327990354,validated catalyst; empirical fit observation
+tiw,Ti-W,-30.1092795,-1.192385,-33.366912,1.2857614014026418e-15,-14.890839615912723,validated catalyst; empirical fit observation
+tita,Ti-Ta,-26.142467,-1.4626565,-34.566395,7.283139658731678e-24,-23.137681362099144,validated catalyst; empirical fit observation
+ticr,Ti-Cr,-26.1997535,-1.96585,-32.625732,1.1506602900957642e-14,-13.939052874383236,validated catalyst; empirical fit observation
+ti,Ti,-26.129865,0.4318325,-32.451521,7.69172409636441,0.8860236976185102,validated catalyst; empirical fit observation
+tini,Ti-Ni,-26.1893485,-3.820431,-33.553242,0.0234171583288959,-1.6304658076819811,validated catalyst; empirical fit observation
