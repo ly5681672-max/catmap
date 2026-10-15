@@ -43,7 +43,7 @@ flowchart TD
 ```mermaid
 flowchart LR
     A["① 候选吸附描述符<br/>O*/Ha*/Hb*形成能"]
-    B["② 中间体标度<br/>G_i、ΔG_i = f(描述符)"]
+    B["② 中间体标度<br/>G_{i}、ΔG_{i} = f(描述符)"]
     C["③ TS1/TS2 BEP<br/>ΔG₂→Y₁；ΔG₄→Y₂"]
     D["④ CatMAP稳态<br/>S·r(θ)=0，Σθ=1"]
     E["⑤ 环氧化活性<br/>TOF = r₃,net"]
@@ -61,7 +61,7 @@ W&=\mathrm{OHHa}^{*}, & U&=\mathrm{H}_{2}\mathrm{O}^{*}.
 \end{aligned}
 $$
 
-其中，`*` 表示空位；$\theta_{X}$ 为对应表面覆盖度，$G_X$ 为严格CatMAP参考下的状态形成自由能，$\mu_{g}$ 为气相参考化学势。模型采用单有效中心和 `pressure_mode='concentration'`；$c_g$ 是有效气相浓度输入，不应未经核实改称bar或mol/L单位。
+其中，`*` 表示空位；$\theta_{X}$ 为对应表面覆盖度，$G_{X}$ 为严格CatMAP参考下的状态形成自由能，$\mu_{g}$ 为气相参考化学势。模型采用单有效中心和 `pressure_mode='concentration'`；$c_g$ 是有效气相浓度输入，不应未经核实改称bar或mol/L单位。
 
 #### ① 吸附描述符：定义低维能量特征
 
@@ -108,12 +108,12 @@ $$
 
 $$
 \begin{aligned}
-\Delta G_{1} &=G_R-G_{*}-\mu_{\mathrm{H}_{2}\mathrm{O}_{2}}-\mu_{\mathrm{C_6H_{12}}},\\
-\Delta G_{2} &=G_P-G_R,\\
-\Delta G_{3} &=G_Q+\mu_{\mathrm{C_6H_{12}O}}-G_P,\\
-\Delta G_{4} &=G_W-G_Q,\\
-\Delta G_{5} &=G_U-G_W,\\
-\Delta G_{6} &=G_{*}+\mu_{\mathrm{H}_{2}\mathrm{O}}-G_U.
+\Delta G_{1} &=G_{R}-G_{*}-\mu_{\mathrm{H}_{2}\mathrm{O}_{2}}-\mu_{\mathrm{C_6H_{12}}},\\
+\Delta G_{2} &=G_{P}-G_{R},\\
+\Delta G_{3} &=G_{Q}+\mu_{\mathrm{C_6H_{12}O}}-G_{P},\\
+\Delta G_{4} &=G_{W}-G_{Q},\\
+\Delta G_{5} &=G_{U}-G_{W},\\
+\Delta G_{6} &=G_{*}+\mu_{\mathrm{H}_{2}\mathrm{O}}-G_{U}.
 \end{aligned}
 $$
 
@@ -130,8 +130,8 @@ $$
 
 $$
 \begin{aligned}
-Y_1&=G_{\mathrm{TS1}}-G_R=\alpha_1\Delta G_{2}+\beta_1,\\
-Y_2&=G_{\mathrm{TS2}}-G_Q=\alpha_2\Delta G_{4}+\beta_2,\\
+Y_1&=G_{\mathrm{TS1}}-G_{R}=\alpha_1\Delta G_{2}+\beta_1,\\
+Y_2&=G_{\mathrm{TS2}}-G_{Q}=\alpha_2\Delta G_{4}+\beta_2,\\
 \widehat G_{\mathrm{TS1}}&=\widehat G_{R}+\widehat Y_{1},\qquad
 \widehat G_{\mathrm{TS2}}=\widehat G_{Q}+\widehat Y_{2}.
 \end{aligned}
