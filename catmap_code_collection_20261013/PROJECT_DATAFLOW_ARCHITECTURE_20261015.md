@@ -52,23 +52,37 @@ flowchart LR
     F -.扩展③.-> C
 ```
 
-**统一符号：** $R=\mathrm{Rpair^*}$、$P=\mathrm{EpoxideHHO^*}$、$Q=\mathrm{HHO^*}$、$W=\mathrm{OHHa^*}$、$U=\mathrm{H_2O^*}$、$*=$空位。$\theta_X$ 是对应表面覆盖度，$G_X$ 为严格CatMAP参考下的状态形成自由能，$\mu_g$ 为气相参考化学势。模型采用单有效中心和 `pressure_mode='concentration'`；$c_g$ 是有效气相浓度输入而不是未经证实的bar或mol/L单位。
+**统一符号：**
+
+$$
+\begin{aligned}
+R&=\mathrm{Rpair}^{*}, & P&=\mathrm{EpoxideHHO}^{*}, & Q&=\mathrm{HHO}^{*},\\
+W&=\mathrm{OHHa}^{*}, & U&=\mathrm{H_2O}^{*}.
+\end{aligned}
+$$
+
+其中，`*` 表示空位；$\theta_X$ 为对应表面覆盖度，$G_X$ 为严格CatMAP参考下的状态形成自由能，$\mu_g$ 为气相参考化学势。模型采用单有效中心和 `pressure_mode='concentration'`；$c_g$ 是有效气相浓度输入，不应未经核实改称bar或mol/L单位。
 
 #### ① 吸附描述符：定义低维能量特征
 
-图中的 `E(O*), E(H*)` 是简化写法；本仓库使用的历史吸附物种**至少区分Ha*、Hb***，因此实际候选应写为：
+图中的 `E(O*), E(H*)` 是简化写法；本仓库使用的历史吸附物种**至少区分 `Ha*` 与 `Hb*`**，因此实际候选应写为：
 
-$
-\mathbf{x}=(x_{\rm O},x_{\rm H}),\qquad
-x_{\rm O}=E_{\rm form}^{\rm legacy}(\mathrm{O^*}),\quad
-x_{\rm H}\in\left\{E_{\rm form}^{\rm legacy}(\mathrm{Ha^*}),E_{\rm form}^{\rm legacy}(\mathrm{Hb^*})\right\}.
-$
+$$
+\begin{aligned}
+\mathbf{x}&=(x_{\mathrm O},x_{\mathrm H}),\\
+x_{\mathrm O}&=E_{\mathrm{form}}^{\mathrm{legacy}}(\mathrm O^{*}),\\
+x_{\mathrm H}&\in\left\{
+E_{\mathrm{form}}^{\mathrm{legacy}}(\mathrm{Ha}^{*}),
+E_{\mathrm{form}}^{\mathrm{legacy}}(\mathrm{Hb}^{*})
+\right\}.
+\end{aligned}
+$$
 
 真正的气相吸附自由能则定义为：
 
-$
+$$
 \Delta G_{\mathrm{ads}}(X)=G(X^*)-G(*)-\mu_X.
-$
+$$
 
 **注意：** 前一式是现有回归所用的历史*形成能特征*；后一式是吸附自由能的通用定义。由于旧数据与严格六步网络的slab/热修正参考尚未完全统一，**不能直接把历史形成能当作经严格参考换算的吸附能**，也不能把Ha/Hb合并成同一种H*。
 
@@ -81,18 +95,18 @@ $
 
 历史分析对每个反应态 $i$ 进行标准化最小二乘回归：
 
-$
+$$
 \boxed{\widehat G_i=b_{0,i}+\sum_{m=1}^{p}
 b_{m,i}\frac{x_m-\overline{x}_m}{s_m}}
 \quad
 (x_m\in\{x_{\rm O},x_{\rm Ha},x_{\rm Hb}\}).
-$
+$$
 
 其中 $\overline{x}_m,s_m$ 是训练集计算的均值/标准差；留一交叉验证时必须在**每次训练折内重新计算**。五个稳定态为 $R,P,Q,W,U$；旧脚本还独立拟合TS1、TS2，作为与BEP路线比较的统计对照。
 
 本六步循环的真实反应自由能关系为：
 
-$
+$$
 \begin{aligned}
 \Delta G_1 &=G_R-G_*-\mu_{\mathrm{H_2O_2}}-\mu_{\mathrm{C_6H_{12}}},\\
 \Delta G_2 &=G_P-G_R,\\
@@ -101,7 +115,7 @@ $
 \Delta G_5 &=G_U-G_W,\\
 \Delta G_6 &=G_*+\mu_{\mathrm{H_2O}}-G_U.
 \end{aligned}
-$
+$$
 
 若用预测态计算，**能量闭环**要求 $\widehat{\Delta G}_2=\widehat G_P-\widehat G_R$、$\widehat{\Delta G}_4=\widehat G_W-\widehat G_Q$，余类推。但[现有chain_route代码](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L252-L285)实际是**分别回归初态能量与对应反应能**并拼接TS，不能默认与所有独立状态回归完全一致。有效$\Delta G$还会依赖气相储库，不能与标准$\Delta G$互换。
 
@@ -114,33 +128,33 @@ $
 
 步骤2（氧转移）与步骤4（后续表面转化）分别含有NEB过渡态：
 
-$
+$$
 \begin{aligned}
 Y_1&=G_{\mathrm{TS1}}-G_R=\alpha_1\Delta G_2+\beta_1,\\
 Y_2&=G_{\mathrm{TS2}}-G_Q=\alpha_2\Delta G_4+\beta_2,\\
 \widehat G_{\mathrm{TS1}}&=\widehat G_R+\widehat Y_1,\qquad
 \widehat G_{\mathrm{TS2}}=\widehat G_Q+\widehat Y_2.
 \end{aligned}
-$
+$$
 
 13位点**传统**线性BEP实际为：
 
-$
+$$
 \boxed{Y_1=0.36719662\Delta G_2+0.90724224},\qquad
 \boxed{Y_2=0.07921318\Delta G_4+0.19951166}\quad(\mathrm{eV}).
-$
+$$
 
 NEB1和NEB2的样本内$R^2$约为0.205、0.182。二式中的 $Y_1,Y_2$ 是**有符号TS−IS差**，不是已确认均为正值的真实有效活化自由能。
 
 最新TS1扩展BEP引入历史OOH*能量和二次项：
 
-$
+$$
 \begin{gathered}
 u=\Delta G_2+2.0922766923,\qquad
-z=E_{\rm form}^{legacy}(\mathrm{OOH^*})+4.3098743846,\\
+z=E_{\rm form}^{legacy}(\mathrm{OOH}^{*})+4.3098743846,\\
 \boxed{\widehat Y_1\simeq0.412123+0.370377u+0.200217z-0.309777z^2}.
 \end{gathered}
-$
+$$
 
 它的13点样本内$R^2\approx0.8867$，但仍需关注留一误差。**此最新分支只重建TS1**：它使用各位点严格数据的真实$\Delta G_2$，原始TS2及其他中间体能量保留，**没有**将步骤①②预测的全部反应态替换入正式CatMAP。
 
@@ -152,15 +166,15 @@ $
 
 CatMAP 0.3.1采用 `TableParser + ThermodynamicScaler + SteadyStateSolver`。正/逆速率常数的过渡态形式可概括为：
 
-$
+$$
 k_{j,\pm}\propto\frac{k_BT}{h}\exp\left[-\frac{\Delta G^\ddagger_{j,\pm}}{k_BT}\right].
-$
+$$
 
 第2、4步输入显式NEB TS1/TS2；其余步骤采用**端点势垒近似**。当预测TS低于初末态任一端点时，CatMAP实际采用$\max(G_{\rm IS},G_{\rm FS},G_{\rm TS})$所对应的有效势垒顶；并非把负的TS−IS差当作负活化势垒。
 
 对上述单有效中心六步网络，忽略具体数值模板内部处理细节，可写出清晰的质量作用式：
 
-$
+$$
 \begin{aligned}
 r_1 &=k_1^+c_{\mathrm{H_2O_2}}c_{\mathrm{C_6H_{12}}}\theta_* -k_1^-\theta_R,\\
 r_2 &=k_2^+\theta_R-k_2^-\theta_P,\\
@@ -169,18 +183,18 @@ r_4 &=k_4^+\theta_Q-k_4^-\theta_W,\\
 r_5 &=k_5^+\theta_W-k_5^-\theta_U,\\
 r_6 &=k_6^+\theta_U-k_6^-c_{\mathrm{H_2O}}\theta_*.
 \end{aligned}
-$
+$$
 
 注意：这是**解释性方程**，实际运行需以原生CatMAP的气相储库配置和速率模板为准，不能人为重复计入气相化学势或浓度因子。
 
 令 $\boldsymbol\theta=(\theta_R,\theta_P,\theta_Q,\theta_W,\theta_U)^{\mathsf T}$，稳态条件：
 
-$
+$$
 \boxed{\frac{d\boldsymbol\theta}{dt}=S\,\mathbf r(\boldsymbol\theta)=
 \begin{pmatrix}r_1-r_2\\r_2-r_3\\r_3-r_4\\r_4-r_5\\r_5-r_6\end{pmatrix}=\mathbf0},
 \qquad
 \boxed{\theta_*+\theta_R+\theta_P+\theta_Q+\theta_W+\theta_U=1}.
-$
+$$
 
 因此在**理想单循环与充分数值精度**下，稳态六步净通量相等：$r_1=\cdots=r_6$。绝对稳态残差满足容差，并不自动保证极低TOF下的相对净通量精度。
 
@@ -192,18 +206,18 @@ $
 
 第3步反应是 `EpoxideHHO* ⇌ HHO* + C6H12O(g)`，**环氧己烷净生成速率**即为：
 
-$
+$$
 \boxed{\mathrm{TOF}_{\mathrm{C_6H_{12}O}}=r_{3,\mathrm{net}}
 =k_3^+\theta_P-k_3^-c_{\mathrm{C_6H_{12}O}}\theta_Q},
 \qquad
 y=\log_{10}(\mathrm{TOF}_{\mathrm{C_6H_{12}O}}).
-$
+$$
 
 这表示**每个有效活性中心归一化**的CatMAP产物TOF，不代表直接按单位Ti原子、催化剂质量或实验单位换算。用于判断状态能量对TOF的局部敏感性时：
 
-$
+$$
 \boxed{X_i=-k_BT\,\frac{\partial\ln(\mathrm{TOF})}{\partial G_i}}.
-$
+$$
 
 $X_i>0$表示降低该态能量在当前稳态附近倾向于提高TOF；$X_i<0$表示进一步稳定该态可能降低TOF。**覆盖度最高的状态与最大的DRC并非同一概念；DRC不自动等于唯一RDS证明。**
 
