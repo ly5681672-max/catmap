@@ -1,0 +1,77 @@
+{
+  "repository_commit": "d4212d6c0009d766eb5b6aa8e97c46db866227ad",
+  "grid_nodes": 3721,
+  "net_rate_rows": 3721,
+  "alignment": "grid_61x61.csv sorted by (grid_j,grid_i); grid_61x61_net_rates.csv exported in serpentine scan order",
+  "maximum_reported_vs_recalculated_flux_spread_difference": 1.8762653573922823e-16,
+  "converged": 3721,
+  "threshold_counts": {
+    "gt_1e_6": 530,
+    "gt_1e_3": 157,
+    "gt_1percent": 127,
+    "gt_10percent": 64,
+    "gt_50percent": 28
+  },
+  "extreme_flux_nodes": {
+    "count": 64,
+    "all_log10_TOF_less_than_minus_30": true,
+    "n_with_logTOF_at_least_minus_30": 0
+  },
+  "region_logTOF_at_least_minus30": {
+    "nodes": 2989,
+    "max_flux_spread": 0.000001814883886623647,
+    "nodes_over_1percent": 0
+  },
+  "max_solver_residual": 8.42290643035013e-71,
+  "largest_errors": [
+    {
+      "i": 0,
+      "j": 30,
+      "log10_TOF": -37.19075957834759,
+      "spread": 0.9902427743310931,
+      "steady_state_residual": 8.146934096646181e-75
+    },
+    {
+      "i": 0,
+      "j": 52,
+      "log10_TOF": -37.19075957834759,
+      "spread": 0.989359218432568,
+      "steady_state_residual": 7.1824364309044e-71
+    },
+    {
+      "i": 0,
+      "j": 0,
+      "log10_TOF": -37.19075957834759,
+      "spread": 0.9879057455083471,
+      "steady_state_residual": 5.543290000560812e-71
+    },
+    {
+      "i": 0,
+      "j": 25,
+      "log10_TOF": -37.19075957834759,
+      "spread": 0.9835795032558867,
+      "steady_state_residual": 2.9809671827236238e-71
+    },
+    {
+      "i": 0,
+      "j": 51,
+      "log10_TOF": -37.19075957834759,
+      "spread": 0.9716318051650842,
+      "steady_state_residual": 9.746549181734592e-72
+    },
+    {
+      "i": 0,
+      "j": 26,
+      "log10_TOF": -37.19075957834759,
+      "spread": 0.9575692009495461,
+      "steady_state_residual": 4.231445497830504e-72
+    },
+    {
+      "i": 1,
+      "j": 51,
+      "log10_TOF": -36.54629671816404,
+      "spread": 0.9518502450076602,
+      "steady_state_residual": 6.315178677097002e-71
+    }
+  ]
+}
