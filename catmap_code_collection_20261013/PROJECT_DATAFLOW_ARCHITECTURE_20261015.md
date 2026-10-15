@@ -35,6 +35,196 @@ flowchart TD
 
 **一句话主线：** 原始能量与六步机理 → 严格CatMAP稳态 → TOF/覆盖度/DRC解释 → BEP修正TS1 → 13位点预测检验 → ΔG₂–OOH*条件活性网格 → 可靠性审计。**这些环节有依赖关系，但不是每个旧专题结果都直接成为新网格输入。**
 
+
+### 五步完整微观动力学路径：从吸附描述符到环氧化TOF
+
+> **对应汇报图中的①—⑤**。下图是一条**研究方法框架**：①、②的O/Ha/Hb标度是历史经验探索；③有传统TS1/TS2 BEP及新OOH*扩展BEP；④、⑤的严格CatMAP六步稳态求解及环氧化TOF已执行。**尚未完成①→⑤全部环节共享统一物理参考、独立留一外推准确的整条低维预测链**。不能将旧经验回归、VectorMap插值和新的CatMAP实算节点混为一谈。
+
+```mermaid
+flowchart LR
+    A["① 候选吸附描述符<br/>O*/Ha*/Hb*形成能"]
+    B["② 中间体标度<br/>G_i、ΔG_i = f(描述符)"]
+    C["③ TS1/TS2 BEP<br/>ΔG₂→Y₁；ΔG₄→Y₂"]
+    D["④ CatMAP稳态<br/>S·r(θ)=0，Σθ=1"]
+    E["⑤ 环氧化活性<br/>TOF = r₃,net"]
+    A --> B --> C --> D --> E
+    F["最新修正：OOH*二次项<br/>只重建TS1"]
+    F -.扩展③.-> C
+```
+
+**统一符号：** $R=\mathrm{Rpair^*}$、$P=\mathrm{EpoxideHHO^*}$、$Q=\mathrm{HHO^*}$、$W=\mathrm{OHHa^*}$、$U=\mathrm{H_2O^*}$、$*=$空位。$\theta_X$ 是对应表面覆盖度，$G_X$ 为严格CatMAP参考下的状态形成自由能，$\mu_g$ 为气相参考化学势。模型采用单有效中心和 `pressure_mode='concentration'`；$c_g$ 是有效气相浓度输入而不是未经证实的bar或mol/L单位。
+
+#### ① 吸附描述符：定义低维能量特征
+
+图中的 `E(O*), E(H*)` 是简化写法；本仓库使用的历史吸附物种**至少区分Ha*、Hb***，因此实际候选应写为：
+
+$
+\mathbf{x}=(x_{\rm O},x_{\rm H}),\qquad
+x_{\rm O}=E_{\rm form}^{\rm legacy}(\mathrm{O^*}),\quad
+x_{\rm H}\in\left\{E_{\rm form}^{\rm legacy}(\mathrm{Ha^*}),E_{\rm form}^{\rm legacy}(\mathrm{Hb^*})\right\}.
+$
+
+真正的气相吸附自由能则定义为：
+
+$
+\Delta G_{\mathrm{ads}}(X)=G(X^*)-G(*)-\mu_X.
+$
+
+**注意：** 前一式是现有回归所用的历史*形成能特征*；后一式是吸附自由能的通用定义。由于旧数据与严格六步网络的slab/热修正参考尚未完全统一，**不能直接把历史形成能当作经严格参考换算的吸附能**，也不能把Ha/Hb合并成同一种H*。
+
+- **输入：** [旧O/Ha/Hb数据匹配表](analyses/empirical_O_H_descriptor_analysis/data/matched_data.csv)、[严格位点能量输入示例](catmap_official_run/results/official_strict_tolerance/tico/energies.txt)。
+- **对应源码：** [历史描述符经验分析](analyses/empirical_O_H_descriptor_analysis/scripts/analyze_legacy_descriptors.py)、[O/Ha/Hb特征组合定义（第30—34行）](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L30-L34)。
+- **输出：** [13位点对齐后的特征—状态能表](analyses/O_H_to_TS1_TS2_to_TOF/data/matched_analysis_table.csv)。
+- **性质：** 候选特征筛选、数据匹配；没有因此独立证明电子结构因果关系。
+
+#### ② 中间体标度关系：低维能量特征→反应态形成能
+
+历史分析对每个反应态 $i$ 进行标准化最小二乘回归：
+
+$
+\boxed{\widehat G_i=b_{0,i}+\sum_{m=1}^{p}
+b_{m,i}\frac{x_m-\overline{x}_m}{s_m}}
+\quad
+(x_m\in\{x_{\rm O},x_{\rm Ha},x_{\rm Hb}\}).
+$
+
+其中 $\overline{x}_m,s_m$ 是训练集计算的均值/标准差；留一交叉验证时必须在**每次训练折内重新计算**。五个稳定态为 $R,P,Q,W,U$；旧脚本还独立拟合TS1、TS2，作为与BEP路线比较的统计对照。
+
+本六步循环的真实反应自由能关系为：
+
+$
+\begin{aligned}
+\Delta G_1 &=G_R-G_*-\mu_{\mathrm{H_2O_2}}-\mu_{\mathrm{C_6H_{12}}},\\
+\Delta G_2 &=G_P-G_R,\\
+\Delta G_3 &=G_Q+\mu_{\mathrm{C_6H_{12}O}}-G_P,\\
+\Delta G_4 &=G_W-G_Q,\\
+\Delta G_5 &=G_U-G_W,\\
+\Delta G_6 &=G_*+\mu_{\mathrm{H_2O}}-G_U.
+\end{aligned}
+$
+
+若用预测态计算，**能量闭环**要求 $\widehat{\Delta G}_2=\widehat G_P-\widehat G_R$、$\widehat{\Delta G}_4=\widehat G_W-\widehat G_Q$，余类推。但[现有chain_route代码](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L252-L285)实际是**分别回归初态能量与对应反应能**并拼接TS，不能默认与所有独立状态回归完全一致。有效$\Delta G$还会依赖气相储库，不能与标准$\Delta G$互换。
+
+- **输入：** [严格反应能表](analyses/microkinetic_mechanism_13sites/data/reaction_energy_13sites.csv)、[匹配能量及描述符](analyses/O_H_to_TS1_TS2_to_TOF/data/matched_analysis_table.csv)。
+- **对应源码：** [fit_linear()标准化OLS](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L131-L142)、[LOOCV代码](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L154-L167)、[链式初态/反应能预测](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L252-L285)。
+- **输出：** [标度拟合R²/RMSE](analyses/O_H_to_TS1_TS2_to_TOF/data/linear_descriptor_model_metrics.csv)、[状态预测值及LOOCV](analyses/O_H_to_TS1_TS2_to_TOF/data/linear_descriptor_model_predictions.csv)、[O/H→BEP链TS预测](analyses/O_H_to_TS1_TS2_to_TOF/data/O_H_to_BEP_chain_TS_predictions.csv)。
+- **性质：** 已运行的13位点探索性标度/留一评估，部分状态预测偏差较大；**尚不足以替代严格DFT反应态输入**。
+
+#### ③ TS1/TS2 BEP：反应能→过渡态有符号能量差
+
+步骤2（氧转移）与步骤4（后续表面转化）分别含有NEB过渡态：
+
+$
+\begin{aligned}
+Y_1&=G_{\mathrm{TS1}}-G_R=\alpha_1\Delta G_2+\beta_1,\\
+Y_2&=G_{\mathrm{TS2}}-G_Q=\alpha_2\Delta G_4+\beta_2,\\
+\widehat G_{\mathrm{TS1}}&=\widehat G_R+\widehat Y_1,\qquad
+\widehat G_{\mathrm{TS2}}=\widehat G_Q+\widehat Y_2.
+\end{aligned}
+$
+
+13位点**传统**线性BEP实际为：
+
+$
+\boxed{Y_1=0.36719662\Delta G_2+0.90724224},\qquad
+\boxed{Y_2=0.07921318\Delta G_4+0.19951166}\quad(\mathrm{eV}).
+$
+
+NEB1和NEB2的样本内$R^2$约为0.205、0.182。二式中的 $Y_1,Y_2$ 是**有符号TS−IS差**，不是已确认均为正值的真实有效活化自由能。
+
+最新TS1扩展BEP引入历史OOH*能量和二次项：
+
+$
+\begin{gathered}
+u=\Delta G_2+2.0922766923,\qquad
+z=E_{\rm form}^{legacy}(\mathrm{OOH^*})+4.3098743846,\\
+\boxed{\widehat Y_1\simeq0.412123+0.370377u+0.200217z-0.309777z^2}.
+\end{gathered}
+$
+
+它的13点样本内$R^2\approx0.8867$，但仍需关注留一误差。**此最新分支只重建TS1**：它使用各位点严格数据的真实$\Delta G_2$，原始TS2及其他中间体能量保留，**没有**将步骤①②预测的全部反应态替换入正式CatMAP。
+
+- **输入：** [NEB1配对数据](analyses/BEP_scaling_and_TS_reconstruction/origin_exports/BEP1_13sites.csv)、[NEB2配对数据](analyses/BEP_scaling_and_TS_reconstruction/origin_exports/BEP2_13sites.csv)、[扩展模型13点特征](analyses/BEP_energy_correction_optimization/data/source_carbon_O_H_TS1.csv)。
+- **对应源码：** [传统BEP+LOOCV拟合](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L213-L249)、[正式OOH二次BEP及留一拟合](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L246-L279)、[重建TS1并回写单个临时输入](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L582-L639)。
+- **输出：** [传统BEP系数](analyses/O_H_to_TS1_TS2_to_TOF/data/BEP_model_summary.csv)、[四参数精确系数](analyses/BEP_OOH_activity_map/catmap_official_run/data/exact_BEP_fit.json)、[TS1拟合/留一误差](analyses/BEP_OOH_activity_map/catmap_official_run/data/BEP_TS1_predictions_and_LOOCV.csv)。
+
+#### ④ CatMAP稳态求解：能量网络→速率常数→覆盖度
+
+CatMAP 0.3.1采用 `TableParser + ThermodynamicScaler + SteadyStateSolver`。正/逆速率常数的过渡态形式可概括为：
+
+$
+k_{j,\pm}\propto\frac{k_BT}{h}\exp\left[-\frac{\Delta G^\ddagger_{j,\pm}}{k_BT}\right].
+$
+
+第2、4步输入显式NEB TS1/TS2；其余步骤采用**端点势垒近似**。当预测TS低于初末态任一端点时，CatMAP实际采用$\max(G_{\rm IS},G_{\rm FS},G_{\rm TS})$所对应的有效势垒顶；并非把负的TS−IS差当作负活化势垒。
+
+对上述单有效中心六步网络，忽略具体数值模板内部处理细节，可写出清晰的质量作用式：
+
+$
+\begin{aligned}
+r_1 &=k_1^+c_{\mathrm{H_2O_2}}c_{\mathrm{C_6H_{12}}}\theta_* -k_1^-\theta_R,\\
+r_2 &=k_2^+\theta_R-k_2^-\theta_P,\\
+r_3 &=k_3^+\theta_P-k_3^-c_{\mathrm{C_6H_{12}O}}\theta_Q,\\
+r_4 &=k_4^+\theta_Q-k_4^-\theta_W,\\
+r_5 &=k_5^+\theta_W-k_5^-\theta_U,\\
+r_6 &=k_6^+\theta_U-k_6^-c_{\mathrm{H_2O}}\theta_*.
+\end{aligned}
+$
+
+注意：这是**解释性方程**，实际运行需以原生CatMAP的气相储库配置和速率模板为准，不能人为重复计入气相化学势或浓度因子。
+
+令 $\boldsymbol\theta=(\theta_R,\theta_P,\theta_Q,\theta_W,\theta_U)^{\mathsf T}$，稳态条件：
+
+$
+\boxed{\frac{d\boldsymbol\theta}{dt}=S\,\mathbf r(\boldsymbol\theta)=
+\begin{pmatrix}r_1-r_2\\r_2-r_3\\r_3-r_4\\r_4-r_5\\r_5-r_6\end{pmatrix}=\mathbf0},
+\qquad
+\boxed{\theta_*+\theta_R+\theta_P+\theta_Q+\theta_W+\theta_U=1}.
+$
+
+因此在**理想单循环与充分数值精度**下，稳态六步净通量相等：$r_1=\cdots=r_6$。绝对稳态残差满足容差，并不自动保证极低TOF下的相对净通量精度。
+
+- **输入：** [Ti–Co六步反应式/物种/求解配置](catmap_official_run/results/official_strict_tolerance/tico/alkene_epoxidation.mkm#L4-L44)及[位点形成能](catmap_official_run/results/official_strict_tolerance/tico/energies.txt)。
+- **对应源码：** [正式CatMAP运行run_official_case()](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L309-L448)、[61×61独立节点求解与缓存](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L734-L822)。
+- **输出：** [13位点严格稳态覆盖度](analyses/microkinetic_mechanism_13sites/data/coverage_13sites.csv)、[61×61节点结果](analyses/BEP_OOH_activity_map/catmap_official_run/data/grid_61x61.csv)、[网格覆盖度](analyses/BEP_OOH_activity_map/catmap_official_run/data/grid_61x61_coverages.csv)、[六步净速率](analyses/BEP_OOH_activity_map/catmap_official_run/data/grid_61x61_net_rates.csv)。
+
+#### ⑤ 环氧化TOF：产物释放净速率→活性与DRC
+
+第3步反应是 `EpoxideHHO* ⇌ HHO* + C6H12O(g)`，**环氧己烷净生成速率**即为：
+
+$
+\boxed{\mathrm{TOF}_{\mathrm{C_6H_{12}O}}=r_{3,\mathrm{net}}
+=k_3^+\theta_P-k_3^-c_{\mathrm{C_6H_{12}O}}\theta_Q},
+\qquad
+y=\log_{10}(\mathrm{TOF}_{\mathrm{C_6H_{12}O}}).
+$
+
+这表示**每个有效活性中心归一化**的CatMAP产物TOF，不代表直接按单位Ti原子、催化剂质量或实验单位换算。用于判断状态能量对TOF的局部敏感性时：
+
+$
+\boxed{X_i=-k_BT\,\frac{\partial\ln(\mathrm{TOF})}{\partial G_i}}.
+$
+
+$X_i>0$表示降低该态能量在当前稳态附近倾向于提高TOF；$X_i<0$表示进一步稳定该态可能降低TOF。**覆盖度最高的状态与最大的DRC并非同一概念；DRC不自动等于唯一RDS证明。**
+
+- **对应源码：** [读取turnover_frequency_map与rate_map](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L397-L424)、[13位点机制/TOF通量检查](analyses/microkinetic_mechanism_13sites/scripts/analyze_mechanism_outputs.py#L487-L507)、[补充官方rate_control的脚本](analyses/microkinetic_mechanism_13sites/scripts/run_missing_official_drc.py)。
+- **输出：** [原始DFT/NEB→CatMAP TOF](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_original_TOF.csv)、[样本内BEP重算TOF](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF.csv)、[LOOCV-BEP重算TOF](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_LOOCV_TOF.csv)、[TOF/六步通量一致性](analyses/microkinetic_mechanism_13sites/data/TOF_flux_consistency.csv)、[官方DRC矩阵](analyses/microkinetic_mechanism_13sites/data/rate_control_matrix.csv)。
+- **最终图：** [三组13位点TOF对比](analyses/BEP_OOH_activity_map/catmap_official_run/figures/01_13site_TOF_original_vs_BEP.png)、[新BEP的61×61 CatMAP条件活性图](analyses/BEP_OOH_activity_map/catmap_official_run/figures/03_CatMAP_BEP_OOH_dG2_activity_61x61.png)。
+
+#### 五步代码及输入输出对照表
+
+| 步骤 | 数学目标 | 核心代码链接 | 对应结果位置 | 现有验证状态 |
+|---|---|---|---|---|
+| ① | $\mathbf x=\{E(O^*),E(Ha^*),E(Hb^*)\}$ | [特征定义](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L30-L34) | [matched_analysis_table.csv](analyses/O_H_to_TS1_TS2_to_TOF/data/matched_analysis_table.csv) | 历史形成能，参考尚待闭合 |
+| ② | $\widehat G_i=f(\mathbf x)$ | [标准化标度OLS](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L131-L142) | [拟合与LOOCV](analyses/O_H_to_TS1_TS2_to_TOF/data/linear_descriptor_model_metrics.csv) | 探索性经验关系 |
+| ③ | $Y_1=f(\Delta G_2),\,Y_2=f(\Delta G_4)$ | [传统BEP](analyses/O_H_to_TS1_TS2_to_TOF/scripts/analyze_oh_to_ts_to_tof.py#L213-L249)、[新OOH-BEP](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L246-L279) | [TS1回代预测和留一误差](analyses/BEP_OOH_activity_map/catmap_official_run/data/BEP_TS1_predictions_and_LOOCV.csv) | TS1新拟合已完成，泛化不足 |
+| ④ | $S\,r(\theta)=0,\;\sum\theta=1$ | [原生CatMAP求解](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L309-L448) | [61×61网格](analyses/BEP_OOH_activity_map/catmap_official_run/data/grid_61x61.csv) | 13位点和3721个网格节点已归档 |
+| ⑤ | $\mathrm{TOF}=r_{3,\rm net}$ | [模型读取产物TOF](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py#L397-L424) | [原始/拟合/留一TOF对照](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_LOOCV_TOF.csv)、[DRC](analyses/microkinetic_mechanism_13sites/data/rate_control_matrix.csv) | 官方稳态结果；模型外预测有待验证 |
+
+**科研结论边界：** ①②是已归档的历史经验描述符分析；最新④⑤确实由官方CatMAP 0.3.1重算，但输入的其它中间体仍以严格基线能量为准。由于①②→③→④的“完全由低维特征预测整个能量景观”尚未形成稳定、物理参考一致的跨位点验证，不应把这张五步图标注为**已经完成统一描述符到TOF的可迁移全链预测**。
+
+---
+
 ### 反应网络和能量变量（避免混淆）
 
 ```text
