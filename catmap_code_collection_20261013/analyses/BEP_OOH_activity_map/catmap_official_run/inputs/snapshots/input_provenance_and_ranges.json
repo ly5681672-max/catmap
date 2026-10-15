@@ -1,0 +1,192 @@
+{
+  "created_utc": "2026-10-15T03:19:52Z",
+  "sources": {
+    "tife/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tife\\alkene_epoxidation.mkm",
+      "source_sha256": "30840fec3cd1eb8e63ce84f97f0600f1025889f968f66649d06344c4b459eeee",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tife\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "30840fec3cd1eb8e63ce84f97f0600f1025889f968f66649d06344c4b459eeee"
+    },
+    "tife/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tife\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tife\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "timn/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\timn\\alkene_epoxidation.mkm",
+      "source_sha256": "0bf93d4a6f611bedb5c0d9ba93c9283821831baef6b221ad61e4040d973e378a",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\timn\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "0bf93d4a6f611bedb5c0d9ba93c9283821831baef6b221ad61e4040d973e378a"
+    },
+    "timn/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\timn\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\timn\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tihf/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tihf\\alkene_epoxidation.mkm",
+      "source_sha256": "3068e91a97c404cd222cefc81735b1ff1502e6c588ca7bd95a0eff0835b92db4",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tihf\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "3068e91a97c404cd222cefc81735b1ff1502e6c588ca7bd95a0eff0835b92db4"
+    },
+    "tihf/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tihf\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tihf\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tire/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tire\\alkene_epoxidation.mkm",
+      "source_sha256": "30166e3a0fa9dc356294e99f868d487d0f399fca81c5e7f2039becfd48882f77",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tire\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "30166e3a0fa9dc356294e99f868d487d0f399fca81c5e7f2039becfd48882f77"
+    },
+    "tire/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tire\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tire\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "timo/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\timo\\alkene_epoxidation.mkm",
+      "source_sha256": "dd103145eb5033169df7889632aaed5d3e34b5d73333e10bbadc806f2505250c",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\timo\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "dd103145eb5033169df7889632aaed5d3e34b5d73333e10bbadc806f2505250c"
+    },
+    "timo/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\timo\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\timo\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tiv/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tiv\\alkene_epoxidation.mkm",
+      "source_sha256": "7e97be51fafdacad94bdbc6caa8acf9322403a5f5834c2f01550843eb1afd374",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tiv\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "7e97be51fafdacad94bdbc6caa8acf9322403a5f5834c2f01550843eb1afd374"
+    },
+    "tiv/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tiv\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tiv\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tico/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tico\\alkene_epoxidation.mkm",
+      "source_sha256": "652badebc9da2e396caeac6138c9c0b58a63fb4fb3f9290a99a35b82de87883b",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tico\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "652badebc9da2e396caeac6138c9c0b58a63fb4fb3f9290a99a35b82de87883b"
+    },
+    "tico/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tico\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tico\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "titi/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\titi\\alkene_epoxidation.mkm",
+      "source_sha256": "c7579d13849fc53e9f90307a28c25d7a07df0b305c76fb31bd722a6b954c88e8",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\titi\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "c7579d13849fc53e9f90307a28c25d7a07df0b305c76fb31bd722a6b954c88e8"
+    },
+    "titi/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\titi\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\titi\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tiw/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tiw\\alkene_epoxidation.mkm",
+      "source_sha256": "4bb9a97e0f4bb5bf837885f5f6bf22923f332ddd1c89df91efac00ebdf24536b",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tiw\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "4bb9a97e0f4bb5bf837885f5f6bf22923f332ddd1c89df91efac00ebdf24536b"
+    },
+    "tiw/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tiw\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tiw\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tita/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tita\\alkene_epoxidation.mkm",
+      "source_sha256": "4fe95766fcd2e66ce32532a281e8314216090c034ea3f581d00b070170f7f0c9",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tita\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "4fe95766fcd2e66ce32532a281e8314216090c034ea3f581d00b070170f7f0c9"
+    },
+    "tita/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tita\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tita\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "ticr/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\ticr\\alkene_epoxidation.mkm",
+      "source_sha256": "c0b0aa12d7b350d2095ac7d43e5357aa7352719be551715136214687a931486c",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\ticr\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "c0b0aa12d7b350d2095ac7d43e5357aa7352719be551715136214687a931486c"
+    },
+    "ticr/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\ticr\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\ticr\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "ti/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\ti\\alkene_epoxidation.mkm",
+      "source_sha256": "a89ef3c102def4b21a02b49b3a0f21cd0bfd4fb12dfa16962be50d893f58db80",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\ti\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "a89ef3c102def4b21a02b49b3a0f21cd0bfd4fb12dfa16962be50d893f58db80"
+    },
+    "ti/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\ti\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\ti\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "tini/alkene_epoxidation.mkm": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tini\\alkene_epoxidation.mkm",
+      "source_sha256": "09bd6e681f5388953ad1bc55ad2d59fd9f4a5e9942985ef1ad1f230a424fa857",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tini\\alkene_epoxidation.mkm",
+      "snapshot_sha256": "09bd6e681f5388953ad1bc55ad2d59fd9f4a5e9942985ef1ad1f230a424fa857"
+    },
+    "tini/energies.txt": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\catmap_official_run\\results\\official_strict_tolerance\\tini\\energies.txt",
+      "source_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\tini\\energies.txt",
+      "snapshot_sha256": "da3defb584e215ba41143d6c17a4f23f44fdb3091f4861965b7790cde6b00d31"
+    },
+    "source_carbon_O_H_TS1.csv": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_energy_correction_optimization\\data\\source_carbon_O_H_TS1.csv",
+      "source_sha256": "b495779b0036a7637ac42c154cad1834b54ad6c42825b6e7b93c1338b8c739f8",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\source_carbon_O_H_TS1.csv",
+      "snapshot_sha256": "b495779b0036a7637ac42c154cad1834b54ad6c42825b6e7b93c1338b8c739f8"
+    },
+    "convergence_13sites.csv": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\microkinetic_mechanism_13sites\\data\\convergence_13sites.csv",
+      "source_sha256": "4f2abd319fe8b8bfa2fd86962ee03d7619ae1dc34b28af7c48af03281f052484",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\convergence_13sites.csv",
+      "snapshot_sha256": "4f2abd319fe8b8bfa2fd86962ee03d7619ae1dc34b28af7c48af03281f052484"
+    },
+    "grid_BEP_OOH_dG2_TiCo_conditional.csv": {
+      "source_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\data\\grid_BEP_OOH_dG2_TiCo_conditional.csv",
+      "source_sha256": "1ed1b15e3cf921543922c31abd09cbce91f816732a68a85bbd617f1936d9171b",
+      "snapshot_path": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\catmap_official_run\\inputs\\snapshots\\grid_BEP_OOH_dG2_TiCo_conditional.csv",
+      "snapshot_sha256": "1ed1b15e3cf921543922c31abd09cbce91f816732a68a85bbd617f1936d9171b"
+    }
+  },
+  "fit_input_rows": 13,
+  "archive_rows": 13,
+  "descriptor_range_source": {
+    "source": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\BEP_OOH_activity_map\\data\\grid_BEP_OOH_dG2_TiCo_conditional.csv",
+    "source_sha256": "1ed1b15e3cf921543922c31abd09cbce91f816732a68a85bbd617f1936d9171b",
+    "x_name": "deltaG2_eV",
+    "x_min_eV": -2.735784,
+    "x_max_eV": -0.179686,
+    "y_name": "OOH_legacy_formation_eV",
+    "y_min_eV": -6.232301,
+    "y_max_eV": -2.7134525,
+    "source_grid_rows": 3721
+  }
+}

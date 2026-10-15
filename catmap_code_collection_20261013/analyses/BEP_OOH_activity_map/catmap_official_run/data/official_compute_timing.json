@@ -1,0 +1,5 @@
+{
+  "grid_61x61_solver_stage_seconds": 337.109997,
+  "source": "run-generated execution_summary.json observed immediately after the first successful full 61x61 CatMAP solve and before cache-only figure regeneration",
+  "scope": "61x61 stage only; does not include separately invoked baseline, BEP/LOOCV, or 5x5/15x15 stages"
+}
