@@ -41,4 +41,10 @@ O*/Ha*/Hb* 历史形成能与严格 CatMAP TOF 的经验二维图、全矩形 Or
 
 `analyses/microkinetic_mechanism_13sites/`
 
+四参数 OOH* 扩展 BEP、13位点原始/拟合/LOOCV CatMAP复算及Ti–Co固定背景条件活性网格归档至：
+
+`analyses/BEP_OOH_activity_map/catmap_official_run/`
+
+该目录中的 `README.md` 是本研究入口；代码在 `scripts/`，只读输入快照在 `inputs/snapshots/`，可审核汇总数据在 `data/`，图件在 `figures/`，结论与限制在 `reports/`。逐节点临时输入、CatMAP运行日志和缓存位于 `inputs/cases/`、`runs/`，由该目录 `.gitignore` 排除，不作为版本化成果提交。
+
 后续 CatMAP 相关代码和结果继续遵循本文件的功能分区：官方模型/运行放入 `catmap_official_run/`，通用项目脚本与测试分别放入 `scripts/`、`tests/`，研究问题专属的派生数据、脚本、图和报告放入对应的 `analyses/<analysis_name>/` 子目录。归档默认复制，不覆盖原始输入、正式基线或历史分析。

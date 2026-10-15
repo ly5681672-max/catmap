@@ -22,7 +22,7 @@ $env:PYTHONIOENCODING='utf-8'
 G:\anaconda\python.exe -X utf8 .\analyses\BEP_OOH_activity_map\catmap_official_run\scripts\run_bep_ooh_activity_map.py --stage all --python G:\anaconda\python.exe
 ```
 
-脚本通过SHA256复用输入完全相同且已验证的缓存；`--stage baseline`、`--stage fit`、`--stage grid --resolution 5|15|61`可分阶段断点续算。最终61×61表逐个记录 `CONVERGED`、`CONVERGED_ADAPTIVE`、`REUSED_CACHE` 或 `FAILED`；失败不填零、不插值。
+脚本通过SHA256复用输入完全相同且已验证的缓存；`--stage baseline`、`--stage fit`、`--stage grid --resolution 5|15|61`可分阶段断点续算。网格表的`status`记录CatMAP真实求解状态，`retrieval_status`记录当前导出是否命中缓存，`execution_source`记录该节点结果最初来自哪个网格阶段；失败不填零、不插值。
 
 ## 物理与数值口径
 
