@@ -1,7 +1,7 @@
 # 1-己烯环氧化 CatMAP 项目：科研逻辑架构与输入—输出路径总览
 
 > **范围**：GitHub `ly5681672-max/catmap` / `catmap_code_collection_20261013`，基线版本 `9732f483524e`，盘点日期 2026-10-15。  
-> **本地对应根目录**：`H:\\catmap\\catmap\\catmap_code_collection_20261013\\`。  
+> **本地对应根目录**：`H:\catmap\catmap\catmap_code_collection_20261013\`。  
 > **阅读原则**：研究目标优先；正式CatMAP与经验统计分开；保留原数据；绝对/有效反应能、NEB有符号TS差及CatMAP有效势垒分开。本文是导航与文件流说明，**没有重新执行DFT或全部历史计算脚本**。
 
 ## 一、全项目只看一张图
@@ -69,7 +69,7 @@ flowchart TD
 
 | 环节 | 输入（真实路径） | 核心脚本 | 输出（真实路径） | 说明/性质 |
 |---|---|---|---|---|
-| **A. 原始输入与来源核查** | [energies.txt](catmap_official_run/energies.txt)<br>[alkene_epoxidation.mkm](catmap_official_run/alkene_epoxidation.mkm) | [extract_neb_gibbs.py](scripts/extract_neb_gibbs.py) | [build_phase1_tables.py](scripts/build_phase1_tables.py)<br>[audit_slab_references.py](v2_global_reference/scripts/audit_slab_references.py) | 早期Excel/DFT/NEB提取与参考审计；外部原始Excel**未打包**。根目录.mkm主要用于静态校验，不是正式稳态入口。 |
+| **A. 原始输入与来源核查** | 外部DFT/NEB/Gibbs Excel原件未完整归档；现有[energies.txt](catmap_official_run/energies.txt)和[静态模型](catmap_official_run/alkene_epoxidation.mkm)是归档快照 | [extract_neb_gibbs.py](scripts/extract_neb_gibbs.py)<br>[build_phase1_tables.py](scripts/build_phase1_tables.py)<br>[audit_slab_references.py](v2_global_reference/scripts/audit_slab_references.py) | [严格逐位点能量输入示例](catmap_official_run/results/official_strict_tolerance/ti/energies.txt)<br>[BEP匹配输入表](analyses/BEP_energy_correction_optimization/data/source_carbon_O_H_TS1.csv) | **输入来源与输出归档位置的追踪**，不声称这些历史提取脚本已被证明能在当前仓库独立生成严格能量表；需核对外部Excel及slab/热修正口径。 |
 | **B. CatMAP严格基准（13/14）** | [energies.txt](catmap_official_run/results/official_strict_tolerance/ti/energies.txt)<br>[alkene_epoxidation.mkm](catmap_official_run/results/official_strict_tolerance/ti/alkene_epoxidation.mkm) | [run_catmap_official.py](catmap_official_run/results/official_strict_tolerance/ti/run_catmap_official.py) | [convergence_13sites.csv](analyses/microkinetic_mechanism_13sites/data/convergence_13sites.csv)<br>[gas_turnover_frequencies_13sites.csv](analyses/microkinetic_mechanism_13sites/data/gas_turnover_frequencies_13sites.csv) | <surface>替换成ti、tico、tife等；14套配置归档，13位点已验证；Ti–Zr未纳入正式13点。CatMAP 0.3.1，333.15 K。 |
 | **C. 稳态与反应网络机制** | [convergence_13sites.csv](analyses/microkinetic_mechanism_13sites/data/convergence_13sites.csv)<br>[activity_analysis_data.csv](catmap_official_run/results/activity_analysis_round1/activity_analysis_data.csv) | [analyze_mechanism_outputs.py](analyses/microkinetic_mechanism_13sites/scripts/analyze_mechanism_outputs.py) | [coverage_13sites.csv](analyses/microkinetic_mechanism_13sites/data/coverage_13sites.csv)<br>[rate_control_matrix.csv](analyses/microkinetic_mechanism_13sites/data/rate_control_matrix.csv)<br>[reaction_energy_13sites.csv](analyses/microkinetic_mechanism_13sites/data/reaction_energy_13sites.csv)<br>[effective_barriers_13sites.csv](analyses/microkinetic_mechanism_13sites/data/effective_barriers_13sites.csv)<br>[TOF_flux_consistency.csv](analyses/microkinetic_mechanism_13sites/data/TOF_flux_consistency.csv) | 输出覆盖度、TOF、六步净通量、有效势垒、官方DRC。专用脚本可补充缺失DRC；不能将DRC直接等同唯一RDS。 |
 | **D. ΔG₃—TOF关联** | [reaction_energy_13sites.csv](analyses/microkinetic_mechanism_13sites/data/reaction_energy_13sites.csv)<br>[coverage_13sites.csv](analyses/microkinetic_mechanism_13sites/data/coverage_13sites.csv)<br>[rate_control_matrix.csv](analyses/microkinetic_mechanism_13sites/data/rate_control_matrix.csv) | [build_mechanism_package.py](analyses/dG3_coverage_DRC_mechanism/scripts/build_mechanism_package.py) | [combined_dG3_coverage_DRC_TOF.csv](analyses/dG3_coverage_DRC_mechanism/data/combined_dG3_coverage_DRC_TOF.csv)<br>[dG3_coverage_TOF_correlations.csv](analyses/dG3_coverage_DRC_mechanism/data/dG3_coverage_TOF_correlations.csv)<br>[dG3_coverage_TOF_joint.png](analyses/dG3_coverage_DRC_mechanism/figures/dG3_coverage_TOF_joint.png) | 解释环氧产物释放热力学与覆盖度/DRC/TOF关联；第3步端点势垒与关系存在模型耦合。 |
@@ -217,7 +217,7 @@ Get-ChildItem .\analyses\BEP_OOH_activity_map\catmap_official_run\data\
 
 - 新增科研分析放`analyses/<new_topic>/{data,scripts,figures,reports}`；归档输入保持只读，精确输入哈希+留一验证，不覆盖`official_strict_tolerance`。
 - 原项目GitHub根目录`README.md`和`CATMAP_FILE_CATALOG.csv`是不同日期的旧快照，文件清单和数量可能**不包含2026-10-15最新专题**。
-- 不为作图重复求解已有CatMAP数据；运行前先核对旧`C:\\Users\\...`绝对路径、Git工作区本地改动和当前`G:\\anaconda`环境。
+- 不为作图重复求解已有CatMAP数据；运行前先核对旧`C:\Users\...`绝对路径、Git工作区本地改动和当前`G:\anaconda`环境。
 - 如只需PPT：按第四节找图；如需结论：从图回溯到第二节输入/脚本/CSV，再读正式报告，区分经验/缓存插值/真实求解。
 
 ## 八、扫描完整性与来源声明
