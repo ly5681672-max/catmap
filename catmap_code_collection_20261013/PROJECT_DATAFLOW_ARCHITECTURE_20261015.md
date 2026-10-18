@@ -225,6 +225,8 @@ $`X_i>0`$表示降低该态能量在当前稳态附近倾向于提高TOF；$`X_i
 - **输出：** [原始DFT/NEB→CatMAP TOF](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_original_TOF.csv)、[样本内BEP重算TOF](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF.csv)、[LOOCV-BEP重算TOF](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_LOOCV_TOF.csv)、[TOF/六步通量一致性](analyses/microkinetic_mechanism_13sites/data/TOF_flux_consistency.csv)、[官方DRC矩阵](analyses/microkinetic_mechanism_13sites/data/rate_control_matrix.csv)。
 - **最终图：** [三组13位点TOF对比](analyses/BEP_OOH_activity_map/catmap_official_run/figures/01_13site_TOF_original_vs_BEP.png)、[新BEP的61×61 CatMAP条件活性图](analyses/BEP_OOH_activity_map/catmap_official_run/figures/03_CatMAP_BEP_OOH_dG2_activity_61x61.png)。
 
+- **新增图4：** [图4：BEP样本内TOF排序](analyses/BEP_OOH_activity_map/catmap_official_run/figures/04_13site_BEP_fitted_TOF_ranking.svg)；[13位点排序表](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF_ranking.csv)；[绘图源码](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/plot_bep_fitted_tof_ranking.py)。仅为13位点的BEP样本内TS1回代CatMAP TOF排名，不是LOOCV预测结果。
+
 #### 五步代码及输入输出对照表
 
 | 步骤 | 数学目标 | 核心代码链接 | 对应结果位置 | 现有验证状态 |
@@ -320,6 +322,8 @@ analyses/BEP_energy_correction_optimization/data/source_carbon_O_H_TS1.csv
          ├─ baseline_validation.csv
          ├─ 13site_original_TOF.csv
          ├─ 13site_BEP_fitted_TOF.csv
+         │    └─ 13site_BEP_fitted_TOF_ranking.csv → figures/04_13site_BEP_fitted_TOF_ranking.svg
+         │         └─ scripts/plot_bep_fitted_tof_ranking.py（仅读CSV绘图）
          ├─ 13site_BEP_LOOCV_TOF.csv
          ├─ BEP_TS1_predictions_and_LOOCV.csv
          └─ Ti–Co条件网格 5×5 → 15×15 → 61×61
@@ -348,6 +352,8 @@ analyses/BEP_energy_correction_optimization/data/source_carbon_O_H_TS1.csv
 
 **读取与比较口径：** `TOF_C6H12O` 为线性TOF，`log10_TOF_C6H12O` 为图中色标采用的以10为底对数；比较预测误差时优先用13位点的对应三张表按 `surface_name` 对齐，不要将3721个Ti–Co条件网格节点当成3721种独立催化剂。极低TOF节点另见 [净通量审计](analyses/BEP_OOH_activity_map/catmap_official_run/reports/NET_FLUX_AUDIT_20261015.md)，其数值收敛状态不等同相对净通量完全可靠。
 
+
+**新增13位点BEP样本内TOF排序（图4）：** [图4：BEP样本内TOF排序](analyses/BEP_OOH_activity_map/catmap_official_run/figures/04_13site_BEP_fitted_TOF_ranking.svg)直接按[BEP样本内TOF数据](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF.csv)中的线性TOF降序，并绘制log10 TOF横向条形图，逐行标记线性TOF。[13位点排序表](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF_ranking.csv)记录完整排名，[绘图源码](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/plot_bep_fitted_tof_ranking.py)可从归档数据再生SVG。图内横轴的条形从显示下限−28开始而非从零开始；† 标记CatMAP端点控制TS1的位点。前三名为Ti–Co（3.677386 s⁻¹）、Ti（0.925334 s⁻¹）、Ti–Ni（0.0234172 s⁻¹）。这是包含Ti–Co自身数据的**样本内拟合排名**，不得用来替代LOOCV验证或证明可靠跨催化剂预测。
 
 四参数示意（eV）：
 ```text
@@ -395,6 +401,7 @@ Y₁ ≈ 0.412123 + 0.370377*u + 0.200217*z − 0.309777*z²
 | OOH四参数扩展BEP | [08_OOH_quadratic_BEP_fit.svg](analyses/BEP_energy_correction_optimization/figures/08_OOH_quadratic_BEP_fit.svg) | R²≈0.8867；仅13点样本内关系。 |
 | 旧TS1–TS2 CatMAP活性面 | [catmap_TS1_TS2_activity_grid_50x50.png](analyses/TS1_TS2_descriptor_volcano/figures/catmap_official/catmap_TS1_TS2_activity_grid_50x50.png) | 旧双TS网格，与当前OOH-BEP无直接生成关系。 |
 | 新BEP 13位点TOF三组对比 | [01_13site_TOF_original_vs_BEP.png](analyses/BEP_OOH_activity_map/catmap_official_run/figures/01_13site_TOF_original_vs_BEP.png) | DFT原始/全样本BEP/LOOCV，正式CatMAP重算。 |
+| 新BEP样本内TOF降序条形图（图4） | [图4：BEP样本内TOF排序](analyses/BEP_OOH_activity_map/catmap_official_run/figures/04_13site_BEP_fitted_TOF_ranking.svg) | [BEP样本内TOF数据](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF.csv)直接排序的官方CatMAP回代结果；Ti–Co排名第一为样本内拟合，非独立预测。 |
 | 新BEP TS1拟合与LOOCV | [02_TS1_actual_vs_predicted.png](analyses/BEP_OOH_activity_map/catmap_official_run/figures/02_TS1_actual_vs_predicted.png) | 检验高R²是否具有留一预测性。 |
 | 新BEP正式61×61活性面 | [03_CatMAP_BEP_OOH_dG2_activity_61x61.png](analyses/BEP_OOH_activity_map/catmap_official_run/figures/03_CatMAP_BEP_OOH_dG2_activity_61x61.png) | Ti–Co条件背景下的官方CatMAP网格，替换旧图时需注明条件。 |
 
