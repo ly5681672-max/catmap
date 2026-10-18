@@ -65,6 +65,11 @@ def main() -> None:
         f'<text x="{right+30}" y="145" font-family="Arial, Helvetica, sans-serif" '
         'font-size="12" fill="#707988">TOF (s&#8315;&#185;)</text>',
     ]
+    # Paint alternating row backgrounds BEFORE gridlines and bars.
+    for idx in range(len(rows)):
+        y = y0 + idx * gap
+        svg.append(f'<rect x="60" y="{y-14}" width="1290" height="35" '
+                   f'fill="{"#FFFFFF" if idx % 2 else "#F8F9FB"}"/>')
     for tick in (-28, -25, -20, -15, -10, -5, 0, 1):
         px = xpos(tick)
         stroke = "#B3BBC5" if tick == 0 else "#E6E9ED"
@@ -82,7 +87,6 @@ def main() -> None:
         name = html.escape(row["catalyst"]) + ("†" if limited else "")
         color = "#9E4266" if co else "#728BA7"
         svg += [
-            f'<rect x="60" y="{y-14}" width="1290" height="35" fill="{"#FFFFFF" if idx % 2 else "#F8F9FB"}"/>',
             f'<text x="80" y="{y+8}" text-anchor="end" font-family="Arial, Helvetica, sans-serif" '
             f'font-size="17" fill="#7D8795">{idx+1:02d}</text>',
             f'<text x="137" y="{y+8}" font-family="Arial, Helvetica, sans-serif" '
