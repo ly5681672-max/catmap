@@ -331,6 +331,24 @@ analyses/BEP_energy_correction_optimization/data/source_carbon_O_H_TS1.csv
 
 上面`inputs/snapshots/`、`scripts/`、`data/`、`figures/`等从`analyses/BEP_OOH_activity_map/catmap_official_run/`起算。这里全部是相对层级，不是根目录同名文件；最容易混用的是**上级分析包的旧独立解析响应面**与**子目录的CatMAP 0.3.1正式网格**。
 
+#### TOF数据表与61×61活性图的对应关系
+
+以下4张表均位于 `analyses/BEP_OOH_activity_map/catmap_official_run/data/`，但**网格节点结果、原始位点TOF、样本内BEP拟合TOF、留一BEP预测TOF**必须分开解读：
+
+| 数据表 | 数据来源与具体含义 | 关键字段 | 正确用途 |
+|---|---|---|---|
+| [grid_61x61.csv](analyses/BEP_OOH_activity_map/catmap_official_run/data/grid_61x61.csv) | 图3所用的**61×61＝3721个条件网格节点**：固定Ti–Co其他反应态及储库条件，沿 `ΔG₂` 与历史单吸附态 `E(OOH*)` 扫描，由全13位点拟合的四参数BEP重建TS1，再经CatMAP 0.3.1求解TOF | `grid_i`、`grid_j`、`deltaG2_eV`、`OOH_legacy_formation_eV`、`TOF_C6H12O`、`log10_TOF_C6H12O`、`status` | **图3着色的直接数据源**；查看任一网格点的实际TOF或log₁₀TOF，核对坐标与求解状态 |
+| [13site_original_TOF.csv](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_original_TOF.csv) | 13个催化位点分别使用归档的原始严格DFT/NEB Gibbs能量输入CatMAP所得的**基准TOF**，不通过新BEP替换TS1 | `surface_name`、`catalyst`、`TOF_C6H12O`、`log10_TOF_C6H12O`、`status` | 衡量每个位点真实能量输入下的模型活性，作为拟合/留一结果的比较基准 |
+| [13site_BEP_fitted_TOF.csv](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_fitted_TOF.csv) | 用全部13个位点拟合四参数BEP；将**样本内预测的TS1**逐位点回代CatMAP，其余能量保持各位点原始基线 | 上述TOF字段，另有 `actual_TS1_eV`、`predicted_TS1_eV`、`actual_minus_predicted_TS1_eV` | 判断样本内能否复现基准TOF；**由于测试位点参与拟合，不能作为独立预测能力的证明** |
+| [13site_BEP_LOOCV_TOF.csv](analyses/BEP_OOH_activity_map/catmap_official_run/data/13site_BEP_LOOCV_TOF.csv) | 对每个位点分别排除该点，用其余12点重新拟合BEP及训练集中心，再以**留一预测的TS1**替换目标位点TS1并运行官方CatMAP | 同样包含TOF、真实/预测TS1、`deltaG2_eV`、`OOH_legacy_single_adsorbate_eV`等字段 | 检验已有样本下的**逐点留一外推能力**；与基准TOF对照分析预测失效，不等同外部实验验证 |
+
+**图表映射：** [图3 `03_CatMAP_BEP_OOH_dG2_activity_61x61.png`](analyses/BEP_OOH_activity_map/catmap_official_run/figures/03_CatMAP_BEP_OOH_dG2_activity_61x61.png) 的颜色来自 `grid_61x61.csv` 的 `log10_TOF_C6H12O`；横轴为 `deltaG2_eV`，纵轴为 `OOH_legacy_formation_eV`。图中13个催化剂的圆点仅标记各自的真实**描述符坐标**，不是将其各自的原始TOF或留一TOF直接填到Ti–Co固定背景网格中；点位附近网格颜色也不能当作该催化剂的真实TOF。绘图代码为 [run_bep_ooh_activity_map.py 中的 `render_figures()`](analyses/BEP_OOH_activity_map/catmap_official_run/scripts/run_bep_ooh_activity_map.py)。
+
+**Ti–Co数值示例（333.15 K；单位：每个模型有效活性中心的 s⁻¹）：** 原始CatMAP TOF = `3.708424176046`；全13位点BEP样本内重算TOF = `3.677386351576`（相对基准约低0.84%）；排除Ti–Co的LOOCV-BEP重算TOF = `3.804940306853e-13`。对应TS1−Rpair的真实值/样本内预测/留一预测分别为 `0.556344 / 0.674641 / 1.669863 eV`，具体见 [BEP_TS1_predictions_and_LOOCV.csv](analyses/BEP_OOH_activity_map/catmap_official_run/data/BEP_TS1_predictions_and_LOOCV.csv)。因此**图3在Ti–Co附近的样本内响应可以接近基准活性，但不能据此宣称BEP准确独立预测了Ti–Co，也不能把图3视为普适Ti–M筛选火山图**。
+
+**读取与比较口径：** `TOF_C6H12O` 为线性TOF，`log10_TOF_C6H12O` 为图中色标采用的以10为底对数；比较预测误差时优先用13位点的对应三张表按 `surface_name` 对齐，不要将3721个Ti–Co条件网格节点当成3721种独立催化剂。极低TOF节点另见 [净通量审计](analyses/BEP_OOH_activity_map/catmap_official_run/reports/NET_FLUX_AUDIT_20261015.md)，其数值收敛状态不等同相对净通量完全可靠。
+
+
 四参数示意（eV）：
 ```text
 u = ΔG₂ + 2.0922766923
