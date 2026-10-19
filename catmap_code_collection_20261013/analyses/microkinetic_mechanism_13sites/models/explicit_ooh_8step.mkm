@@ -1,0 +1,62 @@
+# Eight-step explicit OOH* / olefin* kinetic network (SYNTAX MODEL ONLY).
+# Based on the researcher's original eight-step mechanism.
+# NOT the validated six-step CatMAP model; do not overwrite archived results.
+# No numerical run until a mutually consistent formation-energy file is provided.
+# Especially: old Rpair/TS1/TS2/combined-state values CANNOT be assigned
+# without reference mapping to the new, distinct elementary states.
+output_variables = ['coverage', 'rate', 'turnover_frequency', 'directional_rates', 'rate_control']
+
+rxn_expressions = [
+    '* + H2O2_g <-> H2O2*',                           # 1 molecular peroxide adsorption
+    'H2O2* + * -> Ha* + OOH*',                        # 2 cleavage; no explicit TS
+    '* + C6H12_g <-> C6H12*',                        # 3 olefin adsorption
+    'OOH* + C6H12* + * <-> TS1* -> C6H12O* + O* + Hb*',  # 4 oxygen transfer
+    'C6H12O* <-> C6H12O_g + *',                      # 5 epoxide desorption
+    'Hb* + O* -> OH* + *',                           # 6 H transfer; no explicit TS
+    'Ha* + OH* -> H2O* + *',                         # 7 H2O formation; no explicit TS
+    'H2O* <-> H2O_g + *',                            # 8 H2O desorption
+]
+
+surface_names = ['tico']  # Prototype for Ti-Co; extend only with site-resolved energies.
+descriptor_names = ['temperature', 'pressure']
+descriptor_ranges = [[333.15, 333.15], [1.0, 1.0]]
+resolution = 1
+temperature = 333.15
+tolerance = 1e-70
+max_rootfinding_iterations = 300
+max_damping_iterations = 50
+
+species_definitions = {}
+species_definitions['s'] = {'site_names': ['active'], 'total': 1}
+species_definitions['H2O2_g'] = {'concentration': 0.185}
+species_definitions['C6H12_g'] = {'concentration': 1.0}
+species_definitions['H2O_g'] = {'concentration': 0.815}
+species_definitions['C6H12O_g'] = {'concentration': 1e-20}
+
+# The species names Ha/Hb explicitly distinguish the two H atoms.
+# All stable adsorbates occupy 1 effective position; the combined TS1
+# in step 4 spans 3 positions. This is a modeling assumption and does
+# NOT assert that three independent physical adsorption sites exist.
+species_definitions['H2O2_s'] = {'composition': {'H': 2, 'O': 2}, 'n_sites': 1}
+species_definitions['Ha_s'] = {'composition': {'H': 1}, 'n_sites': 1}
+species_definitions['OOH_s'] = {'composition': {'H': 1, 'O': 2}, 'n_sites': 1}
+species_definitions['C6H12_s'] = {'composition': {'C': 6, 'H': 12}, 'n_sites': 1}
+species_definitions['TS1_s'] = {'composition': {'C': 6, 'H': 13, 'O': 2}, 'n_sites': 3}
+species_definitions['C6H12O_s'] = {'composition': {'C': 6, 'H': 12, 'O': 1}, 'n_sites': 1}
+species_definitions['O_s'] = {'composition': {'O': 1}, 'n_sites': 1}
+species_definitions['Hb_s'] = {'composition': {'H': 1}, 'n_sites': 1}
+species_definitions['OH_s'] = {'composition': {'H': 1, 'O': 1}, 'n_sites': 1}
+species_definitions['H2O_s'] = {'composition': {'H': 2, 'O': 1}, 'n_sites': 1}
+
+# This filename is intentionally NOT populated with invented energies.
+# An explicit-O-O-H, C6H12, TS1 etc. common-reference table is required.
+input_file = 'energies_explicit_ooh_8step.txt'
+parser = 'TableParser'
+scaler = 'ThermodynamicScaler'
+solver = 'SteadyStateSolver'
+gas_thermo_mode = 'frozen_gas'
+adsorbate_thermo_mode = 'frozen_adsorbate'
+pressure_mode = 'concentration'
+estimate_frequencies = False
+data_file = 'explicit_ooh_8step_tico.pkl'
+log_file = 'explicit_ooh_8step_tico.log'
