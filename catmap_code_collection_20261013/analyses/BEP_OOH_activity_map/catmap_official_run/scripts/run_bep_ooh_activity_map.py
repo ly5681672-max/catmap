@@ -901,7 +901,7 @@ def create_figures() -> dict[str, Any]:
         if r["status"] in {"CONVERGED", "CONVERGED_ADAPTIVE", "REUSED_CACHE"} and r.get("log10_TOF_C6H12O"):
             zmap[j, i] = float(r["log10_TOF_C6H12O"])
             invalid[j, i] = not (str(r.get("independent_TS_above_both_endpoints", "")).lower() == "true")
-    fig, ax = plt.subplots(figsize=(12.8, 7.2))
+    fig, ax = plt.subplots(figsize=(8.8, 8.8))
     dx = xv[1] - xv[0]; dy = yv[1] - yv[0]
     xe = np.r_[xv[0] - dx/2, (xv[:-1] + xv[1:]) / 2, xv[-1] + dx/2]
     ye = np.r_[yv[0] - dy/2, (yv[:-1] + yv[1:]) / 2, yv[-1] + dy/2]

@@ -13,7 +13,7 @@
 - BEP全样本拟合重算：13个位点；LOOCV逐点重算：13个位点。
 - 网格61×61：3721个坐标，CatMAP求解状态计数 `{"CONVERGED": 3721, "CONVERGED_ADAPTIVE": 0, "REUSED_CACHE": 0, "FAILED": 0, "FAILED_VALIDATION": 0}`；结果来源阶段计数 `{"exact_hash_cache_from_grid_5x5": 25, "validated_CatMAP_result_from_original_61x61_stage": 3696}`；成功=3721；最大残差=8.422906e-71；容差=1e-70。其中来自61×61正式阶段的3696个节点均有该阶段逐节点记录；其余与5×5节点坐标及输入哈希完全一致的25个节点复用先前已验证CatMAP结果。当前报告重导出时3721行均由精确输入哈希缓存读取，见`retrieval_status`；这不改变`status`所记录的真实求解结果。
 - 5×5和15×15阶段数据分别保存为 `data/grid_5x5.csv`、`data/grid_15x15.csv`。所有失败坐标不填零/不插值，日志见 `runs/`。
-- 61×61正式网格求解阶段耗时=337.11 s（原始计算调用计时，不含后续缓存复用的图件重生成）；本次报告/图件重生成调用耗时=25.16 s。此前输入准备、基线、BEP和5×5/15×15阶段为独立调用，未合并计入该值。全域最大值分类=`Maximum within sampled range (boundary)`；TS1高于两个端点的子域最大值分类=`Maximum within independent-TS-valid sampled range (boundary)`。
+- 61×61正式网格求解阶段耗时=337.11 s（原始计算调用计时，不含后续缓存复用的图件重生成）；本次报告/图件重生成调用耗时=21.33 s。此前输入准备、基线、BEP和5×5/15×15阶段为独立调用，未合并计入该值。全域最大值分类=`Maximum within sampled range (boundary)`；TS1高于两个端点的子域最大值分类=`Maximum within independent-TS-valid sampled range (boundary)`。
 - TS1高于初/末态的网格点=2779/3721；端点控制节点不删去，图中以斜线标识。
 - 每个节点均使用运行前绑定的 `catmap_case.mkm` 指向本节点 `energies.txt`；解析后逐项比对Rpair/TS1/EpoxideHHO/HHO/TS2/OHHa/H2O共7态。本工作流修复前生成的旧哈希运行/缓存已保留作诊断，但不进入当前CSV、峰值或图件；`RUN_SCHEMA`变化使其不能作为当前结果缓存。
 

@@ -15,7 +15,7 @@
   },
   "baseline_max_abs_dex": 2.2508217512040574e-11,
   "maximum_grid_residual": 8.42290643035013e-71,
-  "elapsed_seconds": 25.16057825088501,
+  "elapsed_seconds": 21.33314561843872,
   "grid_61x61_solver_stage_seconds": 337.109997,
   "elapsed_scope": "current invocation; true solver-stage time separately recorded",
   "grid_maximum": {
