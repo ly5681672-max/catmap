@@ -1,0 +1,75 @@
+{
+  "catmap_version": "0.3.1",
+  "parsed_reaction_count": 8,
+  "stable_adsorbates": [
+    "C6H12O_s",
+    "C6H12_s",
+    "H2O2_s",
+    "H2O_s",
+    "Ha_s",
+    "Hb_s",
+    "OH_s",
+    "OOH_s",
+    "O_s"
+  ],
+  "transition_states_excluded_from_coverage_balance": [
+    "Hb-O_s",
+    "OOH-C6H12_s"
+  ],
+  "n_sites": {
+    "C6H12O_s": 1,
+    "C6H12_s": 1,
+    "H2O2_s": 1,
+    "H2O_s": 1,
+    "Ha_s": 1,
+    "Hb_s": 1,
+    "OH_s": 1,
+    "OOH_s": 1,
+    "O_s": 1
+  },
+  "numerical_quality_pass": true,
+  "numerical_quality_checks": {
+    "stored_solver_quality_gate": true,
+    "finite_nonnegative_coverages_and_vacancy": true,
+    "site_sum_within_1e-50": true,
+    "zero_inventory_within_1e-100": true,
+    "surface_residual_within_1e-90": true,
+    "relative_residual_within_1e-60": true,
+    "eight_net_rates_finite_and_cycle_closed": true,
+    "gas_and_stoichiometry_reconstruction_within_1e-50": true,
+    "cross_precision_replay_passed": true,
+    "positive_product_net_tof": true
+  },
+  "site_sum_recomputed": "1.000000000000000000000000000",
+  "I1": "2.263404106487303221779054770603419058881E-571",
+  "I2": "0.0",
+  "local_trace_candidates": [
+    "C6H12O_s",
+    "H2O2_s",
+    "H2O_s",
+    "Ha_s",
+    "Hb_s",
+    "OH_s",
+    "OOH_s",
+    "O_s"
+  ],
+  "protected_species": [
+    "OOH_s"
+  ],
+  "local_display_omissions": [
+    "C6H12O_s",
+    "H2O2_s",
+    "H2O_s",
+    "Ha_s",
+    "Hb_s",
+    "OH_s",
+    "O_s"
+  ],
+  "delta_all_trace_candidates": "1.108769758456967729907290570E-17",
+  "delta_display_omissions": "1.105573061913148125997750696E-17",
+  "vacancy": "0.010465477732152036532512989389127619675951802067439479015695752000263011429823171",
+  "delta_over_vacancy": "1.056399994542635167288749604E-15",
+  "global_screen_status": "UNVERIFIED_INCOMPLETE_MULTI_CATALYST_COHORT",
+  "tof_s-1_provisional": "1.3236777105111254012505223763107033532888710182955537578930211522186982876109725e-36",
+  "log10_tof_provisional": "-35.8782177441901292907449753784331697204289577236264412871676"
+}

@@ -1,0 +1,12 @@
+﻿species,class,composition,n_sites,formation_energy_eV
+C6H12_s,adsorbate,"{'H': 12, 'C': 6}",1,-26.161823
+H2O2_s,adsorbate,"{'H': 2, 'O': 2}",1,-6.2175915
+H2O_s,adsorbate,"{'H': 2, 'O': 1}",1,-6.562752
+Ha_s,adsorbate,{'H': 1},1,-2.1214675
+NEB1FS_s,adsorbate,"{'C': 6, 'H': 14, 'O': 2}",1,-33.960071
+NEB1IS_s,adsorbate,"{'C': 6, 'H': 14, 'O': 2}",1,-33.720385
+NEB2FS_s,adsorbate,"{'H': 2, 'O': 1}",1,-5.961643
+NEB2IS_s,adsorbate,"{'H': 2, 'O': 1}",1,-5.481063
+OOH_s,adsorbate,"{'H': 1, 'O': 2}",1,-2.7734525
+NEB1TS_s,transition_state,"{'C': 6, 'H': 14, 'O': 2}",1,-33.164041
+NEB2TS_s,transition_state,"{'H': 2, 'O': 1}",1,-5.255069

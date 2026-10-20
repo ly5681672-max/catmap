@@ -1,0 +1,18 @@
+{
+  "status": "RAW_WORKBOOK_VERIFIED: TiCo NEB G column=BM",
+  "sources_sha256": {
+    "lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+    "lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_TS_relative.csv": "a967325ec1fd17207a7d51857cda01a23d8f76a846200b74f229e64d30e1cdfd",
+    "lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_adsorption.csv": "d4b97e9197b46bd92f9fd6905ced2f654a564b16b72a36a3009450801a8a74d4",
+    "lyq_alkene_epoxidation\\1-generating_input_file\\convert_dft_to_catmap.py": "8bc8fa564a39e15498284e0c64b40417dc1115a18101c997419f6506d7bd1ba9",
+    "lyq_alkene_epoxidation\\己烯环氧化.xlsx": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd"
+  },
+  "assumptions": [
+    "TiCo clean slab reference is shared with NEB full systems (pending cell/supercell verification)",
+    "NEB1 and NEB2 full atom inventories and Ha spectator were confirmed by researcher",
+    "Formal site counts are bookkeeping, not validated physical active center counts",
+    "No separate DFT TS candidate energy was substituted for true coadsorbed NEB TS"
+  ],
+  "no_catmap_run": true,
+  "no_source_modification": true
+}

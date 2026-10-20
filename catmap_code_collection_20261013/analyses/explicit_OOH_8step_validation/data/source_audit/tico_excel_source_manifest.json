@@ -1,0 +1,31 @@
+{
+  "worktree_commit": "41d1b5f9f07af66a4e38192d942f98ae6b62d971",
+  "excel_sha256": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd",
+  "source_sha256": {
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\己烯环氧化.xlsx": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\1-generating_input_file\\convert_dft_to_catmap.py": "8bc8fa564a39e15498284e0c64b40417dc1115a18101c997419f6506d7bd1ba9",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_TS_relative.csv": "a967325ec1fd17207a7d51857cda01a23d8f76a846200b74f229e64d30e1cdfd",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_adsorption.csv": "d4b97e9197b46bd92f9fd6905ced2f654a564b16b72a36a3009450801a8a74d4",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\alkene_epoxidation.mkm": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe"
+  },
+  "audit_csv": "C:\\Users\\Administrator\\Documents\\codex探索\\wt-tico\\catmap_code_collection_20261013\\analyses\\NEB_coadsorption_TiCo_reference_audit\\data\\tico_excel_cell_audit.csv",
+  "record_count": 22,
+  "numeric_failures": [],
+  "unverified_temperature_records": [
+    "Ha",
+    "Hb",
+    "OOH",
+    "C6H12",
+    "C6H12O",
+    "O",
+    "OH",
+    "TiCo_clean_slab",
+    "NEB2_IS",
+    "NEB2_TS",
+    "mu_C",
+    "mu_H",
+    "mu_O"
+  ],
+  "scope": "read-only Excel/Gibbs provenance audit; no CatMAP steady-state, TOF or DRC run"
+}

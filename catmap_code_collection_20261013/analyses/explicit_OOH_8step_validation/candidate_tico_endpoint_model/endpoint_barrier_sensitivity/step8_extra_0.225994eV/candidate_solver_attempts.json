@@ -1,0 +1,100 @@
+{
+  "status": "ACCEPTED",
+  "catmap_version": "0.3.1",
+  "conditions": {
+    "temperature_K": "333.15",
+    "concentrations": {
+      "C6H12_g": "1.0",
+      "H2O2_g": "0.185",
+      "H2O_g": "0.815",
+      "C6H12O_g": "1e-20"
+    }
+  },
+  "inventory_constraint": "theta(Ha*) = theta(OOH*) = 0-inventory class",
+  "seed_note": "uniform multistart only",
+  "attempts": [
+    {
+      "seed": "base_candidate_root_numerical_seed_only",
+      "iterations": 3,
+      "scaled_residual_inf": "1.47870273842088125980365e-73",
+      "max_abs_surface_residual": "6.62724813181607023369226e-91",
+      "relative_residual": "1.87706871146843266340953e-64",
+      "site_balance_error": "1.778207e-161",
+      "Ha_minus_OOH": "0.0",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "seed": "uniform_-30",
+      "iterations": 1,
+      "scaled_residual_inf": "0.0105761623234485174824109",
+      "max_abs_surface_residual": "73416750469.0036640061367",
+      "relative_residual": "1.0",
+      "site_balance_error": "0.0",
+      "Ha_minus_OOH": "0.0",
+      "accepted": false,
+      "error": "ValueError: matrix is numerically singular"
+    },
+    {
+      "seed": "uniform_-15",
+      "iterations": 1,
+      "scaled_residual_inf": "0.0105761914066761313339874",
+      "max_abs_surface_residual": "73416750469.0036640061367",
+      "relative_residual": "1.0",
+      "site_balance_error": "0.0",
+      "Ha_minus_OOH": "0.0",
+      "accepted": false,
+      "error": "ValueError: matrix is numerically singular"
+    },
+    {
+      "seed": "uniform_-5",
+      "iterations": 2,
+      "scaled_residual_inf": "0.0112167145427987241609231",
+      "max_abs_surface_residual": "73416750469.0036640061367",
+      "relative_residual": "1.0",
+      "site_balance_error": "0.0",
+      "Ha_minus_OOH": "0.0",
+      "accepted": false,
+      "error": "ValueError: matrix is numerically singular"
+    },
+    {
+      "seed": "uniform_0",
+      "iterations": 81,
+      "scaled_residual_inf": "1.05062355970569794477399e-50",
+      "max_abs_surface_residual": "2.78070352462649291958089e-42",
+      "relative_residual": "7.87592599240139299348839e-16",
+      "site_balance_error": "1.778207e-161",
+      "Ha_minus_OOH": "0.0",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "seed": "uniform_3",
+      "iterations": 82,
+      "scaled_residual_inf": "2.67906266275281879955656e-52",
+      "max_abs_surface_residual": "7.83523565340013299765612e-44",
+      "relative_residual": "2.21921307297559471162656e-17",
+      "site_balance_error": "2.6673105e-161",
+      "Ha_minus_OOH": "0.0",
+      "accepted": true,
+      "error": null
+    }
+  ],
+  "accepted_roots": [
+    {
+      "seed": "base_candidate_root_numerical_seed_only",
+      "product_TOF": "3.530636940099847292329196030416896318692e-27",
+      "vacancy": "0.0104654777321520365327082574511"
+    },
+    {
+      "seed": "uniform_0",
+      "product_TOF": "3.530636940099850073032720656909815899581e-27",
+      "vacancy": "0.0104654777321520365327082574511"
+    },
+    {
+      "seed": "uniform_3",
+      "product_TOF": "3.530636940099847370681552564418226295253e-27",
+      "vacancy": "0.0104654777321520365327082574511"
+    }
+  ]
+}

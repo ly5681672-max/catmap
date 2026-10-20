@@ -1,0 +1,6 @@
+{
+  "method": "CatMAP 0.3.1 SteadyStateSolver.get_ode_solution_coverage",
+  "initial_state": "all adsorbate coverages zero; clean vacant surface",
+  "status": "FAILED_OR_NOT_REACHED",
+  "error": "ValueError: Out of iterations (resid=846269456159.4329)"
+}
