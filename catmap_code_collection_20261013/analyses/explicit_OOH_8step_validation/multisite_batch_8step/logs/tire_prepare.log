@@ -1,0 +1,46 @@
+{
+  "surface": "tire",
+  "candidate_status": "PROVISIONAL",
+  "source_hashes": {
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\alkene_epoxidation.mkm": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_formation_catmap.txt": "9ea18aa87759d3df9b3c268eebb5631f55fc71d4737605ab3b2d991cc4014baf",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_TS_relative.csv": "a967325ec1fd17207a7d51857cda01a23d8f76a846200b74f229e64d30e1cdfd",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_adsorption.csv": "d4b97e9197b46bd92f9fd6905ced2f654a564b16b72a36a3009450801a8a74d4",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\1-generating_input_file\\convert_dft_to_catmap.py": "8bc8fa564a39e15498284e0c64b40417dc1115a18101c997419f6506d7bd1ba9",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\己烯环氧化.xlsx": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd",
+    "C:\\Users\\Administrator\\Documents\\codex探索\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\candidate_tico_kinetic_control\\candidate_tico.mkm": "09428e02ae5c60631772c4c926818c5ae8373a23210eaa3cce87873ed49d0021"
+  },
+  "clean_slab_G_source_sheet": "catmap数据集",
+  "clean_slab_G_source_row": 51,
+  "clean_slab_G_eV": -873.385854,
+  "NEB_state_source": "DFT_TS_relative.csv; raw Gibbs totals; same surface-specific clean slab and converter atomic references",
+  "NEB_formation_eV": {
+    "NEB1IS": -33.38082999999999,
+    "NEB1TS": -32.935984000000005,
+    "NEB1FS": -35.308262000000056,
+    "NEB2IS": -6.389835999999978,
+    "NEB2TS": -6.171963000000037,
+    "NEB2FS": -7.202671000000041
+  },
+  "NEB_signed_differences_eV": {
+    "NEB1_TS_minus_IS_eV": 0.4448459999999841,
+    "NEB1_TS_minus_FS_eV": 2.372278000000051,
+    "NEB2_TS_minus_IS_eV": 0.21787299999994048,
+    "NEB2_TS_minus_FS_eV": 1.0307080000000042
+  },
+  "conditions": {
+    "temperature_K": 333.15,
+    "concentrations": {
+      "C6H12_g": 1.0,
+      "H2O2_g": 0.185,
+      "H2O_g": 0.815,
+      "C6H12O_g": 1e-20
+    }
+  },
+  "site_model": "one effective site per NEB composite state; coarse-graining, not structure-verified",
+  "missing_link_TS": "CatMAP endpoint-barrier approximation; not DFT TS",
+  "model_mapping_warning": "reduced 9-reaction candidate, not a strict lumping proof of the original 8-reaction model",
+  "candidate_model": "C:\\Users\\Administrator\\Documents\\codex探索\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\tire_candidate\\candidate_tire.mkm",
+  "candidate_energies": "C:\\Users\\Administrator\\Documents\\codex探索\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\tire_candidate\\candidate_tire_energies.txt"
+}

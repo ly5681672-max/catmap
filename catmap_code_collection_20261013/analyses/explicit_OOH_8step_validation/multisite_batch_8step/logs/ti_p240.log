@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Documents\codex̽��\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\multisite_candidate_workflow\scripts\run_site_candidate.py", line 287, in <module>
+    solve(args.model, args.precision)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\Documents\codex̽��\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\multisite_candidate_workflow\scripts\run_site_candidate.py", line 78, in solve
+    model.run()
+    ~~~~~~~~~^^
+  File "G:\anaconda\Lib\site-packages\catmap\model.py", line 264, in run
+    if self._solved == self._token() and \
+                       ~~~~~~~~~~~^^
+  File "G:\anaconda\Lib\site-packages\catmap\model.py", line 1213, in _token
+    token = self._header()
+  File "G:\anaconda\Lib\site-packages\catmap\model.py", line 1184, in _header
+    print(CITATION_INFORMATION)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'gbk' codec can't encode character '\xf8' in position 181: illegal multibyte sequence

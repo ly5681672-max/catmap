@@ -1,0 +1,16 @@
+{
+  "surface": "tire",
+  "status": "NUMERICAL_PASS_PROVISIONAL_PHYSICS",
+  "catmap_version": "0.3.1",
+  "temperature_K": 333.15,
+  "candidate_T_formula_s-1": "0.00000082117402462673501412591591406773493228357764402025176748869679383676869503065659",
+  "inventory_invariant": "Ha_s - OOH_s = 0 (derived from this candidate's CatMAP stoichiometry)",
+  "accepted_roots": 2,
+  "chosen_seed": "uniform_0",
+  "accepted_root_max_absolute_coverage_spread": "4.89967607718e-115",
+  "max_relative_surface_residual": "2.49419078444513449950378e-99",
+  "site_balance_error": "0.0",
+  "inventory_error": "0.0",
+  "max_net_reaction_rate_vs_product_TOF_relative_difference": "2.49419078444e-99",
+  "physical_status": "PROVISIONAL; endpoint approximations, one-effective-site representation, and reduced-state mapping are unverified"
+}

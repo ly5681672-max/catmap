@@ -1,0 +1,13 @@
+{
+  "surface_name": "tita",
+  "python": "G:\\anaconda\\python.exe",
+  "precision_digits": 120,
+  "actual_precision_digits": 120,
+  "catmap_version_expected": "0.3.1",
+  "model_sha256": "c21eafa674ebe0a79fd478ea8ca9cef74d0546c0a01d630d0ed4cf041aeb3694",
+  "energies_sha256": "da51d075dfa7b40cc3439eb7e5a0e330801a42d9a6b16f7fbc131dc936cf870a",
+  "source_manifest_sha256": "d0cae82963b8d9f326cc82d87ba4ca4ccc71670d6b1095e626c140b7c2a917a5",
+  "run_exit_code": 0,
+  "log": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\logs\\tita_p120.log",
+  "model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\tita_candidate\\candidate_tita.mkm"
+}

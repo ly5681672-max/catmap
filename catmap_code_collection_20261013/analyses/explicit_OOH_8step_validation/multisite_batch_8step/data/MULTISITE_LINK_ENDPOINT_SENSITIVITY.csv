@@ -1,0 +1,89 @@
+﻿surface_name,candidate_step,endpoint_perturbation_eV,TOF_s-1,conditional_sensitivity,status,source
+tico,1,0.005,0.000000000000000000000000003530636940099847292329161777530048264676831148987383291539011121231890450013211383179640862985384036,5.570405632519201631514494886553581639885e-23,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,1,0.010,0.000000000000000000000000003530636940099847292329121008022975364904673832307351097887889197560483458336269284938292091828904338,6.100291159634320249123285545842479362632e-23,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,2,0.005,0.000000000000000000000000003225431335974915829265588150065025946533113036176869056507266447727525523015041146593884769933035478,0.519118931301169544829247119002846920155,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,2,0.010,0.000000000000000000000000002924523913510132858784538281217355375387355723325091547078094637925565140972892119282181274896598839,0.5407175479353163981034211445553906259781,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,3,0.005,0.000000000000000000000000003530636940099847292329196030416896330538840564889527229286046795015008573840984561560807536598419225,-1.047852040110514516481210475715021666534e-37,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,3,0.010,0.000000000000000000000000003530636940099847292329196030416896330615532306889920177712326361243421442254364878278731428859418198,-1.147529095471398124769138153009852283767e-37,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,4,0.005,0.000000000000000000000000003222485161402179085476896238690280480036878448134476856750493768040878743328921608353585824192899187,0.5243659401968143170962288976268341518422,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,4,0.010,0.000000000000000000000000002919223667395737945938746329112036943514480915842551455440367157863186036613609366746337580794758692,0.5459252653383146793010078551978649764321,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,6,0.005,0.000000000000000000000000003530636940099847292329196028816682115076872461186802613300017594563903663927012644510430797210678366,2.602362340501840772336714717500224804057e-27,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,6,0.010,0.000000000000000000000000003530636940099847292329196026912026748009802029068384095047359238805085842744967639440436331303092054,2.849912381109056941052934968265714885851e-27,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,8,0.005,0.000000000000000000000000003530636940099847292329196030416896330473552282795374945207609899777607472712165090781531767713669298,1.390434827198743277567379556252347727102e-39,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,8,0.010,0.000000000000000000000000003530636940099847292329196030416896330472534630827788365133408129414755545532737722688191427194374203,1.5227001126975700528685544077220259421e-39,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,9,0.005,0.000000000000000000000000003530636940099847292329196030416896330473552282840595852280997586209392351028963749844529434549930024,1.390434753657848290653167890643945768874e-39,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tico,9,0.010,0.000000000000000000000000003530636940099847292329196030416896330472534630926833468075283014851889936394916849530404437789294069,1.522700032161088303445033750316701890679e-39,REUSED_HISTORICAL_ENDPOINT_ASSUMPTION_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\candidate_tico_kinetic_control\ENDPOINT_BARRIER_CONTROL.csv
+tife,NEB1FS,0.005,7.3145289447224803491066007529427019323877320774759934056688510991632253160397169e-31,1.20533797642436370494103990802e-13,REUSED_ENDPOINT_ENERGY_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\multisite_candidate_workflow\data\tife_conditional_sensitivity.csv
+tife,NEB2FS,0.005,7.3568606114775377734329018614637933057145850697104813625723795819574564882892116e-31,1.26236229909863068408571567968,REUSED_ENDPOINT_ENERGY_SENSITIVITY_NOT_DRC,C:\Users\Administrator\Documents\codex探索\wt-tico\catmap_code_collection_20261013\analyses\explicit_OOH_8step_validation\multisite_candidate_workflow\data\tife_conditional_sensitivity.csv
+ti,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ti,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timn,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tihf,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tire,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+timo,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tiv,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+tita,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,1,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,2,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,3,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,4,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,5,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,6,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,7,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,8,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase
+ticr,9,,,,NOT_RUN; endpoint-model sensitivity is not DRC,no separate link-barrier perturbation was run in this phase

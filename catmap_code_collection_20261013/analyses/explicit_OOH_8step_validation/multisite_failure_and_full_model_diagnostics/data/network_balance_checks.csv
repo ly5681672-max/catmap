@@ -1,0 +1,18 @@
+﻿network,reaction_index,states,atom_balance,site_balance,state_site_counts,basis
+original_8step,1,s + H2O2_g | H2O2_s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,2,H2O2_s + s | Ha_s + OOH_s,PASS,PASS,2;2,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,3,s + C6H12_g | C6H12_s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,4,OOH_s + C6H12_s + s | OOH-C6H12_s + s + s | C6H12O_s + O_s + Hb_s,PASS,PASS,3;3;3,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,5,C6H12O_s | C6H12O_g + s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,6,Hb_s + O_s | Hb-O_s + s | OH_s + s,PASS,PASS,2;2;2,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,7,Ha_s + OH_s | s + H2O_s,PASS,PASS,2;2,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+original_8step,8,H2O_s | H2O_g + s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,1,s + H2O2_g | H2O2_s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,2,H2O2_s + s | Ha_s + OOH_s,PASS,PASS,2;2,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,3,s + C6H12_g | C6H12_s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,4,Ha_s + OOH_s + C6H12_s | NEB1IS_s + s + s,PASS,PASS,3;3,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,5,NEB1IS_s | NEB1TS_s | NEB1FS_s,PASS,PASS,1;1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,6,NEB1FS_s | NEB2IS_s + C6H12O_g,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,7,NEB2IS_s | NEB2TS_s | NEB2FS_s,PASS,PASS,1;1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,8,NEB2FS_s | H2O_s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script
+candidate_9reaction,9,H2O_s | H2O_g + s,PASS,PASS,1;1,CatMAP parsed states; all adsorbates n_sites default/declared 1; formula assignments documented in script

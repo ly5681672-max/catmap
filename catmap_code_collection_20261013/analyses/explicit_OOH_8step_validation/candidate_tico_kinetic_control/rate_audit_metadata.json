@@ -1,0 +1,25 @@
+{
+  "catmap_version": "0.3.1",
+  "precision_digits": 220,
+  "source_model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\candidate_tico_kinetic_control\\runs\\strict_baseline_replay\\candidate_tico.mkm",
+  "coverage_source": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\candidate_tico_kinetic_control\\runs\\strict_baseline_replay\\candidate_steady_state_coverages.csv",
+  "coverage_site_sum": "1.0",
+  "inventory_Ha_minus_OOH": "0.0",
+  "step4_forward_formula": "kf4 * theta(Ha*) * theta(OOH*) * theta(C6H12*)",
+  "step4_forward_formula_value": "3.530636940099847292329196030416896344278311171036921488374261999992186e-27",
+  "step4_forward_flux": "3.530636940099847292329196030416896344278311171036921488374261999992186e-27",
+  "product_TOF_reference": "3.530636940099847292329196030416896330474407272717968958409776492044723e-27",
+  "step4_forward_over_TOF": "1.0",
+  "official_directional_rates_precision_note": "CatMAP 0.3.1 get_directional_rates/get_elem_ec converts each directional flux to Python float; high-precision reconstruction from CatMAP rate constants and reaction stoichiometry is reported separately.",
+  "native_net_rates_all_steps": [
+    "3.53063694009984729232919603041689633047440727254908303497590946206909e-27",
+    "3.530636940099847292329196030416896330474407272717968958409776492044706e-27",
+    "3.53063694009984729232919603041672041638348054390231335130203418896871e-27",
+    "3.530636940099847292329196030416896330474407272717968958409776492044723e-27",
+    "3.530636940099847292329196030416896330474407272717968958409776492044722e-27",
+    "3.530636940099847292329196030416896330474407272717968958409776492044723e-27",
+    "3.530636940099847292329196030416896330474407272717968958409776492044725e-27",
+    "3.530636940099847292329196030416896330474407272717968958411512117224107e-27",
+    "3.530636940099847292329196030416896330474407272732878217124544386304758e-27"
+  ]
+}

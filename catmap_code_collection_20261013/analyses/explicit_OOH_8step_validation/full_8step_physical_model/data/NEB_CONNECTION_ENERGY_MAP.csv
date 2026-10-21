@@ -1,0 +1,10 @@
+﻿connection,deltaG_eV,data_class,kinetics,mapping
+independent Ha+OOH+C6H12 -> full NEB1-IS,-2.663642000000003,DERIVED_ENDPOINT_FREE_ENERGY,missing connector TS; endpoint approximation only conditionally,Ha spectator included in NEB state formula; geometry/site footprint unverified
+NEB1-IS -> NEB1-FS,-0.23968599999999896,DIRECT_NEB_ENDPOINTS,NEB1TS explicit; signed barriers from IS/TS/FS,full NEB state energies
+full NEB1-FS -> Ha+C6H12O+O+Hb,4.7039754999999985,DERIVED_ENDPOINT_FREE_ENERGY,missing dissociation/reorganization TS; endpoint approximation only conditionally,product/O/Hb fragments plus retained Ha spectator
+NEB1-FS -> NEB2-IS + C6H12O_g,0.8112369999999984,DERIVED_ENDPOINT_FREE_ENERGY,no independent connector TS,published candidate endpoint delta
+Ha+Hb+O -> full NEB2-IS,-3.1771455,DERIVED_ENDPOINT_FREE_ENERGY,missing association/reorganization TS; endpoint approximation only conditionally,Ha spectator included; geometry/site footprint unverified
+NEB2-IS -> NEB2-FS,-0.4805799999999998,DIRECT_NEB_ENDPOINTS,NEB2TS explicit; signed barriers from IS/TS/FS,full NEB state energies
+full NEB2-FS -> Ha+OH,1.5956584999999999,DERIVED_ENDPOINT_FREE_ENERGY,missing deaggregation TS,Ha spectator retained
+full NEB2-FS -> H2O*,-0.6011090000000001,DERIVED_ENDPOINT_FREE_ENERGY,missing water-formation/reorganization TS,existing endpoint delta
+Ha+OH -> H2O*,-2.1967675,DERIVED_ENDPOINT_FREE_ENERGY,no explicit TS in original network; endpoint assumption,independent states

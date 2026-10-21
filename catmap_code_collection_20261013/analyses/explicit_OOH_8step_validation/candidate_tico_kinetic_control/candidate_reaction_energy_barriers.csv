@@ -1,0 +1,10 @@
+﻿step,reaction_internal,TS_source,barrier_status,deltaG_eV,forward_barrier_eV,reverse_barrier_eV,detailed_balance_error_eV
+1,s+H2O2_g	<->	H2O2_s,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,0.9444995,0.9444995,0,0
+2,H2O2_s+s	<->	Ha_s+OOH_s,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,1.3226715,1.3226715,0,0
+3,s+C6H12_g	<->	C6H12_s,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,-0.1306,0,0.1306,0
+4,Ha_s+OOH_s+C6H12_s	<->	NEB1IS_s+s+s,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,-2.663642,0,2.663642,0
+5,NEB1IS_s	<->	NEB1TS_s	->	NEB1FS_s,NEB1TS_s,explicit NEB TS,-0.239686,0.556344,0.79603,0
+6,NEB1FS_s	<->	NEB2IS_s+C6H12O_g,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,0.811237,0.811237,0,0
+7,NEB2IS_s	<->	NEB2TS_s	->	NEB2FS_s,NEB2TS_s,explicit NEB TS,-0.48058,0.225994,0.706574,0
+8,NEB2FS_s	<->	H2O_s,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,-0.601109,0,0.601109,0
+9,H2O_s	<->	H2O_g+s,CatMAP endpoint max,CatMAP endpoint approximation; no DFT TS,-1.051705,0,1.051705,0

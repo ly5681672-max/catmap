@@ -1,0 +1,13 @@
+{
+  "surface_name": "tire",
+  "python": "G:\\anaconda\\python.exe",
+  "precision_digits": 120,
+  "actual_precision_digits": 120,
+  "catmap_version_expected": "0.3.1",
+  "model_sha256": "722a62ee6c5c0833ec3d1f7610c0b8ecd4eaf36b561f11a926fee54dcc9005fe",
+  "energies_sha256": "72f0f7f6bf4a5986ecb09830c2e66971382e660da952f512529b19d4bc9fa667",
+  "source_manifest_sha256": "d0cae82963b8d9f326cc82d87ba4ca4ccc71670d6b1095e626c140b7c2a917a5",
+  "run_exit_code": 0,
+  "log": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\logs\\tire_p120.log",
+  "model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\tire_candidate\\candidate_tire.mkm"
+}

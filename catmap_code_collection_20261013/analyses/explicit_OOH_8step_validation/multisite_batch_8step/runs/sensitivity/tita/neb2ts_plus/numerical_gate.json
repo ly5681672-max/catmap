@@ -1,0 +1,16 @@
+{
+  "surface": "tita",
+  "status": "NUMERICAL_PASS_PROVISIONAL_PHYSICS",
+  "catmap_version": "0.3.1",
+  "temperature_K": 333.15,
+  "candidate_T_formula_s-1": "0.0000000000000000000000072831390340496744759521680171005856573837419765144455188329673709565431995622888",
+  "inventory_invariant": "Ha_s - OOH_s = 0 (derived from this candidate's CatMAP stoichiometry)",
+  "accepted_roots": 2,
+  "chosen_seed": "uniform_0",
+  "accepted_root_max_absolute_coverage_spread": "3.61998305657e-88",
+  "max_relative_surface_residual": "3.45028513821797574199727e-52",
+  "site_balance_error": "9.681479787e-122",
+  "inventory_error": "0.0",
+  "max_net_reaction_rate_vs_product_TOF_relative_difference": "3.45028513822e-52",
+  "physical_status": "PROVISIONAL; endpoint approximations, one-effective-site representation, and reduced-state mapping are unverified"
+}

@@ -1,0 +1,24 @@
+If you find CatMAP useful to your research, please cite both the following papers:
+
+ Medford, A. J., Shi, C., Hoffmann, M. J., Lausche, A. C., Fitzgibbon, S. R., Bligaard, T., & Nørskov, J. K. (2015). CatMAP: a software package for descriptor-based microkinetic mapping of catalytic trends. Catalysis Letters, 145, 794-807. 
+ Vijay, S., H. Heenen, H., Singh, A. R., Chan, K., & Voss, J. (2024). Number of sites-based solver for determining coverages from steady-state mean-field micro-kinetic models. Journal of Computational Chemistry, 45(9), 546-551.
+
+{"seed": "uniform_0", "accepted": true, "iterations": 48, "scaled_residual_inf": "6.39998193355938757771327e-91", "relative_surface_residual": "3.86225962824721955124947e-65", "site_balance_error": "0.0", "inventory_error": "0.0", "scipy_initial_guess": "True: `gtol` termination condition is satisfied.", "solver_error": null}
+{"seed": "uniform_-5", "accepted": false, "iterations": 1, "scaled_residual_inf": "4.08840200168975559887687e-8", "relative_surface_residual": "1.0006777211317319537732", "site_balance_error": "0.0", "inventory_error": "0.0", "scipy_initial_guess": "True: `gtol` termination condition is satisfied.", "solver_error": null}
+{"seed": "uniform_3", "accepted": true, "iterations": 48, "scaled_residual_inf": "1.20290647112252384179716e-86", "relative_surface_residual": "8.02151161790047038169087e-61", "site_balance_error": "1.936295957e-121", "inventory_error": "0.0", "scipy_initial_guess": "True: `gtol` termination condition is satisfied.", "solver_error": null}
+{
+  "surface": "ticr",
+  "status": "NUMERICAL_PASS_PROVISIONAL_PHYSICS",
+  "catmap_version": "0.3.1",
+  "temperature_K": 333.15,
+  "candidate_T_formula_s-1": "0.000000000000011502820264535388595642431475116551747400701384711405362870315167515128251373806",
+  "inventory_invariant": "Ha_s - OOH_s = 0 (derived from this candidate's CatMAP stoichiometry)",
+  "accepted_roots": 2,
+  "chosen_seed": "uniform_0",
+  "accepted_root_max_absolute_coverage_spread": "1.32914569543e-87",
+  "max_relative_surface_residual": "3.86225962824721955124947e-65",
+  "site_balance_error": "0.0",
+  "inventory_error": "0.0",
+  "max_net_reaction_rate_vs_product_TOF_relative_difference": "3.86225962825e-65",
+  "physical_status": "PROVISIONAL; endpoint approximations, one-effective-site representation, and reduced-state mapping are unverified"
+}

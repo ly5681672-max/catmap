@@ -1,0 +1,15 @@
+{
+  "catmap_version": "0.3.1",
+  "original_network_elementary_reactions": 8,
+  "old_candidate_elementary_reactions": 9,
+  "candidate_network_elementary_reactions": 12,
+  "original_stable_adsorbates": 9,
+  "old_candidate_stable_adsorbates": 9,
+  "candidate_stable_adsorbates": 13,
+  "original_inventory_nullity": 2,
+  "old_candidate_inventory_nullity": 1,
+  "candidate_inventory_nullity": 2,
+  "candidate_atom_balance": "PASS",
+  "candidate_formal_site_balance": "PASS",
+  "candidate_state_footprints": "CONDITIONAL_FRAGMENT_COUNT_NOT_STRUCTURALLY_VALIDATED"
+}

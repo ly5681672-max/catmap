@@ -1,0 +1,13 @@
+{
+  "surface_name": "timn",
+  "python": "G:\\anaconda\\python.exe",
+  "precision_digits": 120,
+  "actual_precision_digits": 120,
+  "catmap_version_expected": "0.3.1",
+  "model_sha256": "6431a205c861647ed5f98a762d2d3bf0069d1f85dee64a41b8bbf128e1412443",
+  "energies_sha256": "5fca9bd316103dcd3796e1efc880303edfd17553faf13cfdf66ba1d2b144b93a",
+  "source_manifest_sha256": "d0cae82963b8d9f326cc82d87ba4ca4ccc71670d6b1095e626c140b7c2a917a5",
+  "run_exit_code": 0,
+  "log": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\logs\\timn_p120.log",
+  "model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\timn_candidate\\candidate_timn.mkm"
+}

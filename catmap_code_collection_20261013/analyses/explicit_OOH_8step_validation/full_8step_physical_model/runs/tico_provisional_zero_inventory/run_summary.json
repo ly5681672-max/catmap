@@ -1,0 +1,99 @@
+{
+  "status": "NO_ACCEPTED_ROOT",
+  "model_class": "CONDITIONAL_ENDPOINT_BARRIER_CANDIDATE",
+  "catmap_version": "0.3.1",
+  "precision_digits": 80,
+  "wall_seconds": 1.055,
+  "conditions": {
+    "temperature_K": 333.15,
+    "concentrations": {
+      "C6H12_g": 1.0,
+      "H2O2_g": 0.185,
+      "H2O_g": 0.815,
+      "C6H12O_g": 1e-20
+    }
+  },
+  "inventory_constraints": {
+    "I1": "theta(Ha)-theta(OOH)-theta(OH)-theta(O)=0",
+    "I2": "theta(Hb)-theta(O)=0"
+  },
+  "site_counts": {
+    "C6H12O_s": 1,
+    "C6H12_s": 1,
+    "H2O2_s": 1,
+    "H2O_s": 1,
+    "Ha_s": 1,
+    "Hb_s": 1,
+    "NEB1FS_s": 4,
+    "NEB1IS_s": 3,
+    "NEB2FS_s": 2,
+    "NEB2IS_s": 3,
+    "OH_s": 1,
+    "OOH_s": 1,
+    "O_s": 1
+  },
+  "attempts": [
+    {
+      "seed": "legacy_candidate_root_projected_numerical_seed_only",
+      "iterations": 1,
+      "scipy_seed_success": true,
+      "scipy_seed_cost": 0.01716055822848807,
+      "scaled_residual_inf": "0.1065547602464159125750729",
+      "max_abs_surface_residual": "15482067628.25235746303627",
+      "relative_residual": "0.2126352815253894399615102",
+      "weighted_site_sum": "1.0",
+      "I1_Ha_OOH_OH_O": "8.77777473568e-102",
+      "I2_Hb_O": "0.0",
+      "accepted": "False",
+      "error": ""
+    },
+    {
+      "seed": "uniform_log_-20",
+      "iterations": 1,
+      "scipy_seed_success": true,
+      "scipy_seed_cost": 1.7422370249611032e-16,
+      "scaled_residual_inf": "1.143789792848347416520823e-8",
+      "max_abs_surface_residual": "12.8695312012593787532495",
+      "relative_residual": "1.771483829455729344882839e-10",
+      "weighted_site_sum": "1.0",
+      "I1_Ha_OOH_OH_O": "-5.99254573401e-95",
+      "I2_Hb_O": "0.0",
+      "accepted": "False",
+      "error": ""
+    },
+    {
+      "seed": "uniform_log_-8",
+      "iterations": 1,
+      "scipy_seed_success": true,
+      "scipy_seed_cost": 0.12625687357386464,
+      "scaled_residual_inf": "0.5025074580559595759441761",
+      "max_abs_surface_residual": "3470859670057.59939508265",
+      "relative_residual": "0.9999999999999718022185701",
+      "weighted_site_sum": "1.0",
+      "I1_Ha_OOH_OH_O": "-9.58807317441e-94",
+      "I2_Hb_O": "0.0",
+      "accepted": "False",
+      "error": ""
+    },
+    {
+      "seed": "uniform_log_-2",
+      "iterations": 1,
+      "scipy_seed_success": true,
+      "scipy_seed_cost": 9.685834160934821e-16,
+      "scaled_residual_inf": "2.577712044269062012333357e-8",
+      "max_abs_surface_residual": "5888.852316065566648436025",
+      "relative_residual": "8.107140809386321667111053e-8",
+      "weighted_site_sum": "1.0",
+      "I1_Ha_OOH_OH_O": "0.0",
+      "I2_Hb_O": "0.0",
+      "accepted": "False",
+      "error": ""
+    }
+  ],
+  "detailed_balance": {
+    "checked_reactions": 12,
+    "status": "PASS",
+    "max_relative_error": 1.0281799244689148e-13,
+    "note": "native CatMAP kf/kr compared with exp(-standard_deltaG/kBT); gas concentrations remain in rate law, not standard K"
+  }
+}

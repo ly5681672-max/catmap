@@ -1,0 +1,5 @@
+﻿reaction,value_eV,meaning
+NEB1_TS_minus_IS_eV,0.159416,"signed NEB TS minus endpoint; not replaced by max(0, value)"
+NEB1_TS_minus_FS_eV,2.338399,"signed NEB TS minus endpoint; not replaced by max(0, value)"
+NEB2_TS_minus_IS_eV,0.1729815,"signed NEB TS minus endpoint; not replaced by max(0, value)"
+NEB2_TS_minus_FS_eV,0.7900475,"signed NEB TS minus endpoint; not replaced by max(0, value)"

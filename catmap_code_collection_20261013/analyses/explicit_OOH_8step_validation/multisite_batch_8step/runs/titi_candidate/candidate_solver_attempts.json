@@ -1,0 +1,57 @@
+{
+  "status": "NO_ACCEPTED_ROOT",
+  "catmap_version": "0.3.1",
+  "constraint_derived_from_stoichiometric_nullspace": {
+    "coefficients": {
+      "C6H12_s": 0,
+      "H2O2_s": 0,
+      "H2O_s": 0,
+      "Ha_s": 1,
+      "NEB1FS_s": 0,
+      "NEB1IS_s": 0,
+      "NEB2FS_s": 0,
+      "NEB2IS_s": 0,
+      "OOH_s": -1
+    },
+    "dependent_species": "Ha_s",
+    "paired_species": "OOH_s",
+    "zero_inventory_equation": "(1)*theta(Ha_s) + (-1)*theta(OOH_s) = 0"
+  },
+  "seed_policy": "fixed positive numerical seeds only; seeds are not physical initial states",
+  "attempts": [
+    {
+      "seed": "uniform_0",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "0.000000107111663364891895257344",
+      "relative_surface_residual": "1.25287450062715757609732",
+      "site_balance_error": "0.0",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": null
+    },
+    {
+      "seed": "uniform_-5",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "6.54780171599888545613732e-14",
+      "relative_surface_residual": "1.0",
+      "site_balance_error": "1.499696814e-241",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": null
+    },
+    {
+      "seed": "uniform_3",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "0.00000012543504505443442615691",
+      "relative_surface_residual": "1.46686116656607112629738",
+      "site_balance_error": "0.0",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": null
+    }
+  ],
+  "accepted_roots": []
+}

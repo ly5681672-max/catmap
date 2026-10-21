@@ -1,0 +1,57 @@
+{
+  "status": "NO_ACCEPTED_ROOT",
+  "catmap_version": "0.3.1",
+  "constraint_derived_from_stoichiometric_nullspace": {
+    "coefficients": {
+      "C6H12_s": 0,
+      "H2O2_s": 0,
+      "H2O_s": 0,
+      "Ha_s": 1,
+      "NEB1FS_s": 0,
+      "NEB1IS_s": 0,
+      "NEB2FS_s": 0,
+      "NEB2IS_s": 0,
+      "OOH_s": -1
+    },
+    "dependent_species": "Ha_s",
+    "paired_species": "OOH_s",
+    "zero_inventory_equation": "(1)*theta(Ha_s) + (-1)*theta(OOH_s) = 0"
+  },
+  "seed_policy": "fixed positive numerical seeds only; seeds are not physical initial states",
+  "attempts": [
+    {
+      "seed": "uniform_0",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "8.03675222867458072278828e-26",
+      "relative_surface_residual": "1.00000000000017945947881",
+      "site_balance_error": "0.0",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": "ValueError: matrix is numerically singular"
+    },
+    {
+      "seed": "uniform_-5",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "9.54573774595345870795901e-10",
+      "relative_surface_residual": "1.0",
+      "site_balance_error": "0.0",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": "ValueError: matrix is numerically singular"
+    },
+    {
+      "seed": "uniform_3",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "7.2730896390735821942204e-26",
+      "relative_surface_residual": "1.00000000000017945947881",
+      "site_balance_error": "0.0",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": "ValueError: matrix is numerically singular"
+    }
+  ],
+  "accepted_roots": []
+}

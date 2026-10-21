@@ -1,0 +1,13 @@
+{
+  "surface_name": "timo",
+  "python": "G:\\anaconda\\python.exe",
+  "precision_digits": 120,
+  "actual_precision_digits": 120,
+  "catmap_version_expected": "0.3.1",
+  "model_sha256": "93486eb39949a4c8cd307b3027e916af863c041fb6c54eaf553ea12fee0736a6",
+  "energies_sha256": "ec5d403e07f58f7cb9efa5ac358f7d58032ab4a5ab9690820d0c1318f4f4335d",
+  "source_manifest_sha256": "d0cae82963b8d9f326cc82d87ba4ca4ccc71670d6b1095e626c140b7c2a917a5",
+  "run_exit_code": 0,
+  "log": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\logs\\timo_p120.log",
+  "model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\timo_candidate\\candidate_timo.mkm"
+}

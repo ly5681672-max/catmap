@@ -1,0 +1,16 @@
+{
+  "catmap_version": "0.3.1",
+  "candidate_solve_cases_expected": 23,
+  "candidate_solve_cases_accepted": 23,
+  "explicit_TS_perturbation_cases": 8,
+  "endpoint_barrier_cases_including_baseline": 21,
+  "directional_rate_rows": 9,
+  "DRC_summary_rows": 4,
+  "max_accepted_relative_surface_residual": "4.80966422482e-62",
+  "max_scaled_residual_inf": "3.07234610663e-87",
+  "max_site_balance_error": "0.0",
+  "max_Ha_minus_OOH_inventory_error": "0.0",
+  "max_reaction_net_rate_vs_product_TOF_relative_difference": "0.0",
+  "failures": [],
+  "validation_status": "PASS"
+}

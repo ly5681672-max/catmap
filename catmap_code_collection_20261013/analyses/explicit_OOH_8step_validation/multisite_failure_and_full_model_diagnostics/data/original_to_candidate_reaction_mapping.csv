@@ -1,0 +1,9 @@
+﻿original_step,formal_chemical_stage,candidate_reactions,mapping_status
+1,H2O2 adsorption,candidate r1,state correspondence retained
+2,H2O2 activation to Ha*/OOH*,candidate r2,explicit OOH* retained; native CatMAP arrow still reversible
+3,1-hexene adsorption,candidate r3,state correspondence retained
+4,OOH*/alkene oxygen-transfer stage,candidate r4+r5,independent activation-to-NEB1IS link plus full NEB1 IS/TS/FS; Ha spectator folded into composite formulas
+5,epoxide desorption,candidate r6,coupled to NEB1FS→NEB2IS and product release; not an independent-state mapping
+6,Hb*/O* hydrogen transfer to OH*,candidate r7 and NEB2 composite,"Hb*, O*, OH* not independently represented; no strict state lumping proof"
+7,Ha*/OH* water formation,candidate r8,absorbed into NEB2FS→H2O* link; Ha/Hb/OH inventory distinctions lost
+8,water desorption,candidate r9,state correspondence retained

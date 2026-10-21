@@ -1,0 +1,13 @@
+{
+  "surface_name": "tini",
+  "python": "G:\\anaconda\\python.exe",
+  "precision_digits": 120,
+  "actual_precision_digits": 240,
+  "catmap_version_expected": "0.3.1",
+  "model_sha256": "8cc04632383fd2a3bd2d63e5da898559ad18f3de64479acaf5cb8f3c6a720270",
+  "energies_sha256": "3de4306f97760362cd993c7b7cdb7256535b3a6e0f07da920780e9b03b1b32a0",
+  "source_manifest_sha256": "d0cae82963b8d9f326cc82d87ba4ca4ccc71670d6b1095e626c140b7c2a917a5",
+  "run_exit_code": 1,
+  "log": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\logs\\tini_p240.log",
+  "model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\tini_candidate\\candidate_tini.mkm"
+}

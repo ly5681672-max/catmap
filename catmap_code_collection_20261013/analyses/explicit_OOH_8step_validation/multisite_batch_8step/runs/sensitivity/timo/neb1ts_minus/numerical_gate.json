@@ -1,0 +1,16 @@
+{
+  "surface": "timo",
+  "status": "NUMERICAL_PASS_PROVISIONAL_PHYSICS",
+  "catmap_version": "0.3.1",
+  "temperature_K": 333.15,
+  "candidate_T_formula_s-1": "0.00000000027509865328891631493817679324809726203711034686061982115967367341407299282641276",
+  "inventory_invariant": "Ha_s - OOH_s = 0 (derived from this candidate's CatMAP stoichiometry)",
+  "accepted_roots": 2,
+  "chosen_seed": "uniform_0",
+  "accepted_root_max_absolute_coverage_spread": "7.30709717005e-89",
+  "max_relative_surface_residual": "7.11577119364870609029695e-69",
+  "site_balance_error": "3.872591915e-121",
+  "inventory_error": "0.0",
+  "max_net_reaction_rate_vs_product_TOF_relative_difference": "7.11577119365e-69",
+  "physical_status": "PROVISIONAL; endpoint approximations, one-effective-site representation, and reduced-state mapping are unverified"
+}

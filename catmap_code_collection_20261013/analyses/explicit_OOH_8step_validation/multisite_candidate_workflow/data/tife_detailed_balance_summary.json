@@ -1,0 +1,10 @@
+{
+  "catmap_kB_eV_per_K": "8.617332478e-5",
+  "reversible_steps_checked": 9,
+  "reversible_steps_mismatched": 0,
+  "zero_reverse_constant_steps": 0,
+  "step2_arrow_vs_rate_constant": "single-arrow in setup, but compiled CatMAP has nonzero reverse constant",
+  "criterion_eV": "absolute[kBT_CatMAP ln(kf/kr)+DeltaG] < 1e-8; evaluated using installed CatMAP's kB",
+  "source": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_candidate_workflow\\runs\\tife_candidate\\candidate_tife.mkm",
+  "status": "PROVISIONAL_CANDIDATE_ONLY"
+}

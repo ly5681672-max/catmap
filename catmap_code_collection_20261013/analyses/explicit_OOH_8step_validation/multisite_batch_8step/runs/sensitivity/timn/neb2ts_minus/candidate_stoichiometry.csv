@@ -1,0 +1,10 @@
+﻿stable_species,reaction_1,reaction_2,reaction_3,reaction_4,reaction_5,reaction_6,reaction_7,reaction_8,reaction_9
+C6H12_s,0,0,1,-1,0,0,0,0,0
+H2O2_s,1,-1,0,0,0,0,0,0,0
+H2O_s,0,0,0,0,0,0,0,1,-1
+Ha_s,0,1,0,-1,0,0,0,0,0
+NEB1FS_s,0,0,0,0,1,-1,0,0,0
+NEB1IS_s,0,0,0,1,-1,0,0,0,0
+NEB2FS_s,0,0,0,0,0,0,1,-1,0
+NEB2IS_s,0,0,0,0,0,1,-1,0,0
+OOH_s,0,1,0,-1,0,0,0,0,0

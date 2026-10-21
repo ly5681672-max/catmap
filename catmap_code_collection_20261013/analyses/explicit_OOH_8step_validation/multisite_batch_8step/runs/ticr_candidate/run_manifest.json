@@ -1,0 +1,13 @@
+{
+  "surface_name": "ticr",
+  "python": "G:\\anaconda\\python.exe",
+  "precision_digits": 120,
+  "actual_precision_digits": 120,
+  "catmap_version_expected": "0.3.1",
+  "model_sha256": "4a9e82e24407a9274dedef9601092269f2b4161a3c74f06c7c730738daae2202",
+  "energies_sha256": "acd590040ffd7d0764031615baae13979117cdd475a9204586cf90b70c08cfe8",
+  "source_manifest_sha256": "d0cae82963b8d9f326cc82d87ba4ca4ccc71670d6b1095e626c140b7c2a917a5",
+  "run_exit_code": 0,
+  "log": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\logs\\ticr_p120.log",
+  "model": "C:\\Users\\Administrator\\Documents\\codex\u63a2\u7d22\\wt-tico\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\runs\\ticr_candidate\\candidate_ticr.mkm"
+}

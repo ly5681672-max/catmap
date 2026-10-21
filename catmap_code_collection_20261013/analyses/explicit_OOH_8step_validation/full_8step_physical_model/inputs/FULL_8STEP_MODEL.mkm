@@ -1,0 +1,39 @@
+# CONDITIONAL FULL-STATE MODEL; not formally physically validated.
+# Every NEB state keeps its Ha spectator in the mapped total formula.
+# Composite n_sites values are bookkeeping counts from fragment projection,
+# not DFT-validated geometric site footprints. Missing-link TSs use CatMAP's
+# native endpoint treatment only as a declared conditional approximation.
+rxn_expressions = ['* + H2O2_g <-> H2O2*', 'H2O2* + * -> Ha* + OOH*', '* + C6H12_g <-> C6H12*', 'Ha* + OOH* + C6H12* <-> NEB1IS*', 'NEB1IS* + * <-> NEB1TS* + * -> NEB1FS*', 'NEB1FS* <-> Ha* + C6H12O* + O* + Hb*', 'C6H12O* <-> C6H12O_g + *', 'Ha* + Hb* + O* <-> NEB2IS*', 'NEB2IS* <-> NEB2TS* -> NEB2FS* + *', 'NEB2FS* <-> Ha* + OH*', 'Ha* + OH* -> H2O* + *', 'H2O* <-> H2O_g + *']
+surface_names = ['tico']
+temperature = 333.15
+pressure_mode = 'concentration'
+scaler = 'ThermodynamicScaler'
+species_definitions = {
+    's': {'site_names': ['111'], 'total': 1},
+    'Ha_s': {'composition': {'H': 1}, 'n_sites': 1},
+    'Hb_s': {'composition': {'H': 1}, 'n_sites': 1},
+    'OOH_s': {'composition': {'H': 1, 'O': 2}, 'n_sites': 1},
+    'NEB1IS_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 3},
+    'NEB1TS_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 3},
+    'NEB1FS_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 4},
+    'NEB2IS_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 3},
+    'NEB2TS_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 3},
+    'NEB2FS_s': {'composition': {'H': 2, 'O': 1}, 'n_sites': 2},
+    'C6H12_g': {'concentration': 1.0},
+    'H2O2_g': {'concentration': 0.185},
+    'H2O_g': {'concentration': 0.815},
+    'C6H12O_g': {'concentration': 1e-20},
+}
+descriptor_names = ['temperature', 'pressure']
+descriptor_ranges = None
+resolution = 1
+input_file = 'FULL_8STEP_TICO_energies.txt'
+data_file = 'FULL_8STEP_MODEL.pkl'
+gas_thermo_mode = 'frozen_gas'
+adsorbate_thermo_mode = 'frozen_adsorbate'
+avoid_scaling = True
+output_variables = ['turnover_frequency', 'forward_rate', 'reverse_rate', 'coverage']
+use_numbers_solver = False
+decimal_precision = 120
+tolerance = 1e-50
+max_rootfinding_iterations = 250

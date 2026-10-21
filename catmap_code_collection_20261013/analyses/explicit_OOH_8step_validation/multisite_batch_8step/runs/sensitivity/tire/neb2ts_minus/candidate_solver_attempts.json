@@ -1,0 +1,66 @@
+{
+  "status": "ACCEPTED",
+  "catmap_version": "0.3.1",
+  "constraint_derived_from_stoichiometric_nullspace": {
+    "coefficients": {
+      "C6H12_s": 0,
+      "H2O2_s": 0,
+      "H2O_s": 0,
+      "Ha_s": 1,
+      "NEB1FS_s": 0,
+      "NEB1IS_s": 0,
+      "NEB2FS_s": 0,
+      "NEB2IS_s": 0,
+      "OOH_s": -1
+    },
+    "dependent_species": "Ha_s",
+    "paired_species": "OOH_s",
+    "zero_inventory_equation": "(1)*theta(Ha_s) + (-1)*theta(OOH_s) = 0"
+  },
+  "seed_policy": "fixed positive numerical seeds only; seeds are not physical initial states",
+  "attempts": [
+    {
+      "seed": "uniform_0",
+      "accepted": true,
+      "iterations": 22,
+      "scaled_residual_inf": "4.89967607717892398656804e-114",
+      "relative_surface_residual": "2.49419078444513449950378e-99",
+      "site_balance_error": "0.0",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": null
+    },
+    {
+      "seed": "uniform_-5",
+      "accepted": false,
+      "iterations": 1,
+      "scaled_residual_inf": "1.01634128176558731782785e-10",
+      "relative_surface_residual": "1.00000000000000001077638",
+      "site_balance_error": "9.681479787e-122",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": null
+    },
+    {
+      "seed": "uniform_3",
+      "accepted": true,
+      "iterations": 24,
+      "scaled_residual_inf": "1.43541634218500986604781e-119",
+      "relative_surface_residual": "1.04881169244128355077424e-102",
+      "site_balance_error": "1.936295957e-121",
+      "inventory_error": "0.0",
+      "scipy_initial_guess": "True: `gtol` termination condition is satisfied.",
+      "solver_error": null
+    }
+  ],
+  "accepted_roots": [
+    {
+      "seed": "uniform_0",
+      "product_TOF": "0.000000821174024626735014125915914067734932283577644020251767488696793836768695030656593030102763"
+    },
+    {
+      "seed": "uniform_3",
+      "product_TOF": "0.000000821174024626735014125915914067734932283577644020251767488696793836768695030656593030102763"
+    }
+  ]
+}
