@@ -1,0 +1,41 @@
+If you find CatMAP useful to your research, please cite both the following papers:
+
+ Medford, A. J., Shi, C., Hoffmann, M. J., Lausche, A. C., Fitzgibbon, S. R., Bligaard, T., & Nørskov, J. K. (2015). CatMAP: a software package for descriptor-based microkinetic mapping of catalytic trends. Catalysis Letters, 145, 794-807. 
+ Vijay, S., H. Heenen, H., Singh, A. R., Chan, K., & Voss, J. (2024). Number of sites-based solver for determining coverages from steady-state mean-field micro-kinetic models. Journal of Computational Chemistry, 45(9), 546-551.
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x0000018E35434EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x0000018E35434EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x0000018E35434EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+model surfaces: ('timo',)
+adsorbates: ('C6H12O_s', 'C6H12_s', 'H2O2_s', 'H2O_s', 'Ha_s', 'Hb_s', 'OH_s', 'OOH_s', 'O_s')
+TS: ('Hb-O_s', 'OOH-C6H12_s')
+gas: ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')
+solver type: SteadyStateSolver
+scaler type: ThermodynamicScaler
+parameter count: 11
+gas pressures: [1e-20, 1.0, 0.185, 0.815]
+solver pressure: [1e-20, 1.0, 0.185, 0.815]
+free energies loaded: 17
+compiled: True
+steady-state function: ideal_steady_state_function
+attempt: {"seed": "projected_hb_branch", "iterations": 1, "scaled_residual_inf": "1.00000000000000001828216657833", "max_abs_surface_residual": "6941719332925.80385209181969505", "relative_residual": "1.0", "I1": "-2.7951022818796273678e-399", "I2": "0.0", "vacancy": "0.99999999999698482254", "accepted": false, "rootfinder_error": null}
+attempt: {"seed": "uniform_logit_-20", "iterations": 1, "scaled_residual_inf": "0.999999999999560226443795878196", "max_abs_surface_residual": "6941719175470.43608461696749273", "relative_residual": "0.999999999999999999965499875067", "I1": "0.0", "I2": "0.0", "vacancy": "0.99999997732731066723", "accepted": false, "rootfinder_error": null}
+attempt: {"seed": "uniform_logit_-10", "iterations": 1, "scaled_residual_inf": "0.0000986285617846447124424757116016", "max_abs_surface_residual": "557712697.852789163931210292229", "relative_residual": "1.0", "I1": "-3.0321730379192357685e-6032", "I2": "0.0", "vacancy": "0.0", "accepted": false, "rootfinder_error": "ValueError: matrix is numerically singular"}
+attempt: {"seed": "uniform_logit_-3", "iterations": 2, "scaled_residual_inf": "0.000151672098896848848116271659916", "max_abs_surface_residual": "557712697.852789163915856930751", "relative_residual": "1.0", "I1": "4.4118031536115528055e-426", "I2": "0.0", "vacancy": "1.6652526173559780479e-39", "accepted": false, "rootfinder_error": null}
+attempt: {"seed": "uniform_logit_-1", "iterations": 2, "scaled_residual_inf": "0.000452785719806393690908321549754", "max_abs_surface_residual": "557712697.852789163897464229678", "relative_residual": "1.0", "I1": "-8.8236063072231056111e-426", "I2": "0.0", "vacancy": "1.0700997151923692239e-39", "accepted": false, "rootfinder_error": null}
+NO ACCEPTED ZERO-INVENTORY ROOT; attempts retained. No TOF accepted.

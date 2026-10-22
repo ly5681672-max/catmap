@@ -1,0 +1,15 @@
+﻿surface,prior_latest_numeric_status,final_numeric_status,scientific_status,note
+tico,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+ti,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tife,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+timn,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tihf,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tire,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+timo,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tiv,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tizr,NUMERIC_PARTIAL,NUMERIC_PASS,PROVISIONAL,采用 numerical_gate_audit_20261021 下最新 Ti-Zr bounded polish 结果；不复用旧 partial。
+titi,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tiw,NUMERIC_FAIL,NUMERIC_PASS,PROVISIONAL,本轮目标位点重新求解并通过序列化根重放及跨精度门控；PROVISIONAL。
+tita,NUMERIC_FAIL,NUMERIC_PASS,PROVISIONAL,本轮目标位点重新求解并通过序列化根重放及跨精度门控；PROVISIONAL。
+ticr,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。
+tini,NUMERIC_PASS,NUMERIC_PASS,PROVISIONAL,本轮未重算，沿用已有最新数值门控记录。

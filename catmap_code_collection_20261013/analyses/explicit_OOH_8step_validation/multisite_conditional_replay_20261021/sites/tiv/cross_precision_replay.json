@@ -1,0 +1,16 @@
+{
+  "seed": "accepted_root_with_alternating_0.01_logit_perturbation",
+  "working_dps": 385,
+  "iterations": 5,
+  "rootfinder_error": null,
+  "scaled_residual_inf": "2.94160898558214635354235903011e-56",
+  "max_abs_surface_residual_independent": "8.24322120290589724090152243056e-55",
+  "relative_residual_to_max_net_rate": "5.30782450905695910995954256752e-29",
+  "I1": "1.19640726082527743860704166674e-398",
+  "I2": "0.0",
+  "site_sum": "1.0",
+  "log10_TOF": "-25.80881960140185442124526125604621752244",
+  "delta_log10_TOF_vs_high_precision": "5.34212306581222131421329662852e-48",
+  "max_absolute_coverage_difference": "1.18576890292286717503353801044e-67",
+  "passed_existing_steady_quality_gate": true
+}

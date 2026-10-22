@@ -1,0 +1,74 @@
+[
+  {
+    "seed": "projected_hb_branch",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000021439173442999",
+    "max_abs_surface_residual": "6941719332925.42463561878388192",
+    "relative_residual": "1.0",
+    "I1": "3.197349445348736761e-399",
+    "I2": "0.0",
+    "vacancy": "0.99999999999693511126",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "0.00597136176808644397986039824287",
+    "max_abs_surface_residual": "33782985939.5435345383011540112",
+    "relative_residual": "1.0",
+    "I1": "-1.1266172402438168552e-147869094",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "0.00597434206121330756328702888578",
+    "max_abs_surface_residual": "33782985939.5435345383011540112",
+    "relative_residual": "1.0",
+    "I1": "3.8078686314687966864e-7079",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 2,
+    "scaled_residual_inf": "0.00918456744787992489671525628581",
+    "max_abs_surface_residual": "33782333911.525155277984953509",
+    "relative_residual": "0.999999999999970920964342636986",
+    "I1": "1.7896399730446336877e-394",
+    "I2": "0.0",
+    "vacancy": "8.4152737316780255448e-8",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 33,
+    "scaled_residual_inf": "7.9931000608321974316839704783e-55",
+    "max_abs_surface_residual": "8.84661949892190470506568561752e-44",
+    "relative_residual": "3.30676712266640129862776909501e-40",
+    "I1": "-5.7268479137428278007e-393",
+    "I2": "0.0",
+    "vacancy": "0.0041772637580219291733",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "high_precision_polish_uniform_logit_-1",
+    "iterations": 1,
+    "scaled_residual_inf": "2.73414633918164800940146274234e-80",
+    "max_abs_surface_residual": "1.46293944381000054566761409145e-83",
+    "relative_residual": "5.46830352072033412772034589204e-80",
+    "I1": "6.2155279820518714864e-558",
+    "I2": "0.0",
+    "vacancy": "0.0041772637580219291733",
+    "accepted": true,
+    "rootfinder_error": null
+  }
+]

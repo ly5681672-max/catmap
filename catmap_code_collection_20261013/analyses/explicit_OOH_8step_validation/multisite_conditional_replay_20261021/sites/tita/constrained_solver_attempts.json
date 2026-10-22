@@ -1,0 +1,62 @@
+[
+  {
+    "seed": "projected_hb_branch",
+    "iterations": 1,
+    "scaled_residual_inf": "1.0000000000000002952104700963",
+    "max_abs_surface_residual": "6941719332851.9561613534999514",
+    "relative_residual": "1.0",
+    "I1": "-4.6863950314977705128e-399",
+    "I2": "0.0",
+    "vacancy": "0.99999999998634661166",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000009438963525733",
+    "max_abs_surface_residual": "6941719175262.31638023654748125",
+    "relative_residual": "1.00000000000000000000000000876",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.99999997732731066723",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000006900740045636",
+    "max_abs_surface_residual": "6938247836081.03779732992319615",
+    "relative_residual": "1.00000000000009348292395178965",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.99950085004771318909",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 3,
+    "scaled_residual_inf": "0.0190630461846197218686667533758",
+    "max_abs_surface_residual": "4597054898.06994985871255831639",
+    "relative_residual": "1.43916085698822298486680666549",
+    "I1": "-1.5320463538844812933e-388",
+    "I2": "0.0",
+    "vacancy": "0.00026008008016031244822",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 3,
+    "scaled_residual_inf": "0.169858932215452571720747076184",
+    "max_abs_surface_residual": "17679620416.0574714803491049365",
+    "relative_residual": "1.0",
+    "I1": "-3.8740837819285597374e-496730633116766857991708276994555924580676582523296545",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  }
+]

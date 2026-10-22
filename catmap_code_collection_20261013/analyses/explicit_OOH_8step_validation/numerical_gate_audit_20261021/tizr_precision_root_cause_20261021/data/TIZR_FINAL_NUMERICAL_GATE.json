@@ -1,0 +1,41 @@
+{
+  "site": "tizr",
+  "research_status": "PROVISIONAL",
+  "old_status": "NUMERIC_PARTIAL",
+  "old_553ppm_replay_status": "NUMERIC_PARTIAL",
+  "current_bounded_replay_status": "NUMERIC_PASS",
+  "accepted_5ppm_target_unchanged": "PASS",
+  "input_model_sha256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "input_energy_sha256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "catmap_version": "0.3.1",
+  "working_precision_dps": 385,
+  "same_model_resolve_performed": true,
+  "physics_or_input_changed": false,
+  "replay": {
+    "early_iterations": 5,
+    "early_scaled_residual": "4.13443413229605786262365906850514272250429680233e-56",
+    "early_max_abs_surface_residual": "2.6014636577747420530876874956145265529566218185011087501107e-55",
+    "early_TOF_relative_difference_vs_archived_snapshot": "0.000552993541651023318527505596064107056343",
+    "early_delta_log10_TOF": "0.0002400956641081442248355173007358685737543",
+    "polish_iterations": 1,
+    "polish_scaled_residual": "1.709354559382480300056389181935555100398648844117e-111",
+    "polish_max_abs_surface_residual": "1.667869310682546235538350173079488368493e-119",
+    "polish_max_net_step_relative_deviation_from_product_TOF": "6.558976004075939333440429123777897899438e-49",
+    "polish_TOF_relative_difference_vs_archived_snapshot": "1.290652316774981003992874115250814746985e-17",
+    "polish_delta_log10_TOF": "5.605231792310220365203122784499322597811e-18",
+    "polish_max_relative_adsorbate_coverage_difference_vs_archived_snapshot": "1.37689669582466490632997459570188735967e-48",
+    "I1": "6.59293295609874891077948447276968784809925221260721615209661e-408",
+    "I2": "0.0",
+    "site_sum": "1.0",
+    "target_scaled_residual": "1.0e-100",
+    "max_polish_iterations": 100,
+    "bounded_polish_error": null
+  },
+  "notes": [
+    "The archived cross-precision run stopped at scaled residual 1e-50; its absolute species residual was many orders larger than the ~1e-71 cycle flux.",
+    "The archived full-precision root is stored with root_logits at 40 significant digits and coverages at 80 digits; reconstructing from the truncated logits is not a faithful root representation.",
+    "The archived serialized coverage itself re-evaluates product TOF within 1.3e-17 relative, but its local RHS residuals are only reproducible to about 1e-68 because coverage serialization is finite precision.",
+    "A single same-precision bounded polish reached scaled residual below 1e-100 and recovered the archived TOF well within the unchanged 5 ppm target.",
+    "CatMAP 0.3.1 get_directional_rates/get_elem_ec casts directional rates to Python float; do not use it to subtract near-equilibrium rates for ~1e-71 TOF."
+  ]
+}

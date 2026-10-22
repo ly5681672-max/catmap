@@ -1,0 +1,74 @@
+{
+  "model": "original explicit OOH 8-step CatMAP model",
+  "catmap_version": "0.3.1",
+  "temperature_K": 333.15,
+  "scientific_status": "PROVISIONAL",
+  "conditions_unchanged": true,
+  "original_data_modified": false,
+  "numeric_gate": {
+    "local_species_relative_residual_max": "<=1e-12",
+    "site_balance": "chart construction plus independent check",
+    "zero_inventory": "I1=I2=0 chart",
+    "cross_precision_TOF_relative": "<=5 ppm",
+    "major_and_OOH_coverage_relative": "<=1e-4",
+    "physical_result_not_upgraded": true
+  },
+  "sites": [
+    {
+      "surface": "timo",
+      "catalyst": "Ti-Mo",
+      "status": "NUMERIC_PASS",
+      "scientific_status": "PROVISIONAL",
+      "accepted_root": true,
+      "attempt_count": 10,
+      "root_seed_method": "scipy_seed_then_CatMAP_NewtonRoot",
+      "cross_precision_replay": {
+        "method": "CatMAP native steady_state_function + NewtonRoot; same exact zero-inventory chart; alternating 0.01 logit perturbation",
+        "dps": 250,
+        "iterations": 5,
+        "solver_error": null,
+        "scaled_residual_inf": "1.37193377349658546561008170413e-61",
+        "local_coverage_relative_differences": {
+          "C6H12_s": "4.024361103107341204146454e-14",
+          "H2O2_s": "1.166121065511008826326076e-15",
+          "H2O_s": "1.235631839242526786414221e-15",
+          "OOH_s": "1.03037654793916621940392e-14",
+          "C6H12O_s": "3.38696175082929760057798e-14"
+        },
+        "baseline_TOF": "0.000002747277207262390915139432762780664706356",
+        "replay_TOF": "0.000002747277207262468015415190195148034210926",
+        "delta_log10_TOF": "1.21881491340431040127215226809e-14",
+        "relative_TOF_difference_ppm": "2.806425050723554422688286e-8",
+        "max_logit_difference_same_branch": "2.699942506943720699915615e-14",
+        "replay_vacancy": "0.000064602795640895674813213738438846501",
+        "replay_site_sum_error": "8.7293843616244322319e-252",
+        "replay_I1": "-8.0810934821653046072e-258",
+        "replay_I2": "0.0",
+        "gate_pass": true
+      },
+      "limitation": "Numerical validation passed on original candidate model; energy mapping remains PROVISIONAL"
+    },
+    {
+      "surface": "tiw",
+      "catalyst": "Ti-W",
+      "status": "NUMERIC_FAIL",
+      "scientific_status": "PROVISIONAL",
+      "accepted_root": false,
+      "attempt_count": 10,
+      "root_seed_method": "none",
+      "cross_precision_replay": null,
+      "limitation": "No accepted physical steady state"
+    },
+    {
+      "surface": "tita",
+      "catalyst": "Ti-Ta",
+      "status": "NUMERIC_FAIL",
+      "scientific_status": "PROVISIONAL",
+      "accepted_root": false,
+      "attempt_count": 10,
+      "root_seed_method": "none",
+      "cross_precision_replay": null,
+      "limitation": "No accepted physical steady state"
+    }
+  ]
+}

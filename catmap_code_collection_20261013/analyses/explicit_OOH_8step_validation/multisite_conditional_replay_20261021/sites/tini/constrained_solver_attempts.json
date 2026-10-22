@@ -1,0 +1,62 @@
+[
+  {
+    "seed": "projected_hb_branch",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000016851147572757",
+    "max_abs_surface_residual": "6941719332929.53215118410538768",
+    "relative_residual": "1.0",
+    "I1": "1.9295255229315971832e-398",
+    "I2": "0.0",
+    "vacancy": "0.99999999999752183492",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "0.999999999999986034869404955754",
+    "max_abs_surface_residual": "6941719175501.27816083317077285",
+    "relative_residual": "0.999999999999999999999999936225",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.99999997732731066723",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "0.00624528246305340669420446360143",
+    "max_abs_surface_residual": "1966258.67859673232052028581067",
+    "relative_residual": "1.0",
+    "I1": "-2.544283444153315078e-6335",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 2,
+    "scaled_residual_inf": "0.00000323887966141181903199153433608",
+    "max_abs_surface_residual": "3154898.74497340815601723933352",
+    "relative_residual": "1.0",
+    "I1": "-1.7727272529103055584e-423943",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 39,
+    "scaled_residual_inf": "2.85605978286524040771521184631e-65",
+    "max_abs_surface_residual": "2.86371588182706945661337636596e-54",
+    "relative_residual": "3.49343729772061705361573396935e-48",
+    "I1": "-1.88341964668388425e-387",
+    "I2": "0.0",
+    "vacancy": "3.7612649675222358292e-7",
+    "accepted": true,
+    "rootfinder_error": null
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "seed": "projected_hb_branch",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000001828216657833",
+    "max_abs_surface_residual": "6941719332925.80385209181969505",
+    "relative_residual": "1.0",
+    "I1": "-2.7951022818796273678e-399",
+    "I2": "0.0",
+    "vacancy": "0.99999999999698482254",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "0.999999999999560226443795878196",
+    "max_abs_surface_residual": "6941719175470.43608461696749273",
+    "relative_residual": "0.999999999999999999965499875067",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.99999997732731066723",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "0.0000986285617846447124424757116016",
+    "max_abs_surface_residual": "557712697.852789163931210292229",
+    "relative_residual": "1.0",
+    "I1": "-3.0321730379192357685e-6032",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 2,
+    "scaled_residual_inf": "0.000151672098896848848116271659916",
+    "max_abs_surface_residual": "557712697.852789163915856930751",
+    "relative_residual": "1.0",
+    "I1": "4.4118031536115528055e-426",
+    "I2": "0.0",
+    "vacancy": "1.6652526173559780479e-39",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 2,
+    "scaled_residual_inf": "0.000452785719806393690908321549754",
+    "max_abs_surface_residual": "557712697.852789163897464229678",
+    "relative_residual": "1.0",
+    "I1": "-8.8236063072231056111e-426",
+    "I2": "0.0",
+    "vacancy": "1.0700997151923692239e-39",
+    "accepted": false,
+    "rootfinder_error": null
+  }
+]

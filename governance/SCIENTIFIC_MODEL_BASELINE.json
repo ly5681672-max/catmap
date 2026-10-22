@@ -1,0 +1,35 @@
+{
+  "contract_version": "1.0",
+  "status": "FROZEN_RESEARCHER_CONFIRMED_BASELINE",
+  "source_model": "lyq_alkene_epoxidation/2-creating_microkinetic_model/alkene_epoxidation.mkm",
+  "model_sha256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "energy_input": "lyq_alkene_epoxidation/2-creating_microkinetic_model/energies_dft_neb.txt",
+  "energy_input_sha256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "catmap_version": "0.3.1",
+  "temperature_K": 333.15,
+  "pressure_mode": "static",
+  "gas_inputs": {
+    "C6H12_g": {"pressure": 1.0},
+    "H2O2_g": {"pressure": 0.185},
+    "H2O_g": {"pressure": 0.815},
+    "C6H12O_g": {"pressure": 1e-20}
+  },
+  "stable_adsorbates": [
+    "H2O2*", "Ha*", "Hb*", "OOH*", "C6H12*", "C6H12O*", "O*", "OH*", "H2O*"
+  ],
+  "reaction_expressions": [
+    "* + H2O2_g <-> H2O2*",
+    "H2O2* + * -> Ha* + OOH*",
+    "* + C6H12_g <-> C6H12*",
+    "OOH* + C6H12* + * <-> OOH-C6H12* + 2* -> C6H12O* + O* + Hb*",
+    "C6H12O* <-> C6H12O_g + *",
+    "Hb* + O* <-> Hb-O* + * -> OH* + *",
+    "Ha* + OH* -> * + H2O*",
+    "H2O* <-> H2O_g + *"
+  ],
+  "inventory_invariants": [
+    "theta(Ha*) - theta(OOH*) - theta(OH*) - theta(O*)",
+    "theta(Hb*) - theta(O*)"
+  ],
+  "approved_variants": []
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "0.00172311150225966796090124182872",
+    "max_abs_surface_residual": "11961356156.9051918132853179718",
+    "relative_residual": "1.0",
+    "I1": "1.2487128800349871779e-191354732",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "0.00172397184886664396053463256884",
+    "max_abs_surface_residual": "11961356156.9051918132853179718",
+    "relative_residual": "1.0",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 2,
+    "scaled_residual_inf": "0.00266641966152969566360672870652",
+    "max_abs_surface_residual": "11961351572.8348634074490469906",
+    "relative_residual": "0.99999999999999999999999999985",
+    "I1": "6.9907811447056003427e-397",
+    "I2": "0.0",
+    "vacancy": "6.5781749337051211096e-10",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 126,
+    "scaled_residual_inf": "6.51080325972262529304964678516e-51",
+    "max_abs_surface_residual": "7.37989124919371941529884619713e-40",
+    "relative_residual": "1.0",
+    "I1": "4.496203290606859666e-408",
+    "I2": "0.0",
+    "vacancy": "0.0015648681361779992175",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "high_precision_polish_uniform_logit_-1",
+    "iterations": 57,
+    "scaled_residual_inf": "1.85890619583499268564016485156e-69",
+    "max_abs_surface_residual": "2.7310937907850815004816229695e-98",
+    "relative_residual": "1.07401572316895077566544178101e-27",
+    "I1": "4.7893892932131034668e-573",
+    "I2": "0.0",
+    "vacancy": "0.0015648681361779992175",
+    "accepted": true,
+    "rootfinder_error": null
+  }
+]

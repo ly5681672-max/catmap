@@ -1,0 +1,92 @@
+{
+  "research_status": "PROVISIONAL",
+  "model_sha256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "energy_sha256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "catmap_version": "0.3.1",
+  "scientific_inputs_changed": false,
+  "sites": {
+    "tiw": {
+      "status": "NUMERIC_PASS",
+      "working_precision_dps": [
+        260,
+        300
+      ],
+      "seed_replay": {
+        "lower_precision_seed": "old_candidate_4_uniform_logit_-4",
+        "higher_precision_seed": "old_candidate_4_uniform_logit_-4"
+      },
+      "local_residual_max": "6.488733290795496650415215E-240",
+      "official_steady_state_function_max_abs": "1.833244991131521458384923336E-288",
+      "cycle_net_flux_relative_deviation": "1.0507633457482490975477087091E-115",
+      "delta_log10_tof": "0E-57",
+      "tof_relative_difference": "0E-62",
+      "coverage_relative_differences": {
+        "C6H12_s": "1.473112356196369530634129542E-251",
+        "OOH_s": "5.527805344615207882206623543E-251",
+        "H2O_s": "1.883335928665793505537278968E-250",
+        "H2O2_s": "3.929217014405963644753258878E-251",
+        "C6H12O_s": "2.798142690892463142585337526E-250"
+      },
+      "vacancy_relative_difference": "0E-7",
+      "serialized_replay_tof_relative_difference": "0E-62",
+      "serialized_replay_OOH_relative_difference": "3.210430142548731399864661349E-71",
+      "I1": "2.7096204149481124765235557729032332880703737044459e-369",
+      "I2": "0.0",
+      "site_balance_error": "0.0",
+      "max_directional_rate_reconstruction_relative_error": "0.0",
+      "max_forward_reverse_cancellation_ratio": "1.619365904958360651340784374867741590108E+124",
+      "logratio_jacobian_condition_number_at_root": "5.00347822178293942920278034523",
+      "gate_thresholds": {
+        "local_residual_max": "1E-12",
+        "cycle_flux_relative_deviation_max": "1E-12",
+        "delta_log10_tof_max": "0.00000217147",
+        "relative_coverage_replay_max": "0.0001",
+        "serialized_TOF_relative_difference_max": "5e-6"
+      },
+      "status_scope": "numerical only; scientific status remains PROVISIONAL"
+    },
+    "tita": {
+      "status": "NUMERIC_PASS",
+      "working_precision_dps": [
+        120,
+        180
+      ],
+      "seed_replay": {
+        "lower_precision_seed": "old_candidate_2_tini",
+        "higher_precision_seed": "old_candidate_2_tini"
+      },
+      "local_residual_max": "8.690080092912683983105633E-128",
+      "official_steady_state_function_max_abs": "2.170830922080619042574044835E-120",
+      "cycle_net_flux_relative_deviation": "2.59875824656994008910947692144E-86",
+      "delta_log10_tof": "0E-58",
+      "tof_relative_difference": "0E-62",
+      "coverage_relative_differences": {
+        "C6H12_s": "4.025843526134010472836042358E-111",
+        "OOH_s": "1.612818765454126144519336606E-110",
+        "H2O_s": "2.912503129325957248217814646E-111",
+        "H2O2_s": "8.924215371927549546959583304E-112",
+        "C6H12O_s": "1.178748527354792217388481076E-111"
+      },
+      "vacancy_relative_difference": "0E-7",
+      "serialized_replay_tof_relative_difference": "0E-62",
+      "serialized_replay_OOH_relative_difference": "1.179620948226764663871572485E-70",
+      "I1": "-8.7912511074807851479956009559606514142379535970389e-184",
+      "I2": "0.0",
+      "site_balance_error": "0.0",
+      "max_directional_rate_reconstruction_relative_error": "0.0",
+      "max_forward_reverse_cancellation_ratio": "1.958231262869699247429783344531140766193E+42",
+      "logratio_jacobian_condition_number_at_root": "13.5329444819136350943507845349",
+      "gate_thresholds": {
+        "local_residual_max": "1E-12",
+        "cycle_flux_relative_deviation_max": "1E-12",
+        "delta_log10_tof_max": "0.00000217147",
+        "relative_coverage_replay_max": "0.0001",
+        "serialized_TOF_relative_difference_max": "5e-6"
+      },
+      "status_scope": "numerical only; scientific status remains PROVISIONAL"
+    }
+  },
+  "final_14_site_numeric_pass_count": 14,
+  "final_14_site_total": 14,
+  "all_14_numeric_pass": true
+}

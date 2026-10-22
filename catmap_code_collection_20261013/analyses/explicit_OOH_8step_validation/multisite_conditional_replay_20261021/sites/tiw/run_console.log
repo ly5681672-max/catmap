@@ -1,0 +1,45 @@
+If you find CatMAP useful to your research, please cite both the following papers:
+
+ Medford, A. J., Shi, C., Hoffmann, M. J., Lausche, A. C., Fitzgibbon, S. R., Bligaard, T., & Nørskov, J. K. (2015). CatMAP: a software package for descriptor-based microkinetic mapping of catalytic trends. Catalysis Letters, 145, 794-807. 
+ Vijay, S., H. Heenen, H., Singh, A. R., Chan, K., & Voss, J. (2024). Number of sites-based solver for determining coverages from steady-state mean-field micro-kinetic models. Journal of Computational Chemistry, 45(9), 546-551.
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x000001EDB5984EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x000001EDB5984EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x000001EDB5984EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+model surfaces: ('tiw',)
+adsorbates: ('C6H12O_s', 'C6H12_s', 'H2O2_s', 'H2O_s', 'Ha_s', 'Hb_s', 'OH_s', 'OOH_s', 'O_s')
+TS: ('Hb-O_s', 'OOH-C6H12_s')
+gas: ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')
+solver type: SteadyStateSolver
+scaler type: ThermodynamicScaler
+parameter count: 11
+gas pressures: [1e-20, 1.0, 0.185, 0.815]
+solver pressure: [1e-20, 1.0, 0.185, 0.815]
+free energies loaded: 17
+compiled: True
+steady-state function: ideal_steady_state_function
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Documents\codex探索\catmap_original8_zero_inventory_multisite.py", line 475, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Administrator\Documents\codex探索\catmap_original8_zero_inventory_multisite.py", line 130, in main
+    z0, seedinfo = csv_root_seed()
+                   ~~~~~~~~~~~~~^^
+  File "C:\Users\Administrator\Documents\codex探索\catmap_original8_zero_inventory_multisite.py", line 123, in csv_root_seed
+    raise ValueError("projected historical root is not in the positive zero-inventory domain")
+ValueError: projected historical root is not in the positive zero-inventory domain

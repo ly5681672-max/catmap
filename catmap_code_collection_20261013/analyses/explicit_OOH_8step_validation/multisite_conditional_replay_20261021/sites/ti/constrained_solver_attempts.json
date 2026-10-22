@@ -1,0 +1,74 @@
+[
+  {
+    "seed": "projected_hb_branch",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000009894120548599",
+    "max_abs_surface_residual": "6941719332946.73487964209935294",
+    "relative_residual": "1.0",
+    "I1": "5.9823685704382162101e-441",
+    "I2": "0.0",
+    "vacancy": "1.0",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "0.032194208517336689832964729622",
+    "max_abs_surface_residual": "223483154621.580001283937882083",
+    "relative_residual": "1.0",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "0.0322102384730015321462394745771",
+    "max_abs_surface_residual": "223483154621.580001283937882083",
+    "relative_residual": "1.0",
+    "I1": "4.4254459839442905324e-9515",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 118,
+    "scaled_residual_inf": "6.8356112182627099065658038704e-51",
+    "max_abs_surface_residual": "1.71953661092241159927589144496e-43",
+    "relative_residual": "0.99999999970042083995585125182",
+    "I1": "1.3021344588521123571e-405",
+    "I2": "0.0",
+    "vacancy": "0.031187693815119889155",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 139,
+    "scaled_residual_inf": "4.36386127705798109343057584822e-51",
+    "max_abs_surface_residual": "1.70551769906455907534755227153e-43",
+    "relative_residual": "0.999999999697958523820143865633",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.031187693815119889155",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "high_precision_polish_uniform_logit_-3",
+    "iterations": 28,
+    "scaled_residual_inf": "5.67978519448518071558664189519e-65",
+    "max_abs_surface_residual": "8.78793202645649382059822552243e-95",
+    "relative_residual": "1.70595197724432171914139055124e-42",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.031187693815119889165",
+    "accepted": true,
+    "rootfinder_error": null
+  }
+]

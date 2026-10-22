@@ -1,0 +1,49 @@
+{
+  "catmap_version": "0.3.1",
+  "stable_species": [
+    "C6H12O_s",
+    "C6H12_s",
+    "H2O2_s",
+    "H2O_s",
+    "Ha_s",
+    "Hb_s",
+    "OH_s",
+    "OOH_s",
+    "O_s"
+  ],
+  "transition_states": [
+    "Hb-O_s",
+    "OOH-C6H12_s"
+  ],
+  "chemical_stages": 8,
+  "elementary_expressions": 8,
+  "original_n_sites": 1,
+  "geometric_site_count": "UNVERIFIED_NOT_FRAGMENT_COUNT",
+  "site_strings": [
+    "(mpf('1.0') - theta[0] - theta[1] - theta[2] - theta[3] - theta[4] - theta[5] - theta[6] - theta[7] - theta[8])",
+    "(mpf('0.0'))"
+  ],
+  "metadata_probe_site_strings": [
+    "(mpf('1.0') - theta[0] - theta[1] - theta[2] - theta[3] - theta[4] - theta[5] - theta[6] - theta[7] - theta[8])",
+    "(mpf('0.0'))"
+  ],
+  "n_sites_metadata_probe_changes_vacancy": false,
+  "test_coverage_per_species": "0.01",
+  "native_vacancy": "0.91",
+  "hypothetical_weighted_probe_vacancy": "0.89",
+  "inventory_checks": "PASS",
+  "parser_and_balance": "PASS",
+  "direct_NEB_mapping": "FAIL",
+  "steady_state_run": false,
+  "original_energy_rows_match_reused_table": true,
+  "original_hashes_unchanged": true,
+  "source_hashes": {
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\alkene_epoxidation.mkm": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\candidate_tico_kinetic_control\\candidate_energies.txt": "7a9ff7665c3735ebb19454f2c78f7759bf0f24e52b7a0bcf9ad755b5ec37dd00"
+  },
+  "official_mean_field_source": {
+    "path": "G:\\anaconda\\Lib\\site-packages\\catmap\\solvers\\mean_field_solver.py",
+    "sha256": "4fa468f668c4ffc864413e4948d5b0287147ac1a4d2a1e64ea47184134b5a3f6"
+  }
+}

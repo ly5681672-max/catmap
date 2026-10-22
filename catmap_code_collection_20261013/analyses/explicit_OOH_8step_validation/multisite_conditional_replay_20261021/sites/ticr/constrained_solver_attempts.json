@@ -1,0 +1,62 @@
+[
+  {
+    "seed": "projected_hb_branch",
+    "iterations": 1,
+    "scaled_residual_inf": "1.00000000000000003197273925",
+    "max_abs_surface_residual": "6941719332933.52933485291720633",
+    "relative_residual": "1.0",
+    "I1": "0.0",
+    "I2": "0.0",
+    "vacancy": "0.99999999999809928088",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-20",
+    "iterations": 1,
+    "scaled_residual_inf": "0.00124975963824832623532004145939",
+    "max_abs_surface_residual": "7070516563.23799719136618883041",
+    "relative_residual": "1.0",
+    "I1": "-6.1852275758824353955e-144084616",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-10",
+    "iterations": 1,
+    "scaled_residual_inf": "0.0012503836584722179879731855524",
+    "max_abs_surface_residual": "7070516563.23799719136618883041",
+    "relative_residual": "1.0",
+    "I1": "3.8952004419850919384e-6930",
+    "I2": "0.0",
+    "vacancy": "0.0",
+    "accepted": false,
+    "rootfinder_error": "ValueError: matrix is numerically singular"
+  },
+  {
+    "seed": "uniform_logit_-3",
+    "iterations": 2,
+    "scaled_residual_inf": "0.00192248989431320511296935381349",
+    "max_abs_surface_residual": "7069578690.10534923822173503591",
+    "relative_residual": "0.999999999999605466422570322554",
+    "I1": "-1.7896399730446336877e-394",
+    "I2": "0.0",
+    "vacancy": "1.4080280899243382968e-7",
+    "accepted": false,
+    "rootfinder_error": null
+  },
+  {
+    "seed": "uniform_logit_-1",
+    "iterations": 37,
+    "scaled_residual_inf": "9.62502468638354264562763440287e-78",
+    "max_abs_surface_residual": "3.02148478151335499108103879858e-68",
+    "relative_residual": "2.43589437870889608715351447642e-61",
+    "I1": "1.1464881077317184562e-394",
+    "I2": "0.0",
+    "vacancy": "0.00085464948739599191074",
+    "accepted": true,
+    "rootfinder_error": null
+  }
+]

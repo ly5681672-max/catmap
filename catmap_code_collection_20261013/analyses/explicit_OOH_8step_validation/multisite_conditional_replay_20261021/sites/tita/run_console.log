@@ -1,0 +1,41 @@
+If you find CatMAP useful to your research, please cite both the following papers:
+
+ Medford, A. J., Shi, C., Hoffmann, M. J., Lausche, A. C., Fitzgibbon, S. R., Bligaard, T., & Nørskov, J. K. (2015). CatMAP: a software package for descriptor-based microkinetic mapping of catalytic trends. Catalysis Letters, 145, 794-807. 
+ Vijay, S., H. Heenen, H., Singh, A. R., Chan, K., & Voss, J. (2024). Number of sites-based solver for determining coverages from steady-state mean-field micro-kinetic models. Journal of Computational Chemistry, 45(9), 546-551.
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x0000027D81CA4EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x0000027D81CA4EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+header_evaluation: fail - could not save mp = <mpmath.ctx_mp.MPContext object at 0x0000027D81CA4EC0>
+
+
+header_evaluation: fail - could not save tolerance = mpf('9.999999999999999614425806651770642430715896531535728877042763974356370677063156750161005930175141050195096304462785090756027306716459791083349651476429714988536006796735130838653273792648672832390617646913791138852470398674806366389614869082066524848566052208027055840749934665781749747526462791203039579317632613673177818105318631717258914564045608873717014172578259375569275932445740396e-261')
+
+
+model surfaces: ('tita',)
+adsorbates: ('C6H12O_s', 'C6H12_s', 'H2O2_s', 'H2O_s', 'Ha_s', 'Hb_s', 'OH_s', 'OOH_s', 'O_s')
+TS: ('Hb-O_s', 'OOH-C6H12_s')
+gas: ('C6H12O_g', 'C6H12_g', 'H2O2_g', 'H2O_g')
+solver type: SteadyStateSolver
+scaler type: ThermodynamicScaler
+parameter count: 11
+gas pressures: [1e-20, 1.0, 0.185, 0.815]
+solver pressure: [1e-20, 1.0, 0.185, 0.815]
+free energies loaded: 17
+compiled: True
+steady-state function: ideal_steady_state_function
+attempt: {"seed": "projected_hb_branch", "iterations": 1, "scaled_residual_inf": "1.0000000000000002952104700963", "max_abs_surface_residual": "6941719332851.9561613534999514", "relative_residual": "1.0", "I1": "-4.6863950314977705128e-399", "I2": "0.0", "vacancy": "0.99999999998634661166", "accepted": false, "rootfinder_error": null}
+attempt: {"seed": "uniform_logit_-20", "iterations": 1, "scaled_residual_inf": "1.00000000000000009438963525733", "max_abs_surface_residual": "6941719175262.31638023654748125", "relative_residual": "1.00000000000000000000000000876", "I1": "0.0", "I2": "0.0", "vacancy": "0.99999997732731066723", "accepted": false, "rootfinder_error": null}
+attempt: {"seed": "uniform_logit_-10", "iterations": 1, "scaled_residual_inf": "1.00000000000000006900740045636", "max_abs_surface_residual": "6938247836081.03779732992319615", "relative_residual": "1.00000000000009348292395178965", "I1": "0.0", "I2": "0.0", "vacancy": "0.99950085004771318909", "accepted": false, "rootfinder_error": null}
+attempt: {"seed": "uniform_logit_-3", "iterations": 3, "scaled_residual_inf": "0.0190630461846197218686667533758", "max_abs_surface_residual": "4597054898.06994985871255831639", "relative_residual": "1.43916085698822298486680666549", "I1": "-1.5320463538844812933e-388", "I2": "0.0", "vacancy": "0.00026008008016031244822", "accepted": false, "rootfinder_error": "ValueError: matrix is numerically singular"}
+attempt: {"seed": "uniform_logit_-1", "iterations": 3, "scaled_residual_inf": "0.169858932215452571720747076184", "max_abs_surface_residual": "17679620416.0574714803491049365", "relative_residual": "1.0", "I1": "-3.8740837819285597374e-496730633116766857991708276994555924580676582523296545", "I2": "0.0", "vacancy": "0.0", "accepted": false, "rootfinder_error": "ValueError: matrix is numerically singular"}
+NO ACCEPTED ZERO-INVENTORY ROOT; attempts retained. No TOF accepted.
