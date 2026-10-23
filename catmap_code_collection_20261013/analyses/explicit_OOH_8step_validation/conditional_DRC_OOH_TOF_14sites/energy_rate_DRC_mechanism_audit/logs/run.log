@@ -1,0 +1,1 @@
+{"out": "energy_rate_DRC_mechanism_audit_delivery", "effective_barrier_rows": 48, "directional_flux_rows": 24, "ooh_rate_sensitivity_rows": 32, "dominant_drc_rows": 14, "steady_state_solves": 0, "DRC_reruns": 0, "model_SHA256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe", "energy_SHA256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30"}

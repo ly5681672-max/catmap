@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "step": "NEB1",
+      "catmap_version": "0.3.1",
+      "reaction_expression": "NEB1IS* <-> NEB1TS* -> NEB1FS*",
+      "parsed_reaction": "[['NEB1IS_s'], ['NEB1TS_s'], ['NEB1FS_s']]",
+      "adsorbates": [
+        "NEB1FS_s",
+        "NEB1IS_s"
+      ],
+      "transition_states": [
+        "NEB1TS_s"
+      ],
+      "state_compositions": {
+        "NEB1FS_s": {
+          "C": 6,
+          "H": 14,
+          "O": 2
+        },
+        "NEB1IS_s": {
+          "C": 6,
+          "H": 14,
+          "O": 2
+        },
+        "NEB1TS_s": {
+          "C": 6,
+          "H": 14,
+          "O": 2
+        }
+      },
+      "formal_n_sites_bookkeeping_only": {
+        "NEB1FS_s": 1,
+        "NEB1IS_s": 1,
+        "NEB1TS_s": 1
+      },
+      "deltaG_eV": "-0.239686",
+      "forward_barrier_CatMAP_eV": "0.556344",
+      "reverse_barrier_CatMAP_eV": "0.79603",
+      "forward_rate_constant_s-1": "26624.7979863219212689308928781181340092333554",
+      "reverse_rate_constant_s-1": "6.3008469572955469192527667246270545061789679",
+      "rate_constant_ratio_kf_over_kr": "4225.59033202574913204266342976882818855235223",
+      "detailed_balance_exp_minus_dG_over_kT": "4225.59033202574096142370616678392187382477652",
+      "detailed_balance_relative_error": "1.93360413936435806781721666243357121832477607e-15",
+      "checks": {
+        "catmap_031": true,
+        "one_reaction": true,
+        "explicit_ts_parsed": true,
+        "mass_and_site_balance": true,
+        "deltaG_matches": true,
+        "forward_barrier_matches": true,
+        "reverse_barrier_matches": true,
+        "detailed_balance_rate_ratio": true
+      },
+      "model_sha256": "993bffaed654a93ca54eb8fb07e911179725039e0434555cb65a29d1d2c8e6c4",
+      "energy_input_sha256": "108adb639b8644423185a60d7278bf49ec29f73b85c2351152ba55ca50f4be6d",
+      "scope": "single-step barriers/rate constants only; no steady state, coverage, TOF, or DRC"
+    },
+    {
+      "step": "NEB2",
+      "catmap_version": "0.3.1",
+      "reaction_expression": "NEB2IS* <-> NEB2TS* -> NEB2FS*",
+      "parsed_reaction": "[['NEB2IS_s'], ['NEB2TS_s'], ['NEB2FS_s']]",
+      "adsorbates": [
+        "NEB2FS_s",
+        "NEB2IS_s"
+      ],
+      "transition_states": [
+        "NEB2TS_s"
+      ],
+      "state_compositions": {
+        "NEB2FS_s": {
+          "H": 2,
+          "O": 1
+        },
+        "NEB2IS_s": {
+          "H": 2,
+          "O": 1
+        },
+        "NEB2TS_s": {
+          "H": 2,
+          "O": 1
+        }
+      },
+      "formal_n_sites_bookkeeping_only": {
+        "NEB2FS_s": 1,
+        "NEB2IS_s": 1,
+        "NEB2TS_s": 1
+      },
+      "deltaG_eV": "-0.48058",
+      "forward_barrier_CatMAP_eV": "0.225994",
+      "reverse_barrier_CatMAP_eV": "0.706574",
+      "forward_rate_constant_s-1": "2646717128.81827852453332357138788874280262829",
+      "reverse_rate_constant_s-1": "142.121093045840677822353975346751905593987194",
+      "rate_constant_ratio_kf_over_kr": "18622971.946638412550294246982662640042935565",
+      "detailed_balance_exp_minus_dG_over_kT": "18622971.9466383945455664253395128909901667298",
+      "detailed_balance_relative_error": "9.66802069682178566555487360344755303179206417e-16",
+      "checks": {
+        "catmap_031": true,
+        "one_reaction": true,
+        "explicit_ts_parsed": true,
+        "mass_and_site_balance": true,
+        "deltaG_matches": true,
+        "forward_barrier_matches": true,
+        "reverse_barrier_matches": true,
+        "detailed_balance_rate_ratio": true
+      },
+      "model_sha256": "1cc8ccb76a2d1b67c91257e4c08d2aca3909722bc3ca509718e69775f9262061",
+      "energy_input_sha256": "46f63c9458701f03410374d5897ec5d93b71bc0637f578a6a3e1eabe7a6853b9",
+      "scope": "single-step barriers/rate constants only; no steady state, coverage, TOF, or DRC"
+    }
+  ]
+}

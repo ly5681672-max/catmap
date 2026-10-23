@@ -1,0 +1,32 @@
+{
+  "surface": "timo",
+  "CatMAP_version": "0.3.1",
+  "base_root_was_reused_not_solved": true,
+  "root_source": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\three_site_root_recovery_20261021\\data\\timo_recovery.json",
+  "baseline_TOF_replayed_from_saved_coverage": "0.000002747277207262390915139432762780664706356250042312054398800009344930621",
+  "saved_baseline_TOF": "0.0000027472772072623909151394327627806647063562500423120543988000093449306206041047825",
+  "model_sha256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "energies_sha256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "n_adsorbates": 9,
+  "n_transition_states": 2,
+  "n_parsed_elementary_reactions": 8,
+  "I1": "1.4026303288737316528e-391",
+  "I2": "0.0",
+  "baseline_vacancy": "0.0000646027956408948192017746287890806073244166353",
+  "baseline_net_rates": [
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356",
+    "0.000002747277207262390915139432762780664706356"
+  ],
+  "serialized_root_I1_projection": "1.98395e-85",
+  "serialized_root_I2_projection": "0.0",
+  "elapsed_seconds": 18.767197608947754,
+  "all_44_perturbations_accepted": true,
+  "stock_get_rate_control_used": false,
+  "reason_stock_method_not_used": "Stock method differentiates get_turnover_frequency at current solver state and does not re-solve on the exact I1=I2=0 manifold."
+}

@@ -1,0 +1,33 @@
+{
+  "generated_utc": "2026-10-22T09:16:34.243276+00:00",
+  "project_root": "H:\\catmap\\catmap",
+  "analysis_sources": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation",
+  "model": "original_explicit_OOH_8step",
+  "temperature_K": 333.15,
+  "calculation_scope": "Gibbs bookkeeping only; no CatMAP steady-state/TOF/DRC and no DFT/NEB rerun",
+  "arithmetic": "Decimal on frozen source decimal strings; mapping comparison tolerance 1e-6 eV (rounding-scale check only)",
+  "source_sha256": {
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\DFT_TS_relative.csv": "a967325ec1fd17207a7d51857cda01a23d8f76a846200b74f229e64d30e1cdfd",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\data\\source_audit\\tico_excel_cell_audit.csv": "1ba65b99b6ccfeda3cc6b0cb9f9fcdb4f17c9d9d49d844d83558eda71888fbec",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\data\\source_audit\\tico_neb_state_alignment.csv": "c5f625c32ad4d865d1b50cf6e7541ffc7fc4cc9d7464e4657c9d7e777e8dc86a",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_batch_8step\\MULTISITE_REACTION_BARRIERS.csv": "94bd0d2b9a94bf0bcee13287f3fc95d9230ed42e768ce92c104f29ae821de177",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\conditional_DRC_OOH_TOF_14sites\\energy_rate_DRC_mechanism_audit\\data\\EIGHT_STEP_EFFECTIVE_BARRIERS.csv": "56f5cdcbd4fcde52e387f3ed52336e29e53283fe072811f9bb096549a72c5e1a",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\data\\source_audit\\tico_neb_path_comparison.csv": "a9e224e0600846792e44ae1ef922b9b4b16b2f4000111c362ea49197cc18c0e4",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\data\\source_audit\\tico_excel_source_manifest.json": "ff0f60c94cba29e025fb13c09550abbe734f30a03f13a7cf7798877747df0cca",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\己烯环氧化.xlsx": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\alkene_epoxidation.mkm": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe"
+  },
+  "validation_checks": {
+    "NEB_DFT_TS_relative_vs_multisite_barrier_rows_matched": 28,
+    "NEB_detailed_balance_identity": "PASS for every matched path",
+    "CatMAP_audited_independent_deltaG_vs_frozen_energy_sums": "PASS where archived CatMAP barrier rows are available",
+    "tico_mapping_diagnostic_assertions": "PASS",
+    "target_surface_count": 14,
+    "mapping_rows": 28
+  },
+  "preflight_sha256": {
+    "formal_model": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+    "energies_dft_neb_txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30"
+  }
+}

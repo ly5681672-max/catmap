@@ -1,0 +1,15 @@
+{
+  "catmap_version": "0.3.1",
+  "formal_model_sha256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "formal_energy_file_sha256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "source_neb_csv_sha256": "a967325ec1fd17207a7d51857cda01a23d8f76a846200b74f229e64d30e1cdfd",
+  "source_excel_sha256": "90f1700457ece5a53335ef771e88e24134c00afab57b3d8ec15a18bb307f38bd",
+  "catmap_official_source_sha256": {
+    "G:/anaconda/Lib/site-packages/catmap/model.py": "AAA71AA3A15F623E995F2573D3CDE8B2CBC2ADB0E5DCD05BFACF7977D9184715",
+    "G:/anaconda/Lib/site-packages/catmap/parsers/parser_base.py": "6F9B1BD12E54FE3D1A7E8760E92FB07705A61559E7E585B9B1C680E3E0C7968F",
+    "G:/anaconda/Lib/site-packages/catmap/scalers/thermodynamic_scaler.py": "06BB111CCC08F64F3EBBA19479A2FAC4CBE97287A92005C12A62D0BB9CC6B8C4",
+    "G:/anaconda/Lib/site-packages/catmap/solvers/steady_state_solver.py": "13270E1E177DC786063B10960C3B1A6F35B6993498331A39941612B4AE75BB95",
+    "G:/anaconda/Lib/site-packages/catmap/data/templates.py": "9F216AB2BFA245BEDACB496EF9113BDFBBB0F9F42E25D445222B8E34BF8FC35F"
+  },
+  "provenance_note": "Formal sources were read-only. Native replay inputs are independent relative-energy fixtures generated only for the two isolated Ti-Co NEB paths."
+}

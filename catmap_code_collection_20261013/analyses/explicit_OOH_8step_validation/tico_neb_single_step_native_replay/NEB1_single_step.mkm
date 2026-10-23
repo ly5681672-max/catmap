@@ -1,0 +1,28 @@
+output_variables = []
+rxn_expressions = ['NEB1IS* <-> NEB1TS* -> NEB1FS*']
+surface_names = ['tico']
+temperature = 333.15
+descriptor_names = ['temperature']
+descriptor_ranges = [[333.15, 333.15]]
+resolution = 1
+use_numbers_solver = False
+species_definitions = {
+    's': {'site_names': ['active'], 'total': 1},
+    'NEB1IS_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1},
+    'NEB1TS_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1},
+    'NEB1FS_s': {'composition': {'C': 6, 'H': 14, 'O': 2}, 'n_sites': 1},
+}
+input_file = 'NEB1_energies.tsv'
+parser = 'TableParser'
+scaler = 'ThermodynamicScaler'
+solver = 'SteadyStateSolver'
+thermodynamics = 'ThermoCorrections'
+gas_thermo_mode = 'frozen_gas'
+adsorbate_thermo_mode = 'frozen_adsorbate'
+pressure_mode = 'static'
+atomic_reservoir_list = [{}]
+prefactor_list = ['kB*T/h']
+adsorbate_interaction_model = 'ideal'
+numerical_representation = 'mpmath'
+decimal_precision = 80
+data_file = 'NEB1_unused_data.pkl'

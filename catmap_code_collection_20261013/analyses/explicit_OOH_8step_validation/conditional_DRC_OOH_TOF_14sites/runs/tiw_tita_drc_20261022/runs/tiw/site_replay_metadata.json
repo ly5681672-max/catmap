@@ -1,0 +1,32 @@
+{
+  "surface": "tiw",
+  "CatMAP_version": "0.3.1",
+  "base_root_was_reused_not_solved": true,
+  "root_source": "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\tiw_tita_targeted_solver_recovery\\data\\TIW_TITA_SOLVER_RESULTS.csv",
+  "baseline_TOF_replayed_from_saved_coverage": "1.744679235861683769202593259771169505052906151911093188441482593395799e-173",
+  "saved_baseline_TOF": "1.74467923586168376920259325977116950505290615191109318844148259339579941858026123189203889e-173",
+  "model_sha256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "energies_sha256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "n_adsorbates": 9,
+  "n_transition_states": 2,
+  "n_parsed_elementary_reactions": 8,
+  "I1": "-3.9003467204361185405e-454",
+  "I2": "0.0",
+  "baseline_vacancy": "2.03499589520561760300372995344770072772873729e-62",
+  "baseline_net_rates": [
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173",
+    "1.744679235861683769202593259771169505053e-173"
+  ],
+  "serialized_root_I1_projection": "-1.456185077292e-358",
+  "serialized_root_I2_projection": "0.0",
+  "elapsed_seconds": 32.49136710166931,
+  "all_44_perturbations_accepted": false,
+  "stock_get_rate_control_used": false,
+  "reason_stock_method_not_used": "Stock method differentiates get_turnover_frequency at current solver state and does not re-solve on the exact I1=I2=0 manifold."
+}

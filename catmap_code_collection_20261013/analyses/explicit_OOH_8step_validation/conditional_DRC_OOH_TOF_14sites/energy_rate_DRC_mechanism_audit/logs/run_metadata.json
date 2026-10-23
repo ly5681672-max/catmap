@@ -1,0 +1,84 @@
+{
+  "created_utc": "2026-10-22T08:54:56.886651+00:00",
+  "catmap_version": "0.3.1",
+  "decimal_precision_mpmath": 385,
+  "temperature_K": "333.15",
+  "pressure_mode": "static",
+  "operations": "native CatMAP rate constants and net rates at archived fixed coverage; no steady-state solve; no DRC rerun",
+  "model_SHA256": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+  "energy_SHA256": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+  "input_SHA256": {
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\alkene_epoxidation.mkm": "86115cefb7784fe28ab519271cdfaf0e308b6f6e3a8308b1e90e4318cb497cfe",
+    "H:\\catmap\\catmap\\lyq_alkene_epoxidation\\2-creating_microkinetic_model\\energies_dft_neb.txt": "55ad4e94d9c603b6705ec8c92630c9a1ceff5859cf69865145152375e203ca30",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\conditional_DRC_OOH_TOF_14sites\\data\\14_SITE_TOF_COVERAGE.csv": "d78ab7139cd69a9a237587f7966a1077e4e8633f61c6d539899674eef2b2e592",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\conditional_DRC_OOH_TOF_14sites\\data\\14_SITE_CONDITIONAL_DRC.csv": "6bb0ffc5a399f7be8d462fd99e4638c36ae92de96376fee485b1c796d238cad6",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\conditional_DRC_OOH_TOF_14sites\\data\\DRC_NUMERICAL_GATE.csv": "0bdcd9579575ee466e7f2d4e1f70eb89cf0b3c1083615d02ffc0a247d9d7dce2",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_conditional_replay_20261021\\sites\\tico\\tico_probe.mkm": "2c26c5e75cc1fac6c47a01c8806117b1e4f984d055f6e87a02f4405a23e45fa2",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_conditional_replay_20261021\\sites\\tife\\tife_static_probe.mkm": "b41bde046e8503e9a73c217a85b24ff132675deaf53353aabc200706cb3a94f0",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_conditional_replay_20261021\\sites\\timn\\timn_static_probe.mkm": "72325532711f862778416b9473db725b38b34b524b2d42281f763c7fef62b32c",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_conditional_replay_20261021\\sites\\timo\\timo_static_probe.mkm": "9ce624541092f51e47580bdac3dd6e67956ad7c6e4b92c6dcfe5f184befd7834",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_conditional_replay_20261021\\sites\\tini\\tini_static_probe.mkm": "3c56c6da1815141e54294efbb2595a0d82344fdca8ff6d19b4cdc9eb19478684",
+    "H:\\catmap\\catmap\\catmap_code_collection_20261013\\analyses\\explicit_OOH_8step_validation\\multisite_conditional_replay_20261021\\sites\\tire\\tire_static_probe.mkm": "4579661a5cee2c545bb76cf10673dc027875ff85b14a37a9617df53e83fb6725"
+  },
+  "sites_effective_barriers": [
+    "tico",
+    "tife",
+    "timn",
+    "timo",
+    "tini",
+    "tire"
+  ],
+  "sites_directional_flux": [
+    "tife",
+    "timn",
+    "tire"
+  ],
+  "sites_OOH_perturbation": [
+    "tico",
+    "tife",
+    "timo",
+    "tini"
+  ],
+  "probe_setup_SHA256": {
+    "tico": "2c26c5e75cc1fac6c47a01c8806117b1e4f984d055f6e87a02f4405a23e45fa2",
+    "tife": "b41bde046e8503e9a73c217a85b24ff132675deaf53353aabc200706cb3a94f0",
+    "timn": "72325532711f862778416b9473db725b38b34b524b2d42281f763c7fef62b32c",
+    "timo": "9ce624541092f51e47580bdac3dd6e67956ad7c6e4b92c6dcfe5f184befd7834",
+    "tini": "3c56c6da1815141e54294efbb2595a0d82344fdca8ff6d19b4cdc9eb19478684",
+    "tire": "4579661a5cee2c545bb76cf10673dc027875ff85b14a37a9617df53e83fb6725"
+  },
+  "verified_runtime_conditions": {
+    "temperature_K": 333.15,
+    "pressure_mode": "static",
+    "gas_names_order": [
+      "C6H12O_g",
+      "C6H12_g",
+      "H2O2_g",
+      "H2O_g"
+    ],
+    "gas_pressures": [
+      "1e-20",
+      "1.0",
+      "0.185",
+      "0.815"
+    ],
+    "adsorbate_count": 9,
+    "transition_state_count": 2,
+    "reaction_count": 8
+  },
+  "CatMAP_get_directional_rates_note": "method get_elem_ec casts directional terms to float; audit instead evaluates the same mass-action participant terms with mpmath to preserve precision",
+  "steady_state_resolves": 0,
+  "existing_baseline_or_DRC_solves_repeated": 0,
+  "analysis_script_SHA256": "9b8557ad419776bc730df5b39efd5bbf4a91493ccdca5893bd995fd835162633",
+  "output_SHA256": {
+    "data\\14_SITE_DOMINANT_DRC_RATIO.csv": "93dd631bc17d1063b92c24dcff329f735f463e22d6cf16395b570d12347b2048",
+    "data\\EIGHT_STEP_EFFECTIVE_BARRIERS.csv": "56f5cdcbd4fcde52e387f3ed52336e29e53283fe072811f9bb096549a72c5e1a",
+    "data\\OOH_ENERGY_TO_RATE_CONSTANT.csv": "b8894b67bee57c8f269d0886cf6f820c7a421ca230eb3ca46ee25350cb06a964",
+    "data\\THREE_SITE_DIRECTIONAL_FLUX.csv": "33907714c314e9d6f5fd7aa15193d01918e110b7c9e20590cfd793c961a8b921",
+    "reports\\DRC_COVERAGE_RELATION_AUDIT.md": "51ce906d412c243b6907f583805c0e74e732d9cae0db0aef7c4f8c1a39f77094",
+    "reports\\FINAL_DRC_MECHANISM_FINDINGS.md": "fcd7a4ece4306cfd83077b410e1b6d30833cb61e309d3c43f8afd9ab467bf284",
+    "reports\\OOH_DRC_SWITCH_DIAGNOSIS.md": "c912a3efd3d4c63c59ff4d6415cfc5a7806605563af83d8b469b91ef2ffa67cc",
+    "reports\\THREE_SITE_KINETIC_DIAGNOSIS.md": "793d30ea2710f839227dcdb405c010c45a9a169f1905467ee123128adec779cf",
+    "scripts\\energy_rate_DRC_mechanism_audit.py": "9b8557ad419776bc730df5b39efd5bbf4a91493ccdca5893bd995fd835162633"
+  }
+}

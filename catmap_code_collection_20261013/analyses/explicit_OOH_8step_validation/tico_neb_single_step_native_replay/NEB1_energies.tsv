@@ -1,0 +1,4 @@
+surface_name	site_name	species_name	formation_energy	frequencies	reference
+tico	active	NEB1IS	0.000000	[]	Ti-Co full NEB relative Gibbs; IS reference
+tico	active	NEB1TS	0.556344	[]	Ti-Co full NEB relative Gibbs; TS-IS
+tico	active	NEB1FS	-0.239686	[]	Ti-Co full NEB relative Gibbs; FS-IS

@@ -1,0 +1,5 @@
+﻿surface_name,Catalyst,complete_states,total_states,accepted_perturbation_points,expected_perturbation_points,max_abs_DRC_difference_between_h,method_validation_status,scientific_status
+tico,Ti–Co,11,11,44,44,0.000464969120283159,COMPLETE_RE_SOLVES,PROVISIONAL
+tire,Ti–Re,11,11,44,44,0.00404724774792554,COMPLETE_RE_SOLVES,PROVISIONAL
+timo,Ti–Mo,11,11,44,44,0.00331619794779264416655873313722,COMPLETE_RE_SOLVES,PROVISIONAL
+tini,Ti–Ni,11,11,44,44,0.00407577437223122,COMPLETE_RE_SOLVES,PROVISIONAL

@@ -1,0 +1,9 @@
+connection,known_endpoint_deltaG_eV,kinetic_status,minimum_missing_information
+independent Ha+OOH+C6H12 -> NEB1-IS,-2.663642,UNVERIFIED_CONNECTOR_KINETICS,connector transition state or forward activation free energy with reverse constrained by detailed balance
+NEB1-IS -> NEB1-FS,-0.239686,DIRECT_NEB_TS_REPLAYED,none for isolated path barriers; state mapping into independent-state model remains separate
+NEB1-FS -> NEB2-IS + C6H12O_g,0.811237,UNVERIFIED_CONNECTOR_KINETICS,connector transition state or forward activation free energy with reverse constrained by detailed balance
+NEB1-FS -> independent Ha+C6H12O+O+Hb,4.7039755,UNVERIFIED_CONNECTOR_KINETICS,dissociation/reorganization transition state or forward activation free energy
+independent Ha+Hb+O -> NEB2-IS,-3.1771455,UNVERIFIED_CONNECTOR_KINETICS,association/reorganization transition state or forward activation free energy
+NEB2-IS -> NEB2-FS,-0.480580,DIRECT_NEB_TS_REPLAYED,none for isolated path barriers; state mapping into independent-state model remains separate
+NEB2-FS -> independent Ha+OH,1.5956585,UNVERIFIED_CONNECTOR_KINETICS,deaggregation/reorganization transition state or forward activation free energy
+NEB2-FS -> independent H2O*,-0.601109,UNVERIFIED_CONNECTOR_KINETICS,water formation/reorganization transition state or forward activation free energy
